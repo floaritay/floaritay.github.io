@@ -160,14 +160,14 @@ plt.ylabel('True')
 plt.title('Confusion Matrix')
 plt.show()
 
-print("\n✅ 公测评估完成！")
+print("\n 公测评估完成！")
 
 # # 保存模型和标准化器（两者都需要，否则无法预测新图）
 # # joblib.dump(svm_model, 'my_model.joblib')
 # # joblib.dump(scaler, 'scaler.joblib')          # 必须保存！用于新数据标准化
 # # joblib.dump(label_encoder, 'label_encoder.joblib')
 
-# # print("\n✅ 模型、标准化器、标签编码器均已保存。")
+# # print("\n 模型、标准化器、标签编码器均已保存。")
 
 
 # # 导入所需库
