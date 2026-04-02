@@ -1,3 +1,4 @@
 .webui_secret_key
 open_webui.env
 model/15_model.h5
+.env

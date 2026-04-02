@@ -1,4 +1,3 @@
-# 我要做一个图像分割的简单实现。
 # 树上芒果实例分割数据集(data18) ：
 # 为树上芒果检测和分割而创建的数据集。使用带有多边形区域注释的VGG图像注释工具（Dutta & Zisserman 2019）对图像进行注释。两个文件夹包含用于训练和文本图像集的 COCO 注释格式的图像和 JSON 注释文件。数据集描述如下：
 # 文件夹 1 - 平铺图像 - 总计 542 张（训练 + 测试） 640 x 540 像素的平铺图像 
@@ -171,7 +170,7 @@ model = RandomForestClassifier(
 
 print("开始训练模型（可能需要几分钟）...")
 model.fit(X_train, y_train)
-print("✅ 模型训练完成！")
+print(" 模型训练完成！")
 
 # 5. 模型预测、评估、可视化结果，并保存模型
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
@@ -184,13 +183,13 @@ y_pred_val = model.predict(X_val)
 acc = accuracy_score(y_val, y_pred_val)
 iou = jaccard_score(y_val, y_pred_val, pos_label=1)  # 芒果类的 IoU
 
-print(f"\n📊 评估结果（验证集）:")
+print(f"\n 评估结果（验证集）:")
 print(f"  - 像素准确率: {acc:.4f}")
 print(f"  - 芒果区域 IoU: {iou:.4f}")
 
 # 保存模型
 joblib.dump(model, 'my_model.joblib')
-print("\n💾 模型已保存为: my_model.joblib")
+print("\n 模型已保存为: my_model.joblib")
 
 # ----------------------------
 # 可视化一个预测示例（从训练集中选第一张有效图像）
@@ -267,7 +266,7 @@ print(f"加载测试集: {len(id_to_filename_test)} 张图像，{len(test_annota
 # ----------------------------
 # 加载训练好的模型
 model = joblib.load('my_model.joblib')
-print("✅ 模型加载成功！")
+print(" 模型加载成功！")
 
 # ----------------------------
 # 复用之前的特征提取和掩码生成函数（保持一致！）
@@ -471,7 +470,7 @@ y_pred_all_pp = np.hstack(all_y_pred_pp)
 test_acc_pp = accuracy_score(y_true_all_pp, y_pred_all_pp)
 test_iou_pp = jaccard_score(y_true_all_pp, y_pred_all_pp, pos_label=1)
 
-print("\n📊 后处理效果对比:")
+print("\n 后处理效果对比:")
 print(f"原始预测   -> Acc: {test_acc:.4f}, IoU: {test_iou:.4f}")
 print(f"后处理后   -> Acc: {test_acc_pp:.4f}, IoU: {test_iou_pp:.4f}")
 
