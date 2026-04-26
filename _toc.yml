@@ -1,0 +1,112 @@
+format: jb-book
+root: README
+parts:
+- caption: 基础工具
+  chapters:
+  - file: basic_ipynb/Conda
+  - file: basic_ipynb/CUDA
+  - file: basic_ipynb/Docker
+  - file: basic_ipynb/Git
+  - file: basic_ipynb/Linux
+  - file: basic_ipynb/Markdown
+  - file: basic_ipynb/Ollama
+  - file: basic_ipynb/VsCode
+- caption: Python编程
+  chapters:
+  - file: python_ipynb/高级话题
+  - file: python_ipynb/其他
+  - file: python_ipynb/正则表达式练习
+  - file: python_ipynb/GUI
+  - file: python_ipynb/learner
+  - file: python_ipynb/module
+  - file: python_ipynb/question
+  - file: python_ipynb/tkinter
+- caption: 数据分析
+  chapters:
+  - file: 数据分析/Matplotlib
+  - file: 数据分析/Numpy
+  - file: 数据分析/Pandas
+  - file: 数据分析/学生成绩分析
+  - file: 数据分析/电影评分系统
+- caption: 机器学习
+  chapters:
+  - file: machine_learning/ML-lesson3-Scikit-learn
+  - file: machine_learning/ml
+  - file: machine_learning/Sklearn
+  - file: machine_learning/决策树
+  - file: machine_learning/基于pythorch神经网络车牌识别模型训练
+  - file: machine_learning/手写数字识别
+  - file: machine_learning/数据集的读取和划分
+  - file: machine_learning/线性回归__股价预测
+  - file: machine_learning/支持向量机
+  - file: machine_learning/聚类学习
+  - file: machine_learning/贝叶斯分类器
+  - file: machine_learning/贝叶斯算法_乳腺癌检测
+  - file: machine_learning/贝叶斯算法_乳腺癌检测2
+  - file: machine_learning/贝叶斯算法_玻璃成分
+  - file: machine_learning/车牌识别调用模型
+- caption: 计算机视觉
+  chapters:
+  - file: CV/彩色图像处理(红眼与绿巨人)
+  - file: CV/灰度直方图计算
+  - file: CV/绘制直方图
+  - file: CV/简单图像边缘检测
+  - file: CV/简单图像分割
+  - file: CV/简单图像复原
+  - file: CV/芒果分割
+  - file: CV/农作物分类
+  - file: CV/试题
+  - file: CV/特征提取
+  - file: CV/图片量化与读取
+  - file: CV/直方图均衡化
+  - file: CV/dip
+  - file: CV/OpenCV
+- caption: 深度学习
+  chapters:
+  - file: DeepLearing/DeepLearning
+  - file: DeepLearing/PyTorch
+  - file: DeepLearing/TensorFlow
+  - file: DeepLearing/TensorFlow2
+- caption: 自然语言处理
+  chapters:
+  - file: NLP/NLP
+- caption: 机器人与ROS
+  chapters:
+  - file: ROS/ROS2_机器人学篇
+  - file: ROS/ROS2_建模仿真篇
+  - file: ROS/ROS2_入门篇
+  - file: ROS/ROS2_guyue
+- caption: 智能代理
+  chapters:
+  - file: Agent/Agent
+  - file: Agent/LangChain
+- caption: 爬虫
+  chapters:
+  - file: reptile/八戒_xpath
+  - file: reptile/代理
+  - file: reptile/电影天堂_re
+  - file: reptile/豆瓣喜剧电影排行
+  - file: reptile/豆瓣TOP_re
+  - file: reptile/惠农网_线程池
+  - file: reptile/梨视频_防盗链
+  - file: reptile/蔬菜价格_bs4
+  - file: reptile/优美图库_bs4
+  - file: reptile/pachong
+  - file: reptile/requests_GET
+  - file: reptile/requests_POST
+  - file: reptile/urllib_urlopen
+- caption: Scrapy框架
+  chapters:
+  - file: scrapy/scrapy
+- caption: 智能决策与规划
+  chapters:
+  - file: 智能决策与规划/VRP_gurobi
+  - file: 智能决策与规划/VRP
+- caption: MatLab
+  chapters:
+  - file: MatLab/使用基础
+  - file: MatLab/数学建模
+- caption: 其他
+  chapters:
+  - file: FastAPI
+  - file: SQL.ipynb/SQL
