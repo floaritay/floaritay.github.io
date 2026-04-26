@@ -1,176 +1,593 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>我的学习笔记</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>我的学习笔记导航</title>
     <style>
         :root {
-            color-scheme: light;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7fb;
-            color: #2f3d4a;
+            --bg: #f4f7fb;
+            --bg-soft: #eef3f8;
+            --card: #ffffff;
+            --text: #1f2a37;
+            --muted: #5f6d7e;
+            --line: #d9e2ef;
+            --primary: #0d9488;
+            --primary-soft: #ccfbf1;
+            --accent: #f59e0b;
+            --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+            --radius-lg: 20px;
+            --radius-md: 14px;
         }
-        * { box-sizing: border-box; }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
-            padding: 30px 20px 40px;
-            background: linear-gradient(180deg, #eef4fb 0%, #f9fbff 60%, #ffffff 100%);
+            font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 15% 10%, #dff6ff 0%, transparent 40%),
+                radial-gradient(circle at 85% 0%, #fef3c7 0%, transparent 35%),
+                linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+            padding: 28px 16px 40px;
         }
-        .container {
-            max-width: 960px;
+
+        .app {
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 32px;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
             border-radius: 24px;
-            box-shadow: 0 18px 50px rgba(57, 81, 125, 0.12);
+            box-shadow: var(--shadow);
+            padding: 28px;
         }
+
         header {
-            text-align: center;
-            margin-bottom: 30px;
+            display: grid;
+            gap: 10px;
+            margin-bottom: 20px;
         }
+
         h1 {
             margin: 0;
-            font-size: clamp(2rem, 3vw, 3rem);
-            letter-spacing: -0.04em;
-            color: #1f2a38;
+            font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+            line-height: 1.2;
         }
-        p.lead {
-            margin: 12px auto 0;
-            max-width: 720px;
-            color: #4f5d6e;
-            font-size: 1rem;
-            line-height: 1.8;
+
+        .subtitle {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
         }
-        .search-wrap {
-            margin: 30px auto;
-            display: flex;
-            justify-content: center;
+
+        .toolbar {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+            margin: 18px 0 10px;
         }
-        .search-wrap input {
-            width: min(100%, 520px);
-            padding: 14px 18px;
-            border: 1px solid #d8e1ec;
+
+        .search-input {
+            width: 100%;
+            border: 1px solid var(--line);
+            background: #fff;
             border-radius: 999px;
-            background: #f8fbff;
+            padding: 12px 16px;
             font-size: 1rem;
+            color: var(--text);
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
-        .search-wrap input:focus {
+
+        .search-input:focus {
             outline: none;
-            border-color: #5f86ff;
-            box-shadow: 0 0 0 4px rgba(95, 134, 255, 0.12);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
         }
-        .folder {
+
+        .result-info {
+            font-size: 0.95rem;
+            color: var(--muted);
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .category-filter {
+            margin: 4px 0 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-chip {
+            border: 1px solid var(--line);
+            background: #fff;
+            color: var(--text);
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .filter-chip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-chip.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .no-result {
+            display: none;
+            margin: 16px 0;
+            padding: 14px 16px;
+            border-radius: var(--radius-md);
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+        }
+
+        .section {
+            margin-top: 22px;
+        }
+
+        .section-title {
+            margin: 0 0 10px;
+            font-size: 1.05rem;
+            color: #0f172a;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin: 36px 0 12px;
-            color: #1f2a38;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-        .folder::before { content: "📁"; }
-        .card {
-            display: grid;
             gap: 8px;
-            padding: 18px 20px;
-            background: #f8fbff;
-            border: 1px solid #e4ecf7;
-            border-radius: 18px;
-            margin-bottom: 18px;
         }
-        ul.link-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+
+        .section-title::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #0ea5e9);
+            box-shadow: 0 0 0 5px var(--primary-soft);
+        }
+
+        .cards {
             display: grid;
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
         }
-        .link-item a {
+
+        .link-card {
+            background: var(--card);
+            border: 1px solid #e4ebf5;
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+            transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+        }
+
+        .link-card:hover {
+            transform: translateY(-2px);
+            border-color: #bfe8e3;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+        }
+
+        .link-card a {
             display: block;
-            padding: 12px 16px;
-            border-radius: 14px;
-            background: #ffffff;
-            box-shadow: 0 8px 18px rgba(84, 121, 166, 0.08);
-            color: #1f4ca9;
+            color: #0f4aa1;
             text-decoration: none;
-            transition: transform 0.18s ease, background 0.18s ease;
+            font-weight: 600;
         }
-        .link-item a:hover {
-            transform: translateY(-1px);
-            background: #eef5ff;
-            color: #0b3a8d;
+
+        .link-meta {
+            margin-top: 6px;
+            font-size: 0.84rem;
+            color: var(--muted);
         }
-        .note {
-            color: #5b6a80;
-            font-size: 0.95rem;
-            margin-top: -8px;
+
+        .hidden {
+            display: none !important;
         }
-        @media (max-width: 680px) {
-            .container { padding: 24px; }
-            .search-wrap { margin: 20px auto; }
+
+        @media (max-width: 780px) {
+            .app {
+                padding: 22px;
+            }
+
+            .toolbar {
+                grid-template-columns: 1fr;
+            }
+
+            .result-info {
+                text-align: left;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <main class="app">
         <header>
-            <h1>📚 我的学习笔记</h1>
-            <p class="lead">欢迎来到笔记首页。下面的链接均指向 docs 文件夹下已生成的 HTML 页面，支持快速查阅。</p>
+            <h1>学习笔记导航</h1>
+            <p class="subtitle">汇总了 <strong>docs</strong> 目录中的全部 HTML 页面。支持关键词搜索与分类过滤，方便快速定位内容。</p>
         </header>
 
-        <div class="search-wrap">
-            <input id="searchInput" type="search" placeholder="搜索笔记标题或类别..." oninput="filterLinks()" />
-        </div>
+        <section class="toolbar" aria-label="搜索工具栏">
+            <input
+                id="searchInput"
+                class="search-input"
+                type="search"
+                placeholder="搜索标题、文件名或分类，例如：pytorch / basic / ros2"
+                autocomplete="off"
+            />
+            <div class="result-info" id="resultInfo">共 48 条</div>
+        </section>
 
-        <div class="folder">basic</div>
-        <div class="card">
-            <ul class="link-list" id="basicList">
-                <li class="link-item"><a href="basic/Conda.html">Conda</a></li>
-                <li class="link-item"><a href="basic/CUDA.html">CUDA</a></li>
-                <li class="link-item"><a href="basic/Docker.html">Docker</a></li>
-                <li class="link-item"><a href="basic/Git.html">Git</a></li>
-                <li class="link-item"><a href="basic/jupyter.html">Jupyter</a></li>
-                <li class="link-item"><a href="basic/Linux.html">Linux</a></li>
-                <li class="link-item"><a href="basic/Markdown.html">Markdown</a></li>
-                <li class="link-item"><a href="basic/Ollama.html">Ollama</a></li>
-                <li class="link-item"><a href="basic/VsCode.html">VsCode</a></li>
-            </ul>
-        </div>
+        <section class="category-filter" id="categoryFilter" aria-label="分类过滤"></section>
 
-        <div class="folder">python</div>
-        <div class="card">
-            <ul class="link-list" id="pythonList">
-                <li class="link-item"><a href="python/GUI.html">GUI</a></li>
-                <li class="link-item"><a href="python/learner.html">learner</a> <span class="note">(已修复)</span></li>
-                <li class="link-item"><a href="python/others.html">others</a></li>
-                <li class="link-item"><a href="python/question.html">question</a></li>
-                <li class="link-item"><a href="python/regular_expression.html">regular_expression</a></li>
-                <li class="link-item"><a href="python/Senior_Topic.html">Senior_Topic</a></li>
-                <li class="link-item"><a href="python/tkinter.html">tkinter</a></li>
-            </ul>
-        </div>
+        <div id="noResult" class="no-result">没有找到匹配内容，请尝试更短关键词或切换分类。</div>
 
-        <div class="folder">data_analysis</div>
-        <div class="card">
-            <ul class="link-list" id="dataAnalysisList">
-                <li class="link-item"><a href="data_analysis/Matplotlib.html">Matplotlib</a></li>
-                <li class="link-item"><a href="data_analysis/Numpy.html">Numpy</a></li>
-                <li class="link-item"><a href="data_analysis/Pandas.html">Pandas</a></li>
-            </ul>
-        </div>
-    </div>
+        <section id="sectionsRoot">
+            <div class="section" data-category="root">
+                <h2 class="section-title">根目录</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="FastAPI" data-file="FastAPI.html" data-category="root">
+                        <a href="FastAPI.html">FastAPI</a>
+                        <div class="link-meta">FastAPI.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="Agent">
+                <h2 class="section-title">Agent</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="Agent" data-file="Agent.html" data-category="Agent">
+                        <a href="Agent/Agent.html">Agent</a>
+                        <div class="link-meta">Agent/Agent.html</div>
+                    </article>
+                    <article class="link-card" data-title="LangChain" data-file="LangChain.html" data-category="Agent">
+                        <a href="Agent/LangChain.html">LangChain</a>
+                        <div class="link-meta">Agent/LangChain.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="CV">
+                <h2 class="section-title">CV</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="dip" data-file="dip.html" data-category="CV">
+                        <a href="CV/dip.html">dip</a>
+                        <div class="link-meta">CV/dip.html</div>
+                    </article>
+                    <article class="link-card" data-title="exam" data-file="exam.html" data-category="CV">
+                        <a href="CV/exam.html">exam</a>
+                        <div class="link-meta">CV/exam.html</div>
+                    </article>
+                    <article class="link-card" data-title="OpenCV" data-file="OpenCV.html" data-category="CV">
+                        <a href="CV/OpenCV.html">OpenCV</a>
+                        <div class="link-meta">CV/OpenCV.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="DeepLearing">
+                <h2 class="section-title">DeepLearing</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="DeepLearning" data-file="DeepLearning.html" data-category="DeepLearing">
+                        <a href="DeepLearing/DeepLearning.html">DeepLearning</a>
+                        <div class="link-meta">DeepLearing/DeepLearning.html</div>
+                    </article>
+                    <article class="link-card" data-title="PyTorch" data-file="PyTorch.html" data-category="DeepLearing">
+                        <a href="DeepLearing/PyTorch.html">PyTorch</a>
+                        <div class="link-meta">DeepLearing/PyTorch.html</div>
+                    </article>
+                    <article class="link-card" data-title="TensorFlow" data-file="TensorFlow.html" data-category="DeepLearing">
+                        <a href="DeepLearing/TensorFlow.html">TensorFlow</a>
+                        <div class="link-meta">DeepLearing/TensorFlow.html</div>
+                    </article>
+                    <article class="link-card" data-title="TensorFlow2" data-file="TensorFlow2.html" data-category="DeepLearing">
+                        <a href="DeepLearing/TensorFlow2.html">TensorFlow2</a>
+                        <div class="link-meta">DeepLearing/TensorFlow2.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="MatLab">
+                <h2 class="section-title">MatLab</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="basic" data-file="basic.html" data-category="MatLab">
+                        <a href="MatLab/basic.html">basic</a>
+                        <div class="link-meta">MatLab/basic.html</div>
+                    </article>
+                    <article class="link-card" data-title="mathematical_modeling" data-file="mathematical_modeling.html" data-category="MatLab">
+                        <a href="MatLab/mathematical_modeling.html">mathematical_modeling</a>
+                        <div class="link-meta">MatLab/mathematical_modeling.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="NLP">
+                <h2 class="section-title">NLP</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="NLP" data-file="NLP.html" data-category="NLP">
+                        <a href="NLP/NLP.html">NLP</a>
+                        <div class="link-meta">NLP/NLP.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="ROS">
+                <h2 class="section-title">ROS</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="ROS2_Introduction" data-file="ROS2_Introduction.html" data-category="ROS">
+                        <a href="ROS/ROS2_Introduction.html">ROS2_Introduction</a>
+                        <div class="link-meta">ROS/ROS2_Introduction.html</div>
+                    </article>
+                    <article class="link-card" data-title="ROS2_guyue" data-file="ROS2_guyue.html" data-category="ROS">
+                        <a href="ROS/ROS2_guyue.html">ROS2_guyue</a>
+                        <div class="link-meta">ROS/ROS2_guyue.html</div>
+                    </article>
+                    <article class="link-card" data-title="ROS2_modeling_simulation" data-file="ROS2_modeling_simulation.html" data-category="ROS">
+                        <a href="ROS/ROS2_modeling_simulation.html">ROS2_modeling_simulation</a>
+                        <div class="link-meta">ROS/ROS2_modeling_simulation.html</div>
+                    </article>
+                    <article class="link-card" data-title="ROS2_robotics" data-file="ROS2_robotics.html" data-category="ROS">
+                        <a href="ROS/ROS2_robotics.html">ROS2_robotics</a>
+                        <div class="link-meta">ROS/ROS2_robotics.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="SQL">
+                <h2 class="section-title">SQL</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="data_base" data-file="data_base.html" data-category="SQL">
+                        <a href="SQL/data_base.html">data_base</a>
+                        <div class="link-meta">SQL/data_base.html</div>
+                    </article>
+                    <article class="link-card" data-title="exam" data-file="exam.html" data-category="SQL">
+                        <a href="SQL/exam.html">exam</a>
+                        <div class="link-meta">SQL/exam.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="Vibe_Coding">
+                <h2 class="section-title">Vibe_Coding</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="CC_Swith" data-file="CC_Swith.html" data-category="Vibe_Coding">
+                        <a href="Vibe_Coding/CC_Swith.html">CC_Swith</a>
+                        <div class="link-meta">Vibe_Coding/CC_Swith.html</div>
+                    </article>
+                    <article class="link-card" data-title="Claude" data-file="Claude.html" data-category="Vibe_Coding">
+                        <a href="Vibe_Coding/Claude.html">Claude</a>
+                        <div class="link-meta">Vibe_Coding/Claude.html</div>
+                    </article>
+                    <article class="link-card" data-title="Cursor" data-file="Cursor.html" data-category="Vibe_Coding">
+                        <a href="Vibe_Coding/Cursor.html">Cursor</a>
+                        <div class="link-meta">Vibe_Coding/Cursor.html</div>
+                    </article>
+                    <article class="link-card" data-title="OpenClaw" data-file="OpenClaw.html" data-category="Vibe_Coding">
+                        <a href="Vibe_Coding/OpenClaw.html">OpenClaw</a>
+                        <div class="link-meta">Vibe_Coding/OpenClaw.html</div>
+                    </article>
+                    <article class="link-card" data-title="OpenCode" data-file="OpenCode.html" data-category="Vibe_Coding">
+                        <a href="Vibe_Coding/OpenCode.html">OpenCode</a>
+                        <div class="link-meta">Vibe_Coding/OpenCode.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="basic">
+                <h2 class="section-title">basic</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="Conda" data-file="Conda.html" data-category="basic">
+                        <a href="basic/Conda.html">Conda</a>
+                        <div class="link-meta">basic/Conda.html</div>
+                    </article>
+                    <article class="link-card" data-title="CUDA" data-file="CUDA.html" data-category="basic">
+                        <a href="basic/CUDA.html">CUDA</a>
+                        <div class="link-meta">basic/CUDA.html</div>
+                    </article>
+                    <article class="link-card" data-title="Docker" data-file="Docker.html" data-category="basic">
+                        <a href="basic/Docker.html">Docker</a>
+                        <div class="link-meta">basic/Docker.html</div>
+                    </article>
+                    <article class="link-card" data-title="Git" data-file="Git.html" data-category="basic">
+                        <a href="basic/Git.html">Git</a>
+                        <div class="link-meta">basic/Git.html</div>
+                    </article>
+                    <article class="link-card" data-title="jupyter" data-file="jupyter.html" data-category="basic">
+                        <a href="basic/jupyter.html">jupyter</a>
+                        <div class="link-meta">basic/jupyter.html</div>
+                    </article>
+                    <article class="link-card" data-title="Linux" data-file="Linux.html" data-category="basic">
+                        <a href="basic/Linux.html">Linux</a>
+                        <div class="link-meta">basic/Linux.html</div>
+                    </article>
+                    <article class="link-card" data-title="Markdown" data-file="Markdown.html" data-category="basic">
+                        <a href="basic/Markdown.html">Markdown</a>
+                        <div class="link-meta">basic/Markdown.html</div>
+                    </article>
+                    <article class="link-card" data-title="Ollama" data-file="Ollama.html" data-category="basic">
+                        <a href="basic/Ollama.html">Ollama</a>
+                        <div class="link-meta">basic/Ollama.html</div>
+                    </article>
+                    <article class="link-card" data-title="VsCode" data-file="VsCode.html" data-category="basic">
+                        <a href="basic/VsCode.html">VsCode</a>
+                        <div class="link-meta">basic/VsCode.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="data_analysis">
+                <h2 class="section-title">data_analysis</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="Matplotlib" data-file="Matplotlib.html" data-category="data_analysis">
+                        <a href="data_analysis/Matplotlib.html">Matplotlib</a>
+                        <div class="link-meta">data_analysis/Matplotlib.html</div>
+                    </article>
+                    <article class="link-card" data-title="Numpy" data-file="Numpy.html" data-category="data_analysis">
+                        <a href="data_analysis/Numpy.html">Numpy</a>
+                        <div class="link-meta">data_analysis/Numpy.html</div>
+                    </article>
+                    <article class="link-card" data-title="Pandas" data-file="Pandas.html" data-category="data_analysis">
+                        <a href="data_analysis/Pandas.html">Pandas</a>
+                        <div class="link-meta">data_analysis/Pandas.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="machine_learning">
+                <h2 class="section-title">machine_learning</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="ML-lesson3-Scikit-learn" data-file="ML-lesson3-Scikit-learn.html" data-category="machine_learning">
+                        <a href="machine_learning/ML-lesson3-Scikit-learn.html">ML-lesson3-Scikit-learn</a>
+                        <div class="link-meta">machine_learning/ML-lesson3-Scikit-learn.html</div>
+                    </article>
+                    <article class="link-card" data-title="ml" data-file="ml.html" data-category="machine_learning">
+                        <a href="machine_learning/ml.html">ml</a>
+                        <div class="link-meta">machine_learning/ml.html</div>
+                    </article>
+                    <article class="link-card" data-title="Sklearn" data-file="Sklearn.html" data-category="machine_learning">
+                        <a href="machine_learning/Sklearn.html">Sklearn</a>
+                        <div class="link-meta">machine_learning/Sklearn.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="python">
+                <h2 class="section-title">python</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="GUI" data-file="GUI.html" data-category="python">
+                        <a href="python/GUI.html">GUI</a>
+                        <div class="link-meta">python/GUI.html</div>
+                    </article>
+                    <article class="link-card" data-title="learner" data-file="learner.html" data-category="python">
+                        <a href="python/learner.html">learner</a>
+                        <div class="link-meta">python/learner.html</div>
+                    </article>
+                    <article class="link-card" data-title="others" data-file="others.html" data-category="python">
+                        <a href="python/others.html">others</a>
+                        <div class="link-meta">python/others.html</div>
+                    </article>
+                    <article class="link-card" data-title="question" data-file="question.html" data-category="python">
+                        <a href="python/question.html">question</a>
+                        <div class="link-meta">python/question.html</div>
+                    </article>
+                    <article class="link-card" data-title="regular_expression" data-file="regular_expression.html" data-category="python">
+                        <a href="python/regular_expression.html">regular_expression</a>
+                        <div class="link-meta">python/regular_expression.html</div>
+                    </article>
+                    <article class="link-card" data-title="Senior_Topic" data-file="Senior_Topic.html" data-category="python">
+                        <a href="python/Senior_Topic.html">Senior_Topic</a>
+                        <div class="link-meta">python/Senior_Topic.html</div>
+                    </article>
+                    <article class="link-card" data-title="tkinter" data-file="tkinter.html" data-category="python">
+                        <a href="python/tkinter.html">tkinter</a>
+                        <div class="link-meta">python/tkinter.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="reptile">
+                <h2 class="section-title">reptile</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="pachong" data-file="pachong.html" data-category="reptile">
+                        <a href="reptile/pachong.html">pachong</a>
+                        <div class="link-meta">reptile/pachong.html</div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section" data-category="scrapy">
+                <h2 class="section-title">scrapy</h2>
+                <div class="cards">
+                    <article class="link-card" data-title="scrapy" data-file="scrapy.html" data-category="scrapy">
+                        <a href="scrapy/scrapy.html">scrapy</a>
+                        <div class="link-meta">scrapy/scrapy.html</div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script>
-        function filterLinks() {
-            const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
-            const items = document.querySelectorAll('.link-item');
-            items.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                item.style.display = text.includes(keyword) ? 'block' : 'none';
-            });
+        const searchInput = document.getElementById("searchInput");
+        const cards = Array.from(document.querySelectorAll(".link-card"));
+        const sections = Array.from(document.querySelectorAll(".section"));
+        const resultInfo = document.getElementById("resultInfo");
+        const noResult = document.getElementById("noResult");
+        const categoryFilter = document.getElementById("categoryFilter");
+
+        let selectedCategory = "all";
+
+        function normalize(text) {
+            return text.toLowerCase().trim();
         }
+
+        function buildCategoryChips() {
+            const categories = [
+                "all",
+                ...new Set(cards.map((card) => card.dataset.category))
+            ];
+
+            const fragment = document.createDocumentFragment();
+            categories.forEach((category) => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "filter-chip" + (category === "all" ? " active" : "");
+                btn.dataset.category = category;
+                btn.textContent = category === "all" ? "全部" : category;
+                btn.addEventListener("click", () => {
+                    selectedCategory = category;
+                    document.querySelectorAll(".filter-chip").forEach((chip) => {
+                        chip.classList.toggle("active", chip.dataset.category === selectedCategory);
+                    });
+                    applyFilters();
+                });
+                fragment.appendChild(btn);
+            });
+
+            categoryFilter.appendChild(fragment);
+        }
+
+        function applyFilters() {
+            const keyword = normalize(searchInput.value);
+            let visibleCount = 0;
+
+            cards.forEach((card) => {
+                const title = normalize(card.dataset.title || "");
+                const file = normalize(card.dataset.file || "");
+                const category = normalize(card.dataset.category || "");
+                const inCategory = selectedCategory === "all" || card.dataset.category === selectedCategory;
+                const matchedKeyword = !keyword || title.includes(keyword) || file.includes(keyword) || category.includes(keyword);
+                const matched = inCategory && matchedKeyword;
+
+                card.classList.toggle("hidden", !matched);
+                if (matched) {
+                    visibleCount += 1;
+                }
+            });
+
+            sections.forEach((section) => {
+                const hasVisibleCard = section.querySelector(".link-card:not(.hidden)");
+                section.classList.toggle("hidden", !hasVisibleCard);
+            });
+
+            resultInfo.textContent = `显示 ${visibleCount} 条 / 共 ${cards.length} 条`;
+            noResult.style.display = visibleCount === 0 ? "block" : "none";
+        }
+
+        searchInput.addEventListener("input", applyFilters);
+        buildCategoryChips();
+        applyFilters();
     </script>
 </body>
 </html>
