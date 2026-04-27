@@ -62,7 +62,250 @@
         .subtitle {
             margin: 0;
             color: var(--muted);
-            line-height: 1.7;
+            line-height: 1.8;
+        }
+
+        .hero {
+            display: grid;
+            gap: 16px;
+            padding: 18px 0 6px;
+        }
+
+        .hero-eyebrow {
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.82rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .hero-copy {
+            display: grid;
+            gap: 10px;
+            max-width: 720px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hero-button,
+        .secondary-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+        }
+
+        .hero-button {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .secondary-button {
+            background: #ffffff;
+            color: var(--primary);
+            border-color: rgba(13, 148, 136, 0.22);
+        }
+
+        .hero-button:hover,
+        .secondary-button:hover {
+            transform: translateY(-1px);
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            margin: 18px 0 6px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 16px;
+            z-index: 15;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+        }
+
+        .tab-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab-button {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            color: var(--text);
+            border-radius: 999px;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            font-weight: 600;
+        }
+
+        .tab-button.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: transparent;
+        }
+
+
+        .module {
+            display: none;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        .project-card-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid transparent;
+            margin-top: 12px;
+            transition: transform 0.18s ease, background 0.18s ease;
+        }
+
+        .project-card-button:hover {
+            background: #0b7b72;
+            transform: translateY(-1px);
+        }
+
+        .summary,
+        .project-section,
+        .skill-section {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            background: var(--card);
+            border: 1px solid #e4ebf5;
+            border-radius: var(--radius-md);
+            padding: 20px 22px;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+        }
+
+        .summary-card h2,
+        .project-section h2,
+        .skill-section h2 {
+            margin-top: 0;
+        }
+
+        .project-section .cards,
+        .skill-section .skill-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+        }
+
+        .skill-cards .link-card {
+            min-height: 88px;
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+        }
+
+        .project-section .link-card {
+            display: grid;
+            gap: 16px;
+            padding: 20px 22px 24px;
+            min-height: 220px;
+            position: relative;
+        }
+
+        .project-section .link-card h3 {
+            margin: 0 0 10px;
+            font-size: 1.05rem;
+        }
+
+        .project-section .link-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .project-card-button {
+            align-self: end;
+            justify-self: end;
+            background: #dff5ee;
+            color: #0b6f61;
+            border-color: transparent;
+        }
+
+        .project-card-button:hover {
+            background: #c8ebdc;
+            color: #0b5d50;
+        }
+
+        .skill-cards .link-card {
+            display: grid;
+            gap: 12px;
+            min-height: 160px;
+            padding: 22px 20px;
+            justify-items: start;
+        }
+
+        .skill-title {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .skill-item {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: #eef5ff;
+            color: #0f4aa1;
+            font-size: 0.95rem;
+        }
+
+        .top-action {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 20;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: #fff;
+            color: var(--text);
+            cursor: pointer;
+            transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+        }
+
+        .summary-card li {
+            margin-bottom: 8px;
         }
 
         .toolbar {
@@ -214,35 +457,149 @@
 <body>
     <main class="app">
         <header>
-            <h1>学习笔记导航</h1>
-            <p class="subtitle">汇总了 <strong>docs</strong> 目录中的全部 HTML 页面。支持关键词搜索与分类过滤，方便快速定位内容。</p>
+            <div class="hero">
+                <div class="hero-copy">
+                    <p class="hero-eyebrow">个人博客 · floaritay</p>
+                    <h1>我的学习与项目笔记</h1>
+                    <p class="subtitle">这里是我的个人博客，展示学习笔记、项目实践与技术能力。顶部可切换浏览介绍、项目与笔记。</p>
+                </div>
+            </div>
+
+            <div class="topbar">
+                <div class="tab-bar" role="tablist" aria-label="页面模块切换">
+                    <button class="tab-button active" data-target="introModule" type="button">介绍</button>
+                    <button class="tab-button" data-target="projectModule" type="button">项目</button>
+                    <button class="tab-button" data-target="notesModule" type="button">笔记</button>
+                </div>
+            </div>
         </header>
 
-        <section class="toolbar" aria-label="搜索工具栏">
-            <input
-                id="searchInput"
-                class="search-input"
-                type="search"
-                placeholder="搜索标题、文件名或分类，例如：pytorch / basic / ros2"
-                autocomplete="off"
-            />
-            <div class="result-info" id="resultInfo">共 48 条</div>
+        <section id="introModule" class="module active">
+            <div class="summary">
+                <article class="summary-card">
+                    <h2>关于 floaritay</h2>
+                    <p>我正在构建一个专注于学习笔记与技术实践的个人博客，内容覆盖 Python、机器学习、计算机视觉、深度学习、数据分析与前端页面开发。</p>
+                </article>
+                <article class="summary-card">
+                    <h2>博客内容</h2>
+                    <ul>
+                        <li>博客介绍：展示个人技术栈与项目经验，形成专业个人主页。</li>
+                        <li>项目展示：集中介绍重要 GitHub 仓库，点击跳转访问项目源码。</li>
+                        <li>学习笔记：查看我的学习笔记，支持导航与搜索功能。</li>
+                    </ul>
+                </article>
+            </div>
         </section>
 
-        <section class="category-filter" id="categoryFilter" aria-label="分类过滤"></section>
-
-        <div id="noResult" class="no-result">没有找到匹配内容，请尝试更短关键词或切换分类。</div>
-
-        <section id="sectionsRoot">
-            <div class="section" data-category="root">
-                <h2 class="section-title">根目录</h2>
+        <section id="projectModule" class="module">
+            <div class="project-section">
+                <h2 class="section-title">项目与实践</h2>
                 <div class="cards">
-                    <article class="link-card" data-title="FastAPI" data-file="FastAPI.html" data-category="root">
-                        <a href="FastAPI.html">FastAPI</a>
-                        <div class="link-meta">FastAPI.html</div>
+                    <article class="link-card">
+                        <h3>智能课程助手 · RAG 问答系统</h3>
+                        <p>基于 FastAPI 与 Open WebUI 构建知识问答平台，使用检索增强生成技术（RAG）实现智能问答。</p>
+                        <a class="project-card-button" href="https://github.com/floaritay/rag-qa-system" target="_blank" rel="noreferrer">查看仓库</a>
+                    </article>
+                    <article class="link-card">
+                        <h3>交通标志识别 · YOLOv8 实时检测</h3>
+                        <p>基于 PyTorch 与 Ultralytics 的交通标志检测项目，支持数据训练与视频推理。</p>
+                        <a class="project-card-button" href="https://github.com/floaritay/Traffic-Signs-Detection-YOLOv8" target="_blank" rel="noreferrer">查看仓库</a>
+                    </article>
+                    <article class="link-card">
+                        <h3>个人博客页面</h3>
+                        <p>个人博客与学习笔记导航源码仓库，维护该首页与 docs 链接结构。</p>
+                        <a class="project-card-button" href="https://github.com/floaritay/floaritay.github.io" target="_blank" rel="noreferrer">查看仓库</a>
+                    </article>
+                    <article class="link-card">
+                        <h3>buff_web · 自动化脚本</h3>
+                        <p>针对网易 buff 平台开发的自动化脚本项目。</p>
+                        <a class="project-card-button" href="https://github.com/floaritay/buff_web" target="_blank" rel="noreferrer">查看仓库</a>
                     </article>
                 </div>
             </div>
+            <div class="skill-section">
+                <h2 class="section-title">技能与工具</h2>
+                <div class="skill-cards">
+                    <article class="link-card">
+                        <div class="skill-title">编程与开发</div>
+                        <div class="skill-items">
+                            <span class="skill-item">Python</span>
+                            <span class="skill-item">C</span>
+                            <span class="skill-item">Git</span>
+                            <span class="skill-item">Docker</span>
+                            <span class="skill-item">Linux</span>
+                            <span class="skill-item">SQL</span>
+                        </div>
+                    </article>
+                    <article class="link-card">
+                        <div class="skill-title">机器学习</div>
+                        <div class="skill-items">
+                            <span class="skill-item">Scikit-learn</span>
+                        </div>
+                    </article>
+                    <article class="link-card">
+                        <div class="skill-title">深度学习</div>
+                        <div class="skill-items">
+                            <span class="skill-item">PyTorch</span>
+                            <span class="skill-item">TensorFlow</span>
+                        </div>
+                    </article>
+                    <article class="link-card">
+                        <div class="skill-title">计算机视觉</div>
+                        <div class="skill-items">
+                            <span class="skill-item">OpenCV</span>
+                            <span class="skill-item">YOLO</span>
+                        </div>
+                    </article>
+                    <article class="link-card">
+                        <div class="skill-title">机器人操作系统</div>
+                        <div class="skill-items">
+                            <span class="skill-item">ROS2</span>
+                            <span class="skill-item">Gazebo</span>
+                            <span class="skill-item">URDF</span>
+                        </div>
+                    </article>
+                    <article class="link-card">
+                        <div class="skill-title">数据分析</div>
+                        <div class="skill-items">
+                            <span class="skill-item">Requests</span>
+                            <span class="skill-item">BeautifulSoup</span>
+                            <span class="skill-item">Numpy</span>
+                            <span class="skill-item">Pandas</span>
+                            <span class="skill-item">Matplotlib</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="notesModule" class="module">
+            <section class="toolbar" aria-label="搜索工具栏">
+                <input
+                    id="searchInput"
+                    class="search-input"
+                    type="search"
+                    placeholder="搜索标题、文件名或分类，例如：pytorch / basic / ros2"
+                    autocomplete="off"
+                />
+                <div class="result-info" id="resultInfo">共 48 条</div>
+            </section>
+
+            <section class="category-filter" id="categoryFilter" aria-label="分类过滤"></section>
+
+            <div id="noResult" class="no-result">没有找到匹配内容，请尝试更短关键词或切换分类。</div>
+
+            <section id="notes" class="section" data-category="root">
+                <div class="section" data-category="root">
+                    <h2 class="section-title">根目录</h2>
+                    <div class="cards">
+                        <article class="link-card" data-title="FastAPI" data-file="FastAPI.html" data-category="root">
+                            <a href="FastAPI.html">FastAPI</a>
+                            <div class="link-meta">FastAPI.html</div>
+                        </article>
+                    </div>
+                </div>
+            </section>
 
             <div class="section" data-category="Agent">
                 <h2 class="section-title">Agent</h2>
@@ -519,36 +876,44 @@
     </main>
 
     <script>
-        const searchInput = document.getElementById("searchInput");
-        const cards = Array.from(document.querySelectorAll(".link-card"));
-        const sections = Array.from(document.querySelectorAll(".section"));
-        const resultInfo = document.getElementById("resultInfo");
-        const noResult = document.getElementById("noResult");
-        const categoryFilter = document.getElementById("categoryFilter");
+        const tabButtons = Array.from(document.querySelectorAll('.tab-button'));
+        const modules = Array.from(document.querySelectorAll('.module'));
+        const searchInput = document.getElementById('searchInput');
+        const cards = Array.from(document.querySelectorAll('#notesModule .link-card'));
+        const noteSections = Array.from(document.querySelectorAll('#notesModule .section'));
+        const resultInfo = document.getElementById('resultInfo');
+        const noResult = document.getElementById('noResult');
+        const categoryFilter = document.getElementById('categoryFilter');
 
-        let selectedCategory = "all";
+        let selectedCategory = 'all';
 
         function normalize(text) {
             return text.toLowerCase().trim();
         }
 
+        function switchModule(targetId) {
+            modules.forEach((module) => {
+                module.classList.toggle('active', module.id === targetId);
+            });
+        }
+
         function buildCategoryChips() {
             const categories = [
-                "all",
+                'all',
                 ...new Set(cards.map((card) => card.dataset.category))
             ];
 
             const fragment = document.createDocumentFragment();
             categories.forEach((category) => {
-                const btn = document.createElement("button");
-                btn.type = "button";
-                btn.className = "filter-chip" + (category === "all" ? " active" : "");
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'filter-chip' + (category === 'all' ? ' active' : '');
                 btn.dataset.category = category;
-                btn.textContent = category === "all" ? "全部" : category;
-                btn.addEventListener("click", () => {
+                btn.textContent = category === 'all' ? '全部' : category;
+                btn.addEventListener('click', () => {
                     selectedCategory = category;
-                    document.querySelectorAll(".filter-chip").forEach((chip) => {
-                        chip.classList.toggle("active", chip.dataset.category === selectedCategory);
+                    document.querySelectorAll('.filter-chip').forEach((chip) => {
+                        chip.classList.toggle('active', chip.dataset.category === selectedCategory);
                     });
                     applyFilters();
                 });
@@ -559,33 +924,43 @@
         }
 
         function applyFilters() {
-            const keyword = normalize(searchInput.value);
+            const keyword = normalize(searchInput?.value || '');
             let visibleCount = 0;
 
             cards.forEach((card) => {
-                const title = normalize(card.dataset.title || "");
-                const file = normalize(card.dataset.file || "");
-                const category = normalize(card.dataset.category || "");
-                const inCategory = selectedCategory === "all" || card.dataset.category === selectedCategory;
+                const title = normalize(card.dataset.title || '');
+                const file = normalize(card.dataset.file || '');
+                const category = normalize(card.dataset.category || '');
+                const inCategory = selectedCategory === 'all' || card.dataset.category === selectedCategory;
                 const matchedKeyword = !keyword || title.includes(keyword) || file.includes(keyword) || category.includes(keyword);
                 const matched = inCategory && matchedKeyword;
 
-                card.classList.toggle("hidden", !matched);
+                card.classList.toggle('hidden', !matched);
                 if (matched) {
                     visibleCount += 1;
                 }
             });
 
-            sections.forEach((section) => {
-                const hasVisibleCard = section.querySelector(".link-card:not(.hidden)");
-                section.classList.toggle("hidden", !hasVisibleCard);
+            noteSections.forEach((section) => {
+                if (section.id === 'notes') {
+                    return; // keep the notes wrapper visible
+                }
+                const hasVisibleCard = section.querySelector('.link-card:not(.hidden)');
+                section.classList.toggle('hidden', !hasVisibleCard);
             });
 
             resultInfo.textContent = `显示 ${visibleCount} 条 / 共 ${cards.length} 条`;
-            noResult.style.display = visibleCount === 0 ? "block" : "none";
+            noResult.style.display = visibleCount === 0 ? 'block' : 'none';
         }
 
-        searchInput.addEventListener("input", applyFilters);
+        tabButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                tabButtons.forEach((button) => button.classList.toggle('active', button === btn));
+                switchModule(btn.dataset.target);
+            });
+        });
+
+        searchInput?.addEventListener('input', applyFilters);
         buildCategoryChips();
         applyFilters();
     </script>
