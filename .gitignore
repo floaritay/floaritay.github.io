@@ -3,3 +3,4 @@ open_webui.env
 model/15_model.h5
 .env
 DeepLearing/data
+.claude/
