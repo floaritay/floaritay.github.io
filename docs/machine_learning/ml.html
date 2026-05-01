@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ml</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -15987,7 +15987,7 @@ PyTorch 文档中提到，如果 grad 属性不为空，新计算出来的梯度
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<pre><code>import torch
+<div class="highlight"><pre><span></span>import torch
 # 导入了 PyTorch 库，并将 torch.Tensor 赋值给 Tensor
 Tensor = torch.Tensor
 # 这样做并不是必需的，可以直接使用 torch.Tensor，但这样写可能在某些情况下使代码更简洁
@@ -16011,7 +16011,7 @@ def task(x: Tensor) -&gt; Tensor:
     # 从 x 的 .grad 属性中读取梯度值，并将其存储在 result 中
     # x.grad 将包含 x 对 out 的梯度，即  ∂x/∂out
     return result
-</code></pre>
+</pre></div>
 
 </div>
 </div>
@@ -16054,7 +16054,7 @@ TensorFlow 使用静态图，这意味着我们先定义计算图，然后不断
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>∂w/∂y= ∂w/∂a * ∂a/∂y + ∂w/∂b *　∂b/∂y =2×w+x+1=5</p>
-<pre><code>w = torch.tensor([1.],requires_grad = True)
+<div class="highlight"><pre><span></span>w = torch.tensor([1.],requires_grad = True)
 x = torch.tensor([2.],requires_grad = True)
 a = w+x
 b = w+1
@@ -16064,9 +16064,9 @@ print(w.grad)
 
 输出：
 tensor([5.])
-</code></pre>
+</pre></div>
 <p>为了减少内存，在反向传播结束之后，非叶子节点的梯度会被释放掉</p>
-<pre><code>w = torch.tensor([1.],requires_grad = True)
+<div class="highlight"><pre><span></span>w = torch.tensor([1.],requires_grad = True)
 x = torch.tensor([2.],requires_grad = True)
 a = w+x
 b = w+1
@@ -16078,10 +16078,10 @@ print(w.grad,x.grad,a.grad,b.grad,y.grad)
 输出：
 True True False False False
 tensor([5.]) tensor([2.]) None None None
-</code></pre>
+</pre></div>
 <p>可以看到只有 x 和 w 是叶子节点，然后反向传播计算完梯度后(.backward() 之后)，只有叶子节点的梯度保存下来了<br />
 也可以通过 .retain_grad() 来保留非任意节点的梯度值</p>
-<pre><code>w = torch.tensor([1.],requires_grad = True)
+<div class="highlight"><pre><span></span>w = torch.tensor([1.],requires_grad = True)
 x = torch.tensor([2.],requires_grad = True)
 a = w+x
 a.retain_grad()
@@ -16094,7 +16094,7 @@ print(w.grad,x.grad,a.grad,b.grad,y.grad)
 输出：
 True True False False False
 tensor([5.]) tensor([2.]) tensor([2.]) None None
-</code></pre>
+</pre></div>
 
 </div>
 </div>
@@ -16109,7 +16109,7 @@ tensor([5.]) tensor([2.]) tensor([2.]) None None
 <p>torch.tensor 有一个属性 grad_fn,grad_fn 的作用是记录创建该张量时所用的函数，这个属性反向传播的时候会用到<br />
 例如在上面的例子中，y.grad_fn=MulBackward0，表示 y 是通过乘法得到的,所以求导的时候就是用乘法的求导法则<br />
 同样的，a.grad=AddBackward0 表示 a 是通过加法得到的，使用加法的求导法则</p>
-<pre><code>w = torch.tensor([1.],requires_grad = True)
+<div class="highlight"><pre><span></span>w = torch.tensor([1.],requires_grad = True)
 x = torch.tensor([2.],requires_grad = True)
 a = w+x
 a.retain_grad()
@@ -16124,7 +16124,7 @@ print(w.grad_fn)
 &lt;MulBackward0 object at 0x7f95016326d8&gt;
 &lt;AddBackward0 object at 0x7f96b832d3c8&gt;
 None
-</code></pre>
+</pre></div>
 
 </div>
 </div>
@@ -16175,7 +16175,7 @@ None
 <p>使用神经网络拟合曲线：y=x^2−2x+3，给定 x 的范围为 (0,1)。为了简便起见，该神经网络不加入正则项。</p>
 <p>编程示例</p>
 <p>数据：</p>
-<pre><code>x_train = np.array([[3.3], [4.4], [5.5], [6.71], [6.93], [4.168],
+<div class="highlight"><pre><span></span>x_train = np.array([[3.3], [4.4], [5.5], [6.71], [6.93], [4.168],
                     [9.779], [6.182], [7.59], [2.167], [7.042],
                     [10.791], [5.313], [7.997], [3.1]], dtype=np.float32)
 y_train = np.array([[1.7], [2.76], [2.09], [3.19], [1.694], [1.573],
@@ -16183,9 +16183,9 @@ y_train = np.array([[1.7], [2.76], [2.09], [3.19], [1.694], [1.573],
                     [3.465], [1.65], [2.904], [1.3]], dtype=np.float32)
 x_train = torch.from_numpy(x_train)
 y_train = torch.from_numpy(y_train)
-</code></pre>
+</pre></div>
 <p>使用 pytorch 搭建网络结构，代码如下：</p>
-<pre><code># Linear Regression Model
+<div class="highlight"><pre><span></span># Linear Regression Model
 class LinearRegression(nn.Module):
     def __init__(self):
         super(LinearRegression, self).__init__()
@@ -16193,9 +16193,9 @@ class LinearRegression(nn.Module):
     def forward(self, x):
         out = self.linear(x)
         return out
-</code></pre>
+</pre></div>
 <p>训练网络参数，代码如下：</p>
-<pre><code>model = LinearRegression()
+<div class="highlight"><pre><span></span>model = LinearRegression()
 # 定义loss和优化函数
 criterion = nn.MSELoss()
 optimizer = optim.SGD(model.parameters(), lr=1e-4)
@@ -16212,9 +16212,9 @@ for epoch in range(num_epochs):
     # 更新参数
     optimizer.step()
     if (epoch+1) % 20 == 0:
-        print('Epoch[{}/{}], loss: {:.6f}'
+        print(&#39;Epoch[{}/{}], loss: {:.6f}&#39;
             .format(epoch+1, num_epochs, loss.data))
-</code></pre>
+</pre></div>
 
 </div>
 </div>
@@ -16226,7 +16226,7 @@ for epoch in range(num_epochs):
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<pre><code>import torch
+<div class="highlight"><pre><span></span>import torch
 from torch import nn, optim
 from torch.autograd import Variable
 import numpy as np
@@ -16295,11 +16295,11 @@ def train():
         optimizer.step()
 
         if (epoch+1) % 20 == 0:
-            print('Epoch[{}/{}], loss: {:.6f}'
+            print(&#39;Epoch[{}/{}], loss: {:.6f}&#39;
                 .format(epoch+1, num_epochs, loss.data))
 
     return loss.data
-</code></pre>
+</pre></div>
 
 </div>
 </div>
@@ -16375,7 +16375,7 @@ def train():
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<pre><code>import torch
+<div class="highlight"><pre><span></span>import torch
 y1 = torch.randn(3, 5, requires_grad=True)
 y2 = torch.randn(3, 5)
 # 均方差误差（MSELoss）
@@ -16384,7 +16384,7 @@ output = loss(y1, y2)
 print(output)
 输出：
 MSELoss:  tensor(1.8335, grad_fn=&lt;MseLossBackward&gt;)
-</code></pre>
+</pre></div>
 
 </div>
 </div>

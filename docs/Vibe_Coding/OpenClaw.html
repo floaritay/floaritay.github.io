@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>OpenClaw</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -15167,13 +15167,13 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="p">}</span>
 </pre></div>
 <p>2）找到 agents.defaults 对象，并替换或添加以下两个字段：、</p>
-<pre><code>&quot;model&quot;: {
+<div class="highlight"><pre><span></span>&quot;model&quot;: {
   &quot;primary&quot;: &quot;unicom-cloud/MiniMax-M2.5&quot;
 },
 &quot;models&quot;: {
   &quot;unicom-cloud/MiniMax-M2.5&quot;: {}
 }
-</code></pre>
+</pre></div>
 <p>步骤3：保存配置<br />
 如果在Web UI中修改，先单击右上角 Save 保存，然后单击 Update来使配置生效。<br />
 如果在终端中修改，先保存文件并退出，然后运行以下命令来使配置生效。</p>
@@ -15259,27 +15259,43 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </li>
 <li><p>OpenClaw配置（采用联通云内置脚本一键部署）（自定义配置见 <a href="https://support.cucloud.cn/document/127/571/128.html?id=128&amp;arcid=6999">https://support.cucloud.cn/document/127/571/128.html?id=128&amp;arcid=6999</a> ）</p>
 <p>通过SSH或VNC连接进入云服务器ECS</p>
+</li>
+</ol>
+<blockquote>
 <div class="highlight"><pre><span></span>ssh<span class="w"> </span>用户名@公网IP地址
 <span class="c1"># 然后输入你的密码</span>
 </pre></div>
-<p>注意：为保证安全使用OpenClaw，OpenClaw云服务器ECS在创建时，系统为您分配默认专有网络VPC、默认子网、默认安全组，<br />
- 所以在创建完成时，请您进入云服务器后，执行以下命令，检查并配置DNS解析服务：</p>
+</blockquote>
+<pre><code>注意：为保证安全使用OpenClaw，OpenClaw云服务器ECS在创建时，系统为您分配默认专有网络VPC、默认子网、默认安全组，  
+所以在创建完成时，请您进入云服务器后，执行以下命令，检查并配置DNS解析服务：
+</code></pre>
+<blockquote>
 <div class="highlight"><pre><span></span>vim<span class="w"> </span>/etc/resolv.conf
 </pre></div>
-<p>在打开的文件中，确认是否存在nameserver配置项。若未配置或需要修改，请添加以下内容（以Google公共DNS为例）:  nameserver 8.8.8.8</p>
-<p>先按i进入编辑模式，在文件中添加 nameserver 8.8.8.8 ，再按esc退出编辑模式，输入:wq（或:x）保存并退出（注意：输入法要是英文）</p>
-<p>下载最新的脚本并赋予执行权限</p>
+</blockquote>
+<pre><code>在打开的文件中，确认是否存在nameserver配置项。若未配置或需要修改，请添加以下内容（以Google公共DNS为例）:  nameserver 8.8.8.8  
+
+先按i进入编辑模式，在文件中添加 nameserver 8.8.8.8 ，再按esc退出编辑模式，输入:wq（或:x）保存并退出（注意：输入法要是英文）
+
+下载最新的脚本并赋予执行权限
+</code></pre>
+<blockquote>
 <div class="highlight"><pre><span></span>curl<span class="w"> </span>-o<span class="w"> </span>update-openclaw-config.py<span class="w"> </span>https://console.cucloud.cn/console/subApp/woc-ecs-beta/assets/update-openclaw-config.py
 chmod<span class="w"> </span>+x<span class="w"> </span>update-openclaw-config.py
 </pre></div>
-<p>运行脚本，按提示进行配置（配置钉钉见 <a href="https://support.cucloud.cn/document/127/571/128.html?id=128&amp;arcid=7008">https://support.cucloud.cn/document/127/571/128.html?id=128&amp;arcid=7008</a> ）</p>
+</blockquote>
+<pre><code>运行脚本，按提示进行配置（配置钉钉见 https://support.cucloud.cn/document/127/571/128.html?id=128&amp;arcid=7008 ）
+</code></pre>
+<blockquote>
 <div class="highlight"><pre><span></span>./update-openclaw-config.py
 </pre></div>
-<p>之后可以在终端输入以下内容启动OpenClaw并交互</p>
+</blockquote>
+<pre><code>之后可以在终端输入以下内容启动OpenClaw并交互
+</code></pre>
+<blockquote>
 <div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>openclaw.cli
 </pre></div>
-</li>
-</ol>
+</blockquote>
 
 </div>
 </div>

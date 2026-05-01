@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ollama</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -15429,9 +15429,9 @@ Python 的 hello world 代码？
 <p><strong>自定义提示词</strong><br />
 创建自定义模型<br />
 编写一个 Modelfile：</p>
-<pre><code>FROM deepseek-coder  
-SYSTEM &quot;你是一个编程助手，专门帮助用户编写代码。&quot;  
-</code></pre>
+<div class="highlight"><pre><span></span>FROM deepseek-coder  
+SYSTEM &quot;你是一个编程助手，专门帮助用户编写代码。&quot;
+</pre></div>
 <p>然后创建自定义模型：</p>
 <div class="highlight"><pre><span></span>ollama<span class="w"> </span>create<span class="w"> </span>runoob-coder<span class="w"> </span>-f<span class="w"> </span>./Modelfile
 </pre></div>
@@ -15458,12 +15458,14 @@ ollama<span class="w"> </span>logs
 在使用 API 之前，需要确保 Ollama 服务正在运行。可以通过以下命令启动服务：</p>
 <div class="highlight"><pre><span></span>ollama<span class="w"> </span>serve
 </pre></div>
+<blockquote>
 <p>默认情况下，服务会运行在 <a href="http://localhost:11434">http://localhost:11434</a></p>
 <p>Ollama 提供了以下主要 API 端点：</p>
 <p><strong>生成文本（Generate Text）</strong><br />
 端点：POST /api/generate<br />
 功能：向模型发送提示词（prompt），并获取生成的文本。</p>
 <p>请求格式：</p>
+</blockquote>
 <div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;model-name&gt;&quot;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">模型名称</span>
   <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;input-text&gt;&quot;</span><span class="p">,</span> <span class="o">//</span> <span class="n">输入的提示词</span>
@@ -15549,15 +15551,15 @@ ollama<span class="w"> </span>logs
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="%E7%A4%BA%E4%BE%8B">&#31034;&#20363;<a class="anchor-link" href="#%E7%A4%BA%E4%BE%8B">&#182;</a></h2><p><strong>生成文本</strong><br />
 使用 curl 发送请求</p>
-<pre><code>curl http://localhost:11434/api/generate -d '{
+<div class="highlight"><pre><span></span>curl http://localhost:11434/api/generate -d &#39;{
   &quot;model&quot;: &quot;deepseek-coder&quot;,
   &quot;prompt&quot;: &quot;你好，你能帮我写一段代码吗？&quot;,
   &quot;stream&quot;: false
-}'
-</code></pre>
+}&#39;
+</pre></div>
 <p><strong>多轮对话</strong><br />
 使用 curl 发送请求</p>
-<pre><code>curl http://localhost:11434/api/chat -d '{
+<div class="highlight"><pre><span></span>curl http://localhost:11434/api/chat -d &#39;{
   &quot;model&quot;: &quot;deepseek-coder&quot;,
   &quot;messages&quot;: [
     {
@@ -15566,16 +15568,20 @@ ollama<span class="w"> </span>logs
     }
   ],
   &quot;stream&quot;: false
-}'
-</code></pre>
+}&#39;
+</pre></div>
+<blockquote>
 <p><strong>列出本地模型</strong>
 使用 curl 发送请求：</p>
-<pre><code>curl http://localhost:11434/api/tags
-</code></pre>
+</blockquote>
+<div class="highlight"><pre><span></span>curl http://localhost:11434/api/tags
+</pre></div>
+<blockquote>
 <p><strong>启用流式响应</strong><br />
 在请求中设置 &quot;stream&quot;: true，API 会逐行返回生成的文本<br />
 每行返回一个 JSON 对象<br />
 响应格式如下</p>
+</blockquote>
 <div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;response&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;partial-text&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 部分生成的文本</span>
 <span class="w">  </span><span class="nt">&quot;done&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">                 </span><span class="c1">// 是否完成</span>
@@ -15816,7 +15822,7 @@ ollama<span class="w"> </span>launch<span class="w"> </span>claude<span class="w
 <li>编写 Ollama 的 Modelfile 导入 GGUF 模型</li>
 </ol>
 <p>在 GGUF 文件同目录下新建Modelfile（无后缀）</p>
-<pre><code># 指定本地GGUF模型文件路径（绝对路径）
+<div class="highlight"><pre><span></span># 指定本地GGUF模型文件路径（绝对路径）
 FROM D:/models/deepseek-coder-7b.gguf
 
 # 适配硬件参数
@@ -15830,7 +15836,7 @@ PARAMETER temperature 0.2
 SYSTEM &quot;&quot;&quot;
 你是专业代码助手，精通Python/Java/C++，输出规范代码+中文注释，无多余闲聊。
 &quot;&quot;&quot;
-</code></pre>
+</pre></div>
 <ol start="4">
 <li>创建 Ollama 自定义模型</li>
 </ol>

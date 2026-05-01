@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>dip</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -15979,20 +15979,26 @@ ret 是阈值,thresh_image 是二值化后的图像</p>
 <h3 id="Sobel()"><code>Sobel()</code><a class="anchor-link" href="#Sobel()">&#182;</a></h3><p>用于计算图像梯度的函数，常用于边缘检测。通过 Sobel 算子分别计算图像在水平（x）和垂直（y）方向上的梯度，从而突出图像的边缘特征。
 Sobel 算子通过卷积核计算梯度：</p>
 <ul>
-<li><strong>水平方向核</strong>（检测垂直边缘）：<pre><code>[-1  0  1]
+<li><strong>水平方向核</strong>（检测垂直边缘）：</li>
+</ul>
+<blockquote>
+<pre><code>[-1  0  1]
 [-2  0  2]
 [-1  0  1]
 </code></pre>
-</li>
-<li><strong>垂直方向核</strong>（检测水平边缘）：<pre><code>[-1 -2 -1]
+</blockquote>
+<ul>
+<li><strong>垂直方向核</strong>（检测水平边缘）：</li>
+</ul>
+<blockquote>
+<pre><code>[-1 -2 -1]
 [ 0  0  0]
 [ 1  2  1]
 </code></pre>
-</li>
-</ul>
+</blockquote>
 <hr />
-<pre><code>cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])
-</code></pre>
+<div class="highlight"><pre><span></span>cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])
+</pre></div>
 <ol>
 <li><strong><code>src</code></strong>：输入图像（单通道或多通道的灰度/彩色图像）。</li>
 <li><strong><code>ddepth</code></strong>：输出图像的深度（数据类型），常用值：<ul>

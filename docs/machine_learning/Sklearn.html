@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sklearn</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -15210,20 +15210,22 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span> <span class="c1">#3 个样本，每个样本有 2 个特征</span>
 </pre></div>
+<blockquote>
 <ul>
 <li><p>特征和标签</p>
-<ul>
-<li>特征（Features）：是数据集中用于训练模型的输入变量。在上面的例子中，X 是特征矩阵，包含了所有的输入变量</li>
-<li>标签（Labels）：是机器学习模型的目标输出。在监督学习中，标签是我们希望模型预测的结果。在上面的例子中，y 是标签或目标向量，包含了每个样本的类别</li>
-</ul>
 </li>
-<li><p>数据集分割<br />
-在实际应用中，通常需要将数据集分割成训练集和测试集</p>
+<li><p>特征（Features）：是数据集中用于训练模型的输入变量。在上面的例子中，X 是特征矩阵，包含了所有的输入变量</p>
+</li>
+<li><p>标签（Labels）：是机器学习模型的目标输出。在监督学习中，标签是我们希望模型预测的结果。在上面的例子中，y 是标签或目标向量，包含了每个样本的类别</p>
+</li>
+<li><p>数据集分割</p>
+</li>
+</ul>
+<p>在实际应用中，通常需要将数据集分割成训练集和测试集</p>
 <ul>
 <li>train_test_split()</li>
 </ul>
-</li>
-</ul>
+</blockquote>
 <div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
@@ -15303,10 +15305,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best parameters:&quot;</span><span class="p">,</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
 </pre></div>
+<blockquote>
 <ul>
-<li>随机搜索（Random Search）<br />
-随机搜索是一种通过随机选择超参数的组合来搜索最优超参数的方法，它比网格搜索效率高</li>
+<li>随机搜索（Random Search）</li>
 </ul>
+<p>随机搜索是一种通过随机选择超参数的组合来搜索最优超参数的方法，它比网格搜索效率高</p>
+</blockquote>
 <div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomizedSearchCV</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">randint</span>
 
@@ -15407,11 +15411,13 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">label_encoder</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
 <span class="n">y_encoded</span> <span class="o">=</span> <span class="n">label_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># 将类别变量转换为整数</span>
 </pre></div>
+<blockquote>
 <ul>
-<li>独热编码<br />
-独热编码将每个类别转换为一个二进制的向量，适用于类别之间没有顺序关系的情况（例如，颜色、国家等）<br />
-OneHotEncoder 可以将类别变量转化为独热编码</li>
+<li>独热编码</li>
 </ul>
+<p>独热编码将每个类别转换为一个二进制的向量，适用于类别之间没有顺序关系的情况（例如，颜色、国家等）<br />
+ OneHotEncoder 可以将类别变量转化为独热编码</p>
+</blockquote>
 <div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">OneHotEncoder</span>
 <span class="c1"># 假设我们有一个类别变量 X</span>
 <span class="n">encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># sparse=False 返回一个密集矩阵</span>

@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ROS2_guyue</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -15215,31 +15215,31 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="ros2-run-%E8%BF%90%E8%A1%8C%E8%8A%82%E7%82%B9">ros2 run &#36816;&#34892;&#33410;&#28857;<a class="anchor-link" href="#ros2-run-%E8%BF%90%E8%A1%8C%E8%8A%82%E7%82%B9">&#182;</a></h2><p>第一个参数表示功能包的名称，第二个参数表示功能包内节点的名称</p>
 <p>对于运行海龟仿真节点和键盘控制节点的命令：</p>
-<pre><code>$ ros2 run turtlesim turtlesim_node  
+<div class="highlight"><pre><span></span>$ ros2 run turtlesim turtlesim_node  
 $ ros2 run turtlesim turtle_teleop_key
-</code></pre>
-<h2 id="ros2-node-list-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9">ros2 node list &#26597;&#30475;&#33410;&#28857;<a class="anchor-link" href="#ros2-node-list-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9">&#182;</a></h2><pre><code>$ ros2 node list 
-</code></pre>
+</pre></div>
+<h2 id="ros2-node-list-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9">ros2 node list &#26597;&#30475;&#33410;&#28857;<a class="anchor-link" href="#ros2-node-list-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9">&#182;</a></h2><div class="highlight"><pre><span></span>$ ros2 node list
+</pre></div>
 <p>对某一个节点感兴趣，加上一个info子命令，就可以知道它的详细信息啦</p>
-<pre><code>ros2 node info /turtlesim
-</code></pre>
-<h2 id="ros2-topic-list-%E6%9F%A5%E7%9C%8B%E8%AF%9D%E9%A2%98">ros2 topic list &#26597;&#30475;&#35805;&#39064;<a class="anchor-link" href="#ros2-topic-list-%E6%9F%A5%E7%9C%8B%E8%AF%9D%E9%A2%98">&#182;</a></h2><pre><code>$ ros2 topic list
-</code></pre>
+<div class="highlight"><pre><span></span>ros2 node info /turtlesim
+</pre></div>
+<h2 id="ros2-topic-list-%E6%9F%A5%E7%9C%8B%E8%AF%9D%E9%A2%98">ros2 topic list &#26597;&#30475;&#35805;&#39064;<a class="anchor-link" href="#ros2-topic-list-%E6%9F%A5%E7%9C%8B%E8%AF%9D%E9%A2%98">&#182;</a></h2><div class="highlight"><pre><span></span>$ ros2 topic list
+</pre></div>
 <p>还想看到某一个话题中的消息数据，加上echo子命令</p>
-<pre><code>$ ros2 topic echo /turtle1/pose
-</code></pre>
-<h2 id="%E5%8F%91%E5%B8%83%E8%AF%9D%E9%A2%98">&#21457;&#24067;&#35805;&#39064;<a class="anchor-link" href="#%E5%8F%91%E5%B8%83%E8%AF%9D%E9%A2%98">&#182;</a></h2><pre><code>$ ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist &quot;{linear: {x: 2.0, y: 0.0, 
-z: 0.0}, angular: {x: 0.0, y: 0.0, z: 1.8}}&quot; 
-</code></pre>
-<h2 id="%E5%8F%91%E5%B8%83%E6%9C%8D%E5%8A%A1%E8%AF%B7%E6%B1%82">&#21457;&#24067;&#26381;&#21153;&#35831;&#27714;<a class="anchor-link" href="#%E5%8F%91%E5%B8%83%E6%9C%8D%E5%8A%A1%E8%AF%B7%E6%B1%82">&#182;</a></h2><pre><code>$ ros2 service call /spawn turtlesim/srv/Spawn &quot;{x: 2, y: 2, theta: 0.2, name: ''}&quot;
-</code></pre>
-<h2 id="%E5%8F%91%E9%80%81%E5%8A%A8%E4%BD%9C%E7%9B%AE%E6%A0%87">&#21457;&#36865;&#21160;&#20316;&#30446;&#26631;<a class="anchor-link" href="#%E5%8F%91%E9%80%81%E5%8A%A8%E4%BD%9C%E7%9B%AE%E6%A0%87">&#182;</a></h2><pre><code>$ ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute &quot;theta: 3&quot;
-</code></pre>
-<h2 id="%E6%95%B0%E6%8D%AE%E5%BD%95%E5%88%B6%E4%B8%8E%E6%92%AD%E6%94%BE">&#25968;&#25454;&#24405;&#21046;&#19982;&#25773;&#25918;<a class="anchor-link" href="#%E6%95%B0%E6%8D%AE%E5%BD%95%E5%88%B6%E4%B8%8E%E6%92%AD%E6%94%BE">&#182;</a></h2><pre><code>#数据录制 
+<div class="highlight"><pre><span></span>$ ros2 topic echo /turtle1/pose
+</pre></div>
+<h2 id="%E5%8F%91%E5%B8%83%E8%AF%9D%E9%A2%98">&#21457;&#24067;&#35805;&#39064;<a class="anchor-link" href="#%E5%8F%91%E5%B8%83%E8%AF%9D%E9%A2%98">&#182;</a></h2><div class="highlight"><pre><span></span>$ ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist &quot;{linear: {x: 2.0, y: 0.0, 
+z: 0.0}, angular: {x: 0.0, y: 0.0, z: 1.8}}&quot;
+</pre></div>
+<h2 id="%E5%8F%91%E5%B8%83%E6%9C%8D%E5%8A%A1%E8%AF%B7%E6%B1%82">&#21457;&#24067;&#26381;&#21153;&#35831;&#27714;<a class="anchor-link" href="#%E5%8F%91%E5%B8%83%E6%9C%8D%E5%8A%A1%E8%AF%B7%E6%B1%82">&#182;</a></h2><div class="highlight"><pre><span></span>$ ros2 service call /spawn turtlesim/srv/Spawn &quot;{x: 2, y: 2, theta: 0.2, name: &#39;&#39;}&quot;
+</pre></div>
+<h2 id="%E5%8F%91%E9%80%81%E5%8A%A8%E4%BD%9C%E7%9B%AE%E6%A0%87">&#21457;&#36865;&#21160;&#20316;&#30446;&#26631;<a class="anchor-link" href="#%E5%8F%91%E9%80%81%E5%8A%A8%E4%BD%9C%E7%9B%AE%E6%A0%87">&#182;</a></h2><div class="highlight"><pre><span></span>$ ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute &quot;theta: 3&quot;
+</pre></div>
+<h2 id="%E6%95%B0%E6%8D%AE%E5%BD%95%E5%88%B6%E4%B8%8E%E6%92%AD%E6%94%BE">&#25968;&#25454;&#24405;&#21046;&#19982;&#25773;&#25918;<a class="anchor-link" href="#%E6%95%B0%E6%8D%AE%E5%BD%95%E5%88%B6%E4%B8%8E%E6%92%AD%E6%94%BE">&#182;</a></h2><div class="highlight"><pre><span></span>#数据录制 
 $ ros2 bag record /turtle1/cmd_vel 
 #数据播放 (注意路径和文件名)
 $ ros2 bag play rosbag2_2024_07_06-21_21_23/ rosbag2_2024_07_06-21_21_23_0.mcap
-</code></pre>
+</pre></div>
 
 </div>
 </div>

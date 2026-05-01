@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>mathematical_modeling</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -15187,10 +15187,10 @@ r是特征值</p>
 <li><strong>方案层</strong>：最底层，列出待评估的方案（如供应商A、B、C）。</li>
 </ul>
 <p><strong>示例</strong>：</p>
-<pre><code>目标层：选择最佳供应商  
+<div class="highlight"><pre><span></span>目标层：选择最佳供应商  
 准则层：价格、质量、交货期、服务  
 方案层：供应商A、供应商B、供应商C
-</code></pre>
+</pre></div>
 <h4 id="2.-%E6%9E%84%E9%80%A0%E5%88%A4%E6%96%AD%E7%9F%A9%E9%98%B5"><strong>2. &#26500;&#36896;&#21028;&#26029;&#30697;&#38453;</strong><a class="anchor-link" href="#2.-%E6%9E%84%E9%80%A0%E5%88%A4%E6%96%AD%E7%9F%A9%E9%98%B5">&#182;</a></h4><ul>
 <li><strong>两两比较</strong>：针对每一准则，比较方案层的元素（如比较供应商A和B在价格上的优劣）。</li>
 <li><strong>标度法</strong>：使用1-9标度量化相对重要性（1=同等重要，3=稍重要，5=明显重要，7=强烈重要，9=极端重要，2、4、6、8为中间值）。</li>
@@ -16180,18 +16180,20 @@ s.t.{</p>
 </ul>
 <p>}</p>
 <p>f1.m文件</p>
-<pre><code>function f=f1(x)  
+<div class="highlight"><pre><span></span>function f=f1(x)  
     f = x(1)^2+x(2)^2+x(3)^2+8;  
-end  
-</code></pre>
+end
+</pre></div>
 <p>nonlfun1.m文件</p>
-<pre><code>function[c,ceq] = nonlfun(x)
+<div class="highlight"><pre><span></span>function[c,ceq] = nonlfun(x)
     %c表示非线性不等约束
     c = [x(1)+x(2)^2+x(3)^3-20];
     %ceq表示非线性等式约束
     ceq = [-x(1)-x(2)^2+2];
-</code></pre>
+</pre></div>
+<blockquote>
 <p>[x,val]=fmincon(@f1,x0,A,b,[],[],[],[],@nonlfun1,option)</p>
+</blockquote>
 
 </div>
 </div>

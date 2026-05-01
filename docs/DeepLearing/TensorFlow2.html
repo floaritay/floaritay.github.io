@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>TensorFlow2</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -15504,9 +15504,9 @@ TensorFlow 使用 GradientTape 来记录运算并自动计算梯度</p>
 <p>如何在 Jupyter Notebook 中使用虚拟环境<br />
 激活环境后安装 ipykernel<br />
 --name 后填写你想在 Jupyter 中显示的内核名称，建议与虚拟环境名一致，方便识别</p>
-<pre><code>pip install ipykernel  
-python -m ipykernel install --user --name=venv 
-</code></pre>
+<div class="highlight"><pre><span></span>pip install ipykernel  
+python -m ipykernel install --user --name=venv
+</pre></div>
 <p>然后在 Jupyter 中选择该内核即可</p>
 <p>删除虚拟环境<br />
 venv：直接删除环境文件夹（如 rm -rf 文件名） 或 手动直接删除.venv文件夹</p>
@@ -18778,12 +18778,14 @@ Keras 的核心数据结构是模型，模型是组织神经网络层的方式�
     <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">tensorboard_callback</span><span class="p">]</span>  <span class="c1"># 添加回调</span>
 <span class="p">)</span>
 </pre></div>
+<blockquote>
 <ol start="2">
 <li>启动 TensorBoard：</li>
 </ol>
 <p>在终端运行以下命令（确保路径与 log_dir 一致）<br />
 <code>tensorboard --logdir=./logs</code><br />
 或通过 Python 启动：</p>
+</blockquote>
 <div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load_ext</span> <span class="n">tensorboard</span>  <span class="c1"># 在 Jupyter Notebook 中</span>
 <span class="o">%</span><span class="n">tensorboard</span> <span class="o">--</span><span class="n">logdir</span> <span class="n">logs</span><span class="o">/</span><span class="n">fit</span>
 </pre></div>

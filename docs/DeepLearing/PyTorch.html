@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PyTorch</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -15249,23 +15249,23 @@ Windows:</p>
 <ol>
 <li>使用 Anaconda/Miniconda:</li>
 </ol>
-<pre><code># 下载并安装 Miniconda
+<div class="highlight"><pre><span></span># 下载并安装 Miniconda
 # Windows: https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
 
 # 创建专用环境
 conda create -n pytorch_env python=3.10
 conda activate pytorch_env
-</code></pre>
+</pre></div>
 <ol start="2">
 <li>使用 venv（Python 自带）</li>
 </ol>
-<pre><code># 创建虚拟环境
+<div class="highlight"><pre><span></span># 创建虚拟环境
 python -m venv pytorch_env
 
 # 激活环境
 # Windows
 pytorch_env\Scripts\activate
-</code></pre>
+</pre></div>
 
 </div>
 </div>
@@ -15280,9 +15280,9 @@ pytorch_env\Scripts\activate
 <h2 id="Miniconda">Miniconda<a class="anchor-link" href="#Miniconda">&#182;</a></h2><p><strong>Miniconda安装与配置</strong><br />
 略</p>
 <p><strong>Miniconda安装检查</strong></p>
-<pre><code>C:\Users\LENOVO&gt;conda -V
+<div class="highlight"><pre><span></span>C:\Users\LENOVO&gt;conda -V
 conda 25.7.0
-</code></pre>
+</pre></div>
 <p><strong>Miniconda使用</strong><br />
 打开 Anaconda Prompt 或 VSCode 终端<br />
 在 VSCode 中：<br />
@@ -15311,7 +15311,7 @@ conda create -n python311 python=3.11</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="CUDA">CUDA<a class="anchor-link" href="#CUDA">&#182;</a></h2><p>支持GPU版本的PyTorch</p>
 <p><strong>查看现有的CUDA版本</strong></p>
-<pre><code>C:\Users\LENOVO&gt;nvidia-smi
+<div class="highlight"><pre><span></span>C:\Users\LENOVO&gt;nvidia-smi
 Sat Sep 13 16:09:16 2025
 +---------------------------------------------------------------------------------------+
 | NVIDIA-SMI 546.92                 Driver Version: 546.92       CUDA Version: 12.3     |
@@ -15324,16 +15324,16 @@ Sat Sep 13 16:09:16 2025
 | N/A   38C    P5               8W / 125W |   1311MiB /  8188MiB |      0%      Default |
 |                                         |                      |                  N/A |
 +-----------------------------------------+----------------------+----------------------+
-</code></pre>
+</pre></div>
 <p>记住这个CUDA的版本，后面安装CUDA的版本要小于等于这个版本</p>
 <p><strong>检查CUDA安装</strong></p>
-<pre><code>C:\Users\LENOVO&gt;nvcc -V
+<div class="highlight"><pre><span></span>C:\Users\LENOVO&gt;nvcc -V
 nvcc: NVIDIA (R) Cuda compiler driver
 Copyright (c) 2005-2025 NVIDIA Corporation
 Built on Wed_Jul_16_20:06:48_Pacific_Daylight_Time_2025
 Cuda compilation tools, release 13.0, V13.0.48
 Build cuda_13.0.r13.0/compiler.36260728_0
-</code></pre>
+</pre></div>
 
 </div>
 </div>
@@ -15349,7 +15349,7 @@ Build cuda_13.0.r13.0/compiler.36260728_0
 <p><strong>CPU 版本安装</strong></p>
 <p><strong>GPU 版本安装（CUDA）</strong><br />
 安装 PyTorch GPU 版本:</p>
-<pre><code># CUDA 12.1 版本
+<div class="highlight"><pre><span></span># CUDA 12.1 版本
 pip install torch torchvision torchaudio
 
 # CUDA 11.8 版本
@@ -15360,7 +15360,7 @@ conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvi
 
 # 我用的
 conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
-</code></pre>
+</pre></div>
 <p><strong>验证安装</strong></p>
 
 </div>
@@ -15493,7 +15493,7 @@ conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvi
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="PyTorch-%E6%9E%B6%E6%9E%84%E6%80%BB%E8%A7%88">PyTorch &#26550;&#26500;&#24635;&#35272;<a class="anchor-link" href="#PyTorch-%E6%9E%B6%E6%9E%84%E6%80%BB%E8%A7%88">&#182;</a></h2><p>PyTorch 架构图</p>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+<div class="highlight"><pre><span></span>┌─────────────────────────────────────────────────────────────┐
 │                    PyTorch 生态系统                          │
 ├─────────────────────────────────────────────────────────────┤
 │  torchvision  │  torchtext  │  torchaudio  │  其他专业库     │
@@ -15507,7 +15507,7 @@ conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvi
 │  torch 核心   │  autograd       │   (数据加载)               │
 │  (张量计算)    │  (自动微分)     │                            │
 └───────────────┴─────────────────┴───────────────────────────┘
-</code></pre>
+</pre></div>
 <p>PyTorch 采用分层架构设计，从上层到底层依次为：</p>
 <p>1、Python API（顶层）</p>
 <ul>
@@ -18622,6 +18622,7 @@ flowchart TD
     E --&gt;|前馈网络| H[前馈网络]
     E --&gt; I[输出序列]
 </code></pre>
+<blockquote>
 <p><strong>编码器（Encoder）</strong></p>
 <p>由 NN 层相同的模块堆叠而成，每层包含两个子层：</p>
 <ul>
@@ -18636,6 +18637,7 @@ flowchart TD
 <li>编码器-解码器注意力机制（Encoder-Decoder Attention）：计算输出序列与输入序列的相关性。</li>
 <li>前馈神经网络（Feed-Forward Neural Network）：对每个词进行独立的非线性变换。</li>
 </ul>
+</blockquote>
 
 </div>
 </div>
@@ -19006,42 +19008,14 @@ flowchart TD
 <h2 id="Adam">Adam<a class="anchor-link" href="#Adam">&#182;</a></h2><div class="highlight"><pre><span></span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">),</span> 
            <span class="n">eps</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">amsgrad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
-<table>
-<thead>
-<tr>
-  <th>参数名</th>
-  <th>含义</th>
-  <th>默认值</th>
-  <th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td><code>betas</code></td>
-  <td>动量衰减系数</td>
-  <td><code>(0.9, 0.999)</code></td>
-  <td>两个值：<br>• <code>beta1</code>：一阶矩（梯度）衰减率<br>• <code>beta2</code>：二阶矩（梯度平方）衰减率<br>几乎不用改</td>
-</tr>
-<tr>
-  <td><code>eps</code></td>
-  <td>平滑小常数</td>
-  <td><code>1e-8</code></td>
-  <td>防止分母为 0，保证数值稳定；<strong>不用改</strong></td>
-</tr>
-<tr>
-  <td><code>weight_decay</code></td>
-  <td>权重衰减</td>
-  <td><code>0</code></td>
-  <td>L2 正则化，防止过拟合；常用 <code>1e-4</code>、<code>1e-5</code></td>
-</tr>
-<tr>
-  <td><code>amsgrad</code></td>
-  <td>是否使用 AMSGrad 变体</td>
-  <td><code>False</code></td>
-  <td>改进版 Adam，默认关闭；训练不收敛时可尝试打开</td>
-</tr>
-</tbody>
-</table>
+<blockquote>
+<p>| 参数名 |  含义 | 默认值 | 说明 |
+|--------|-----------|--------|----------------|
+| <code>betas</code> | 动量衰减系数 | <code>(0.9, 0.999)</code> | 两个值：<br>• <code>beta1</code>：一阶矩（梯度）衰减率<br>• <code>beta2</code>：二阶矩（梯度平方）衰减率<br>几乎不用改 |
+| <code>eps</code> | 平滑小常数 | <code>1e-8</code> | 防止分母为 0，保证数值稳定；<strong>不用改</strong> |
+| <code>weight_decay</code> | 权重衰减 | <code>0</code> | L2 正则化，防止过拟合；常用 <code>1e-4</code>、<code>1e-5</code> |
+| <code>amsgrad</code> | 是否使用 AMSGrad 变体 | <code>False</code> | 改进版 Adam，默认关闭；训练不收敛时可尝试打开 |</p>
+</blockquote>
 
 </div>
 </div>
@@ -19341,12 +19315,14 @@ flowchart TD
     classDef box fill:#d9f2d9,stroke:#008000,stroke-width:1px,color:#000
     class A,B,C,D,E,F box
 </code></pre>
+<blockquote>
 <p>PyTorch 主要支持以下导出格式
 | 格式 | 特点 | 适用场景 |
 |------|------|----------|
 | <strong>TorchScript</strong> | PyTorch 原生格式，保持动态图特性，无需 Python 环境即可运行 | PyTorch 生态内部使用、C++ 部署 |
 | <strong>ONNX</strong> | 开放标准格式，跨框架兼容（支持 TensorFlow、Caffe、TensorRT 等） | 多框架协作、跨平台部署、通用推理 |
 | <strong>Torch-TensorRT</strong> | NVIDIA 针对 GPU 优化的格式，推理速度大幅提升 | NVIDIA GPU 上高性能推理加速 |</p>
+</blockquote>
 
 </div>
 </div>

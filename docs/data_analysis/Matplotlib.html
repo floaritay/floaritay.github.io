@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Matplotlib</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -16830,28 +16830,39 @@ plt.axis(<em>args, </em>*kwargs)<br />
 参数说明</p>
 <p><code>plt.axis()</code> 函数可以通过多种方式调用，具体参数取决于调用方式：</p>
 <ol>
-<li><p><strong>获取当前坐标轴范围</strong></p>
+<li><strong>获取当前坐标轴范围</strong></li>
+</ol>
+<blockquote>
 <div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">()</span>
 </pre></div>
+</blockquote>
 <p>这个调用方式不接受任何参数，并返回一个包含四个元素的元组，表示当前坐标轴的范围 <code>(xmin, xmax, ymin, ymax)</code>。</p>
-</li>
-<li><p><strong>设置坐标轴范围</strong></p>
+<ol start="2">
+<li><strong>设置坐标轴范围</strong></li>
+</ol>
+<blockquote>
 <div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">])</span>
 </pre></div>
+</blockquote>
 <ul>
 <li><code>xmin</code> 和 <code>xmax</code>：设置 x 轴的最小值和最大值。</li>
 <li><code>ymin</code> 和 <code>ymax</code>：设置 y 轴的最小值和最大值。</li>
 </ul>
-</li>
-<li><p><strong>使用关键字参数设置坐标轴范围</strong></p>
+<ol start="3">
+<li><strong>使用关键字参数设置坐标轴范围</strong></li>
+</ol>
+<blockquote>
 <div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="n">xmin_value</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="n">xmax_value</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="n">ymin_value</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">ymax_value</span><span class="p">)</span>
 </pre></div>
+</blockquote>
 <ul>
 <li><code>xmin</code> 和 <code>xmax</code>：设置 x 轴的最小值和最大值。</li>
 <li><code>ymin</code> 和 <code>ymax</code>：设置 y 轴的最小值和最大值。</li>
 </ul>
-</li>
-<li><p><strong>特殊选项</strong></p>
+<ol start="4">
+<li><strong>特殊选项</strong></li>
+</ol>
+<blockquote>
 <div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
@@ -16859,6 +16870,7 @@ plt.axis(<em>args, </em>*kwargs)<br />
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 </pre></div>
+</blockquote>
 <ul>
 <li><code>'auto'</code>：自动调整坐标轴范围以适应数据。</li>
 <li><code>'tight'</code>：设置坐标轴范围以包含所有数据。</li>
@@ -16867,8 +16879,6 @@ plt.axis(<em>args, </em>*kwargs)<br />
 <li><code>'normal'</code>：恢复到默认的坐标轴范围。</li>
 <li><code>'off'</code>：隐藏坐标轴。</li>
 </ul>
-</li>
-</ol>
 
 </div>
 </div>
@@ -17102,9 +17112,9 @@ plt.savefig() 应该在 plt.show() 之前调用，因为 plt.show() 会清除图
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="%E5%A4%9A%E5%AD%90%E5%9B%BE%E7%BB%98%E5%88%B6">&#22810;&#23376;&#22270;&#32472;&#21046;<a class="anchor-link" href="#%E5%A4%9A%E5%AD%90%E5%9B%BE%E7%BB%98%E5%88%B6">&#182;</a></h1><h2 id="plt.subplots()">plt.subplots()<a class="anchor-link" href="#plt.subplots()">&#182;</a></h2><p>一次性创建多个子图，返回一个图形对象和子图数组</p>
-<pre><code>fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+<div class="highlight"><pre><span></span>fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 axes[0, 0].plot(x, y)  # 在第一个子图中绘图
-</code></pre>
+</pre></div>
 
 </div>
 </div>
