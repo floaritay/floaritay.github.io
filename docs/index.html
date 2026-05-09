@@ -155,12 +155,13 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            background: rgba(245, 240, 232, 0.88);
+            background: rgba(245, 240, 232, 0.95);
             backdrop-filter: blur(16px) saturate(1.3);
             -webkit-backdrop-filter: blur(16px) saturate(1.3);
             margin: 0 -32px;
             padding: 0 32px;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-strong);
+            box-shadow: var(--shadow);
         }
 
         @media (max-width: 1100px) {
@@ -173,6 +174,18 @@
             justify-content: space-between;
             gap: 16px;
             height: 52px;
+        }
+
+        /* Nav indicator */
+        .nav-bar::after {
+            content: '';
+            position: absolute;
+            left: 32px;
+            right: 32px;
+            bottom: -1px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--teal) 100%);
+            opacity: 0.3;
         }
 
         .nav-brand {
@@ -188,38 +201,38 @@
 
         .nav-links {
             display: flex;
-            gap: 0;
+            gap: 3px;
+            background: var(--paper-warm);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 3px;
         }
 
         .nav-link {
-            padding: 6px 16px;
+            padding: 6px 18px;
             border: none;
-            background: none;
+            background: transparent;
             font-family: var(--font-body);
             font-size: 0.85rem;
             font-weight: 500;
             color: var(--ink-muted);
             cursor: pointer;
-            transition: color 0.2s;
+            transition: all 0.2s;
             position: relative;
             white-space: nowrap;
+            border-radius: calc(var(--radius) - 3px);
         }
 
-        .nav-link:hover { color: var(--ink-soft); }
+        .nav-link:hover {
+            color: var(--ink-soft);
+            background: rgba(26, 24, 20, 0.04);
+        }
 
         .nav-link.active {
             color: var(--ink);
-        }
-
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 16px;
-            right: 16px;
-            height: 2px;
-            background: var(--accent);
-            border-radius: 1px;
+            background: var(--card);
+            box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--border-strong);
+            font-weight: 600;
         }
 
         /* ========== MODULES ========== */
@@ -1058,7 +1071,7 @@
         <header class="site-header">
             <div class="header-marker">Personal Technical Notebook</div>
             <h1 class="site-title">Learning &amp; <em>Projects</em></h1>
-            <p class="site-subtitle">Python、机器学习、计算机视觉与机器人系统的学习笔记与技术实践。持续记录，持续成长。</p>
+            <p class="site-subtitle">Python、机器学习、深度学习、计算机视觉、Agent与机器人系统的学习笔记与技术实践。持续记录，持续成长。</p>
             <hr class="header-rule" />
         </header>
 
@@ -1082,7 +1095,7 @@
                     <div class="profile-main">
                         <div class="profile-eyebrow"><span class="live-dot"></span> Currently learning</div>
                         <div class="profile-name">floaritay</div>
-                        <p class="profile-desc">专注于 AI 与机器人方向的学生，热衷于通过项目实践驱动学习。这个博客记录了从基础工具到深度学习、从计算机视觉到机器人系统的完整学习路径。</p>
+                        <p class="profile-desc">专注于 人工智能 方向的学生，热衷于通过项目实践驱动学习。这个博客记录了从基础工具到深度学习与Agent开发、从计算机视觉到机器人系统的完整学习路径。</p>
                         <div class="profile-actions">
                             <a class="btn btn-primary" href="https://github.com/floaritay" target="_blank" rel="noreferrer">
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -1096,7 +1109,7 @@
                     </div>
                     <div class="profile-stats">
                         <div class="stat-cell">
-                            <div class="stat-value" data-count="48">0</div>
+                            <div class="stat-value" data-count="49">0</div>
                             <div class="stat-label">Notes</div>
                         </div>
                         <div class="stat-cell">
@@ -1129,7 +1142,7 @@
                             </div>
                             <div class="info-card-title">关于我</div>
                         </div>
-                        <p>我是一名专注于 AI 与机器人方向的学生，热衷于通过项目实践驱动学习。这个博客记录了我从基础工具到深度学习、从计算机视觉到机器人系统的完整学习路径。</p>
+                        <p>我是一名专注于 人工智能 方向的学生、从业者，热衷于通过项目实践驱动学习。这个博客记录了我的完整学习路径。</p>
                     </article>
                     <article class="info-card reveal">
                         <div class="info-card-head">
@@ -1167,10 +1180,12 @@
                             <div class="info-card-title">当前方向</div>
                         </div>
                         <ul>
-                            <li>Agent 智能体与 LangChain 应用</li>
-                            <li>RAG 检索增强生成系统</li>
-                            <li>Vibe Coding 辅助开发</li>
-                            <li>ROS2 机器人建模与控制</li>
+                            <li>机器学习、深度学习、强化学习</li>
+                            <li>Agent 智能体与 LangChain 应用开发</li>
+                            <li>Vibe Coding 辅助开发实践</li>
+                            <li>ROS2 机器人系统建模与控制</li>
+                            <li>计算机视觉与图像处理</li>
+                            <li>决策与优化算法研究</li>
                         </ul>
                     </article>
                 </div>
@@ -1289,6 +1304,9 @@
                             <span class="skill-tag">Docker</span>
                             <span class="skill-tag">Linux</span>
                             <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">Conda</span>
+                            <span class="skill-tag">VS Code</span>
+                            <span class="skill-tag">Jupyter</span>
                         </div>
                     </div>
                     <div class="skill-cell">
@@ -1302,6 +1320,8 @@
                         <div class="skill-tags">
                             <span class="skill-tag">PyTorch</span>
                             <span class="skill-tag">TensorFlow</span>
+                            <span class="skill-tag">Keras</span>
+                            <span class="skill-tag">Transformer</span>
                         </div>
                     </div>
                     <div class="skill-cell">
@@ -1309,6 +1329,9 @@
                         <div class="skill-tags">
                             <span class="skill-tag">OpenCV</span>
                             <span class="skill-tag">YOLO</span>
+                            <span class="skill-tag">Image Processing</span>
+                            <span class="skill-tag">Object Detection</span>
+                            <span class="skill-tag">Feature Matching</span>
                         </div>
                     </div>
                     <div class="skill-cell">
@@ -1317,6 +1340,8 @@
                             <span class="skill-tag">ROS2</span>
                             <span class="skill-tag">Gazebo</span>
                             <span class="skill-tag">URDF</span>
+                            <span class="skill-tag">TF2</span>
+                            <span class="skill-tag">Navigation2</span>
                         </div>
                     </div>
                     <div class="skill-cell">
@@ -1327,6 +1352,8 @@
                             <span class="skill-tag">Numpy</span>
                             <span class="skill-tag">Pandas</span>
                             <span class="skill-tag">Matplotlib</span>
+                            <span class="skill-tag">Seaborn</span>
+                            <span class="skill-tag">Scrapy</span>
                         </div>
                     </div>
                 </div>
@@ -1347,7 +1374,7 @@
                         <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
                         <input id="searchInput" type="search" placeholder="搜索标题、文件名或分类..." autocomplete="off" />
                     </div>
-                    <div class="result-count" id="resultInfo">48 entries</div>
+                    <div class="result-count" id="resultInfo">49 entries</div>
                 </div>
 
                 <div class="filter-bar" id="categoryFilter"></div>
@@ -1377,6 +1404,10 @@
                         <a class="note-item" data-title="prompt" data-file="prompt.md" data-category="Agent" data-desc="提示词工程与Token机制" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/Agent/prompt.md" target="_blank" rel="noreferrer">
                             <span class="note-title">prompt</span>
                             <span class="note-path">Agent/prompt.md</span>
+                        </a>
+                        <a class="note-item" data-title="OpenAI" data-file="OpenAI.md" data-category="Agent" data-desc="OpenAI API与Agent开发实践" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/Agent/OpenAI.md" target="_blank" rel="noreferrer">
+                            <span class="note-title">OpenAI</span>
+                            <span class="note-path">Agent/OpenAI.md</span>
                         </a>
                     </div>
                 </div>
@@ -1687,6 +1718,15 @@
         const kbdHint = document.querySelector('.kbd-hint');
         setTimeout(() => kbdHint.classList.add('show'), 2500);
         setTimeout(() => kbdHint.classList.remove('show'), 8000);
+
+        // Tab hint
+        const tabHint = document.createElement('div');
+        tabHint.textContent = '点击切换模块';
+        tabHint.style.cssText = 'position:fixed;top:110px;right:24px;font-family:var(--font-mono);font-size:0.62rem;color:var(--ink-faint);opacity:0;transition:opacity 0.4s;pointer-events:none;z-index:40;';
+        if (window.innerWidth > 768) document.body.appendChild(tabHint);
+        setTimeout(() => tabHint.style.opacity = '1', 1000);
+        setTimeout(() => tabHint.style.opacity = '0', 5000);
+        setTimeout(() => tabHint.remove(), 6000);
 
         // ========== Search & filter ==========
         function norm(t) { return t.toLowerCase().trim(); }
