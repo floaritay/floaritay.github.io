@@ -4,14 +4,14 @@
 
 ## 项目概述
 
-这是一个基于 Jupyter Notebook 和 HTML 的个人知识管理系统，通过自动化构建流程将学习笔记转换为美观的网页，并部署到 GitHub Pages。所有技术内容以中文编写，适合技术学习和知识分享。
+这是一个基于 Jupyter Notebook 的个人知识管理系统，通过自动化构建流程将学习笔记转换为 Markdown 文档，并部署到 GitHub Pages。所有技术内容以中文编写，适合技术学习和知识分享。
 
 ## 页面结构与功能
 
 - **模块化导航**：页面顶部可切换
 - **项目展示**：精选个人重要项目，配有简介与直达 GitHub 仓库按钮
 - **技能与工具**：以卡片形式分组展示编程语言、开发工具、机器学习、深度学习、计算机视觉、机器人、数据分析等技能
-- **学习笔记索引**：自动收录 docs 目录下所有 HTML 笔记，支持分类筛选与关键词搜索
+- **学习笔记索引**：自动收录 docs 目录下所有 Markdown 笔记，支持分类筛选与关键词搜索
 - **回到顶部按钮**：页面右下角悬浮，便于快速返回顶部
 
 ## 技术栈分类
@@ -83,9 +83,9 @@
 ### 内容构建流程
 
 1. **编写笔记**：在对应分类目录中创建 Jupyter Notebook (`.ipynb`)
-2. **转换为HTML**：使用 nbconvert 将笔记转换为网页格式
+2. **转换为 Markdown**：使用 `/nbconvert-md` 技能自动添加目录并输出到 docs 对应目录
    ```bash
-   jupyter nbconvert --to html notebook.ipynb --output ../docs/category/notebook.html
+   jupyter nbconvert --to markdown notebook.ipynb --output-dir docs/category/
    ```
 3. **自动部署**：GitHub Actions 自动构建并部署到 GitHub Pages
 
@@ -93,9 +93,9 @@
 
 ```
 floaritay/
-├── docs/                    # 生成的HTML网站
+├── docs/                    # 生成的网站文件
 │   ├── index.html          # 主页
-│   └── category/           # 分类笔记HTML文件
+│   └── category/           # 分类笔记（Markdown）
 ├── Agent/                  # 智能代理相关内容
 ├── CV/                     # 计算机视觉
 ├── DeepLearing/            # 深度学习
@@ -117,7 +117,7 @@ floaritay/
 
 ### 许可证
 
-本项目采用 MIT License - 详见 [LICENSE](LICENSE) 文件。
+MIT License
 
 ### 联系方式
 

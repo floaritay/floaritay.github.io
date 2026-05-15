@@ -8,17 +8,17 @@ This is a personal blog and learning notes repository (floaritay) containing tec
 
 ## Repository Structure
 
-- `docs/` - Main blog site with HTML files; `docs/index.html` is the entry point
+- `docs/` - Main blog site with Markdown files; `docs/index.html` is the entry point
 - Topic directories (Agent, CV, DeepLearing, machine_learning, NLP, ROS, SQL, python, etc.) - Source Jupyter notebooks and Python scripts
 - `images/` - Shared image assets referenced by notebooks
 - `.github/workflows/deploy.yml` - GitHub Pages deployment
 
 ## Build and Deploy
 
-Notebooks are converted to HTML using **nbconvert** and deployed to GitHub Pages:
+Notebooks are converted to Markdown using **nbconvert** and deployed to GitHub Pages:
 
 ```bash
-jupyter nbconvert --to html <notebook>.ipynb --output ../docs/<category>/<name>.html
+jupyter nbconvert --to markdown <notebook>.ipynb --output-dir docs/<category>/
 ```
 
 The GitHub Actions workflow automatically deploys `docs/` to GitHub Pages on push to `main`.
@@ -26,7 +26,7 @@ The GitHub Actions workflow automatically deploys `docs/` to GitHub Pages on pus
 ## Content Workflow
 
 1. Jupyter notebooks (`.ipynb`) in topic directories are the source content
-2. Use `jupyter nbconvert --to html` to generate HTML into corresponding `docs/` subdirectories
+2. Use `/nbconvert-md` skill to convert notebooks to Markdown with auto-generated TOC, output to corresponding `docs/` subdirectories
 3. `docs/index.html` is a custom navigation page (not auto-generated) that links to all notes
 
 ## Key Files

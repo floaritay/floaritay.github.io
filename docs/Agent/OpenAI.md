@@ -1,5 +1,37 @@
+# 目录
+  - [1.1 对话](#11-对话)
+  - [1.2 短期记忆](#12-短期记忆)
+  - [1.3 工具调用](#13-工具调用)
+    - [1.3.1 Function Calling](#131-function-calling)
+    - [1.3.2 联网搜索](#132-联网搜索)
+    - [1.3.3网页抓取](#133网页抓取)
+    - [1.3.4 代码解释器](#134-代码解释器)
+    - [1.3.5 知识库检索](#135-知识库检索)
+    - [1.3.6 MCP](#136-mcp)
+- [2 推理与规划](#2-推理与规划)
+  - [2.1 ReAct 框架](#21-react-框架)
+  - [2.2 CoT（Chain of Thought）](#22-cotchain-of-thought)
+  - [2.3 ToT（Tree of Thoughts）](#23-tottree-of-thoughts)
+  - [2.4 任务规划与 MCTS](#24-任务规划与-mcts)
+  - [2.5 Reflexion（自我反思）](#25-reflexion自我反思)
+  - [2.6 任务分解](#26-任务分解)
+    - [2.6.1 递归任务分解](#261-递归任务分解)
+    - [2.6.2 平行任务分解](#262-平行任务分解)
+    - [2.6.3 层次任务分解](#263-层次任务分解)
+  - [2.7 Plan-and-Execute](#27-plan-and-execute)
+  - [3.1 基础 RAG](#31-基础-rag)
+  - [3.2 Advanced RAG](#32-advanced-rag)
+  - [3.3 GraphRAG](#33-graphrag)
+- [4 多智能体](#4-多智能体)
+  - [4.1 架构](#41-架构)
+
+---
+
+
+
 # 1 基础
-先参考[Agent](../Agent/Agent.ipynb)章节，了解Agent的基本概念和使用方法。
+参考[Agent](../Agent/Agent.md)章节，了解Agent的基本概念和使用方法。  
+参考[NLP](../NLP/NLP.md)章节，了解LLM的原理。
 
 OpenAI的reponse：
 ```json
@@ -25,37 +57,6 @@ OpenAI的reponse：
 }
 ```
 
-# 目录
-  - [1.1 对话](#11-对话)
-  - [1.2 记忆](#12-记忆)
-  - [1.3 工具调用](#13-工具调用)
-    - [1.3.1 Function Calling](#131-function-calling)
-    - [1.3.2 联网搜索](#132-联网搜索)
-    - [1.3.3网页抓取](#133网页抓取)
-    - [1.3.4 代码解释器](#134-代码解释器)
-    - [1.3.5 知识库检索](#135-知识库检索)
-    - [1.3.6 MCP](#136-mcp)
-- [2 推理与规划](#2-推理与规划)
-  - [2.1 ReAct 框架](#21-react-框架)
-  - [2.2 CoT（Chain of Thought）](#22-cotchain-of-thought)
-  - [2.3 ToT（Tree of Thoughts）](#23-tottree-of-thoughts)
-  - [2.4 任务规划与 MCTS](#24-任务规划与-mcts)
-  - [2.5 Reflexion（自我反思）](#25-reflexion自我反思)
-  - [2.6 任务分解](#26-任务分解)
-    - [2.6.1 递归任务分解](#261-递归任务分解)
-    - [2.6.2 平行任务分解](#262-平行任务分解)
-    - [2.6.3 层次任务分解](#263-层次任务分解)
-  - [2.7 Plan-and-Execute](#27-plan-and-execute)
-- [3. RAG](#3-rag)
-  - [3.1 基础 RAG](#31-基础-rag)
-  - [3.2 Advanced RAG](#32-advanced-rag)
-  - [3.3 混合检索](#33-混合检索)
-  - [3.4 GraphRAG](#34-graphrag)
-
----
-
-
-
 ## 1.1 对话
 
 
@@ -76,8 +77,7 @@ reponse = client.chat.completions.create(
     messages = [
         {'role':'system','content':'You are a helpful assistant'},
         {'role':'user','content':'你好'}
-    ],
-    stream = False
+    ]
 )
 
 print(reponse.choices[0].message.content.strip())
@@ -87,7 +87,7 @@ print(reponse.choices[0].message.content.strip())
     你好！有什么我可以帮你的吗？
     
 
-## 1.2 记忆
+## 1.2 短期记忆
 
 
 ```python
@@ -1476,7 +1476,7 @@ print(agent.run("写一份南京两日旅游攻略，包含每日行程、必吃
     4.  **气候准备**：春秋最佳，夏季炎热多雨，带好雨具及防晒用品。
     
 
-# 3. RAG
+# 3 RAG
 RAG 系统包含三个主要组件：
 - 检索器（Retriever）：负责从知识库中找到相关信息。
 - 向量数据库（Vector Store）：存储文档的向量表示，支持高效相似度搜索。
@@ -1488,25 +1488,237 @@ RAG 系统包含三个主要组件：
 3. 增强阶段。将检索到的相关文档与原始查询一起发送给生成模型。
 4. 生成阶段。生成模型基于增强的上下文生成最终回答。
 
+主流向量数据库
+
+| 数据库 | 类型 | 特点 | 适用场景 |
+|--------|------|------|----------|
+| Pinecone | 云服务 | 托管服务，易于使用，自动扩展 | 生产环境快速部署 |
+| Weaviate | 开源 | 支持混合检索（向量+关键词） | 需要灵活定制的场景 |
+| Milvus | 开源 | 高可用，可扩展，支持万亿向量 | 超大规模向量检索 |
+| Chroma | 开源 | 轻量级，易于集成，开发友好 | 原型开发和测试 |
+| Qdrant | 开源 | 高性能，支持过滤，Rust 实现 | 需要高吞吐的场景 |
+
 ## 3.1 基础 RAG
 
 
 ```python
+import os
+import numpy as np
+from openai import OpenAI
 
+class RAG_Agent:
+    def __init__(self, model: str = "Qwen/Qwen3.5-4B"):
+        self.client = OpenAI(
+            api_key=os.getenv("SILICONFLOW_API_KEY"),
+            base_url="https://api.siliconflow.cn/v1"
+        )
+        self.model = model
+        # 这里用内存向量存储，没有用向量数据库
+        self.chunks = []
+        self.vectors = []
+
+    def split_text(self, text, chunk_size=300, overlap=50):
+        chunks = []
+        start = 0
+        while start < len(text):
+            end = start + chunk_size
+            chunks.append(text[start:end])
+            start = end - overlap
+        return chunks
+
+    def get_embedding(self, text):
+        resp = self.client.embeddings.create(
+            input=text,
+            model="BAAI/bge-large-zh-v1.5"
+        )
+        return resp.data[0].embedding
+
+    def load_knowledge(self, doc_text):
+        chunks = self.split_text(doc_text)
+        for chunk in chunks:
+            emb = self.get_embedding(chunk)
+            self.chunks.append(chunk)
+            self.vectors.append(emb)
+
+    def _calc_cosine_similarity(self, vec1, vec2):
+        v1 = np.array(vec1)
+        v2 = np.array(vec2)
+        return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
+
+    def retrieve(self, query, top_k=2):
+        q_emb = self.get_embedding(query)
+        score_list = []
+        for idx, vec in enumerate(self.vectors):
+            sim = self._calc_cosine_similarity(q_emb, vec)
+            score_list.append((sim, self.chunks[idx]))
+        score_list.sort(reverse=True)
+        return [chunk for sim, chunk in score_list[:top_k]]
+
+    def ask(self, question):
+        related_chunks = self.retrieve(question)
+
+        prompt = "请严格根据参考资料回答问题，不要编造幻觉：\n"
+        for idx, chunk in enumerate(related_chunks, 1):
+            prompt += f"参考资料{idx}：{chunk}\n"
+        prompt += f"\n问题：{question}\n回答："
+
+        resp = self.client.chat.completions.create(
+            model=self.model,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return resp.choices[0].message.content
+
+
+# -------- 运行示例 --------
+if __name__ == "__main__":
+    rag = RAG_Agent()
+
+    knowledge = """
+    RAG全称检索增强生成，通过检索外部知识库，给大模型提供额外真实信息，减少幻觉。
+    硅基流动（SiliconFlow）是提供 OpenAI 兼容接口的大模型平台，支持对话和嵌入模型。
+    BGE 是常用的中文嵌入模型，可将文本转为向量用于语义检索。
+    """
+    rag.load_knowledge(knowledge)
+
+    print(rag.ask("什么是 RAG？"))
+    print("-" * 50)
+    print(rag.ask("硅基流动支持 OpenAI 格式吗？"))
+```
+
+
+```python
+import os
+import chromadb # pip install chromadb 使用向量数据库
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class RAG_Agent:
+    def __init__(self, model="Qwen/Qwen3.5-4B"):
+        self.client = OpenAI(
+            api_key=os.getenv("SILICONFLOW_API_KEY"),
+            base_url="https://api.siliconflow.cn/v1"
+        )
+        self.model = model
+        # 本地向量数据库（自动创建文件存储）
+        self.db = chromadb.PersistentClient(path="./chroma_db")
+        self.collection = self.db.get_or_create_collection("rag_docs")
+
+    def get_emb(self, text):
+        return self.client.embeddings.create(
+            input=text, model="BAAI/bge-large-zh-v1.5"
+        ).data[0].embedding
+
+    def split_text(self, text, size=300, overlap=50):
+        chunks, start = [], 0
+        while start < len(text):
+            chunks.append(text[start:start+size])
+            start += size - overlap
+        return chunks
+
+    def load_doc(self, text):
+        chunks = self.split_text(text)
+        for i, c in enumerate(chunks):
+            self.collection.add(
+                embeddings=[self.get_emb(c)],
+                documents=[c],
+                ids=[f"doc_{i}"]
+            )
+
+    def retrieve(self, query, top_k=2):
+        res = self.collection.query(
+            query_embeddings=[self.get_emb(query)],
+            n_results=top_k
+        )
+        return res["documents"][0]
+
+    def ask(self, q):
+        context = "\n".join(self.retrieve(q))
+        prompt = f"依据资料回答，禁止编造：\n{context}\n问题：{q}"
+        
+        res = self.client.chat.completions.create(
+            model=self.model, messages=[{"role":"user","content":prompt}]
+        )
+        return res.choices[0].message.content
+
+
+if __name__ == "__main__":
+    rag = RAG_Agent()
+    rag.load_doc("""
+    RAG是检索增强生成，通过向量数据库检索外部知识，降低大模型幻觉。
+    Chroma是轻量级本地向量数据库，适合学习和小型项目。
+    硅基流动提供OpenAI格式API，支持对话与嵌入模型。
+    """)
+    print(rag.ask("什么是RAG？"))
 ```
 
 ## 3.2 Advanced RAG
+基础 RAG 存在检索质量不高、上下文不连贯等问题。
+
+Advanced RAG 通过多种技术手段进行优化，提升检索和生成效果。
+
+- 重排序（Reranking）  
+初检后使用交叉编码器对结果进行更精确的排序。  
+重排序能够更好地理解查询和文档之间的语义匹配度。
+
+- 混合检索  
+混合检索结合稠密检索与稀疏检索的优势。  
+稠密检索（dense retrieval）使用向量相似度，擅长语义匹配。  
+稀疏检索（如 BM25）基于词频统计，擅长关键词匹配。
+
+## 3.3 GraphRAG
+GraphRAG 将知识图谱与 RAG 相结合。
+
+通过实体和关系图来增强检索和推理能力。
+
+# 4 多智能体
+
+## 4.1 架构
+核心挑战包括三个方面。
+- 分工问题：如何将任务合理分配给不同的 Agent。
+- 通信问题：Agent 之间如何传递信息。
+- 协调问题：如何确保多个 Agent 的行动一致且高效。
+
+
+**层次架构**
+- 采用树状结构，有一个主 Agent 负责调度。
+- 主 Agent（Orchestrator）负责任务分解和结果整合。
+- 从 Agent（Subagent）负责执行具体任务。
+
+**平级架构**
+- 所有 Agent 地位平等，直接通信协作。
+- 适合 Agent 之间需要频繁对等交互的场景。
+
+
+```python
+import os
+from openai import OpenAI
+
+# 基础 LLM 类
+class LLM():
+    def __init__(self,model:str='qwen3.5-flash-2026-02-23'):
+        self.client=OpenAI(
+            api_key=os.getenv('DASHSCOPE_API_KEY'),
+            base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+        )
+        self.model=model
+    def generate(self,prompt):
+        response = self.client.chat.completions.create(
+            messages=[
+                {'role':'user','content':prompt}
+            ],
+            model=self.model,
+            max_tokens=500
+        )
+        return reponse.choices[0].message.content()
+    
+
+
+
+```
 
 
 ```python
 
 ```
-
-## 3.3 混合检索
-
-
-```python
-
-```
-
-## 3.4 GraphRAG
