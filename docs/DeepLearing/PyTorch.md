@@ -1,3 +1,19 @@
+# 目录
+- [第一个神经网络](#第一个神经网络)
+- [数据处理与加载](#数据处理与加载)
+- [卷积神经网络](#卷积神经网络)
+- [循环神经网络](#循环神经网络)
+- [Transformer](#transformer)
+- [Transformer Pytorch 实现](#transformer-pytorch-实现)
+- [optim 优化器模块](#optim-优化器模块)
+- [torchvision 模块](#torchvision-模块)
+- [模型保存与加载](#模型保存与加载)
+- [numpy原理](#numpy原理)
+
+---
+
+
+
 # 简介
 PyTorch 是一个开源的 Python 机器学习库，基于 Torch 库，底层由 C++ 实现，应用于人工智能领域，如计算机视觉和自然语言处理。
 
@@ -232,15 +248,11 @@ print(torch.cuda.device_count())
 print(torch.cuda.get_device_name(0))
 ```
 
-
-    运行具有“pytorch_env (Python 3.10.20)”的单元格需要ipykernel包。
+    2.5.1
+    True
+    1
+    NVIDIA GeForce RTX 4060 Laptop GPU
     
-
-    使用所需的包 <a href='command:jupyter.createPythonEnvAndSelectController'>创建 Python 环境</a>。
-    
-
-    或使用命令“conda install -n pytorch_env ipykernel --update-deps --force-reinstall”安装“ipykernel”
-
 
 
 ```python
@@ -1066,13 +1078,13 @@ plt.show()
 
 
     
-![png](PyTorch_files/PyTorch_61_0.png)
+![png](PyTorch_files/PyTorch_62_0.png)
     
 
 
 
     
-![png](PyTorch_files/PyTorch_61_1.png)
+![png](PyTorch_files/PyTorch_62_1.png)
     
 
 
@@ -1103,7 +1115,7 @@ plt.show()
 
 
     
-![png](PyTorch_files/PyTorch_63_0.png)
+![png](PyTorch_files/PyTorch_64_0.png)
     
 
 
@@ -1173,7 +1185,7 @@ plot_decision_boundary(model, data)
 
 
     
-![png](PyTorch_files/PyTorch_65_0.png)
+![png](PyTorch_files/PyTorch_66_0.png)
     
 
 
@@ -1466,7 +1478,7 @@ plt.show()
 
 
     
-![png](PyTorch_files/PyTorch_84_1.png)
+![png](PyTorch_files/PyTorch_85_1.png)
     
 
 
@@ -1613,7 +1625,7 @@ plt.show()
 
 
     
-![png](PyTorch_files/PyTorch_91_0.png)
+![png](PyTorch_files/PyTorch_92_0.png)
     
 
 
@@ -1860,7 +1872,7 @@ plt.show()
 
 
     
-![png](PyTorch_files/PyTorch_99_1.png)
+![png](PyTorch_files/PyTorch_100_1.png)
     
 
 
@@ -2200,13 +2212,14 @@ import copy
 >    classDef box fill:#d9f2d9,stroke:#008000,stroke-width:1px,color:#000
 >    class A,B,C,D,E,F box
 >```    
->
->PyTorch 主要支持以下导出格式
->| 格式 | 特点 | 适用场景 |
->|------|------|----------|
->| **TorchScript** | PyTorch 原生格式，保持动态图特性，无需 Python 环境即可运行 | PyTorch 生态内部使用、C++ 部署 |
->| **ONNX** | 开放标准格式，跨框架兼容（支持 TensorFlow、Caffe、TensorRT 等） | 多框架协作、跨平台部署、通用推理 |
->| **Torch-TensorRT** | NVIDIA 针对 GPU 优化的格式，推理速度大幅提升 | NVIDIA GPU 上高性能推理加速 |
+
+PyTorch 主要支持以下导出格式
+
+| 格式 | 特点 | 适用场景 |
+|------|------|----------|
+| **TorchScript** | PyTorch 原生格式，保持动态图特性，无需 Python 环境即可运行 | PyTorch 生态内部使用、C++ 部署 |
+| **ONNX** | 开放标准格式，跨框架兼容（支持 TensorFlow、Caffe、TensorRT 等） | 多框架协作、跨平台部署、通用推理 |
+| **Torch-TensorRT** | NVIDIA 针对 GPU 优化的格式，推理速度大幅提升 | NVIDIA GPU 上高性能推理加速 |
 
 ## TorchScript
 注意：

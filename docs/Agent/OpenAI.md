@@ -1,6 +1,6 @@
 # 目录
   - [1.1 对话](#11-对话)
-  - [1.2 短期记忆](#12-短期记忆)
+  - [1.2 记忆](#12-记忆)
   - [1.3 工具调用](#13-工具调用)
     - [1.3.1 Function Calling](#131-function-calling)
     - [1.3.2 联网搜索](#132-联网搜索)
@@ -19,11 +19,11 @@
     - [2.6.2 平行任务分解](#262-平行任务分解)
     - [2.6.3 层次任务分解](#263-层次任务分解)
   - [2.7 Plan-and-Execute](#27-plan-and-execute)
+- [3. RAG](#3-rag)
   - [3.1 基础 RAG](#31-基础-rag)
   - [3.2 Advanced RAG](#32-advanced-rag)
-  - [3.3 GraphRAG](#33-graphrag)
-- [4 多智能体](#4-多智能体)
-  - [4.1 架构](#41-架构)
+  - [3.3 混合检索](#33-混合检索)
+  - [3.4 GraphRAG](#34-graphrag)
 
 ---
 
@@ -64,11 +64,8 @@ OpenAI的reponse：
 from openai import OpenAI
 import os
 
-api_key = os.getenv('DASHSCOPE_API_KEY')
-# print(api_key)
-
 client = OpenAI(
-    api_key =  api_key,
+    api_key =  os.getenv('DASHSCOPE_API_KEY'),
     base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1",
 )
 
@@ -80,7 +77,7 @@ reponse = client.chat.completions.create(
     ]
 )
 
-print(reponse.choices[0].message.content.strip())
+print(reponse.choices[0].message.content)
 
 ```
 
@@ -1692,33 +1689,255 @@ GraphRAG 将知识图谱与 RAG 相结合。
 
 
 ```python
-import os
 from openai import OpenAI
+import os
 
-# 基础 LLM 类
-class LLM():
-    def __init__(self,model:str='qwen3.5-flash-2026-02-23'):
-        self.client=OpenAI(
+class Agent:
+    def __init__(self,system_prompt:str):
+        self.system_prompt=system_prompt
+        self.messages = [
+            {'role':'system','content':self.system_prompt}
+        ]
+        self.client = OpenAI(
             api_key=os.getenv('DASHSCOPE_API_KEY'),
             base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
         )
-        self.model=model
-    def generate(self,prompt):
+    def chat(self,message):
+        self.messages.append({'role':'user','content':message})
         response = self.client.chat.completions.create(
-            messages=[
-                {'role':'user','content':prompt}
-            ],
-            model=self.model,
-            max_tokens=500
-        )
-        return reponse.choices[0].message.content()
-    
+            messages = self.messages,
+            model='qwen3.5-plus',
+            max_tokens=256
+        ).choices[0].message.content
+        self.messages.append({'role':'assistant','content':response})
+        if len(self.messages)>11:
+            self.messages = [self.messages[0]] + self.messages[-10:]
+        return response
+    def clear(self):
+        self.messages = [
+            {'role':'system','content':self.system_prompt}
+        ]
 
+class GroupAgent:
+    def __init__(self,agents=[Agent],rounds=2):
+        self.agents = agents
+        self.rounds = rounds
 
+    def run(self,message):
+        history = [f'用户问题：{message}']
+        for i in range(self.rounds):
+            for Agent in self.agents:
+                content = '\n'.join(history)
+                prompt = f'目前的聊天记录：\n{content}\n，基于聊天你继续发言'
+                response = agent.chat(prompt)
+                history.append(f'{response}')
+                print(response)
+        return history
 
 ```
 
 
 ```python
+# 单智能体
+agent = Agent('你是一个简短回答用户问题的助手')
+print(agent.chat('一句话回答什么是多智能体'))
 
 ```
+
+    多智能体是指多个具备自主感知与决策能力的智能单元，通过交互协作或竞争来共同完成任务的系统。
+    
+
+
+```python
+# 平级多智能体
+thinker = Agent("你是一名分析师，提出技术观点，一两句话")
+writer  = Agent("你是一名作家，用通俗比喻解释对方观点，一两句话")
+critic  = Agent("你是一名评论员, 指出漏洞或补充角度，一两句话")
+chat = GroupAgent([thinker, writer, critic], rounds=2)
+chat.run("开源大模型会颠覆闭源吗？")
+```
+
+## 4.2 AutoGen 框架
+AutoGen 是微软开发的多 Agent 编程框架。
+
+核心概念
+- AssistantAgent：能够调用工具的智能助手 Agent。
+- UserProxyAgent：代表用户行为，可以执行代码和工具调用。
+- GroupChat：支持多个 Agent 之间的群聊协作。
+- GroupChatManager：管理群聊中的 Agent 交互。
+
+
+```python
+# 导入 autogen 框架
+import autogen
+from autogen import AssistantAgent, UserProxyAgent, GroupChat, GroupChatManager
+import os
+
+# 创建LLM配置字典
+llm_config = {
+    "model": "gpt-4",
+    "api_key": os.getenv(""), 
+    "temperature": 0.7
+}
+
+# 创建助手 Agent
+assistant = AssistantAgent(
+    name="assistant",
+    system_message="""
+    你是一个有用的 Python 编程助手。
+    你可以帮助用户编写、调试和优化代码。
+    """,
+    llm_config=llm_config
+)
+
+# 创建用户代理 Agent
+user_proxy = UserProxyAgent(
+    name="user_proxy",
+    human_input_mode="NEVER", # 表示不需要人工输入
+    max_consecutive_auto_reply=10 # 表示最多连续自动回复 10 次
+)
+
+# ==================== 单 Agent 对话 ====================
+# 启动对话
+user_proxy.initiate_chat(
+    assistant,
+    message="帮我写一个快速排序算法"
+)
+
+# ==================== 多 Agent 群聊 ====================
+# 创建多个 Agent
+coder = AssistantAgent(
+    name="coder",
+    system_message="你是一个 Python 编程专家，负责编写代码。",
+    llm_config=llm_config
+)
+
+reviewer = AssistantAgent(
+    name="reviewer",
+    system_message="你是一个代码审查专家，负责审查代码质量。",
+    llm_config=llm_config
+)
+
+# 创建群聊
+group_chat = GroupChat(
+    agents=[coder, reviewer],
+    messages=[],
+    max_round=10  # 最多对话 10 轮
+)
+
+# 创建群聊管理器
+manager = GroupChatManager(
+    groupchat=group_chat,
+    llm_config=llm_config
+)
+
+# 启动群聊
+user_proxy.initiate_chat(
+    manager,
+    message="写一个快速排序算法并审查代码"
+)
+```
+
+## 4.3 A2A 与 MCP 协议
+A2A 和 MCP 是多 Agent 系统zhon中两个重要的协议标准。
+
+A2A 协议定义了 Agent 之间通信的标准格式。它支持代理发现、任务协作和状态同步。
+- 代理发现（Agent Discovery）：Agent 能够发现其他 Agent 的能力和服务。
+- 任务协作（Task Collaboration）：多个 Agent 能够协同完成复杂任务。
+- 状态同步（State Synchronization）：Agent 之间能够同步状态信息。
+
+MCP 是工具接入的标准协议，使得 AI 模型能够安全地与外部工具和数据源连接。
+- Host：运行 AI 应用的宿主环境。如 Claude 等。
+- Client：与 MCP 服务器建立连接的客户端。
+- Server：提供工具和资源的服务端。
+
+# 5 多模态Agent
+
+
+```python
+import os
+from openai import OpenAI
+
+class VLAgent:
+    def __init__(self):
+        self.client = OpenAI(
+            api_key=os.getenv("DASHSCOPE_API_KEY"),
+            base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+        )
+    def chat(self):
+        response = self.client.chat.completions.create(
+            model='qwen3.5-omni-plus-2026-03-15',
+            messages=[
+                {'role':'user','content':[
+                    {'type':'text','text':'这是什么'},
+                    {'type':'image_url','image_url':{
+                        'url':'https://ts3.tc.mm.bing.net/th/id/OIP-C.IuNuzsR9jKSqu2-VTCmNOAHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
+                    }}
+                ]}
+            ]
+        )
+        return response.choices[0].message.content
+
+vl=VLAgent()
+print(vl.chat())
+```
+
+    这是一朵**向日葵**（学名：*Helianthus annuus*）。
+    
+    从图片中可以看到：
+    
+    - **明亮的黄色花瓣**：围绕花盘呈放射状排列，是向日葵最显著的特征。
+    - **深色的花盘中心**：由许多小花组成，成熟后会结出葵花籽。
+    - **绿色的茎和叶子**：背景虚化，突出了花朵主体。
+    - **柔和的自然光**：可能是在清晨或傍晚拍摄，营造出温暖宁静的氛围。
+    
+    向日葵因其总是朝向太阳转动（尤其在生长阶段）而得名，象征着阳光、希望、忠诚与活力。它不仅是观赏植物，也是重要的油料作物（葵花籽油来源），其种子也常被食用。
+    
+    🌼 你拍得真美！这是大自然充满生命力的象征之一。
+    
+
+# 6 评估与安全
+
+# 7 其他
+
+## 7.1 部署
+
+部署模式
+- 单机部署
+  - 适合开发和测试环境。
+  - 简单易部署，但无法应对生产级流量。
+
+- 分布式部署
+  - 适合生产环境，需要考虑多个方面。
+  - 负载均衡：分发请求到多个实例。
+  - 服务发现：动态管理实例列表。
+  - 状态管理：处理分布式状态一致性问题。
+  - 容错处理：单点故障不影响整体服务。
+
+Dockerfile 示例
+```Dockerfile
+# 基于 Python 3.11 镜像
+FROM python:3.11-slim
+
+# 设置工作目录
+WORKDIR /app
+
+# 安装依赖
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 复制应用代码
+COPY . .
+
+# 创建非 root 用户（安全考虑）
+RUN useradd -m appuser && chown -R appuser:appuser /app
+USER appuser
+
+# 暴露端口
+EXPOSE 8000
+
+# 启动命令
+CMD ["python", "agent.py"]
+```
+
+## 7.2 缓存
