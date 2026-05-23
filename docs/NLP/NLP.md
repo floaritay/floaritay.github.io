@@ -3,7 +3,7 @@
   - [1.1 基于规则](#11-基于规则)
   - [1.2 基于统计](#12-基于统计)
   - [1.3 基于神经网络](#13-基于神经网络)
-- [2. 语言模型](#2-语言模型)
+- [2. 语言模型发展](#2-语言模型发展)
   - [2.1 N-gram模型](#21-n-gram模型)
   - [2.2 神经网络模型与词嵌入](#22-神经网络模型与词嵌入)
     - [2.2.1 前馈神经网络模型](#221-前馈神经网络模型)
@@ -16,14 +16,76 @@
   - [3.1 文本清洗](#31-文本清洗)
   - [3.2 分词](#32-分词)
     - [3.2.1 字节对编码(BPE)](#321-字节对编码bpe)
-  - [3.3 词性标注](#33-词性标注)
-- [文本表示方法](#文本表示方法)
-- [命名实体识别](#命名实体识别)
-- [文本相似度计算](#文本相似度计算)
-- [Transformer架构](#transformer架构)
+  - [3.3 移除停用词](#33-移除停用词)
+  - [3.4 词干还原](#34-词干还原)
+  - [3.5 词性标注](#35-词性标注)
+- [4 文本表示方法](#4-文本表示方法)
+  - [4.1 传统文本表示](#41-传统文本表示)
+    - [4.1.2 词袋模型（Bag of Words）](#412-词袋模型bag-of-words)
+    - [4.1.3 TF-IDF](#413-tf-idf)
+    - [4.1.4 N-gram 模型](#414-n-gram-模型)
+  - [4.2 词向量表示](#42-词向量表示)
+    - [4.2.1 Word2Vec](#421-word2vec)
+    - [4.2.2 GloVe 词向量](#422-glove-词向量)
+    - [4.2.3 FastText](#423-fasttext)
+  - [4.3 文档级表示](#43-文档级表示)
+    - [4.3.1 Doc2Vec](#431-doc2vec)
+    - [4.3.2 句向量与文档向量](#432-句向量与文档向量)
+    - [4.3.4 主题模型（LDA）](#434-主题模型lda)
+  - [4.4 上下文感知的表示](#44-上下文感知的表示)
+    - [4.4.1 ELMo 模型](#441-elmo-模型)
+    - [4.4.2 BERT 及其变体](#442-bert-及其变体)
+- [5 文本分类](#5-文本分类)
+  - [5.1 流程与方法](#51-流程与方法)
+  - [5.2 示例](#52-示例)
+- [6 情感分析](#6-情感分析)
+  - [6.1 基于词典的情感分析方法](#61-基于词典的情感分析方法)
+  - [6.2 基于机器学习的情感分析方法](#62-基于机器学习的情感分析方法)
+  - [6.3 细粒度情感分析](#63-细粒度情感分析)
+- [7 命名实体识别](#7-命名实体识别)
+  - [7.1 评估指标](#71-评估指标)
+- [8 关系抽取](#8-关系抽取)
+  - [8.1 主要方法](#81-主要方法)
+  - [8.2 评估指标](#82-评估指标)
+  - [8.3 示例](#83-示例)
+- [9 文本相似度计算](#9-文本相似度计算)
+  - [9.1 主要方法](#91-主要方法)
+  - [9.2 相似度度量指标](#92-相似度度量指标)
+  - [9.3 示例](#93-示例)
+- [10 神经网络](#10-神经网络)
+  - [10.1 循环神经网络（RNN）](#101-循环神经网络rnn)
+  - [10.2 长短期记忆网络（LSTM）](#102-长短期记忆网络lstm)
+  - [10.3 门控循环单元（GRU）](#103-门控循环单元gru)
+  - [10.4 双向 RNN（Bi-RNN）](#104-双向-rnnbi-rnn)
+- [11 序列到序列模型](#11-序列到序列模型)
+  - [11.1 训练与优化](#111-训练与优化)
+- [12 Transformer架构](#12-transformer架构)
+  - [12.1 注意力机制](#121-注意力机制)
+    - [12.1.1 自注意力机制](#1211-自注意力机制)
+    - [12.1.2 多头注意力](#1212-多头注意力)
+  - [12.2 位置编码（Positional Encoding）](#122-位置编码positional-encoding)
+- [位置编码实现示例](#位置编码实现示例)
+  - [12.3 前馈神经网络（Feed-Forward Network）](#123-前馈神经网络feed-forward-network)
+  - [12.4 残差连接与层归一化（Residual Connection & Layer Norm）](#124-残差连接与层归一化residual-connection-layer-norm)
+  - [12.5 编码器-解码器结构](#125-编码器-解码器结构)
+- [13 预训练模型](#13-预训练模型)
+- [情感分析示例](#情感分析示例)
+- [准备训练数据...](#准备训练数据)
+- [14 BERT](#14-bert)
+  - [14.1 BERT的微调](#141-bert的微调)
+- [使用HuggingFace Transformers进行微调示例](#使用huggingface-transformers进行微调示例)
+  - [14.2 主流BERT变体模型](#142-主流bert变体模型)
+- [15 生成式模型](#15-生成式模型)
+- [16 多模态](#16-多模态)
+  - [16.1 CLIP](#161-clip)
+  - [16.2 DALL-E](#162-dall-e)
+  - [16.3 其他多模态模型](#163-其他多模态模型)
+- [17 扩散模型](#17-扩散模型)
 - [Python NLP 生态](#python-nlp-生态)
 
 ---
+
+
 
 # 1. 发展历程
 基于规则->基于统计->基于深度学习
@@ -84,7 +146,7 @@ print(chat_bot("今天天气如何"))  # 应该返回未知输入回应
 ## 1.3 基于神经网络
 跳转[2.2 神经网络模型](#22-神经网络模型与词嵌入)
 
-# 2. 语言模型
+# 2. 语言模型发展
 语言模型（Language Model，LM）是人工智能领域中用于理解和生成人类语言的核心工具，其本质是通过数学方法对自然语言的概率分布进行建模。  
 - 计算词序列概率的模型
 - 评估句子的流畅度和合理性
@@ -232,6 +294,7 @@ $$
 每个头都能捕捉到一种不同的特征关系。最后，将这 h 个头的输出向量拼接起来，再通过一个线性变换进行整合，就得到了最终的输出。
 
 （3）**逐位置前馈网络**
+
 多头注意力子层之后都跟着一个**逐位置前馈网络**（FFN）
 
 前馈网络的作用从这些聚合后的信息中提取更高阶的特征。
@@ -295,7 +358,10 @@ Decoder-Only 架构的工作模式被称为自回归 (Autoregressive) ：根据�
 - GPT：自回归生成模型
 - 强大的迁移学习能力
 
+---
+
 # 3. 文本预处理
+第一步需要对输入的文本进行处理，尤其是分词
 
 ## 3.1 文本清洗
 - 编码格式处理  
@@ -421,7 +487,44 @@ print(clean_text)  # 输出: 这是一段HTML文本
 |Stanford CoreNLP	|多语言	|准确度高，资源消耗大	|学术研究|
 |HuggingFace Tokenizers	|多语言	|支持子词分词	|深度学习|
 
-## 3.3 词性标注
+## 3.3 移除停用词
+文本中无实际语义、仅起语法连接的高频通用词，过滤掉这类词，减少无效干扰。
+
+常见停用词
+中文：的、了、是、我、都、也、在、和
+英文：a、an、the、is、in、on、and
+
+核心作用
+1. 缩减词汇总量，降低计算开销
+2. 凸显名词、动词等核心关键词
+3. 提升TF-IDF、词向量、主题模型效果
+
+示例：  
+原句：我今天**在**公园**里**看见**了**漂亮**的**花朵  
+去停用词：今天 公园 看见 漂亮 花朵  
+
+分词后常规预处理，词袋、TF-IDF、LDA、词向量训练都会用到。
+
+短句、问答场景慎用，过度删除可能丢失语句原意。
+
+## 3.4 词干还原
+把单词缩减成最原始词*，去掉时态、复数、后缀，统一同类词。
+
+减少词汇数量，让含义相同、形态不同的词视作同一个词。结果不一定是合法单词。
+
+示例
+- running → run
+- walked → walk
+- apples → appl
+- beautiful → beauti
+
+常用算法
+- **Porter**：最经典、速度快
+- Lancaster：裁剪更狠
+
+预处理步骤，降低词袋、TF-IDF、词向量的词汇维度，提升匹配准确率。
+
+## 3.5 词性标注
 词性标注（Part-of-Speech Tagging）是为分词结果中的每个词语标注其词性类别的过程  
 词性标注有助于：理解句子结构，消除词义歧义，支持更高级的NLP任务（如句法分析）  
   
@@ -463,21 +566,30 @@ print(clean_text)  # 输出: 这是一段HTML文本
 
 - 混淆矩阵分析
 
-# 文本表示方法
-将非结构化的文本数据转化为计算机可以处理的数值形式。  
-## 传统文本表示
-### 词袋模型（Bag of Words）  
+# 4 文本表示方法
+在文本处理之后，需要将非结构化的文本数据转化为计算机可以处理的数值形式。  
+
+## 4.1 传统文本表示
+
+### 4.1.2 词袋模型（Bag of Words）  
 词袋模型是最简单的文本表示方法之一，它将文本视为一个无序的词汇集合。  
-- 忽略词语顺序和语法，只关注词语是否出现
-- 构建词汇表，统计每个词在文档中出现的次数
+- 根据语料库构建词汇表，统计每个词在文档中出现的次数
 - 最终表示为一个高维稀疏向量
 
-✅ 优点：
+示例：
+
+句子 1：我 爱 吃饭  
+句子 2：我 爱 喝水  
+词典：[我，爱，吃饭，喝水]  
+向量 1：[1,1,1,0]  
+向量 2：[1,1,0,1]  
+
+优点：
 - 实现简单，计算效率高
 - 适用于小规模数据集和简单任务
 
-❌ 缺点：
-- 忽略词序和语义信息
+缺点：
+- 忽略词序和语义信息，只关注词语是否出现
 - 高维稀疏性问题
 - 无法处理同义词和多义词
 
@@ -498,20 +610,38 @@ print(vectorizer.get_feature_names_out())
 print(X.toarray())
 ```
 
-### TF-IDF  
+### 4.1.3 TF-IDF  
 TF-IDF（Term Frequency-Inverse Document Frequency）是对词袋模型的改进，考虑了词语在整个语料库中的重要性。  
   
 计算公式  
-- TF（词频）：词在文档中出现的次数 / 文档总词数
-- IDF（逆文档频率）：log(文档总数 / 包含该词的文档数)
-- TF-IDF = TF × IDF
+- $$TF(t,d)=\frac{词t在文档d出现次数}{文档总词数}$$
+- $$IDF(t)=\log\left(\frac{总文档数}{包含词t的文档数}\right)$$
+- $$TF\text{-}IDF = TF × IDF$$
 
-✅ 优点：
-- 降低常见词的影响，突出重要词
+示例：
+
+文档总数$N=3$（分词后）  
+D1：苹果 香蕉 苹果  
+D2：苹果 橘子  
+D3：香蕉 葡萄  
+
+对文档D1：
+- $TF(\text{苹果})=\dfrac{2}{3}$
+- $TF(\text{香蕉})=\dfrac{1}{3}$
+
+- $IDF(\text{苹果})=\log\dfrac{3}{2}$
+- $IDF(\text{香蕉})=\log\dfrac{3}{2}$
+
+- $TF\text{-}IDF(\text{苹果})=\dfrac{2}{3}\log\dfrac{3}{2}$
+- $TF\text{-}IDF(\text{香蕉})=\dfrac{1}{3}\log\dfrac{3}{2}$
+
+
+优点：
+- **降低常见词的影响，突出重要词**
 - 比简单词袋模型效果更好
 
-❌ 缺点：
-- 仍然无法捕捉语义关系
+缺点：
+- 仍然无视语序上下文，仅统计词重要程度，无法捕捉语义关系
 - 高维问题依然存在
 
 
@@ -524,7 +654,7 @@ print(tfidf_vectorizer.get_feature_names_out())
 print(X_tfidf.toarray())
 ```
 
-### N-gram 模型  
+### 4.1.4 N-gram 模型  
 N-gram 模型考虑了词语的顺序信息，通过连续n个词的组合来表示文本。  
 
 常见类型
@@ -532,11 +662,13 @@ N-gram 模型考虑了词语的顺序信息，通过连续n个词的组合来表
 - Bigram (2-gram)：两个连续词的组合
 - Trigram (3-gram)：三个连续词的组合
 
-✅ 优点：
-- 捕捉局部词序信息
+参考[2.1 N-gram模型](#21-n-gram模型)
+
+优点：
+- 捕捉**局部词序信息**
 - 可以表示短语和固定搭配
 
-❌ 缺点：
+缺点：
 - 维度爆炸问题更严重
 - 仍然无法处理长距离依赖
 
@@ -547,18 +679,63 @@ X_bigram = bigram_vectorizer.fit_transform(corpus)
 print(bigram_vectorizer.get_feature_names_out())
 ```
 
-## 词向量表示
-### Word2Vec 
+## 4.2 词向量表示
+
+### 4.2.1 Word2Vec 
 Word2Vec 是一种基于神经网络的词向量表示方法，由 Google 在 2013 年提出。  
+
+核心思想：相似上下文的词，语义相似 → 向量相似
   
 两种模型架构
 - CBOW（Continuous Bag of Words）：通过上下文预测当前词
 - Skip-gram：通过当前词预测上下文
 
-特点
+示例：
+
+语料（已分词）
+- 我 爱 吃 苹果
+- 我 爱 喝 奶茶
+
+词汇表  
+我、爱、吃、苹果、喝、奶茶  
+
+给每个词生成一个 3维向量（维度可自己设）
+1. 取中心词：**爱**
+2. 它的上下文：**我、吃**
+3. 模型调整“爱”的向量，让它能预测出“我”和“吃”
+4. 同理：
+   - “苹果”的上下文是“吃”
+   - “奶茶”的上下文是“喝”
+   - “吃”和“喝”都跟着“爱” → 它们向量会比较近
+
+最终得到的向量（示例）
+- 我: [0.1, 0.3, 0.5]
+- 爱: [0.2, 0.4, 0.6]
+- 吃: [0.3, 0.5, 0.7]
+- 苹果: [0.32, 0.51, 0.69]
+- 喝: [0.31, 0.52, 0.68]
+- 奶茶: [0.33, 0.50, 0.71]
+
+你会发现：  
+**吃 ≈ 喝**  
+**苹果 ≈ 奶茶**  
+**我 ≈ 爱**  
+
+这就是**语义被编码进向量**了。说明：**Word2Vec 学到的不是词频，而是真正的语义关系。**
+
+优点
 - 低维稠密向量（通常50-300维）
-- 可以捕捉词语的语义和语法关系
+- 可以捕捉词语的**语义关联**和**语法关系**
 - 支持向量运算（如：king - man + woman ≈ queen）
+
+缺点
+- 无法解决**一词多义**（“苹果”既是水果也是公司，但 Word2Vec 只给一个向量）
+
+和之前模型的对比
+- 词袋：只看词有没有出现
+- TF-IDF：看词重要程度
+- N-gram：看词顺序
+- **Word2Vec：看词语义**
 
 >```py
 >from gensim.models import Word2Vec
@@ -571,13 +748,56 @@ Word2Vec 是一种基于神经网络的词向量表示方法，由 Google 在 20
 ># 找相似词
 >similar_words = model.wv.most_similar('cat')
 
-### GloVe 词向量
+### 4.2.2 GloVe 词向量
 GloVe（Global Vectors for Word Representation）结合了全局统计信息和局部上下文窗口的优点。
 
 核心思想
-- 基于词共现矩阵
+- GloVe = 全局词向量 + 共现矩阵
+- 计算的是词与词一起出现的概率比值
 - 优化目标是使两个词的向量点积等于它们共现次数的对数
-  
+
+原理：
+- 先建一个共现矩阵  
+行 = 中心词，列 = 上下文词，格子里填两个词一起出现多少次
+- 用矩阵训练词向量  
+让共现多的词向量近，共现少的远
+- 输出低维语义向量  
+和 Word2Vec 长得一样，但全局信息更准
+
+示例（2-gram窗口）：
+
+语料：  
+D1：我 爱 苹果  
+D2：我 爱 香蕉  
+
+构建共现矩阵
+
+| 词 | 我 | 爱 | 苹果 | 香蕉 |
+|---|---|---|---|---|
+| 我 | 0 | 2 | 1 | 1 |
+| 爱 | 2 | 0 | 1 | 1 |
+| 苹果 | 1 | 1 | 0 | 0 |
+| 香蕉 | 1 | 1 | 0 | 0 |
+
+意思：
+- 我 & 爱 一起出现 **2次**
+- 爱 & 苹果 一起出现 **1次**
+- 苹果 & 香蕉 一起出现 **0次**
+
+训练目标是让向量满足：
+- **苹果** 和 **香蕉** 都跟着“爱” → 向量近
+- **我** 和 **爱** 共现最多 → 向量近
+
+最终得到的向量（示例）
+- 我: [0.1, 0.2]
+- 爱: [0.11, 0.22]
+- 苹果: [0.5, 0.6]
+- 香蕉: [0.51, 0.59]
+
+你能看到：  
+**苹果 ≈ 香蕉**  
+**我 ≈ 爱**  
+
 |特性	|Word2Vec	|GloVe|
 |---|---|---|
 |训练方式	|局部窗口	|全局统计|
@@ -585,13 +805,59 @@ GloVe（Global Vectors for Word Representation）结合了全局统计信息和�
 |小数据集表现	|较好	|一般|
 |大数据集表现	|好	|更好|
 
-### FastText
-FastText 是 Facebook 开发的词向量模型，特点是考虑子词（subword）信息。   
+### 4.2.3 FastText
+FastText 是 Facebook 开发的词向量模型，特点是考虑子词（subword）信息。融合子词粒度，解决生僻词、低频词表征问题，训练速度远快于 Word2Vec、GloVe。
+
+核心两点：
+- 子词 n-gram 拆分：把单词切分成字符级片段，词根、后缀共享语义
+- 训练框架沿用 CBOW 思路，用上下文预测中心词，同时支持快速文本分类
   
-主要特点
-- 将词表示为字符n-gram的集合
-- 可以处理未登录词（OOV）
-- 特别适合形态丰富的语言
+关键机制
+1. 字符子词切割  
+给单词首尾加边界符`<>`，按指定长度切字符n-gram，单词向量 = 所有子词向量求和平均。  
+例单词：apple，切3-gram子词  
+`<ap, app, ppl, ple, le>`  
+
+2. 模型结构
+- 词向量层：由子词向量累加得到单词表征
+- 隐藏层：简单求和平均
+- 输出层：预测中心词/文本类别
+
+3. 核心优势  
+生僻词可依靠子词拼接出向量；分类推理极速，适合大规模文本任务
+
+示例
+
+文本：爱吃苹果、爱吃香蕉  
+字符子词拆分（取3-gram）
+- 苹果 → `<苹, 苹果, 果>`
+- 香蕉 → `<香, 香蕉, 蕉>`
+- 吃 → `<吃>`
+
+向量生成逻辑  
+单词向量 = 自身子词向量叠加  
+苹果向量 = 子词`<苹>`+`<苹果>`+`<果>`向量之和  
+香蕉向量 = 子词`<香>`+`<香蕉>`+`<蕉>`向量之和  
+
+词根语义相近，**苹果、香蕉子词特征趋同**，最终词向量距离相近。  
+
+语句：我爱吃苹果  
+输入子词聚合向量，模型快速判定类别：水果类  
+
+|模型|粒度|特点|适用场景|
+| ---- | ---- | ---- | ---- |
+|Word2Vec|整词|仅学习完整单词，低频词效果差|常规语义表征|
+|GloVe|整词|全局共现统计，无分子词|通用词向量|
+|FastText|**子词+整词**|兼容生僻词，训练推理超快|海量文本分类、小语种、生僻词|
+
+优点
+1. 子词机制搞定未登录词、拼写变体
+2. 训练、预测速度大幅领先
+3. 小数据集也能拿到不错效果，适合形态丰富的语言
+
+缺点
+1. 语义精细度弱于GloVe、Word2Vec
+2. 长文本复杂语义捕捉能力一般
 
 >```py
 >from gensim.models import FastText
@@ -600,30 +866,125 @@ FastText 是 Facebook 开发的词向量模型，特点是考虑子词（subword
 ># 即使单词不在词典中也能获得向量
 >vector = model.wv['unseenword']
 
-## 上下文感知的表示
-### ELMo 模型
-ELMo（Embeddings from Language Models）是最早的上下文相关词表示方法之一。  
+## 4.3 文档级表示
+
+### 4.3.1 Doc2Vec
+Doc2Vec 是 Word2Vec 的扩展，新增段落向量，既能生成词向量，也直接输出整篇文档向量。  
   
+两种模型
+- PV-DM（Distributed Memory）：类似CBOW，加入文档ID
+- PV-DBOW（Distributed Bag of Words）：类似Skip-gram
+
+核心逻辑：给每篇文档分配唯一段落标识，和词语一起训练，最终得到固定维度文档表征
+
+>```py
+>from gensim.models import Doc2Vec
+>from gensim.models.doc2vec import TaggedDocument
+>
+>documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(corpus)]
+>model = Doc2Vec(documents, vector_size=100, window=5, min_count=1, workers=4)
+>vector = model.infer_vector(["new", "document", "text"])
+
+### 4.3.2 句向量与文档向量
+常用方法
+- 平均法：对词向量取平均
+- SIF：平滑逆频率加权平均
+- BERT句向量：使用[CLS]标记或平均所有词向量
+
+>```py
+># 使用Sentence-BERT
+>from sentence_transformers import SentenceTransformer
+>
+>model = SentenceTransformer('all-MiniLM-L6-v2')
+>sentences = ["This is an example sentence", "Each sentence is converted"]
+>embeddings = model.encode(sentences)
+
+### 4.3.4 主题模型（LDA）
+潜在狄利克雷分配（LDA）是一种无监督的主题建模方法。  
+
+核心思想：一篇文档由多个主题混合构成，一个主题由多个词语混合构成
+- 文档 → 服从主题分布
+- 主题 → 服从词语分布
+
+基本原理
+- 将文档表示为多个主题的混合
+- 每个主题是词语的概率分布
+- 通过变分推断或Gibbs采样学习
+
+生成逻辑
+- 预设主题数量
+- 每份文档随机抽取主题
+- 按主题对应的词概率，逐词生成文本
+- 训练反向推导：由已知文本，反推文档 - 主题、主题 - 词语分布
+
+
+```python
+from sklearn.decomposition import LatentDirichletAllocation
+from sklearn.feature_extraction.text import CountVectorizer
+
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(corpus)
+lda = LatentDirichletAllocation(n_components=2)
+lda.fit(X)
+```
+
+## 4.4 上下文感知的表示
+
+### 4.4.1 ELMo 模型
+ELMo（Embeddings from Language Models）动态上下文词向量 是最早的上下文相关词表示方法之一。  
+
+核心：同一个词，不同句子、不同语境，生成不一样向量
+
+解决 Word2Vec/GloVe/FastText 一词一向量、无法区分多义词的缺陷。
+
 核心特点
-- 基于双向LSTM语言模型
-- 词语的表示取决于整个输入句子
-- 生成多层表示（可以组合不同层次的语义）
+- 基于双向LSTM语言模型（正向 LSTM：从左往右读上下文，反向 LSTM 反之）
+- 根据上下文预测当前词
+- 生成多层表示（可以组合不同层次的语义，融合浅层语法、深层语义）
+- 词向量随句子上下文实时变化
 
 
 ![image.png](NLP_files/image.png)
 
-### BERT 及其变体
-BERT（Bidirectional Encoder Representations from Transformers）是 Google 提出的预训练语言模型。  
+### 4.4.2 BERT 及其变体
+BERT（Bidirectional Encoder Representations from Transformers）是 Google 提出的预训练语言模型。
+
+双向预训练 Transformer 编码器，生成上下文动态词向量，彻底解决一词多义，是经典预训练底座模型。
   
 关键创新
 - Transformer 架构
-- 掩码语言模型（MLM）训练目标
-- 下一句预测（NSP）任务
+- 两大预训练任务：掩码语言模型（MLM）：随机盖住句子中部分单词，根据前后文预测被遮挡词。下一句预测（NSP）：判断两个句子是否为连续上下文，学习句子关系
+
+核心结构
+- 基础单元：Transformer Encoder
+- 双向自注意力：每个词能关联整句所有位置词语
+- 输入嵌入：词嵌入 + 位置嵌入 + 分句嵌入叠加
+- 输出：每个位置得到专属动态语义向量
+
+流程
+1. 文本加特殊标记：开头`[CLS]`，句间`[SEP]`
+2. 嵌入层融合词、位置、分句信息
+3. 多层双向自注意力编码全局语义
+4. 输出每个字词动态向量，`[CLS]`向量代表整句语义
+
+|模型|编码方式|词义表现|上下文能力|
+|----|----|----|----|
+|ELMo|双向LSTM|区分多义|弱于Transformer|
+|BERT|双向Transformer|精准区分多义|全局全上下文理解|
 
 常见变体
 - RoBERTa：优化训练策略
 - DistilBERT：轻量版BERT
 - ALBERT：参数共享减少模型大小
+
+优点
+1. 全局双向语义理解，语义表征极强
+2. 天然适配分类、问答、命名实体、翻译等任务
+3. 微调简单，小样本也能取得好效果
+
+缺点
+1. 仅编码器，**不能直接生成文本**
+2. 模型参数量大，算力开销偏高
 
 >```py
 >from transformers import BertTokenizer, BertModel
@@ -647,76 +1008,7 @@ BERT（Bidirectional Encoder Representations from Transformers）是 Google 提�
 |BERT	|2018|	Transformer，双向上下文|
 |GPT-3	|2020|	单向Transformer，生成能力强|
 
-## 文档级表示
-### Doc2Vec
-Doc2Vec 是 Word2Vec 的扩展，可以直接学习文档的向量表示。  
-  
-两种模型
-- PV-DM（Distributed Memory）：类似CBOW，加入文档ID
-- PV-DBOW（Distributed Bag of Words）：类似Skip-gram
-
->```py
->from gensim.models import Doc2Vec
->from gensim.models.doc2vec import TaggedDocument
->
->documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(corpus)]
->model = Doc2Vec(documents, vector_size=100, window=5, min_count=1, workers=4)
->vector = model.infer_vector(["new", "document", "text"])
-
-### 句向量与文档向量
-常用方法
-- 平均法：对词向量取平均
-- SIF：平滑逆频率加权平均
-- BERT句向量：使用[CLS]标记或平均所有词向量
-
->```py
-># 使用Sentence-BERT
->from sentence_transformers import SentenceTransformer
->
->model = SentenceTransformer('all-MiniLM-L6-v2')
->sentences = ["This is an example sentence", "Each sentence is converted"]
->embeddings = model.encode(sentences)
-
-### 主题模型（LDA）
-潜在狄利克雷分配（LDA）是一种无监督的主题建模方法。  
-  
-基本原理
-- 将文档表示为多个主题的混合
-- 每个主题是词语的概率分布
-- 通过变分推断或Gibbs采样学习
-
-
-```python
-from sklearn.decomposition import LatentDirichletAllocation
-from sklearn.feature_extraction.text import CountVectorizer
-
-vectorizer = CountVectorizer()
-X = vectorizer.fit_transform(corpus)
-lda = LatentDirichletAllocation(n_components=2)
-lda.fit(X)
-```
-
-文本表示方法的发展经历了从简单统计到深度学习的演进：
-- 传统方法：简单高效，适合小规模数据
-
-- 词向量：捕捉语义关系，维度低
-
-- 上下文感知模型：动态表示，效果最好但计算成本高
-
-- 文档表示：从词级别扩展到文档级别
-
-选择文本表示方法时应考虑：
-- 任务需求（是否需要语义理解）
-
-- 数据规模
-
-- 计算资源
-
-- 语言特性
-
-随着大语言模型的发展，文本表示技术仍在快速演进，但理解这些基础方法对于掌握NLP仍然至关重要。
-
-# 文本分类
+# 5 文本分类
 将给定的文本文档自动归类到一个或多个预定义的类别中。
   
 - 情感分析：判断评论是正面还是负面
@@ -725,8 +1017,8 @@ lda.fit(X)
 - 意图识别：理解用户查询的真实意图
 - 医疗诊断：根据症状描述分类疾病类型
 
-## 流程与方法
-原始文本--文本预处理--特征提取--分类模型--分类结果  
+## 5.1 流程与方法
+原始文本 -> 文本预处理 -> 特征提取 -> 分类模型 -> 分类结果  
 
 1. 文本预处理
 文本预处理是将原始文本转换为适合机器学习模型处理的形式
@@ -752,6 +1044,7 @@ lda.fit(X)
 >    stemmer = PorterStemmer()
 >    words = [stemmer.stem(word) for word in words]
 >    return ' '.join(words)
+```
 
 2. 特征提取
 将文本转换为数值特征表示，常见方法包括：
@@ -776,16 +1069,15 @@ lda.fit(X)
 - 循环神经网络(RNN/LSTM)
 - Transformer模型(BERT等)
 
-## 示例
+## 5.2 示例
 
 
 ```python
 ## 实践示例：新闻分类
+from sklearn.datasets import fetch_20newsgroups # 导入新闻数据集
 
-from sklearn.datasets import fetch_20newsgroups
-
-# 选择4个类别作为示例
-categories = ['alt.atheism', 'soc.religion.christian', 'comp.graphics', 'sci.med']
+# 20 类新闻数据集。这里选择4个类别作为示例（无神论、基督教、计算机图形、医学）
+categories = ['alt.atheism', 'soc.religion.christian', 'comp.graphics', 'sci.med'] 
 
 # 加载训练集和测试集
 newsgroups_train = fetch_20newsgroups(subset='train', categories=categories)
@@ -797,16 +1089,16 @@ print(f"测试集样本数: {len(newsgroups_test.data)}")
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 # 创建TF-IDF向量化器
-vectorizer = TfidfVectorizer(max_features=5000)
+vectorizer = TfidfVectorizer(max_features=5000) # 只保留最高频 5000 个词
 
 # 转换训练集和测试集
-X_train = vectorizer.fit_transform(newsgroups_train.data)
-X_test = vectorizer.transform(newsgroups_test.data)
+X_train = vectorizer.fit_transform(newsgroups_train.data) # 学习词汇表 + 转成向量
+X_test = vectorizer.transform(newsgroups_test.data) # 只用学习好的词汇表转测试集
 
 y_train = newsgroups_train.target
 y_test = newsgroups_test.target
 
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression # 逻辑回归
 from sklearn.metrics import accuracy_score, classification_report
 
 # 创建并训练模型
@@ -820,6 +1112,20 @@ y_pred = model.predict(X_test)
 print(f"准确率: {accuracy_score(y_test, y_pred):.2f}")
 print("\n分类报告:")
 print(classification_report(y_test, y_pred, target_names=newsgroups_test.target_names))
+
+# 准确率: 0.91
+
+# 分类报告:
+#                         precision    recall  f1-score   support
+
+#            alt.atheism       0.90      0.87      0.89       319
+# soc.religion.christian       0.93      0.95      0.94       389
+#          comp.graphics       0.89      0.90      0.90       396
+#                sci.med       0.92      0.91      0.92       398
+
+#               accuracy                           0.91      1502
+#              macro avg       0.91      0.91      0.91      1502
+#           weighted avg       0.91      0.91      0.91      1502
 ```
 
 处理类别不平衡
@@ -849,21 +1155,29 @@ print(classification_report(y_test, y_pred, target_names=newsgroups_test.target_
 3. 小样本学习：标注数据有限的情况
 4. 解释性：理解模型为何做出特定分类决策
 
-# 情感分析
+# 6 情感分析
 通过计算技术自动识别、提取和分析文本中的主观信息，判断作者对特定主题、产品或服务的态度是正面、负面还是中性  
 
-## 基于词典的情感分析方法
-## 基于机器学习的情感分析方法
+## 6.1 基于词典的情感分析方法
+传统的情感分析技术，主要依赖预构建的情感词典。
+
+优点：
+- 无需训练数据
+- 计算效率高
+- 可解释性强
+
+缺点：
+- 难以处理复杂语言现象(如讽刺、反语)
+- 依赖词典的覆盖度和质量
+- 无法捕捉上下文语义
+
+
+## 6.2 基于机器学习的情感分析方法
 典型特征工程
 - 词袋模型(BOW)：文本表示为词语出现频率的向量
-
 - TF-IDF：考虑词语在文档中的重要性
-
 - N-gram特征：捕获局部词语序列模式
-
 - 情感词典特征：结合词典方法的优势
-
-![image.png](NLP_files/image.png)
 
 >```python
 ># 使用Scikit-learn实现情感分类
@@ -884,7 +1198,7 @@ print(classification_report(y_test, y_pred, target_names=newsgroups_test.target_
 >prediction = sentiment_clf.predict(["这个产品非常好用，强烈推荐！"])
 >print(prediction)  # 输出: 'positive'
 
-## 细粒度情感分析
+## 6.3 细粒度情感分析
 细粒度情感分析(Aspect-Based Sentiment Analysis, ABSA)是更高级的情感分析任务，旨在识别文本中提到的特定方面及其对应的情感。  
 
 ABSA的核心子任务  
@@ -919,7 +1233,7 @@ ABSA的核心子任务
 >predictions = torch.argmax(outputs.logits, dim=1)
 >print(predictions)  # 可能输出: 1 (负面)
 
-# 命名实体识别
+# 7 命名实体识别
 命名实体识别（Named Entity Recognition，简称 NER）是自然语言处理（NLP）中的一项基础任务，它的目标是识别文本中具有特定意义的实体，并将其分类到预定义的类别中  
 - 命名实体：文本中表示特定对象的专有名词
 - 实体类别：常见类型包括人名、地名、组织机构名、时间、日期、货币等
@@ -967,7 +1281,7 @@ sample = "会议定于12/15/2023举行,预算为$5000"
 print(rule_based_ner(sample))
 ```
 
-## 评估指标
+## 7.1 评估指标
 关键性能指标
 - 精确率（Precision）：识别正确的实体占所有识别实体的比例
 - 召回率（Recall）：识别正确的实体占所有实际实体的比例
@@ -981,7 +1295,7 @@ print(rule_based_ner(sample))
 召回率 = 80/100 = 80%  
 F1 = 2*(0.89*0.8)/(0.89+0.8) ≈ 84%  
 
-# 关系抽取
+# 8 关系抽取
 关系抽取(Relation Extraction)是自然语言处理中的一个重要任务，旨在从非结构化文本中识别实体之间的语义关系。简单来说，就是从句子中找出"谁"和"谁"之间有什么"关系"  
 
 核心要素
@@ -989,7 +1303,7 @@ F1 = 2*(0.89*0.8)/(0.89+0.8) ≈ 84%
 - 关系分类：然后判断这些实体之间存在什么类型的关系
 - 关系表示：最后以结构化形式表示这些关系
 
-## 主要方法
+## 8.1 主要方法
 1. 基于规则的方法  
 优点：实现简单，准确率高  
 缺点：覆盖面有限，难以处理复杂句式
@@ -1035,12 +1349,12 @@ BERT，GPT，RoBERTa
 >result = classifier("马云是阿里巴巴的创始人")
 >print(result)
 
-## 评估指标
+## 8.2 评估指标
 精确率(Precision)  
 召回率(Recall)  
 F1值  
 
-## 示例
+## 8.3 示例
 
 
 ```python
@@ -1054,12 +1368,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 texts = [d["text"] for d in data]
 vectorizer = TfidfVectorizer()
-X = vectorizer.fit_transform(texts)
+X = vectorizer.fit_transform(texts) # 一个稀疏矩阵，里面全是数字，代表文本的 TF-IDF 特征值。
 
 from sklearn.svm import SVC
 
 # 简化示例，实际需要更复杂的标签处理
-y = [d["relations"][0]["type"] for d in data]  
+y = [d["relations"][0]["type"] for d in data]  # ["创始人", "首都"]
 model = SVC()
 model.fit(X, y)
 
@@ -1069,14 +1383,14 @@ prediction = model.predict(test_vec)
 print(f"预测关系: {prediction[0]}")
 ```
 
-# 文本相似度计算
+# 9 文本相似度计算
 旨在量化两个文本片段之间的相似程度。这项技术在信息检索、问答系统、抄袭检测、推荐系统等多个领域都有广泛应用。
 - 语义相似度：衡量文本在含义上的接近程度
 - 字面相似度：衡量文本在表面词汇上的重叠程度
 - 向量空间模型：将文本表示为高维空间中的向量
 - 距离度量：计算向量之间的距离或相似度
 
-## 主要方法
+## 9.1 主要方法
 1. 基于词频的方法  
 词袋模型(Bag of Words)  
 TF-IDF    
@@ -1094,7 +1408,7 @@ corpus = [
 
 vectorizer = CountVectorizer()
 X = vectorizer.fit_transform(corpus)
-print(X.toarray())
+print(X.toarray()) # .toarray() = 把稀疏矩阵 X 变成二维数组
 ```
 
 
@@ -1149,7 +1463,7 @@ BERT 相似度计算
 >outputs = model(**inputs)
 >last_hidden_states = outputs.last_hidden_state
 
-## 相似度度量指标
+## 9.2 相似度度量指标
 |方法名称|特点|
 |---|---|
 |余弦相似度		|忽略向量长度，专注方向|
@@ -1166,7 +1480,7 @@ similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
 print(f"文本相似度: {similarity[0][0]:.4f}")
 ```
 
-## 示例
+## 9.3 示例
 
 
 ```python
@@ -1200,15 +1514,16 @@ print(df)
 考虑计算效率（大规模数据使用近似最近邻(ANN)算法，考虑使用Faiss等高效相似度搜索库）  
 持续评估优化（建立人工评估集，监控生产环境效果，定期更新模型）  
 
-# 神经网络
-## 循环神经网络（RNN）
+# 10 神经网络
+
+## 10.1 循环神经网络（RNN）
 循环神经网络（Recurrent Neural Network，RNN） 是一种专门处理序列数据（如文本、语音、时间序列）的神经网络。  
 
 与传统的前馈神经网络不同，RNN 具有"记忆"能力，能够保存之前步骤的信息。  
 
 循环神经网络能够利用前一步的隐藏状态（Hidden State）来影响当前步骤的输出，从而捕捉序列中的时序依赖关系   
 
-![image.png](NLP_files/image.png)
+![image-2.png](NLP_files/image-2.png)
 
 RNN 的核心在于循环连接（Recurrent Connection），即网络的输出不仅取决于当前输入，还取决于之前所有时间步的输入。这种结构使 RNN 能够处理任意长度的序列数据。  
  
@@ -1224,13 +1539,17 @@ RNN：通过循环连接将上一步的隐藏状态传递到下一步，形成"�
 import numpy as np
 
 class SimpleRNN:
-    def __init__(self, input_size, hidden_size):
+    def __init__(self, input_size, hidden_size): # 输入 x 形状：(input_size, 1)
         self.Wx = np.random.randn(hidden_size, input_size)  # 输入权重
-        self.Wh = np.random.randn(hidden_size, hidden_size)  # 隐藏状态权重
+        self.Wh = np.random.randn(hidden_size, hidden_size)  # 隐藏状态权重（上一刻记忆）
         self.b = np.zeros((hidden_size, 1))  # 偏置项
     
-    def forward(self, x, h_prev):
-        h_next = np.tanh(np.dot(self.Wx, x) + np.dot(self.Wh, h_prev) + self.b)
+    def forward(self, x, h_prev): # h_prev 形状：(hidden_size, 1)
+        h_next = np.tanh( # 激活函数 tanh 压缩到 -1~1 之间
+                        np.dot(self.Wx, x) + # 输入 × 输入权重
+                        np.dot(self.Wh, h_prev) + # 上一刻记忆 × 记忆权重
+                        self.b
+                        )
         return h_next
 ```
 
@@ -1252,17 +1571,17 @@ RNN 的优缺点
 - 梯度消失/爆炸问题（难以学习长期依赖）  
 - 计算效率较低（无法并行处理时间步）  
 
-## 长短期记忆网络（LSTM）
+## 10.2 长短期记忆网络（LSTM）
 LSTM（Long Short-Term Memory）是 RNN 的一种改进架构，专门设计来解决标准 RNN 的长期依赖问题  
 
 LSTM 引入了三个门控机制和一个记忆单元：
 
 |组件	|功能|
 |---|---|
-|输入门	|控制新信息的流入|
+|输入门	|把什么新信息存进记忆|
 |遗忘门	|决定丢弃哪些旧信息|
-|输出门	|控制输出的信息量|
-|记忆单元|	保存长期状态|
+|输出门	|现在输出什么记忆|
+|记忆单元（细胞状态）|	保存长期状态|
 
 LSTM 如何解决长期依赖问题
 - 选择性记忆：遗忘门可以决定保留或丢弃特定信息
@@ -1274,27 +1593,51 @@ LSTM 如何解决长期依赖问题
 >class LSTMCell:
 >    def __init__(self, input_size, hidden_size):
 >        # 组合所有门的权重
->        self.W = np.random.randn(4*hidden_size, input_size+hidden_size)
+>        self.W = np.random.randn(4*hidden_size, input_size+hidden_size) # x + h_prev = input_size + hidden_size
 >        self.b = np.random.randn(4*hidden_size, 1)
 >    
 >    def forward(self, x, h_prev, c_prev):
->        combined = np.vstack((h_prev, x))
->        gates = np.dot(self.W, combined) + self.b
+>        combined = np.vstack((h_prev, x)) # 把 上一刻输出 h_prev 和 当前输入 x 拼在一起。输出形状：(4*hidden_size,1)
+>        gates = np.dot(self.W, combined) + self.b # 一次性算出 4 个门
 >        
->        # 分割得到各个门
+>        # 分割得到各个门（sigmoid → 输出 0 ~ 1。tanh → 输出 -1 ~ 1）
 >        f_gate = sigmoid(gates[:hidden_size])  # 遗忘门
 >        i_gate = sigmoid(gates[hidden_size:2*hidden_size])  # 输入门
 >        o_gate = sigmoid(gates[2*hidden_size:3*hidden_size])  # 输出门
 >        c_candidate = np.tanh(gates[3*hidden_size:])  # 候选记忆
 >        
 >        # 更新记忆和隐藏状态
->        c_next = f_gate * c_prev + i_gate * c_candidate
+>        c_next = f_gate * c_prev + i_gate * c_candidate # 新记忆 = 保留一部分旧记忆 + 加入一部分新记忆。 RNN 是 h_next = 全部覆盖旧记忆
 >        h_next = o_gate * np.tanh(c_next)
 >        
 >        return h_next, c_next
 
-## 门控循环单元（GRU）
+1. 为什么门可以一起算，再切开？  
+因为 4 个门的计算公式长得一模一样，都是 sigmoid( W · [h_prev, x] + b )
+
+2. 遗忘门、输入门、输出门、候选记忆 → 这个顺序是大家随便定的，换顺序也完全可以运行！
+
+3. 为什么可以解决长期依赖  
+拆分出门控+独立细胞态`c`，让信息**以近似恒等路径跨时序传递**，大幅缓解梯度消失，从而捕捉长期依赖。
+
+对比普通RNN的致命问题  
+普通RNN状态更新：  
+$$h_t=\tanh(W_x x_t+W_h h_{t-1}+b)$$
+梯度反向传播时，会不断乘以权重矩阵，多层连乘后梯度指数衰减。
+
+LSTM细胞态的传递公式  
+$$c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t$$
+- $\odot$ 逐元素相乘  
+- $f_t$遗忘门取值0~1，控制旧记忆留存比例  
+
+旧记忆$c_{t-1}$**直接直通累加**，没有经过非线性激活压缩。  
+只要遗忘门接近1，早期信息几乎无损向后传递，梯度不会快速消失。  
+
+## 10.3 门控循环单元（GRU）
 GRU（Gated Recurrent Unit）是 LSTM 的简化版本，在保持相似性能的同时减少了参数数量  
+
+GRU 把 LSTM 的 4 组参数 → 简化成 3 组 (遗忘门 f + 输入门 i -> 更新门 z)  
+GRU 把 LSTM 的 2 个状态 → 简化成 1 个 (用 h 兼顾细胞状态 c)
 
 |组件	|功能|
 |---|---|
@@ -1316,14 +1659,16 @@ GRU（Gated Recurrent Unit）是 LSTM 的简化版本，在保持相似性能的
 >        # 分割门控信号
 >        z = sigmoid(gates[:hidden_size])  # 更新门
 >        r = sigmoid(gates[hidden_size:2*hidden_size])  # 重置门
->        h_candidate = np.tanh(np.dot(self.W[2*hidden_size:], 
->                              np.vstack((r*h_prev, x))) + self.b[2*hidden_size:]
+>        h_candidate = np.tanh(
+>                      np.dot(self.W[2*hidden_size:], np.vstack((r*h_prev, x))) + # 第三组权重 点积 （过滤后的旧记忆 和 当前输入的拼接）
+>                      self.b[2*hidden_size:]
+>                             )
 >        
 >        # 更新隐藏状态
 >        h_next = (1-z)*h_prev + z*h_candidate
 >        return h_next
 
-## 双向 RNN（Bi-RNN）
+## 10.4 双向 RNN（Bi-RNN）
 双向 RNN 通过同时考虑过去和未来的上下文信息，增强了序列建模能力。
 
 Bi-RNN 包含两个独立的 RNN 层：
@@ -1350,15 +1695,93 @@ Bi-RNN 包含两个独立的 RNN 层：
 >
 >model.add(Bidirectional(LSTM(64)))  # 创建双向LSTM层
 
-# 注意力机制
+# 11 序列到序列模型
+序列到序列(Sequence-to-Sequence, Seq2Seq)模型是NLP中的一种重要架构，专门用于将一个序列转换为另一个序列的任务。这种模型的核心思想是接受一个**长度可变**的输入序列，生成一个**长度可变**的输出序列。
+
+Seq2Seq模型属于编码器-解码器(Encoder-Decoder)架构：
+
+- 编码器：将输入序列编码为一个固定长度的上下文向量(context vector)  
+通常使用RNN(如LSTM或GRU)处理输入序列，逐步将序列信息压缩到隐藏状态中，最终生成代表整个输入序列的上下文向量。
+
+- 解码器：根据上下文向量逐步生成输出序列，直到产生结束标记。
+
+![image.png](NLP_files/image.png)
+
+适用于机器翻译，生成式摘要，普通对话
+
+## 11.1 训练与优化
+训练流程
+1. 准备平行语料数据集
+2. 定义损失函数(通常为交叉熵)
+3. 使用教师强制(Teacher Forcing)训练
+4. 验证集调参
+
+| 问题 | 原因 | 解决方案 |
+|------|------|----------|
+| 梯度消失 | 长序列依赖 | 使用 LSTM/GRU，或 Transformer |
+| 曝光偏差 | 训练测试不一致 | 计划采样（Scheduled Sampling） |
+| 通用回复 | 最大似然偏差 | 对抗训练或强化学习 |
+
+评估指标
+- BLEU：机器翻译常用指标
+- ROUGE：文本摘要常用指标
+- 人工评估：对话系统重要补充
+
+# 12 Transformer架构
+参考[2.2.4 transformer架构](#224-transformer架构)
+
+![image-2.png](NLP_files/image-2.png)
+
+
+1. 输入处理（底部）：文字先转向量，再叠加位置信息。  
+- Embeddings/Projections（词嵌入/投影层）  
+作用：将输入的单词（或 token）转换成数字向量（比如 "猫" → [0.2, -0.5, 0.7…]）  
+- Positional Encoding （位置编码）  
+作用：Transformer 关注任意两个次元的依赖关系，无循环结构，不知道字词顺序，必须额外注入位置时序特征。
+
+2. 编码器（左侧）
+- Multi-Headed Self-Attention（多头自注意力）  
+作用：让模型同时关注输入中的所有单词，并计算它们之间的关系。
+举例：在句子"猫追老鼠"中，模型会学习"猫"和"老鼠"的关联比"猫"和"追"更强。
+关键：**并行**处理所有单词，不像RNN需要逐个计算。
+
+- 残差连接与层归一化  
+残差连接 = x + 子层输出 ：绕过层级直接传递原始信息，缓解深层模型梯度消失。  
+层归一化 ：标准化数据分布，稳定训练，防止数值过大或过小、加速收敛。  
+
+- Feed-Forward Network（前馈神经网络）  
+两层全连接，对注意力输出的特征单独非线性变换  
+作用：对每个单词的表示进行进一步加工（比如提取更复杂的特征）。
+类比：像对"猫"的向量做一次深度解读，补充细节（比如"猫是哺乳动物"）。
+
+3. 解码器（右侧）
+- Masked Multi-Headed Self-Attention（掩码多头自注意力）
+作用：训练时防止模型"作弊"（只能看到当前和之前的单词，不能看未来的）。
+举例：生成"我爱__"时，模型只能基于"我""爱"预测下一个词，不能提前知道答案是"你"。
+
+- Multi-Headed Cross-Attention（多头交叉注意力）
+作用：让解码器询问编码器："关于输入，我应该重点关注什么？"
+场景：翻译任务中，解码器生成英文时，会参考编码器处理的中文输入。
+
+- Norm 和 Feed-Forward Network
+与编码器类似，对解码器的表示进行归一化和深度处理。
+
+4. 输出（顶部）
+- Linear（线性层）
+作用：将解码器的输出映射到词表（比如预测下一个词是"你"的概率最高）。
+举例：输入"我爱"，模型输出"你"的概率可能是80%，"吃饭"的概率是10%…
+
+## 12.1 注意力机制
 注意力机制(Attention Mechanism)是深度学习中的一种重要技术，它模仿了人类视觉和认知过程中的注意力分配方式。  
 就像你在阅读时会不自觉地将注意力集中在关键词上一样，注意力机制让神经网络能够动态地关注输入数据中最相关的部分。  
+
+依赖注意力机制（无需循环或卷积结构）来捕捉输入序列中的全局依赖关系，从而实现高效的并行计算和更强的长距离依赖建模。
 
 核心思想：  
 根据输入的不同部分对当前任务的重要性，动态分配不同的权重。这种权重分配不是固定的，而是根据上下文动态计算的。  
 
 数学表达：  
-Attention(Q, K, V) = softmax(QK^T/√d_k)V
+$$Attention(Q, K, V) = softmax(QK^T/√d_k)V$$
 
 其中：  
 Q (Query)：当前需要计算输出的查询项  
@@ -1368,10 +1791,10 @@ d_k：键的维度，用于缩放点积结果
 
 为什么需要注意力机制？  
 - 解决长距离依赖问题：传统RNN难以捕捉远距离词语间的关系  
-- 并行计算能力：相比RNN的顺序处理，注意力可以并行计算  
+- 并行计算能力：相比RNN的顺序处理，注意力可以**并行**计算  
 - 可解释性：注意力权重可以直观展示模型关注的重点  
 
-## 自注意力机制  
+### 12.1.1 自注意力机制  
 自注意力(Self-Attention)是注意力机制的一种特殊形式，它允许输入序列中的每个元素都与序列中的所有其他元素建立联系。
 
 工作原理：  
@@ -1394,7 +1817,7 @@ d_k：键的维度，用于缩放点积结果
 >    weights = F.softmax(scores, dim=-1)
 >    return torch.matmul(weights, value)
 
-## 多头注意力
+### 12.1.2 多头注意力
 多头注意力(Multi-Head Attention)是自注意力的扩展，它将注意力机制并行执行多次，然后将结果拼接起来。  
 
 结构组成
@@ -1402,10 +1825,8 @@ d_k：键的维度，用于缩放点积结果
 - 线性变换层：每个头有自己的Q、K、V变换矩阵
 - 拼接和输出：将各头的输出拼接后通过线性层
 
-![image.png](NLP_files/image.png)
-
 多头注意力的优势
-- 捕捉不同关系：每个头可以学习关注不同方面的关系
+- 捕捉不同关系：每个头可以学习关注不同方面的关系（如局部/全局依赖、语法/语义特征）
 - 增强表达能力：比单头注意力有更强的特征提取能力
 - 稳定训练：多个头的组合可以减少模型对特定模式的依赖
 
@@ -1439,6 +1860,49 @@ d_k：键的维度，用于缩放点积结果
 >        # 拼接多头并输出
 >        output = output.transpose(1, 2).contiguous().view(batch_size, -1, self.d_model)
 >        return self.W_o(output)
+
+## 12.2 位置编码（Positional Encoding）
+Transformer 本身没有循环或卷积结构，无法直接感知序列顺序，因此需要显式地注入位置信息。
+使用正弦/余弦函数或可学习的位置编码
+
+$$PE_{(pos,2i)} = \sin\left( \frac{pos}{10000^{2i/d_{\text{model}}}} \right),$$
+
+$$PE_{(pos,2i+1)} = \cos\left( \frac{pos}{10000^{2i/d_{\text{model}}}} \right)$$
+
+其中：
+- $pos$ 是词元在序列中的位置（例如，0, 1, 2, ...）
+- $i$ 是位置向量中的维度索引（从 $0$ 到 $d_{\text{model}}/2$）
+- $d_{\text{model}}$ 是词嵌入向量的维度
+
+```py
+# 位置编码实现示例
+class PositionalEncoding(nn.Module):
+    def __init__(self, d_model, max_len=5000):
+        super().__init__()
+        position = torch.arange(max_len).unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, d_model, 2) * (-math.log(10000.0) / d_model))
+        pe = torch.zeros(max_len, d_model)
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        self.register_buffer('pe', pe)
+```
+
+## 12.3 前馈神经网络（Feed-Forward Network）
+每个位置的表示会通过一个两层全连接网络（含非线性激活，如ReLU）进行进一步变换。
+
+公式：$$FFN(x) = max(0 , xW_1+b_1)W_2+b_2$$
+
+## 12.4 残差连接与层归一化（Residual Connection & Layer Norm）
+残差连接：将输入直接加到输出上,如 x+Sublayer(x)，缓解梯度消失。
+
+层归一化：对每一层的输出进行归一化，加速训练。
+
+## 12.5 编码器-解码器结构
+Transformer采用经典的编码器-解码器架构，但每个部分都由多层相同的模块堆叠而成。
+
+解码器在编码器基础上增加了：
+- 掩码多头注意力：防止当前位置关注未来信息
+- 编码器-解码器注意力：融合源语言信息
 
 ## 案例：BERT中的注意力
 BERT(Bidirectional Encoder Representations from Transformers)是使用注意力机制的典型代表：  
@@ -1500,55 +1964,237 @@ BERT(Bidirectional Encoder Representations from Transformers)是使用注意力�
 >attention = torch.rand(7, 6)  # 模拟的注意力权重
 >plot_attention(attention, source, target)
 
-# Transformer架构
+# 13 预训练模型
+预训练模型（Pre-trained Models）是NLP领域近年来最重要的技术突破之一。预训练模型通过在大规模文本数据上进行预先训练，学习通用的语言表示能力，然后可以针对特定任务进行微调（Fine-tuning）。即**迁移学习**。
+
+传统NLP模型需要大量标注数据，从零开始训练，适用于特定任务，开发效率较低。预训练模型只需少量标注数据，通过预训练+微调的两阶段学习，可以跨任务通用，开发效率高
+	
+发展历程：词嵌入时代（2013-2017：Word2Vec、GloVe、FastText）->上下文感知时代（2018-2019：ELMo、ULMFiT，动态词向量表示，处理一词多义）->Transformer时代（2019至今：BERT、GPT、T5）
+
+主流预训练模型架构：
+- BERT（Encoder）：双向上下文理解，适合分类、问答等任务
+- GPT（Decoder）：单向上下文（从左到右），擅长文本生成
+- Encoder-Decoder架构：适合序列到序列任务
+
+使用示例：
+```py
+from transformers import pipeline
+
+# 情感分析示例
+classifier = pipeline("sentiment-analysis")
+result = classifier("预训练模型真是太棒了！")
+print(result)  # [{'label': 'POSITIVE', 'score': 0.9998}]
+```
+微调示例：
+```py
+from transformers import BertForSequenceClassification, Trainer
+
+model = BertForSequenceClassification.from_pretrained("bert-base-chinese")
+# 准备训练数据...
+trainer = Trainer(model=model, args=training_args, train_dataset=train_dataset)
+trainer.train()
+```
+
+# 14 BERT
+BERT（Bidirectional Encoder Representations from Transformers） 模型的核心架构和预训练过程中的掩码语言建模（Masked Language Modeling, MLM）。
+
 ![image.png](NLP_files/image.png)
-1. 输入处理（底部）  
-- Embeddings/Projections（嵌入/投影层）  
-作用：将输入的单词（或 token）转换成数字向量（比如 "猫" → [0.2, -0.5, 0.7…]）  
-
-2. 编码器（左侧）
-- Multi-Headed Self-Attention（多头自注意力）  
-作用：让模型同时关注输入中的所有单词，并计算它们之间的关系。
-举例：在句子"猫追老鼠"中，模型会学习"猫"和"老鼠"的关联比"猫"和"追"更强。
-关键：并行处理所有单词，不像RNN需要逐个计算。
-
-- Norm（层归一化）
-作用：稳定训练过程，防止数值过大或过小。
-
-- Feed-Forward Network（前馈神经网络）
-作用：对每个单词的表示进行进一步加工（比如提取更复杂的特征）。
-类比：像对"猫"的向量做一次深度解读，补充细节（比如"猫是哺乳动物"）。
-
-3. 解码器（右侧）
-- Masked Multi-Headed Self-Attention（掩码多头自注意力）
-作用：训练时防止模型"作弊"（只能看到当前和之前的单词，不能看未来的）。
-举例：生成"我爱__"时，模型只能基于"我""爱"预测下一个词，不能提前知道答案是"你"。
-
-- Multi-Headed Cross-Attention（多头交叉注意力）
-作用：让解码器询问编码器："关于输入，我应该重点关注什么？"
-场景：翻译任务中，解码器生成英文时，会参考编码器处理的中文输入。
-
-- Norm 和 Feed-Forward Network
-与编码器类似，对解码器的表示进行归一化和深度处理。
-
-4. 输出（顶部）
-- Linear（线性层）
-作用：将解码器的输出映射到词表（比如预测下一个词是"你"的概率最高）。
-举例：输入"我爱"，模型输出"你"的概率可能是80%，"吃饭"的概率是10%…
-
-## 核心思想
-**自注意力机制(Self-Attention)**  
-Transformer 的核心思想是完全依赖注意力机制（无需循环或卷积结构）来捕捉输入序列中的全局依赖关系，从而实现高效的并行计算和更强的长距离依赖建模。
 
 
+
+输入层（Embedding）  
+- 输入序列：由词（或子词）组成的文本，例如 [W₁, W₂, W₃, [MASK], W₅, W₆, W₇, W₂, W₃, W₄, W₅]。  
+  - [MASK] 是 BERT 在预训练时随机遮蔽的词（如原文中的 W₄ 被替换为 [MASK]）。  
+- Embedding 层：将每个词转换为固定维度的向量表示（如 768 维），包含：  
+  - 词嵌入（Token Embeddings）：词汇的语义信息。  
+  - 位置嵌入（Position Embeddings）：词在序列中的位置信息。  
+  - 段嵌入（Segment Embeddings）：区分句子（对句对任务有用，如图中未显式展示）。  
+
+Transformer 编码器（Transformer Encoder）  
+- 多层 Transformer 块：图中未展开细节，参考之前的Transformer架构图Encoder部分，每个块包含：  
+  - 自注意力机制（Self-Attention）：双向捕捉上下文依赖（BERT 的核心特性）。  
+  - 前馈神经网络（Feed-Forward Network）：非线性变换。  
+  - 残差连接与层归一化：稳定训练过程。  
+- 输出：每个输入词对应的上下文相关向量表示（如 O₁, O₂, ..., O₅）。  
+
+掩码语言建模（MLM）任务  
+- 目标：预测被遮蔽的词 [MASK] 对应的原始词（图中 W₄）。  
+- 分类层（Classification Layer）：  
+  - 全连接层（Fully-Connected Layer）：将 Transformer 输出的向量（如 O₄）映射到词汇表大小的维度。  
+  - 激活函数 GELU：高斯误差线性单元（BERT 采用的非线性函数）。  
+  - 层归一化（Norm）：标准化输出。  
+  - Softmax：计算词汇表中每个词的概率，选择概率最高的词作为预测结果（如 W'₁, W'₂, ..., W'₅ 是候选词）。
+
+
+关键：双向上下文建模  
+与传统语言模型不同，BERT通过以下两种预训练任务实现双向上下文理解：
+- Masked Language Model (MLM)：随机遮盖15%的输入token，预测被遮盖的词
+- Next Sentence Prediction (NSP)：判断两个句子是否连续出现
+
+## 14.1 BERT的微调
+
+```py
+# 使用HuggingFace Transformers进行微调示例
+from transformers import BertForSequenceClassification, Trainer
+
+model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=train_dataset,
+    eval_dataset=eval_dataset
+)
+trainer.train()
+```
+
+## 14.2 主流BERT变体模型
+RoBERTa (Robustly Optimized BERT)
+- 更大的批次(8k vs 256)
+- 更长的训练时间
+- 移除NSP任务
+- 动态遮盖模式
+- 性能：在GLUE基准上平均提升2-3%
+
+ALBERT (A Lite BERT)
+- 参数共享(跨层共享注意力参数)
+- 嵌入分解(将词嵌入分解为两个小矩阵)
+- 效果：参数量减少89%，速度提升1.7倍
+
+其他重要变体
+- DistilBERT：通过知识蒸馏压缩模型
+- ELECTRA：用生成器-判别器架构替代MLM
+- SpanBERT：优化对文本跨度的建模
+
+# 15 生成式模型
+一类通过大规模无监督学习从文本数据中获取通用语言知识，并能够生成连贯、合理文本的深度学习模型。采用自回归或自编码架构。
+
+# 16 多模态
+指能够同时处理和理解多种数据模态（如文本、图像、音频等）的深度学习模型。与传统的单模态模型不同，这些模型通过大规模预训练学习不同模态之间的关联和对应关系。
+
+## 16.1 CLIP
+CLIP（Contrastive Language-Image Pre-training）是 OpenAI 于 2021 年提出的多模态模型，通过对比学习的方式建立图像和文本之间的关联（图文对比学习）。
+
+CLIP 包含两个核心组件：
+- 图像编码器（Image Encoder）：将图像转换为特征向量（如使用 Vision Transformer 或 ResNet）。
+- 文本编码器（Text Encoder）：将文本描述转换为特征向量（如使用 Transformer）。
+
+流程：
+- 输入：图像和文本对（如狗的照片 + 描述 "a photo of a dog"）。
+- 编码：图像编码器提取图像特征，文本编码器提取文本特征。
+- 对比学习：计算所有图像-文本对的相似度矩阵，通过损失函数（如 InfoNCE）优化模型，使匹配对的特征靠近，非匹配对远离。
+
+两者输出的特征向量会被映射到同一语义空间，通过对比学习对齐图像和文本的表示。
+
+![image.png](NLP_files/image.png)
+
+表格部分是对比学习矩阵，展示了图像-文本对的相似度计算（假设有 N 个文本和 4 个图像）：
+- 行（图像）：I1, I2, I3, I4 表示不同的图像特征。
+- 列（文本）：T1, T2, ..., TN 表示不同的文本特征。
+- 单元格值（如 I1-T1）：图像 I1 和文本 T1 的特征向量余弦相似度。
+
+目标：最大化对角线上的相似度（正确配对，如 I1-T1），最小化非对角线相似度（错误配对，如 I1-T2）。这是对比学习的核心思想。
+
+图像示例："Pepper the aussie pup"（一只澳大利亚牧羊犬的照片）。
+文本模板："A photo of a (object)" 是 CLIP 预训练时常用的文本提示模板，用于泛化不同类别（如 "a photo of a dog"）。
+
+架构：
+- 双编码器结构：
+  - 图像编码器：常用 Vision Transformer (ViT) 或 ResNet
+  - 文本编码器：基于 Transformer 架构
+- 对比学习目标：
+  - 正样本对（匹配的图文对）在特征空间中靠近
+  - 负样本对（不匹配的图文对）在特征空间中远离
+
+多模态 vs 单模态模型 训练核心区别:
+
+| 对比维度 | 多模态 |
+|:--------:|:--------|
+| **输入数据** | 同时混搭多种**异构数据**（图文配对、音文同步等），格式、数值范围、语义逻辑完全不同 |
+| **表征处理** | ① 各模态用**专属编码器**单独编码 → ② 统一投影到**共享特征空间** → ③ **跨模态注意力**建立关联 |
+| **预训练任务** | 模态内任务 + **跨模态专属任务**：图文匹配、图文检索（以文搜图/以图搜文）、图文生成（看图写话/按文出图） |
+| **损失函数** | **组合多类损失**：模态内损失 + 跨模态对齐损失 + 生成/分类联合损失 |
+| **模型结构** | **多分支编码器 + 融合交互模块**，架构更庞大，参数量更高 |
+| **训练难度** | 需大量**成对匹配数据**，标注成本高；易出现**模态偏向、对齐不准**，调参难度大 |
+| **输出能力** | 支持**跨模态转换、融合推理**，既能理解图文，也能跨形式创作 |
+
+## 16.2 DALL-E
+DALL-E 是 OpenAI 开发的文本到图像生成模型，能够根据自然语言描述生成高质量的图像。
+
+两阶段训练：
+- 第一阶段：离散变分自编码器（dVAE）将图像压缩为视觉词元
+- 第二阶段：自回归 Transformer 学习文本到视觉词元的映射
+
+关键创新：
+- 将图像生成视为序列预测问题
+- 使用 12-billion 参数的 Transformer 模型
+
+## 16.3 其他多模态模型
+...
+
+# 17 扩散模型
+扩散模型（Diffusion Model）是当前图像/视频生成的主流生成模型，核心是**先逐步加噪破坏数据，再学习反向去噪重建数据**，从随机噪声生成真实样本。
+
+把**清晰图像 → 逐步加噪 → 纯噪声**（正向），再训练模型做**纯噪声 → 逐步去噪 → 清晰图像**（反向）；本质是学习数据分布的“去噪规律”。
+
+
+过程
+1. 正向扩散（固定、无训练）
+- 从真实样本 $x_0$开始，T步（如1000步）逐步加高斯噪声。
+- 每一步只加一点点噪声，图像慢慢变模糊、混乱，最终 $x_T$ 变成**纯随机噪声**（类似电视雪花点）。
+- 数学：$q(x_t|x_{t-1}) = \mathcal{N}(x_t; \sqrt{1-\beta_t}x_{t-1}, \beta_t\mathbf{I})$，$\beta_t$ 是每步噪声强度。
+
+ 2. 反向去噪（可学习、核心训练）
+- 训练一个**U-Net**（常用），输入含噪图 $x_t$ 和时间步 $t$，**预测当前步加的噪声**。
+- 训练目标：让模型**精准预测每一步的噪声**，从而能从 $x_t$ 算出更清晰的 $x_{t-1}$。
+- 迭代：从纯噪声 $x_T$ 开始，**T步逐步去噪**，最终生成清晰的新样本 $x_0$。
+
+训练与采样（推理）
+- **训练**：拿真实图做正向加噪，让模型预测噪声，用**MSE损失**最小化预测噪声与真实噪声的误差。
+- **采样（生成）**：随机生成纯噪声，模型**逐次去噪**，一步步还原成图像；**条件生成**（如文生图）时，用文本编码器（CLIP）的文本特征引导去噪方向。
+
+特点（对比GAN）
+-  **生成质量高**：细节丰富、纹理清晰，不易出现GAN的模糊/伪影。
+-  **训练极稳定**：无对抗博弈，仅预测噪声，不易模式崩溃。
+-  **易做条件控制**：文本、图像、姿态等引导生成很方便（如Stable Diffusion）。
+-  **采样慢**：需多步迭代（如1000步），比GAN单步生成慢；靠DDIM等加速方案缓解。
+
+应用
+- 文生图：Stable Diffusion、DALL-E、Midjourney
+- 图生图、超分辨率、图像修复
+- 视频生成：Sora、Runway Gen-2（视频扩散）
+- 3D生成、分子设计、音频生成
+
+# 18 微调
+NLP 主流微调方式速览
+1. 全参数微调  
+全部权重一起更新，适配性最强，算力显存消耗大，数据充足时使用。
+
+2. 特征提取冻结  
+主干模型权重固定不动，仅顶层新增分类 / 输出层训练，速度快、防过拟合，小数据集常用。
+
+3. 层微调  
+只更新模型部分层参数，兼顾效果与开销，折中方案。
+
+4. 轻量化高效微调（当下工业主流）  
+- LoRA：仅训练少量低秩矩阵，冻结原权重，显存占用极低，大模型首选
+- Prefix Tuning：只学习前缀提示向量，模型主体不变，生成任务适配好
+- Prompt Tuning：微调虚拟提示词，不改动模型参数，轻量化通用
+- P-Tuning/P-Tuning v2：嵌入层插入可学习提示，适配分类、抽取任务
+
+5. 指令微调 SFT  
+用多任务指令数据集统一微调，让模型听懂指令、通用能力变强，大模型对齐常用。
+
+6. 对齐微调  
+- RLHF：人类打分 + 强化学习优化回答偏好
+- RLAIF：AI 替代人工标注做偏好对齐，成本更低
+
+# 
 
 # Python NLP 生态
 - NLTK - 学术研究首选的自然语言处理工具包
 - spaCy - 工业级高效 NLP 框架
 - jieba - 最流行的中文分词工具
 - HanLP - 功能全面的中文 NLP 处理库
-
-![image.png](NLP_files/image.png)
 
 ## NLTK
 NLTK（Natural Language Toolkit）是最著名的 Python NLP 库之一，由宾夕法尼亚大学开发，特别适合教学和研究用途。
