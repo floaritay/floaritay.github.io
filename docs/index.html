@@ -1291,7 +1291,7 @@
                             <div class="stat-label">Categories</div>
                         </div>
                         <div class="stat-cell">
-                            <div class="stat-value" data-count="5">0</div>
+                            <div class="stat-value" data-count="6">0</div>
                             <div class="stat-label">Projects</div>
                         </div>
                         <div class="stat-cell">
@@ -1341,6 +1341,7 @@
                         </div>
                         <ul>
                             <li>Python / PyTorch / TensorFlow 深度学习</li>
+                            <li>LangChain / Transformers Agent 开发</li>
                             <li>OpenCV / YOLO 计算机视觉</li>
                             <li>ROS2 / Gazebo 机器人仿真</li>
                             <li>FastAPI / Docker 后端与部署</li>
@@ -1421,7 +1422,7 @@
                             <div class="path-node"></div>
                             <div class="path-content">
                                 <h4>AI Agent 与应用开发</h4>
-                                <p>Agent 架构、LangChain、Prompt 工程、RAG 系统、Vibe Coding</p>
+                                <p>Agent 架构、LangChain、Transformers、Prompt 工程、RAG 系统、LoRA 微调、Vibe Coding</p>
                             </div>
                             <span class="path-tag">agent</span>
                         </div>
@@ -1444,6 +1445,11 @@
                         <h3>基于RAG的个人知识库</h3>
                         <p>基于 FastAPI 与 Open WebUI 构建知识问答平台，使用检索增强生成技术（RAG）实现智能问答。</p>
                         <a class="project-link" href="https://github.com/floaritay/rag-qa-system" target="_blank" rel="noreferrer">View Repository &rarr;</a>
+                    </article>
+                    <article class="project-card reveal">
+                        <h3>医疗大模型微调 &middot; LoRA 三阶段流水线</h3>
+                        <p>基于 Qwen2.5-1.5B 的医疗领域大模型微调项目，三阶段 LoRA 微调（续训练→SFT→DPO），提供命令行与 Gradio Web 界面。</p>
+                        <a class="project-link" href="https://github.com/floaritay/medical-llm-finetune" target="_blank" rel="noreferrer">View Repository &rarr;</a>
                     </article>
                     <article class="project-card reveal">
                         <h3>交通标志识别 &middot; YOLOv8 实时检测</h3>
@@ -1507,18 +1513,23 @@
                         </div>
                     </div>
                     <div class="skill-cell">
-                        <div class="skill-cell-title">机器学习</div>
+                        <div class="skill-cell-title">机器学习 / 深度学习</div>
                         <div class="skill-tags">
                             <span class="skill-tag">Scikit-learn</span>
-                        </div>
-                    </div>
-                    <div class="skill-cell">
-                        <div class="skill-cell-title">深度学习</div>
-                        <div class="skill-tags">
                             <span class="skill-tag">PyTorch</span>
                             <span class="skill-tag">TensorFlow</span>
                             <span class="skill-tag">Keras</span>
-                            <span class="skill-tag">Transformer</span>
+                            <span class="skill-tag">Transformers</span>
+                        </div>
+                    </div>
+                    <div class="skill-cell">
+                        <div class="skill-cell-title">Agent 开发</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">LangChain</span>
+                            <span class="skill-tag">Transformers</span>
+                            <span class="skill-tag">RAG</span>
+                            <span class="skill-tag">LoRA 微调</span>
+                            <span class="skill-tag">Prompt Engineering</span>
                         </div>
                     </div>
                     <div class="skill-cell">
@@ -2107,7 +2118,7 @@
 
             // Project data
             const projects = [
-                { name: 'RAG 问答系统', desc: '基于 FastAPI 与 Open WebUI 的知识问答平台，使用检索增强生成技术实现智能问答。', src: 'images/projects/RAG-OpenWebUI.png', color: ['#b45309','#d97706'] },
+                { name: '基于RAG的个人知识库', desc: '基于 FastAPI 与 Open WebUI 的知识问答平台，使用检索增强生成技术实现智能问答。', src: 'images/projects/RAG.png', color: ['#b45309','#d97706'] },
                 { name: 'Coze 智能体', desc: '基于 Coze 平台智能体搭建与工作流编排实践。', src: 'images/projects/Coze.png', color: ['#0f766e','#14b8a6'] },
                 { name: 'FastGPT 知识库', desc: '基于 FastGPT 构建私有知识库问答系统，支持文档导入与多轮对话。', src: 'images/projects/FastGPT.png', color: ['#475569','#64748b'] },
                 { name: 'ComfyUI 工作流', desc: 'ComfyUI 节点式 Stable Diffusion 视频生成工作流搭建与调试。', src: 'images/projects/ComfyUI.png', color: ['#7c3aed','#a78bfa'] },
