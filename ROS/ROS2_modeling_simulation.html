@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>目录 - floaritay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ]
+        });"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
+        onload="mermaid.initialize({startOnLoad:true, theme:'base', themeVariables:{primaryColor:'#f5f0e8', primaryTextColor:'#1a1814', primaryBorderColor:'rgba(26,24,20,0.12)', lineColor:'#8a8278', secondaryColor:'#faf7f0', tertiaryColor:'#faf7f0'}});"></script>
+    <style>
+        :root {
+            --paper: #f5f0e8;
+            --ink: #1a1814;
+            --ink-soft: #3d3830;
+            --ink-muted: #8a8278;
+            --ink-faint: #b5ae9f;
+            --accent: #b45309;
+            --accent-warm: #d97706;
+            --accent-soft: rgba(180, 83, 9, 0.08);
+            --teal: #0f766e;
+            --card-opaque: rgba(250, 247, 240, 0.88);
+            --border: rgba(26, 24, 20, 0.08);
+            --border-strong: rgba(26, 24, 20, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.35);
+            --shadow-sm: 0 1px 2px rgba(26, 24, 20, 0.03);
+            --shadow: 0 2px 12px rgba(26, 24, 20, 0.05), 0 1px 3px rgba(26, 24, 20, 0.03);
+            --shadow-lg: 0 8px 32px rgba(26, 24, 20, 0.07), 0 2px 8px rgba(26, 24, 20, 0.03);
+            --font-display: 'Instrument Serif', Georgia, serif;
+            --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Space Mono', 'Cascadia Code', monospace;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--ink);
+            background: var(--paper);
+            background-image:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(180, 83, 9, 0.04), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(15, 118, 110, 0.03), transparent);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.2;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(26, 24, 20, 0.12); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(26, 24, 20, 0.2); }
+
+        .page {
+            position: relative;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
+        }
+
+        .page::before {
+            content: '';
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 48px;
+            background: var(--card-opaque);
+            border-right: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        @media (max-width: 1100px) {
+            .page::before { display: none; }
+            .page { padding: 0 20px 60px; }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 32px 0 16px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            letter-spacing: 0.02em;
+        }
+        .breadcrumb a {
+            color: var(--ink-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb .sep { margin: 0 8px; color: var(--ink-faint); }
+
+        /* Article */
+        .markdown-body {
+            font-family: var(--font-body);
+            color: var(--ink-soft);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .markdown-body h1, .markdown-body h2, .markdown-body h3,
+        .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+            font-family: var(--font-display);
+            color: var(--ink);
+            font-weight: 400;
+            margin-top: 2em;
+            margin-bottom: 0.6em;
+            line-height: 1.3;
+        }
+
+        .markdown-body h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+            padding-bottom: 0.4em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h2 {
+            font-size: 1.65rem;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h3 { font-size: 1.35rem; }
+        .markdown-body h4 { font-size: 1.15rem; }
+        .markdown-body h5 { font-size: 1rem; }
+        .markdown-body h6 { font-size: 0.95rem; color: var(--ink-muted); }
+
+        .markdown-body p {
+            margin-bottom: 1em;
+        }
+
+        .markdown-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-soft);
+            transition: border-color 0.2s;
+        }
+        .markdown-body a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .markdown-body strong { color: var(--ink); font-weight: 600; }
+
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5em auto;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .markdown-body blockquote {
+            margin: 1.2em 0;
+            padding: 0.8em 1.2em;
+            border-left: 3px solid var(--accent);
+            background: var(--accent-soft);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            color: var(--ink-soft);
+        }
+        .markdown-body blockquote p:last-child { margin-bottom: 0; }
+
+        .markdown-body ul, .markdown-body ol {
+            margin: 0.8em 0;
+            padding-left: 1.8em;
+        }
+        .markdown-body li { margin-bottom: 0.3em; }
+        .markdown-body li > ul, .markdown-body li > ol { margin-top: 0.3em; }
+
+        .markdown-body code {
+            font-family: var(--font-mono);
+            font-size: 0.88em;
+            background: rgba(26, 24, 20, 0.05);
+            padding: 0.15em 0.4em;
+            border-radius: var(--radius-sm);
+            color: var(--accent);
+        }
+
+        .markdown-body pre {
+            margin: 1.2em 0;
+            padding: 1em 1.2em;
+            background: #2d2a24;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            box-shadow: var(--shadow);
+        }
+        .markdown-body pre code {
+            background: none;
+            padding: 0;
+            color: #e8e0d4;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2em 0;
+            font-size: 0.95rem;
+        }
+        .markdown-body th {
+            background: rgba(26, 24, 20, 0.04);
+            font-weight: 600;
+            text-align: left;
+            padding: 0.6em 1em;
+            border-bottom: 2px solid var(--border-strong);
+        }
+        .markdown-body td {
+            padding: 0.5em 1em;
+            border-bottom: 1px solid var(--border);
+        }
+        .markdown-body tr:hover td {
+            background: var(--accent-soft);
+        }
+
+        .markdown-body hr {
+            border: none;
+            border-top: 1px solid var(--border-strong);
+            margin: 2em 0;
+        }
+
+        /* Math blocks */
+        .math-block {
+            margin: 1.2em 0;
+            padding: 0.8em;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        /* Mermaid diagrams */
+        .mermaid {
+            margin: 1.5em 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        .mermaid svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Pygments code highlighting (dark theme matching warm palette) */
+        .highlight .hll { background-color: #49483e }
+        .highlight .c { color: #75715e }
+        .highlight .err { color: #f92672 }
+        .highlight .k { color: #66d9ef }
+        .highlight .l { color: #ae81ff }
+        .highlight .n { color: #f8f8f2 }
+        .highlight .o { color: #f92672 }
+        .highlight .p { color: #f8f8f2 }
+        .highlight .cm { color: #75715e }
+        .highlight .c1 { color: #75715e }
+        .highlight .cp { color: #75715e }
+        .highlight .kc { color: #66d9ef }
+        .highlight .kd { color: #66d9ef }
+        .highlight .kn { color: #f92672 }
+        .highlight .kp { color: #66d9ef }
+        .highlight .kr { color: #66d9ef }
+        .highlight .kt { color: #66d9ef }
+        .highlight .ld { color: #e6db74 }
+        .highlight .m { color: #ae81ff }
+        .highlight .s { color: #e6db74 }
+        .highlight .na { color: #a6e22e }
+        .highlight .nb { color: #f8f8f2 }
+        .highlight .nc { color: #a6e22e }
+        .highlight .no { color: #66d9ef }
+        .highlight .nd { color: #a6e22e }
+        .highlight .ni { color: #f8f8f2 }
+        .highlight .ne { color: #a6e22e }
+        .highlight .nf { color: #a6e22e }
+        .highlight .nl { color: #f8f8f2 }
+        .highlight .nn { color: #f8f8f2 }
+        .highlight .nx { color: #a6e22e }
+        .highlight .py { color: #f8f8f2 }
+        .highlight .nt { color: #f92672 }
+        .highlight .nv { color: #f8f8f2 }
+        .highlight .ow { color: #f92672 }
+        .highlight .w { color: #f8f8f2 }
+        .highlight .mf { color: #ae81ff }
+        .highlight .mh { color: #ae81ff }
+        .highlight .mi { color: #ae81ff }
+        .highlight .mo { color: #ae81ff }
+        .highlight .sb { color: #e6db74 }
+        .highlight .sc { color: #e6db74 }
+        .highlight .sd { color: #e6db74 }
+        .highlight .s2 { color: #e6db74 }
+        .highlight .se { color: #ae81ff }
+        .highlight .sh { color: #e6db74 }
+        .highlight .si { color: #e6db74 }
+        .highlight .sx { color: #e6db74 }
+        .highlight .sr { color: #e6db74 }
+        .highlight .s1 { color: #e6db74 }
+        .highlight .ss { color: #e6db74 }
+        .highlight .bp { color: #f8f8f2 }
+        .highlight .vc { color: #f8f8f2 }
+        .highlight .vg { color: #f8f8f2 }
+        .highlight .vi { color: #f8f8f2 }
+        .highlight .il { color: #ae81ff }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 32px 0;
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        .site-footer a {
+            color: var(--ink-muted);
+            text-decoration: none;
+        }
+        .site-footer a:hover { color: var(--accent); }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, color 0.2s, border-color 0.2s;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .page { padding: 0 16px 40px; }
+            .markdown-body h1 { font-size: 1.7rem; }
+            .markdown-body h2 { font-size: 1.35rem; }
+            .markdown-body { font-size: 0.95rem; }
+            .markdown-body pre { padding: 0.8em; }
+            .markdown-body pre code { font-size: 0.8rem; }
+            .back-to-top { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <nav class="breadcrumb">
+            <a href="../index.html">floaritay</a>
+            <span class="sep">/</span>
+            <span>ROS</span>
+        </nav>
+        <article class="markdown-body">
+<h1 id="_1">目录</h1>
+<hr />
+<h1 id="urdf">URDF</h1>
+<p>URDF（Unified Robot Description Format）统一机器人描述格式，URDF使用XML格式描述机器人文件。  </p>
+<p>XML是 被设计用来传输和存储数据的可扩展标记语言，注意语言本身是没有含义的，只是规定了其数据格式</p>
+<p>比如：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;robot</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;阿童木&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;大手臂&quot;</span><span class="nt">&gt;</span>具体的描述<span class="nt">&lt;/link&gt;</span>
+<span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;胳膊肘&quot;</span><span class="nt">&gt;</span>具体的描述<span class="nt">&lt;/joint&gt;</span>
+<span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;小手臂&quot;</span><span class="nt">&gt;</span>具体的描述<span class="nt">&lt;/link&gt;</span>
+<span class="nt">&lt;/robot&gt;</span>
+</code></pre></div>
+
+<p>XML格式在线校验工具:https://tool.oschina.net/codeformat/xml</p>
+<p>XML格式注释： 标签: <code>robot link</code></p>
+<p>robot标签的属性name: <code>&lt;robot name="fishbot"&gt;&lt;/robot&gt;</code></p>
+<p>robot标签的子标签link: <code>&lt;robot name="fishbot"&gt;&lt;link name="base_link"&gt;&lt;/link&gt;link&gt;&lt;/robot&gt;</code></p>
+<h2 id="urdf_1">URDF的组成</h2>
+<p>一般情况下，URDF由<code>声明信息</code>和<code>两种关键组件</code>共同组成</p>
+<h3 id="_2">声明信息</h3>
+<p>声明信息包含两部分，第一部分是xml的声明信息，放在第一行 第二部分是机器人的声明，通过robot标签就可以声明一个机器人模型</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;robot</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;fishbot&quot;</span><span class="nt">&gt;</span>
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">   </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">       </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.18&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.06&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+<span class="nt">&lt;/robot&gt;</span>
+</code></pre></div>
+
+<h3 id="jointlink">两种关键组件(Joint&amp;Link)</h3>
+<p>对于一个机器人，我们把左轮，右轮、支撑轮子，IMU和雷达部件等称为机器人的Link</p>
+<p>而Link和Link之间的连接部分称之为Joint关节</p>
+<p>接着我们给每个link和joint取个名字</p>
+<p>接着我们分别对link和joint进行详细的介绍</p>
+<h2 id="link">Link</h2>
+<p>通过link标签即可声明一个link,属性name指定部件名字</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_link&quot;</span><span class="nt">&gt;</span>
+
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+</code></pre></div>
+
+<p>通过visual子标签就可以声明出来机器人的visual形状</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="cm">&lt;!-- base link --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">       </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.12&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.10&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+</code></pre></div>
+
+<h3 id="link_1">link标签</h3>
+<div class="highlight"><pre><span></span><code>visual<span class="w"> </span>显示形状
+<span class="w"> </span><span class="nt">&lt;geometry&gt;</span><span class="w"> </span>(几何形状)
+<span class="w">   </span><span class="nt">&lt;box&gt;</span><span class="w"> </span>长方体
+<span class="w">     </span>标签属性:<span class="w"> </span>size-长宽高
+<span class="w">     </span>举例：<span class="nt">&lt;box</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;1 1 1&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">   </span><span class="nt">&lt;cylinder&gt;</span><span class="w"> </span>圆柱体
+<span class="w">     </span>标签属性:radius-半径<span class="w"> </span>length-高度
+<span class="w">     </span>举例：<span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.5&quot;</span><span class="nt">/&gt;</span>
+<span class="w">   </span>sphere<span class="w"> </span>球体
+<span class="w">     </span>属性：radius<span class="w"> </span>-半径
+<span class="w">     </span>举例：<span class="nt">&lt;sphere</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.015&quot;</span><span class="nt">/&gt;</span>
+<span class="w">   </span>mesh<span class="w"> </span>第三方导出的模型文件
+<span class="w">     </span>属性：filename
+<span class="w">     </span>举例:<span class="w"> </span><span class="nt">&lt;mesh</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;package://robot_description/meshes/base_link.DAE&quot;</span><span class="nt">/&gt;</span>
+<span class="w"> </span>origin<span class="w"> </span>(可选：默认在物体几何中心)
+<span class="w">   </span>属性<span class="w"> </span>xyz默认为零矢量<span class="w"> </span>rpy弧度表示的翻滚、俯仰、偏航
+<span class="w">   </span>举例：<span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w"> </span>material<span class="w"> </span>材质
+<span class="w">   </span>属性<span class="w"> </span>name<span class="w"> </span>名字
+<span class="w">     </span>color
+<span class="w">       </span>属性<span class="w"> </span>rgba<span class="w"> </span>a代表透明度
+<span class="w">       </span>举例：<span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;white&quot;</span><span class="nt">&gt;&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;1.0 1.0 1.0 0.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span><span class="nt">&lt;/material&gt;</span>
+collision<span class="w"> </span>碰撞属性，仿真章节中讲解
+inertial<span class="w"> </span>惯性参数<span class="w"> </span>质量等，仿真章节中讲解
+</code></pre></div>
+
+<h2 id="joint">Joint</h2>
+<p>joint为机器人关节，机器人关节用于连接两个机器人部件，主要写明父子关系  </p>
+<ul>
+<li>父子之间的连接类型，包括是否固定的，可以旋转的等</li>
+<li>父部件名字</li>
+<li>子部件名字</li>
+<li>父子之间相对位置</li>
+<li>父子之间的旋转轴，绕哪个轴转</li>
+</ul>
+<p>比如我们再建立一个雷达部件laser_link，然后将laser_link固定到base_link</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;robot</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;fishbot&quot;</span><span class="nt">&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- base link --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">       </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.12&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.10&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- laser link --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;laser_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">       </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.02&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.02&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">     </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;black&quot;</span><span class="nt">&gt;</span>
+<span class="w">         </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.0 0.0 0.0 0.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span>
+<span class="w">     </span><span class="nt">&lt;/material&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- laser joint --&gt;</span>
+<span class="w">   </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;laser_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;fixed&quot;</span><span class="nt">&gt;</span>
+<span class="w">       </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;laser_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.075&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/joint&gt;</span>
+
+<span class="nt">&lt;/robot&gt;</span>
+</code></pre></div>
+
+<h3 id="joint_1">Joint标签</h3>
+<p><strong>属性</strong></p>
+<ul>
+<li>name 关节的名称</li>
+<li>type 关节的类型<ul>
+<li>revolute: 旋转关节，绕单轴旋转,角度有上下限,比如舵机0-180</li>
+<li>continuous: 旋转关节，可以绕单轴无限旋转,比如自行车的前后轮</li>
+<li>fixed: 固定关节，不允许运动的特殊关节</li>
+<li>prismatic: 滑动关节，沿某一轴线移动的关节，有位置极限</li>
+<li>planer: 平面关节，允许在xyz，rxryrz六个方向运动</li>
+<li>floating: 浮动关节，允许进行平移、旋转运动</li>
+</ul>
+</li>
+</ul>
+<p><strong>子标签</strong></p>
+<ul>
+<li>parent 父link名称<ul>
+<li><code>&lt;parent link="base_link" /&gt;</code></li>
+</ul>
+</li>
+<li>child子link名称<ul>
+<li><code>&lt;child link="laser_link" /&gt;</code></li>
+</ul>
+</li>
+<li>origin 父子之间的关系xyz rpy<ul>
+<li><code>&lt;origin xyz="0 0 0.014" /&gt;</code></li>
+</ul>
+</li>
+<li>axis 围绕旋转的关节轴<ul>
+<li><code>&lt;axis xyz="0 0 1" /&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="rviz2-urdf">RVIZ2 可视化 URDF 模型</h1>
+<p>URDF可视化的步骤如下：
+1. 建立机器人描述功能包
+2. 建立urdf文件夹，编写urdf文件
+3. 建立launch文件夹，编写launch文件
+4. 修改setup.py配置，编译测试</p>
+<h2 id="_3">建立功能包</h2>
+<p>先创建一个chapt8_ws工作空间，然后建立功能包，包的类型选ament_python</p>
+<div class="highlight"><pre><span></span><code><span class="nx">mkdir</span><span class="w"> </span><span class="o">-</span><span class="nx">p</span><span class="w"> </span><span class="nx">chapt8</span><span class="o">/</span><span class="nx">chapt8_ws</span><span class="o">/</span><span class="nx">src</span>
+<span class="nx">cd</span><span class="w"> </span><span class="nx">chapt8</span><span class="o">/</span><span class="nx">chapt8_ws</span><span class="o">/</span><span class="nx">src</span>
+<span class="nx">ros2</span><span class="w"> </span><span class="nx">pkg</span><span class="w"> </span><span class="nx">create</span><span class="w"> </span><span class="nx">fishbot_description</span><span class="w"> </span><span class="o">--</span><span class="nx">build</span><span class="o">-</span><span class="k">type</span><span class="w"> </span><span class="nx">ament_python</span>
+</code></pre></div>
+
+<h2 id="urdfurdf">创建urdf文件夹编写urdf文件</h2>
+<p>创建URDF文件夹，创建urdf文件</p>
+<div class="highlight"><pre><span></span><code>mkdir fishbot_description/urdf
+touch fishbot_description/urdf/fishbot_base.urdf
+</code></pre></div>
+
+<p>完成后src下的目录结构：</p>
+<div class="highlight"><pre><span></span><code><span class="err">├──</span><span class="w"> </span><span class="nx">fishbot_description</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">__init__</span><span class="p">.</span><span class="nx">py</span>
+<span class="err">├──</span><span class="w"> </span><span class="kn">package</span><span class="p">.</span><span class="nx">xml</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">setup</span><span class="p">.</span><span class="nx">cfg</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">setup</span><span class="p">.</span><span class="nx">py</span>
+<span class="err">└──</span><span class="w"> </span><span class="nx">urdf</span>
+<span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">fishbot_base</span><span class="p">.</span><span class="nx">urdf</span>
+</code></pre></div>
+
+<p>编辑fishbot_base.urdf</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;robot</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;fishbot&quot;</span><span class="nt">&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- base link --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">       </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.12&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.10&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- laser link --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;laser_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">       </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.02&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.02&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">     </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;black&quot;</span><span class="nt">&gt;</span>
+<span class="w">         </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.0 0.0 0.0 0.8&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span>
+<span class="w">     </span><span class="nt">&lt;/material&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- laser joint --&gt;</span>
+<span class="w">   </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;laser_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;fixed&quot;</span><span class="nt">&gt;</span>
+<span class="w">       </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;laser_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.075&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/joint&gt;</span>
+
+<span class="nt">&lt;/robot&gt;</span>
+</code></pre></div>
+
+<h2 id="launchlaunch">创建launch文件夹编写launch文件</h2>
+<p>在目录src/fishbot_description下创建launch文件夹并在其下新建display_rviz2.launch.py文件</p>
+<div class="highlight"><pre><span></span><code>mkdir launch
+touch launch/display_rviz2.launch.py
+</code></pre></div>
+
+<p>完成后的目录结构：</p>
+<div class="highlight"><pre><span></span><code><span class="err">├──</span><span class="w"> </span><span class="nx">fishbot_description</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">__init__</span><span class="p">.</span><span class="nx">py</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">launch</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">display_rviz2</span><span class="p">.</span><span class="nx">launch</span><span class="p">.</span><span class="nx">py</span>
+<span class="err">├──</span><span class="w"> </span><span class="kn">package</span><span class="p">.</span><span class="nx">xml</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">setup</span><span class="p">.</span><span class="nx">cfg</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">setup</span><span class="p">.</span><span class="nx">py</span>
+<span class="err">└──</span><span class="w"> </span><span class="nx">urdf</span>
+<span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">fishbot_base</span><span class="p">.</span><span class="nx">urdf</span>
+</code></pre></div>
+
+<p>.launch.py文件</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaunchDescription</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch.substitutions</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaunchConfiguration</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch_ros.actions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch_ros.substitutions</span><span class="w"> </span><span class="kn">import</span> <span class="n">FindPackageShare</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_launch_description</span><span class="p">():</span>
+   <span class="n">package_name</span> <span class="o">=</span> <span class="s1">&#39;fishbot_description&#39;</span>
+   <span class="n">urdf_name</span> <span class="o">=</span> <span class="s2">&quot;fishbot_base.urdf&quot;</span>
+
+   <span class="n">ld</span> <span class="o">=</span> <span class="n">LaunchDescription</span><span class="p">()</span>
+   <span class="n">pkg_share</span> <span class="o">=</span> <span class="n">FindPackageShare</span><span class="p">(</span><span class="n">package</span><span class="o">=</span><span class="n">package_name</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">package_name</span><span class="p">)</span> 
+   <span class="n">urdf_model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pkg_share</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;urdf/</span><span class="si">{</span><span class="n">urdf_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+   <span class="n">robot_state_publisher_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+       <span class="n">package</span><span class="o">=</span><span class="s1">&#39;robot_state_publisher&#39;</span><span class="p">,</span>
+       <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;robot_state_publisher&#39;</span><span class="p">,</span>
+       <span class="n">arguments</span><span class="o">=</span><span class="p">[</span><span class="n">urdf_model_path</span><span class="p">]</span>
+       <span class="p">)</span>
+
+   <span class="n">joint_state_publisher_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+       <span class="n">package</span><span class="o">=</span><span class="s1">&#39;joint_state_publisher_gui&#39;</span><span class="p">,</span>
+       <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;joint_state_publisher_gui&#39;</span><span class="p">,</span>
+       <span class="n">name</span><span class="o">=</span><span class="s1">&#39;joint_state_publisher_gui&#39;</span><span class="p">,</span>
+       <span class="n">arguments</span><span class="o">=</span><span class="p">[</span><span class="n">urdf_model_path</span><span class="p">]</span>
+       <span class="p">)</span>
+
+   <span class="n">rviz2_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+       <span class="n">package</span><span class="o">=</span><span class="s1">&#39;rviz2&#39;</span><span class="p">,</span>
+       <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;rviz2&#39;</span><span class="p">,</span>
+       <span class="n">name</span><span class="o">=</span><span class="s1">&#39;rviz2&#39;</span><span class="p">,</span>
+       <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span><span class="p">,</span>
+       <span class="p">)</span>
+
+   <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">robot_state_publisher_node</span><span class="p">)</span>
+   <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">joint_state_publisher_node</span><span class="p">)</span>
+   <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">rviz2_node</span><span class="p">)</span>
+
+   <span class="k">return</span> <span class="n">ld</span>
+</code></pre></div>
+
+<p>想要可视化模型需要三个节点参与</p>
+<p>joint_state_publisher_gui 负责发布机器人关节数据信息，通过joint_states话题发布</p>
+<p>robot_state_publisher_node负责发布机器人模型信息robot_description，并将joint_states数据转换tf信息发布</p>
+<p>rviz2_node负责显示机器人的信息</p>
+<p><code>joint_state_publisher</code> --&gt; <code>joint_states</code> --&gt; <code>robot_state_publisher</code> --&gt; <code>robot_description</code> --&gt; <code>rviz2</code></p>
+<p>这里我们用到了joint_state_publisher_gui和robot_state_publisher两个包，如果你的系统没有安装这两个包，可以手动安装:</p>
+<div class="highlight"><pre><span></span><code>sudo apt install ros-$ROS_DISTRO-joint-state-publisher-gui ros-$ROS_DISTRO-robot-state-publisher
+</code></pre></div>
+
+<h2 id="setuppy">修改setup.py编译测试</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">setuptools</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">glob</span><span class="w"> </span><span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">package_name</span> <span class="o">=</span> <span class="s1">&#39;fishbot_description&#39;</span>
+
+<span class="n">setup</span><span class="p">(</span>
+   <span class="n">name</span><span class="o">=</span><span class="n">package_name</span><span class="p">,</span>
+   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.0.0&#39;</span><span class="p">,</span>
+   <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="n">package_name</span><span class="p">],</span>
+   <span class="n">data_files</span><span class="o">=</span><span class="p">[</span>
+       <span class="p">(</span><span class="s1">&#39;share/ament_index/resource_index/packages&#39;</span><span class="p">,</span>
+           <span class="p">[</span><span class="s1">&#39;resource/&#39;</span> <span class="o">+</span> <span class="n">package_name</span><span class="p">]),</span>
+       <span class="p">(</span><span class="s1">&#39;share/&#39;</span> <span class="o">+</span> <span class="n">package_name</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;package.xml&#39;</span><span class="p">]),</span>
+       <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;share&#39;</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="s1">&#39;launch&#39;</span><span class="p">),</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;launch/*.launch.py&#39;</span><span class="p">)),</span>
+       <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;share&#39;</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="s1">&#39;urdf&#39;</span><span class="p">),</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;urdf/**&#39;</span><span class="p">)),</span>
+   <span class="p">],</span>
+   <span class="n">install_requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;setuptools&#39;</span><span class="p">],</span>
+   <span class="n">zip_safe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+   <span class="n">maintainer</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">,</span>
+   <span class="n">maintainer_email</span><span class="o">=</span><span class="s1">&#39;root@todo.todo&#39;</span><span class="p">,</span>
+   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;TODO: Package description&#39;</span><span class="p">,</span>
+   <span class="n">license</span><span class="o">=</span><span class="s1">&#39;TODO: License declaration&#39;</span><span class="p">,</span>
+   <span class="n">tests_require</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pytest&#39;</span><span class="p">],</span>
+   <span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+       <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
+       <span class="p">],</span>
+   <span class="p">},</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>编译测试</p>
+<div class="highlight"><pre><span></span><code>colcon build
+
+source install/setup.bash
+ros2 launch fishbot_description display_rviz2.launch.py
+</code></pre></div>
+
+<p>添加robotmodel模块，分别选择link名称如下，即可看到机器人的模型显示<br />
+<img alt="image.png" src="ROS2_modeling_simulation_files/image.png" /><br />
+此时看看节点关系图<br />
+打开rqt，在 rqt 工具的菜单栏中，选择Plugins（插件）&gt; Introspection（内省）&gt; Node Graph<br />
+<img alt="image-2.png" src="ROS2_modeling_simulation_files/image-2.png" /><br />
+然后打开TF模块，看一下机器人的坐标系关系<br />
+<img alt="image-3.png" src="ROS2_modeling_simulation_files/image-3.png" /></p>
+<p>练习1：尝试将修改机器人身体颜色为蓝色，透明度为50%(0.1 0.1 1.0 0.5)</p>
+<p>练习2：尝试在URDF中添加imu_link并使用imu_joint将其固定在车体的中心上方2cm，imu采用的几何形状为box,长宽高各是2cm</p>
+<p>透明度修改只需要在base_link中添加material</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">   </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">       </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">   </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">       </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.12&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.10&quot;</span><span class="nt">/&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">   </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;blue&quot;</span><span class="nt">&gt;</span>
+<span class="w">       </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.1 0.1 1.0 0.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span>
+<span class="w">   </span><span class="nt">&lt;/material&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="nt">&lt;/link&gt;</span>
+</code></pre></div>
+
+<p>添加imu</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="cm">&lt;!-- imu link --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;imu_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">           </span><span class="nt">&lt;box</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;0.02 0.02 0.02&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- imu joint --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;imu_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;fixed&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;imu_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.02&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
+</code></pre></div>
+
+<h1 id="_4">创建一个两轮差速模型</h1>
+<p>接下来添加如下部件和关节：</p>
+<ul>
+<li>IMU传感器部件与关节</li>
+<li>左轮子部件与关节</li>
+<li>右轮子部件与关节</li>
+<li>支撑轮子部件与关节</li>
+</ul>
+<p><img alt="image.png" src="ROS2_modeling_simulation_files/image.png" /></p>
+<h2 id="imu">添加imu</h2>
+<p>见上节练习</p>
+<h2 id="_5">添加右轮</h2>
+<p>关节名称为right_wheel_link，轮子的宽为4cm,直径为6.4cm,几何形状是个圆柱体  </p>
+<p>需要注意的是,圆柱默认的朝向是向上的</p>
+<p>我们可通过origin的rpy改变轮子的旋转角度，让其绕x轴旋转pi/2</p>
+<p>颜色换黑色，可以得到下面的配置：</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;right_wheel_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">       </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;1.57079 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">         </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.04&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.032&quot;</span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">         </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;black&quot;</span><span class="nt">&gt;</span>
+<span class="w">           </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.0 0.0 0.0 0.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span>
+<span class="w">         </span><span class="nt">&lt;/material&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+</code></pre></div>
+
+<p>我们把右轮子的中心固定在机器人右后方</p>
+<p>需要注意的是origin和axis值的设置</p>
+<p>先看origin</p>
+<p>因为base_link的高度是0.12,我们</p>
+<p>z表示child相对parent的z轴上的关系，想将轮子固定在机器人的下表面,所以origin的z向下偏移0.12/2=0.06m(向下符号为负)</p>
+<p>y表示child相对parent的y轴上的关系，base_link的半径是0.10,所以我们让轮子的y轴向负方向偏移0.10m(向左符号为负)</p>
+<p>x表示child相对parent的x轴上的关系，向后偏移则是x轴向后进行偏移，我们用个差不多的值0.02m(向后符号为负)</p>
+<p>再看axis</p>
+<p>轮子是会转动的，那应该按照哪个轴转动呢？从上图可以看出是绕着y轴的逆时针方向，所以axis的设置为：<code>&lt;axis xyz="0 1 0" /&gt;</code></p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;right_wheel_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;continuous&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;right_wheel_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;-0.02 -0.10 -0.06&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;axis</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 1 0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
+</code></pre></div>
+
+<h2 id="_6">添加左轮</h2>
+<p>左轮就是右轮的映射，不再赘述</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_wheel_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">       </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;1.57079 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">         </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.04&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.032&quot;</span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">         </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;black&quot;</span><span class="nt">&gt;</span>
+<span class="w">           </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.0 0.0 0.0 0.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span>
+<span class="w">         </span><span class="nt">&lt;/material&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_wheel_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;continuous&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;left_wheel_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;-0.02 0.10 -0.06&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;axis</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 1 0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
+</code></pre></div>
+
+<h2 id="_7">添加支撑轮</h2>
+<p>支撑轮子固定在机器人的前方，用个球体，半径用0.016m，小球的直径为0.032m与左右轮子半径相同，然后向下偏移0.016+0.06=0.076m,向下值为负，同时把支撑论向前移动一些，选个0.06m</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;caster_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">   </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">         </span><span class="nt">&lt;sphere</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.016&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">       </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;black&quot;</span><span class="nt">&gt;</span>
+<span class="w">         </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.0 0.0 0.0 0.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span>
+<span class="w">       </span><span class="nt">&lt;/material&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;caster_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;fixed&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;caster_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0.06 0.0 -0.076&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
+</code></pre></div>
+
+<h2 id="urdf_2">最终URDF文件</h2>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;robot</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;fishbot&quot;</span><span class="nt">&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- base link --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">       </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.12&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.10&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">     </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;blue&quot;</span><span class="nt">&gt;</span>
+<span class="w">         </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.1 0.1 1.0 0.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span>
+<span class="w">     </span><span class="nt">&lt;/material&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- laser link --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;laser_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">       </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.02&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.02&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">     </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;black&quot;</span><span class="nt">&gt;</span>
+<span class="w">         </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.0 0.0 0.0 0.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span>
+<span class="w">     </span><span class="nt">&lt;/material&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- laser joint --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;laser_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;fixed&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;laser_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.075&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
+
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;imu_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">           </span><span class="nt">&lt;box</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;0.02 0.02 0.02&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="cm">&lt;!-- imu joint --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;imu_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;fixed&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;imu_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0.02&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
+
+
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_wheel_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">       </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;1.57079 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">         </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.04&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.032&quot;</span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">         </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;black&quot;</span><span class="nt">&gt;</span>
+<span class="w">           </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.0 0.0 0.0 0.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span>
+<span class="w">         </span><span class="nt">&lt;/material&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_wheel_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;continuous&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;left_wheel_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;-0.02 0.10 -0.06&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;axis</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 1 0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
+
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;right_wheel_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">       </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;1.57079 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">         </span><span class="nt">&lt;cylinder</span><span class="w"> </span><span class="na">length=</span><span class="s">&quot;0.04&quot;</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.032&quot;</span><span class="nt">/&gt;</span>
+<span class="w">       </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">         </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;black&quot;</span><span class="nt">&gt;</span>
+<span class="w">           </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.0 0.0 0.0 0.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span>
+<span class="w">         </span><span class="nt">&lt;/material&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;right_wheel_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;continuous&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;right_wheel_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;-0.02 -0.10 -0.06&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;axis</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 1 0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
+
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;caster_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">   </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;1.57079 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">         </span><span class="nt">&lt;sphere</span><span class="w"> </span><span class="na">radius=</span><span class="s">&quot;0.016&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">       </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;black&quot;</span><span class="nt">&gt;</span>
+<span class="w">         </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.0 0.0 0.0 0.5&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w"> </span>
+<span class="w">       </span><span class="nt">&lt;/material&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/visual&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/link&gt;</span>
+
+<span class="w"> </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;caster_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;fixed&quot;</span><span class="nt">&gt;</span>
+<span class="w">     </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;caster_link&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0.06 0.0 -0.076&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;axis</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 1 0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
+
+
+
+<span class="nt">&lt;/robot&gt;</span>
+</code></pre></div>
+
+<h2 id="_8">编译测试</h2>
+<div class="highlight"><pre><span></span><code>colcon build
+source install/setup.bash
+ros2 launch fishbot_description display_rviz2.launch.py
+</code></pre></div>
+
+<p><img alt="image.png" src="ROS2_modeling_simulation_files/image.png" /><br />
+<img alt="image-2.png" src="ROS2_modeling_simulation_files/image-2.png" /><br />
+jointstate多出两个滑动条<br />
+<img alt="image-3.png" src="ROS2_modeling_simulation_files/image-3.png" /><br />
+打印joint_states话题</p>
+<div class="highlight"><pre><span></span><code>ros2 topic echo /joint_states
+</code></pre></div>
+
+<p><img alt="image-4.png" src="ROS2_modeling_simulation_files/image-4.png" />  </p>
+<p>在JointStatePublisher中,拖动滑动条,观察</p>
+<ul>
+<li>rviz2中tf的变换</li>
+<li>joint_states中的值的变换</li>
+</ul>
+<p>可以看到随着进度条拖动,话题中的值和rviz2中机器人关节在同步的旋转,joint_states话题也可以手动发送,下一节我们通过手动发送joint_states来控制机器人轮子转动</p>
+<h2 id="_9">如何让车轮着地</h2>
+<p>虽然显示出了机器人模型，但有一个问题，那就是在RVIZ中的机器人轮子是在地面之下的。</p>
+<p>原因在于我们fixed-frame选择的是base_link,base_link的位置本来就在left_wheel_link和right_wheel_link只上，那该怎么办呢？</p>
+<p>其实很简单，我们增加一个虚拟link和关节，这个关节与base_link相连，位置位于base_link向下刚好到车轮下表面的位置。</p>
+<p>来，让我们<strong>给base_link添加一个父link-base_footprint</strong>，新增的URDF代码如下：</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="cm">&lt;!-- Robot Footprint --&gt;</span>
+<span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_footprint&quot;</span><span class="nt">/&gt;</span>
+
+<span class="w"> </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;fixed&quot;</span><span class="nt">&gt;</span>
+<span class="w">   </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_footprint&quot;</span><span class="nt">/&gt;</span>
+<span class="w">   </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="nt">/&gt;</span>
+<span class="w">   </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0.0 0.0 0.076&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
+</code></pre></div>
+
+<p>因为是虚拟关节，我们不用对这个link的形状进行描述，joint的origin设置为xyz="0.0 0.0 0.076"表示关节base_footprint向上0.076就是base_link</p>
+<p>保存编译再次运行测试，此时车轮就在地面上了</p>
+<h1 id="jiontstatesrviz2">通过JiontStates控制RVIZ2关节</h1>
+<p>我们需要自己编写节点,取代joint_state_publisher发送关节位姿给robot_state_pubsher，robot_state_publisher发送tf控制机器人的关节转动。</p>
+<p><img alt="image.png" src="ROS2_modeling_simulation_files/image.png" /></p>
+<h2 id="_10">新建节点</h2>
+<div class="highlight"><pre><span></span><code>cd chapt8/chapt8_ws/src
+touch fishbot_description/fishbot_description/rotate_wheel.py
+</code></pre></div>
+
+<p>rotate_wheel.py如下</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RotateWheelNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+   <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+       <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;node </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> init..&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">   </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   ros2运行该节点的入口函数</span>
+<span class="sd">   1. 导入库文件</span>
+<span class="sd">   2. 初始化客户端库</span>
+<span class="sd">   3. 新建节点</span>
+<span class="sd">   4. spin循环节点</span>
+<span class="sd">   5. 关闭客户端库</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span> <span class="c1"># 初始化rclpy</span>
+   <span class="n">node</span> <span class="o">=</span> <span class="n">RotateWheelNode</span><span class="p">(</span><span class="s2">&quot;rotate_fishbot_wheel&quot;</span><span class="p">)</span>  <span class="c1"># 新建一个节点</span>
+   <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="c1"># 保持节点运行，检测是否收到退出指令（Ctrl+C）</span>
+   <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span> <span class="c1"># 关闭rclpy</span>
+</code></pre></div>
+
+<p>配置下setup.py</p>
+<div class="highlight"><pre><span></span><code>   <span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+       <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
+           <span class="s2">&quot;rotate_wheel= fishbot_description.rotate_wheel:main&quot;</span>
+       <span class="p">],</span>
+   <span class="p">},</span>
+</code></pre></div>
+
+<p>编译运行</p>
+<div class="highlight"><pre><span></span><code>colcon build
+source install/setup.bash
+ros2 run fishbot_description rotate_wheel
+</code></pre></div>
+
+<h2 id="_11">创建发布者</h2>
+<p>创建发布者之前，首先要知道robot_state_pubsher所订阅的话题类型是什么</p>
+<div class="highlight"><pre><span></span><code>ros2 topic info /joint_states
+
+Type: sensor_msgs/msg/JointState
+Publisher count: 1
+Subscription count: 1
+</code></pre></div>
+
+<p>接着</p>
+<div class="highlight"><pre><span></span><code>ros2 interfaces show sensor_msgs/msg/JointState
+
+<span class="gh">#</span> This is a message that holds data to describe the state of a set of torque controlled joints.
+<span class="gh">#</span>
+# The state of each joint (revolute or prismatic) is defined by:
+<span class="gh">#</span>  * the position of the joint (rad or m),
+<span class="gh">#</span>  * the velocity of the joint (rad/s or m/s) and
+<span class="gh">#</span>  * the effort that is applied in the joint (Nm or N).
+<span class="gh">#</span>
+# Each joint is uniquely identified by its name
+<span class="gh">#</span> The header specifies the time at which the joint states were recorded. All the joint states
+<span class="gh">#</span> in one message have to be recorded at the same time.
+<span class="gh">#</span>
+# This message consists of a multiple arrays, one for each part of the joint state.
+<span class="gh">#</span> The goal is to make each of the fields optional. When e.g. your joints have no
+<span class="gh">#</span> effort associated with them, you can leave the effort array empty.
+<span class="gh">#</span>
+# All arrays in this message should have the same size, or be empty.
+<span class="gh">#</span> This is the only way to uniquely associate the joint name with the correct
+<span class="gh">#</span> states.
+
+std_msgs/Header header
+
+string[] name
+float64[] position
+float64[] velocity
+float64[] effort
+</code></pre></div>
+
+<p>知道了话题类型，我们就可以来创建发布者了<br />
+rotate_wheel.py</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="c1"># 1.导入消息类型JointState</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sensor_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">JointState</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RotateWheelNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+   <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+       <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;node </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> init..&quot;</span><span class="p">)</span>
+       <span class="c1"># 2.创建并初始化发布者成员属性pub_joint_states_</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">pub_joint_states_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">JointState</span><span class="p">,</span><span class="s2">&quot;joint_states&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> 
+</code></pre></div>
+
+<h2 id="_12">编写发布逻辑</h2>
+<p><strong>多线程定频发布Rate</strong></p>
+<p>创建好发布者，我们想让话题按照某个固定的速度进行发布，可以采用ROS2中的定时神器Rate</p>
+<p>为了能够一直循环使用rate，我们单独开一个线程用于发布joint_states话题数据，在ROS2程序中单独开线程进行话题发布的方法为：  </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RotateWheelNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+   <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="c1"># 创建一个Rate和线程</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">pub_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_rate</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1">#5Hz</span>
+       <span class="c1"># 创建线程</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">thread_</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_thread_pub</span><span class="p">)</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">thread_</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+   <span class="k">def</span><span class="w"> </span><span class="nf">_thread_pub</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="k">while</span> <span class="n">rclpy</span><span class="o">.</span><span class="n">ok</span><span class="p">():</span>
+           <span class="c1">#做一些操作，使用rate保证循环频率</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">pub_rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>构造发布数据</strong></p>
+<p>joint_states有一个头和四个数组需要赋值（可通过ros2 interface指令查询）</p>
+<div class="highlight"><pre><span></span><code>std_msgs/Header header #时间戳信息 和 frame_id
+string[] name
+float64[] position
+float64[] velocity
+float64[] effort
+</code></pre></div>
+
+<p>对应的含义为：</p>
+<div class="highlight"><pre><span></span><code># 这是一个持有数据的信息，用于描述一组扭矩控制的关节的状态。
+#
+# 每个关节（渐进式或棱柱式）的状态由以下因素定义。
+# #关节的位置（rad或m）。
+# #关节的速度（弧度/秒或米/秒）和
+# #在关节上施加的力（Nm或N）。
+#
+# 每个关节都由其名称来唯一标识
+# 头部规定了记录关节状态的时间。所有的联合状态
+# 必须是在同一时间记录的。
+#
+# 这个消息由多个数组组成，每个部分的联合状态都有一个数组。
+# 目标是让每个字段都是可选的。例如，当你的关节没有
+# 扭矩与它们相关，你可以让扭矩数组为空。
+#
+# 这个信息中的所有数组都应该有相同的大小，或者为空。
+# 这是唯一能将关节名称与正确的
+# 状态。
+string[] name #关节名称数组
+float64[] position #关节位置数组
+float64[] velocity #关节速度数组
+float64[] effort #扭矩数据
+</code></pre></div>
+
+<p><strong>name</strong><br />
+关节的名称，要与urdf中的定义的关节名称相同，根据我们的URDF定义有</p>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;left_wheel_joint&#39;</span><span class="p">,</span><span class="s1">&#39;right_wheel_joint&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p><strong>position</strong><br />
+表示关节转动的角度值，因为关节类型为continuous,所以其值无上下限制，初始值赋值为0.0</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 关节的位置</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+</code></pre></div>
+
+<p>我们采用速度控制机器人轮子转动，所以机器人的位置更新则可以通过下面式子计算得出</p>
+<blockquote>
+<p>某一段时间内轮子转动的角度 = （当前时刻-上一时刻）*两个时刻之间的轮子转速</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="n">delta_time</span> <span class="o">=</span>  <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">last_update_time</span>
+<span class="c1"># 更新位置</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">delta_time</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">delta_time</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+
+<p><strong>velocity</strong><br />
+因为我们采用速度进行控制，所以对外提供一个速度更改接口。</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">speeds</span><span class="p">):</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">joint_speeds</span> <span class="o">=</span> <span class="n">speeds</span>
+</code></pre></div>
+
+<p>rotate_wheel.py完整代码</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="c1"># 1.导入消息类型JointState</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sensor_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">JointState</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RotateWheelNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+   <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+       <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;node </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> init..&quot;</span><span class="p">)</span>
+       <span class="c1"># 创建并初始化发布者成员属性pub_joint_states_</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">joint_states_publisher_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">JointState</span><span class="p">,</span><span class="s2">&quot;joint_states&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> 
+       <span class="c1"># 初始化数据</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">_init_joint_states</span><span class="p">()</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">pub_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_rate</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">thread_</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_thread_pub</span><span class="p">)</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">thread_</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+
+   <span class="k">def</span><span class="w"> </span><span class="nf">_init_joint_states</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="c1"># 初始左右轮子的速度</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">joint_speeds</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span> <span class="o">=</span> <span class="n">JointState</span><span class="p">()</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+       <span class="c1"># 关节名称</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;left_wheel_joint&#39;</span><span class="p">,</span><span class="s1">&#39;right_wheel_joint&#39;</span><span class="p">]</span>
+       <span class="c1"># 关节的位置</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+       <span class="c1"># 关节速度</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">joint_speeds</span>
+       <span class="c1"># 力 </span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">effort</span> <span class="o">=</span> <span class="p">[]</span>
+
+   <span class="k">def</span><span class="w"> </span><span class="nf">update_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">speeds</span><span class="p">):</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">joint_speeds</span> <span class="o">=</span> <span class="n">speeds</span>
+
+   <span class="k">def</span><span class="w"> </span><span class="nf">_thread_pub</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="n">last_update_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+       <span class="k">while</span> <span class="n">rclpy</span><span class="o">.</span><span class="n">ok</span><span class="p">():</span>
+           <span class="n">delta_time</span> <span class="o">=</span>  <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">last_update_time</span>
+           <span class="n">last_update_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+           <span class="c1"># 更新位置</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">delta_time</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">delta_time</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+           <span class="c1"># 更新速度</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">joint_speeds</span>
+           <span class="c1"># 更新 header</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+           <span class="c1"># 发布关节数据</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">joint_states_publisher_</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">joint_states</span><span class="p">)</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">pub_rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+   <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span> <span class="c1"># 初始化rclpy</span>
+   <span class="n">node</span> <span class="o">=</span> <span class="n">RotateWheelNode</span><span class="p">(</span><span class="s2">&quot;rotate_fishbot_wheel&quot;</span><span class="p">)</span>  <span class="c1"># 新建一个节点</span>
+   <span class="n">node</span><span class="o">.</span><span class="n">update_speed</span><span class="p">([</span><span class="mf">15.0</span><span class="p">,</span><span class="o">-</span><span class="mf">15.0</span><span class="p">])</span>
+   <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="c1"># 保持节点运行，检测是否收到退出指令（Ctrl+C）</span>
+   <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span> <span class="c1"># 关闭rclpy</span>
+</code></pre></div>
+
+<h2 id="_13">编译测试</h2>
+<p>测试之前还需要修改下display_rviz2.launch.py文件，注释其joint_state_publisher节点</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ld.add_action(joint_state_publisher_node)</span>
+<span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">robot_state_publisher_node</span><span class="p">)</span>
+<span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">rviz2_node</span><span class="p">)</span>
+</code></pre></div>
+
+<p>编译程序</p>
+<div class="highlight"><pre><span></span><code><span class="nx">colcon</span><span class="w"> </span><span class="nx">build</span><span class="w"> </span><span class="o">--</span><span class="nx">packages</span><span class="o">-</span><span class="nx">select</span><span class="w"> </span><span class="nx">fishbot_description</span>
+</code></pre></div>
+
+<p>先运行rviz和robot_state_publisher</p>
+<div class="highlight"><pre><span></span><code>source install/setup.bash
+ros2 launch fishbot_description display_rviz2.launch.py
+</code></pre></div>
+
+<p>新开终端，运行关节数据发布节点</p>
+<div class="highlight"><pre><span></span><code>cd chapt8/chapt8_ws/src
+source install/setup.bash
+ros2 run fishbot_description rotate_wheel
+</code></pre></div>
+
+<p>观察此时rviz界面，可以看到轮子疯狂转动</p>
+<h1 id="_14">机器人仿真介绍</h1>
+<p>机器人仿真其实就是通过软件来模仿硬件的特性，用于验证机器人算法、架构等。</p>
+<p><strong>为什么需要机器人仿真</strong></p>
+<p>对于个人极客来说，直接动手比仿真要来的快和直接的多。单对于公司和非常复杂的项目来说，仿真就变得很重要了。</p>
+<p>原因在于：</p>
+<ol>
+<li>
+<p>仿真可以解决真机资源不足，真实的机器人一般价格都很贵，搭建起来也很耗费资源。</p>
+</li>
+<li>
+<p>仿真可以保证环境的一致和稳定。</p>
+</li>
+<li>
+<p>仿真场景可以更加灵活，在测试机器人算法时可以通过仿真软件快速更改仿真环境，验证算法</p>
+</li>
+</ol>
+<p><strong>仿真有哪些缺点</strong></p>
+<p>现实世界中的环境非常复杂，光线、材质、电磁干扰等等，仿真平台无法做到100%的仿真。</p>
+<p><strong>常用仿真平台</strong></p>
+<p>相较于ROS，ROS2支持更多更专业的仿真平台，常用的有：</p>
+<ul>
+<li><code>Gazebo</code></li>
+<li>
+<p><code>WeBots</code><br />
+  Webots由Cyberbotics公司开发，是一个用于模拟机器人的开源和多平台桌面应用程序。<br />
+  它提供了一个完整的开发环境来对机器人进行建模、编程和仿真。<br />
+  Webots内核基于开源动力学引擎ODE和OpenGL，可以在Windows，Linux和macOS上运行，并且支持多种编程语言(C/C++，Python，Java，MATLAB)。</p>
+</li>
+<li>
+<p><code>Ignition</code><br />
+  继承于Gazebo的下一代仿真平台，Ignition Robotics基于开发库和云服务等丰富全面的工具箱，提供了一种全新的仿真方式，进一步简化仿真。<br />
+  高度逼真的传感器可在接近真实的环境中快速迭代更新机器人物理设计。在安全上可测试控制策略，并在持续的集成化侧重中利用仿真的诸多优势。  </p>
+</li>
+<li>
+<p><code>Unity</code><br />
+  Unity Robotics软件包带有许多现成的接口，能让你轻松与ROS或ROS 2的交换信息。<br />
+  你也能用URDF Importer直接从URDF文件中导入机器人配置，在Unity高质量的渲染管线与高精度的物理模拟加持下开始训练机器人。<br />
+  Unity的Asset Store还售有大量现成的环境和道具，可用于补充机器人的训练环境、完善训练任务。<br />
+  只需几键，你搭建的模拟就可以构建并部署到Windows 10、Mac OS或Linux等任意主流操作系统。<br />
+  你甚至可以使用C#、Bolt可视化编程及Asset Store上的众多脚本和实用程序来根据自己的需求进一步定制模拟环境。</p>
+</li>
+</ul>
+<p><strong>我们用哪个仿真平台？</strong></p>
+<p>鉴于从ROS和Gazebo中得到的大量经验，我们依然选择Gazebo作为本次进行仿真的主要平台</p>
+<h1 id="urdf_3">为机器人URDF模型添加物理参数</h1>
+<p>机器人仿真就是用软件来模拟硬件的特性，那么我们必须要告诉仿真平台机器人各个关节的物理属性。</p>
+<p>所以这节需要将物理信息写入到urdf中，让机器人在gazebo中显示出来。</p>
+<h2 id="_15"><strong>物理参数</strong></h2>
+<p>一般来说有<code>碰撞</code>和<code>内参</code>两个就够了，这里再加一个摩擦力配置  </p>
+<p>碰撞描述是物体的用于碰撞检测的包围形状。内参用于描述物体的质量，惯性矩阵。link的摩擦力。</p>
+<p><strong>碰撞检测</strong></p>
+<p>在机器人仿真中，我们要对物体之前是否接触，是否发生碰撞做检测，常用的检测方法比如包围盒，判断两个物体的包围盒是否相交来快速判断物体是否发生碰撞。</p>
+<p>在URDF中，我们可以可以在link标签下添加collison子标签来对物体的形状进行描述。</p>
+<p>collision可以包含的子标签如下：</p>
+<ul>
+<li>origin，表示碰撞体的中心位姿</li>
+<li>geometry，用于表示用于碰撞检测的几何形状</li>
+<li>material，可选的，描述碰撞几何体的材料(这个设置可以在gazebo仿真时通过view选项看到碰撞包围体的形状)</li>
+</ul>
+<div class="highlight"><pre><span></span><code>    <span class="o">&lt;</span><span class="n">collision</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">origin</span> <span class="n">xyz</span><span class="o">=</span><span class="s2">&quot;0 0 0.0&quot;</span> <span class="n">rpy</span><span class="o">=</span><span class="s2">&quot;0 0 0&quot;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">geometry</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">cylinder</span> <span class="n">length</span><span class="o">=</span><span class="s2">&quot;0.12&quot;</span> <span class="n">radius</span><span class="o">=</span><span class="s2">&quot;0.10&quot;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;/</span><span class="n">geometry</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">material</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">color</span> <span class="n">rgba</span><span class="o">=</span><span class="s2">&quot;0.1 0.1 1.0 0.5&quot;</span> <span class="o">/&gt;</span> 
+      <span class="o">&lt;/</span><span class="n">material</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">collision</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<p><strong>旋转惯量</strong></p>
+<p>旋转惯量矩阵是用于描述物体的惯性的，在做动力学仿真的时候，这些参数尤为重要。</p>
+<p>在URDF中我们可以通过在link下添加inertial子标签，为link添加惯性参数的描述。</p>
+<p>intertial标签包含的子标签如下：</p>
+<ul>
+<li>mass，描述link的质量</li>
+<li>inertia，描述link的旋转惯量（该标签有六个属性值ixx\ixy\ixz\iyy\iyz\izz）</li>
+</ul>
+<div class="highlight"><pre><span></span><code>   <span class="o">&lt;</span><span class="n">inertial</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">mass</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;0.2&quot;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">inertia</span> <span class="n">ixx</span><span class="o">=</span><span class="s2">&quot;0.0122666&quot;</span> <span class="n">ixy</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="n">ixz</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="n">iyy</span><span class="o">=</span><span class="s2">&quot;0.0122666&quot;</span> <span class="n">iyz</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="n">izz</span><span class="o">=</span><span class="s2">&quot;0.02&quot;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="n">inertial</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<p>关于intertial的属性设置，不是随意设置的，常见的几何体我们可以通过公式进行计算。</p>
+<p><strong>摩擦力和刚性系数</strong></p>
+<p>在Fishbot的URDF中，前面的支撑轮主要起支撑作用，因为我们将其使用fixed标签固定到了base_link上，所以它无法转动。</p>
+<p>该怎么办呢？我们可以要把这个轮子的摩擦力设置为0，让它直接在地上滑动即可。</p>
+<p>其中mu1,mu2代表摩擦力，kp,kd代表刚性系数。</p>
+<div class="highlight"><pre><span></span><code>  <span class="o">&lt;</span><span class="n">gazebo</span> <span class="n">reference</span><span class="o">=</span><span class="s2">&quot;caster_link&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">mu1</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;0.0&quot;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="n">mu2</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;0.0&quot;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="n">kp</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;1000000.0&quot;</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="n">kd</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;10.0&quot;</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;/</span><span class="n">gazebo</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<h2 id="base_link">完整base_link如下</h2>
+<blockquote>
+<p>注意：要将以下内容修改到urdf文件中，否则之后的Gazebo会报错（因为缺少物理参数导致 Gazebo 在构建模型的物理表示（与图结构相关）时出现问题）</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>  <span class="o">&lt;</span><span class="err">!</span><span class="o">--</span> <span class="n">base</span> <span class="n">link</span> <span class="o">--&gt;</span>
+  <span class="o">&lt;</span><span class="n">link</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;base_link&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">visual</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">origin</span> <span class="n">xyz</span><span class="o">=</span><span class="s2">&quot;0 0 0.0&quot;</span> <span class="n">rpy</span><span class="o">=</span><span class="s2">&quot;0 0 0&quot;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">geometry</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">cylinder</span> <span class="n">length</span><span class="o">=</span><span class="s2">&quot;0.12&quot;</span> <span class="n">radius</span><span class="o">=</span><span class="s2">&quot;0.10&quot;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;/</span><span class="n">geometry</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">material</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">color</span> <span class="n">rgba</span><span class="o">=</span><span class="s2">&quot;0.1 0.1 1.0 0.5&quot;</span> <span class="o">/&gt;</span> 
+      <span class="o">&lt;/</span><span class="n">material</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">visual</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">collision</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">origin</span> <span class="n">xyz</span><span class="o">=</span><span class="s2">&quot;0 0 0.0&quot;</span> <span class="n">rpy</span><span class="o">=</span><span class="s2">&quot;0 0 0&quot;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">geometry</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">cylinder</span> <span class="n">length</span><span class="o">=</span><span class="s2">&quot;0.12&quot;</span> <span class="n">radius</span><span class="o">=</span><span class="s2">&quot;0.10&quot;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;/</span><span class="n">geometry</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">material</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">color</span> <span class="n">rgba</span><span class="o">=</span><span class="s2">&quot;0.1 0.1 1.0 0.5&quot;</span> <span class="o">/&gt;</span> 
+      <span class="o">&lt;/</span><span class="n">material</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">collision</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">inertial</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">mass</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;0.2&quot;</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="n">inertia</span> <span class="n">ixx</span><span class="o">=</span><span class="s2">&quot;0.0122666&quot;</span> <span class="n">ixy</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="n">ixz</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="n">iyy</span><span class="o">=</span><span class="s2">&quot;0.0122666&quot;</span> <span class="n">iyz</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="n">izz</span><span class="o">=</span><span class="s2">&quot;0.02&quot;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="n">inertial</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">link</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<h1 id="gazebourdf">Gazebo加载URDF</h1>
+<p>gazebo是独立于ROS/ROS2之外的仿真软件，我们可以独立使用Gazebo。如果我们想要通过ROS2和Gazebo进行交互，需要通过gazebo_ros插件来进行。</p>
+<h2 id="gazebo">Gazebo插件</h2>
+<p>安装Gazebo插件</p>
+<div class="highlight"><pre><span></span><code>sudo apt install ros-humble-gazebo-ros
+</code></pre></div>
+
+<p>启动Gazebo并启动插件</p>
+<div class="highlight"><pre><span></span><code>gazebo --verbose -s libgazebo_ros_init.so -s libgazebo_ros_factory.so 
+</code></pre></div>
+
+<p>查看插件的节点</p>
+<div class="highlight"><pre><span></span><code>ros2 node list
+
+/gazebo
+</code></pre></div>
+
+<p>查看这个节点对外提供的服务</p>
+<div class="highlight"><pre><span></span><code><span class="nx">ros2</span><span class="w"> </span><span class="nx">service</span><span class="w"> </span><span class="nx">list</span>
+
+<span class="o">/</span><span class="nx">delete_entity</span>
+<span class="o">/</span><span class="nx">get_model_list</span>
+<span class="o">/</span><span class="nx">spawn_entity</span>
+<span class="o">/</span><span class="nx">gazebo</span><span class="o">/</span><span class="nx">describe_parameters</span>
+<span class="o">/</span><span class="nx">gazebo</span><span class="o">/</span><span class="nx">get_parameter_types</span>
+<span class="o">/</span><span class="nx">gazebo</span><span class="o">/</span><span class="nx">get_parameters</span>
+<span class="o">/</span><span class="nx">gazebo</span><span class="o">/</span><span class="nx">list_parameters</span>
+<span class="o">/</span><span class="nx">gazebo</span><span class="o">/</span><span class="nx">set_parameters</span>
+<span class="o">/</span><span class="nx">gazebo</span><span class="o">/</span><span class="nx">set_parameters_atomically</span>
+</code></pre></div>
+
+<p>除去和参数相关的几个服务，我们可以看到另外三个特殊服务：</p>
+<ul>
+<li>/spawn_entity，用于加载模型到gazebo中</li>
+<li>/get_model_list，用于获取模型列表</li>
+<li>/delete_entity，用于删除gazbeo中已经加载的模型</li>
+</ul>
+<p>我们想要让gazebo显示出我们配置好的fishbot使用/spawn_entity来加载即可。</p>
+<p>先查看服务的接口类型</p>
+<div class="highlight"><pre><span></span><code><span class="nx">ros2</span><span class="w"> </span><span class="nx">service</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="o">/</span><span class="nx">spawn_entity</span>
+
+<span class="nx">gazebo_msgs</span><span class="o">/</span><span class="nx">srv</span><span class="o">/</span><span class="nx">SpawnEntity</span>
+</code></pre></div>
+
+<p>然后</p>
+<div class="highlight"><pre><span></span><code>ros2 interface show gazebo_msgs/srv/SpawnEntity
+
+string name                       # Name of the entity to be spawned (optional).
+string xml                        # Entity XML description as a string, either URDF or SDF.
+string robot_namespace            # Spawn robot and all ROS interfaces under this namespace
+geometry_msgs/Pose initial_pose   # Initial entity pose.
+string reference_frame            # initial_pose is defined relative to the frame of this entity.
+                                 # If left empty or &quot;world&quot; or &quot;map&quot;, then gazebo world frame is
+                                 # used.
+                                 # If non-existent entity is specified, an error is returned
+                                 # and the entity is not spawned.
+---
+bool success                      # Return true if spawned successfully.
+string status_message             # Comments if available.
+</code></pre></div>
+
+<p>可以看到服务的请求内容包括：</p>
+<ul>
+<li><code>string name</code> ，需要加载的实体的名称 (可选的)。</li>
+<li><code>string xml</code> ，实体的XML描述字符串, URDF或者SDF。</li>
+<li><code>string robot_namespace</code> ，产生的机器人和所有的ROS接口的命名空间，多机器人仿真的时候很有用。</li>
+<li><code>geometry_msgs/Pose initial_pose</code> ，机器人的初始化位置</li>
+<li><code>string reference_frame</code> ，初始姿态是相对于该实体的frame定义的。如果保持"empty"或"world"或“map”，则使用 gazebo的world作为frame。如果指定了不存在的实体，则会返回错误</li>
+</ul>
+<h2 id="_16">调用服务加载机器人</h2>
+<p>在rqt工具集里有一个叫服务请求工具。</p>
+<p>命令行输入rqt，在插件选项中选择Services-&gt;Service Caller,然后再下拉框选择/spawn_entity服务。</p>
+<p>接着我们把我们的FishBot的URDF模型复制粘贴，放到xml中（注意要把原来的''删掉），然后点击小电话Call图标。</p>
+<p>此时界面出现一个白色机器人，按住Shift加鼠标左键，拖动。</p>
+<p><strong>在不同位置加载多个机器人</strong></p>
+<p>修改rqt中的参数，增加一个命名空间，然后修改一个位置，让第二个机器人和第一个相距1m的地方生产，然后点击Call。</p>
+<p><img alt="image.png" src="http://fishros.com/d2lros2/humble/chapt9/get_started/3.%E5%9C%A8Gazebo%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%A8%A1%E5%9E%8B/imgs/image-20220405234507958.png" /></p>
+<p>此时拖动Gazebo观察一下，发现多出了一个机器人，距离刚好是在X轴（红色）1米（一个小格子一米）处。</p>
+<p><strong>查询和删除机器人</strong></p>
+<p>用rqt工具，我们再对另外两个服务接口进行请求。</p>
+<p><img alt="image.png" src="http://fishros.com/d2lros2/humble/chapt9/get_started/3.%E5%9C%A8Gazebo%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%A8%A1%E5%9E%8B/imgs/image-20220405234948237.png" /></p>
+<p><img alt="image.png" src="http://fishros.com/d2lros2/humble/chapt9/get_started/3.%E5%9C%A8Gazebo%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%A8%A1%E5%9E%8B/imgs/image-20220405235058954.png" /></p>
+<p>查到了三个模型，一个大地，一个fishbot，一个fishbot_0。</p>
+<p>我们接着尝试把fishbot_0删掉，选择删除实体，输入fishbot_0的名字，点击小电话Call按钮，通知工厂回收我们的fishbot_0。</p>
+<h2 id="gazebofishbotlaunch">将启动gazebo和生产fishbot写成launch文件</h2>
+<p>在src/fishbot_description/launch中添加一个gazebo.launch.py文件</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaunchDescription</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch.actions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExecuteProcess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch_ros.actions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch_ros.substitutions</span><span class="w"> </span><span class="kn">import</span> <span class="n">FindPackageShare</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_launch_description</span><span class="p">():</span>
+    <span class="n">robot_name_in_model</span> <span class="o">=</span> <span class="s1">&#39;fishbot&#39;</span>
+    <span class="n">package_name</span> <span class="o">=</span> <span class="s1">&#39;fishbot_description&#39;</span>
+    <span class="n">urdf_name</span> <span class="o">=</span> <span class="s2">&quot;fishbot_gazebo.urdf&quot;</span>
+
+    <span class="n">ld</span> <span class="o">=</span> <span class="n">LaunchDescription</span><span class="p">()</span>
+    <span class="n">pkg_share</span> <span class="o">=</span> <span class="n">FindPackageShare</span><span class="p">(</span><span class="n">package</span><span class="o">=</span><span class="n">package_name</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">package_name</span><span class="p">)</span> 
+    <span class="n">urdf_model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pkg_share</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;urdf/</span><span class="si">{</span><span class="n">urdf_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Start Gazebo server</span>
+    <span class="n">start_gazebo_cmd</span> <span class="o">=</span>  <span class="n">ExecuteProcess</span><span class="p">(</span>
+        <span class="n">cmd</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gazebo&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;libgazebo_ros_init.so&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;libgazebo_ros_factory.so&#39;</span><span class="p">],</span>
+        <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Launch the robot</span>
+    <span class="n">spawn_entity_cmd</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+        <span class="n">package</span><span class="o">=</span><span class="s1">&#39;gazebo_ros&#39;</span><span class="p">,</span> 
+        <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;spawn_entity.py&#39;</span><span class="p">,</span>
+        <span class="n">arguments</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-entity&#39;</span><span class="p">,</span> <span class="n">robot_name_in_model</span><span class="p">,</span>  <span class="s1">&#39;-file&#39;</span><span class="p">,</span> <span class="n">urdf_model_path</span> <span class="p">],</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span><span class="p">)</span>
+
+    <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">start_gazebo_cmd</span><span class="p">)</span>
+    <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">spawn_entity_cmd</span><span class="p">)</span>
+
+
+    <span class="k">return</span> <span class="n">ld</span>
+</code></pre></div>
+
+<p>编译运行</p>
+<div class="highlight"><pre><span></span><code><span class="nx">colcon</span><span class="w"> </span><span class="nx">build</span><span class="w"> </span><span class="o">--</span><span class="nx">packages</span><span class="o">-</span><span class="nx">select</span><span class="w"> </span><span class="nx">fishbot_description</span>
+<span class="nx">source</span><span class="w"> </span><span class="nx">install</span><span class="o">/</span><span class="nx">setup</span><span class="p">.</span><span class="nx">bash</span>
+<span class="nx">ros2</span><span class="w"> </span><span class="nx">launch</span><span class="w"> </span><span class="nx">fishbot_description</span><span class="w"> </span><span class="nx">gazebo</span><span class="p">.</span><span class="nx">launch</span><span class="p">.</span><span class="nx">py</span>
+</code></pre></div>
+
+<h1 id="gazebo_1">Gazebo仿真插件之两轮差速</h1>
+<p>本节通过配置两轮差速控制插件，让我们的机器人动起来.</p>
+<h2 id="gazebo_2">Gazebo插件介绍</h2>
+<p>gazebo的插件按照用途大致可以分为两种：</p>
+<ul>
+<li>
+<p>用于控制的插件，通过插件可以控制机器人关节运动，可以进行位置、速度、力的控制。</p>
+</li>
+<li>
+<p>用于数据采集的插件，比如IMU传感器用于采集机器人的惯性，激光雷达用于采集机器人周围的点云信息。</p>
+</li>
+</ul>
+<p>当然上面两类插件功能也可以写到一个插件里，两轮差速插件就是一个二合一加强版。</p>
+<h2 id="_17">两轮差速插件介绍</h2>
+<p>两轮差速插件用于控制机器人轮子关节的位置变化，同时该插件还会获取轮子的位置以及速度的信息的反馈，根据反馈的位置信息结合运动学模型即可计算出当前机器人的位姿（里程计）。</p>
+<p>该插件的名称为：<code>gazebo_ros_diff_drive</code></p>
+<p>两轮差速控制器可以将轮子的目标转速发送给Gazebo，并从Gazebo获取到实际的速度和位置。</p>
+<blockquote>
+<p>注意：发送给Gazebo是目标速度，反馈回来的是实际速度。目标!=实际，比如轮子卡住了，无论你发什么目标速度，实际速度都是0。</p>
+</blockquote>
+<p><img alt="image.png" src="../docs/images/gazebo_ros_diff_drive.png" /></p>
+<p>上图是对gazebo_ros_diff_drive的输入和输出信息的总结，可以很直观的看到该插件主要输入控制指令，主要输出里程计信息。</p>
+<p><strong>输入参数</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">配置项</th>
+<th style="text-align: center;">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">ros</td>
+<td style="text-align: center;">ros相关配置，包含命名空间和话题重映射等</td>
+</tr>
+<tr>
+<td style="text-align: center;">update_rate</td>
+<td style="text-align: center;">数据更新速率</td>
+</tr>
+<tr>
+<td style="text-align: center;">left_joint</td>
+<td style="text-align: center;">左轮关节名称</td>
+</tr>
+<tr>
+<td style="text-align: center;">right_joint</td>
+<td style="text-align: center;">右轮关节名称</td>
+</tr>
+<tr>
+<td style="text-align: center;">wheel_separation</td>
+<td style="text-align: center;">左右轮子的间距</td>
+</tr>
+<tr>
+<td style="text-align: center;">wheel_diameter</td>
+<td style="text-align: center;">轮子的直径</td>
+</tr>
+<tr>
+<td style="text-align: center;">max_wheel_torque</td>
+<td style="text-align: center;">轮子最大的力矩</td>
+</tr>
+<tr>
+<td style="text-align: center;">max_wheel_acceleration</td>
+<td style="text-align: center;">轮子最大的加速度</td>
+</tr>
+<tr>
+<td style="text-align: center;">publish_odom</td>
+<td style="text-align: center;">是否发布里程计</td>
+</tr>
+<tr>
+<td style="text-align: center;">publish_odom_tf</td>
+<td style="text-align: center;">是否发布里程计的tf开关</td>
+</tr>
+<tr>
+<td style="text-align: center;">publish_wheel_tf</td>
+<td style="text-align: center;">是否发布轮子的tf数据开关</td>
+</tr>
+<tr>
+<td style="text-align: center;">odometry_frame</td>
+<td style="text-align: center;">里程计的framed ID，最终体现在话题和TF上</td>
+</tr>
+<tr>
+<td style="text-align: center;">robot_base_frame</td>
+<td style="text-align: center;">机器人的基础frame的ID</td>
+</tr>
+</tbody>
+</table>
+<p>两轮差速控制器默认通过订阅话题<code>cmd_vel</code>来获取目标线速度和角速度。该话题的类型为：<code>geometry_msgs/msg/Twist</code></p>
+<div class="highlight"><pre><span></span><code>ros2 interface show geometry_msgs/msg/Twist
+</code></pre></div>
+
+<p>用proto再看一下包含的基本数据类型有哪些</p>
+<div class="highlight"><pre><span></span><code>ros2 interface proto geometry_msgs/msg/Twist
+</code></pre></div>
+
+<p><strong>输出参数</strong></p>
+<p>里程计信息默认的输出话题为odom，其消息类型为：nav_msgs/msg/Odometry</p>
+<p>同上使用CLI看一下其消息的组成结构</p>
+<h2 id="urdf_4">在URDF中配置两轮差速模型</h2>
+<p>因为是给Gazebo的插件，所以在URDF中，我们需要使用gazebo进行配置，因为是要给gazebo配置插件，所有要在gazebo标签下添加plugin子插件。</p>
+<div class="highlight"><pre><span></span><code>  <span class="o">&lt;</span><span class="n">gazebo</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">plugin</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;diff_drive&#39;</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;libgazebo_ros_diff_drive.so&#39;</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">ros</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">namespace</span><span class="o">&gt;/&lt;/</span><span class="n">namespace</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">remapping</span><span class="o">&gt;</span><span class="n">cmd_vel</span><span class="o">:=</span><span class="n">cmd_vel</span><span class="o">&lt;/</span><span class="n">remapping</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">remapping</span><span class="o">&gt;</span><span class="n">odom</span><span class="o">:=</span><span class="n">odom</span><span class="o">&lt;/</span><span class="n">remapping</span><span class="o">&gt;</span>
+          <span class="o">&lt;/</span><span class="n">ros</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">update_rate</span><span class="o">&gt;</span><span class="mi">30</span><span class="o">&lt;/</span><span class="n">update_rate</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="err">!</span><span class="o">--</span> <span class="n">wheels</span> <span class="o">--&gt;</span>
+          <span class="o">&lt;</span><span class="n">left_joint</span><span class="o">&gt;</span><span class="n">left_wheel_joint</span><span class="o">&lt;/</span><span class="n">left_joint</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">right_joint</span><span class="o">&gt;</span><span class="n">right_wheel_joint</span><span class="o">&lt;/</span><span class="n">right_joint</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="err">!</span><span class="o">--</span> <span class="n">kinematics</span> <span class="o">--&gt;</span>
+          <span class="o">&lt;</span><span class="n">wheel_separation</span><span class="o">&gt;</span><span class="mf">0.2</span><span class="o">&lt;/</span><span class="n">wheel_separation</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">wheel_diameter</span><span class="o">&gt;</span><span class="mf">0.065</span><span class="o">&lt;/</span><span class="n">wheel_diameter</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="err">!</span><span class="o">--</span> <span class="n">limits</span> <span class="o">--&gt;</span>
+          <span class="o">&lt;</span><span class="n">max_wheel_torque</span><span class="o">&gt;</span><span class="mi">20</span><span class="o">&lt;/</span><span class="n">max_wheel_torque</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">max_wheel_acceleration</span><span class="o">&gt;</span><span class="mf">1.0</span><span class="o">&lt;/</span><span class="n">max_wheel_acceleration</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="err">!</span><span class="o">--</span> <span class="n">output</span> <span class="o">--&gt;</span>
+          <span class="o">&lt;</span><span class="n">publish_odom</span><span class="o">&gt;</span><span class="n">true</span><span class="o">&lt;/</span><span class="n">publish_odom</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">publish_odom_tf</span><span class="o">&gt;</span><span class="n">true</span><span class="o">&lt;/</span><span class="n">publish_odom_tf</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">publish_wheel_tf</span><span class="o">&gt;</span><span class="n">true</span><span class="o">&lt;/</span><span class="n">publish_wheel_tf</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">odometry_frame</span><span class="o">&gt;</span><span class="n">odom</span><span class="o">&lt;/</span><span class="n">odometry_frame</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">robot_base_frame</span><span class="o">&gt;</span><span class="n">base_footprint</span><span class="o">&lt;/</span><span class="n">robot_base_frame</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">plugin</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<h2 id="_18">两轮差速插件测试</h2>
+<div class="highlight"><pre><span></span><code>colcon build
+source install/setup.bash
+ros2 launch fishbot_description gazebo.launch.py
+</code></pre></div>
+
+<p>接着你可以使用CLI工具看一下系统有哪些节点在运行</p>
+<div class="highlight"><pre><span></span><code>ros2 node list
+ros2 topic list
+</code></pre></div>
+
+<p>此时你已经看到了我们插件订阅的的/cmd_vel和发布的/odom了。</p>
+<p><strong>使用键盘控制机器人</strong>  </p>
+<p>你需要一个键盘控制工具，可以用下面的指令安装</p>
+<div class="highlight"><pre><span></span><code>sudo apt install ros-humble-teleop-twist-keyboard
+</code></pre></div>
+
+<p>这个功能包下有一个节点，这个节点会监听键盘的按键事件，然后发布cmd_vel话题，该话题被gazebo的两轮差速插件所订阅。所以我们就可以通过这个节点来控制fishbot。</p>
+<div class="highlight"><pre><span></span><code>ros2 run teleop_twist_keyboard teleop_twist_keyboard
+</code></pre></div>
+
+<blockquote>
+<p>如果你想让这个节点不是发布cmd_vel话题，而是别的，可以采用ROS2的话题重映射功能。<br />
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap cmd_vel:=cmd_vel1</p>
+</blockquote>
+<p>接着尝试使用来控制机器人运动</p>
+<div class="highlight"><pre><span></span><code>  U    I    O
+  J    K    L
+  M    &lt;    &gt;
+</code></pre></div>
+
+<p>点一下I，你就能看到fishbot在Gazebo中飞速的移动。接着打开终端，打印一下odom话题和tf话题，移动机器人观察数据变化。</p>
+<p><strong>使用rqt显示速度数据</strong>  </p>
+<p>选择Plugin-&gt;Visualization-&gt;Plot</p>
+<p>在上方Topic输入<code>/cmd_vel/linear/x</code>，再输入<code>/cmd_vel/angular/z</code>，然后用键盘控制机器人移动。</p>
+<p><img alt="image.png" src="http://fishros.com/d2lros2/humble/chapt9/get_started/4.Gazebo%E4%BB%BF%E7%9C%9F%E6%8F%92%E4%BB%B6%E4%B9%8B%E4%B8%A4%E8%BD%AE%E5%B7%AE%E9%80%9F/imgs/image-20220408131855683.png" /></p>
+<p>cmd_vel中的速度代表目标速度，接着我们显示一下当前速度（在odom.twist中）</p>
+<p><img alt="" src="http://fishros.com/d2lros2/humble/chapt9/get_started/4.Gazebo%E4%BB%BF%E7%9C%9F%E6%8F%92%E4%BB%B6%E4%B9%8B%E4%B8%A4%E8%BD%AE%E5%B7%AE%E9%80%9F/imgs/image-20220408141925261.png" /></p>
+<p><strong>在RVIZ2中显示Fishbot及其轨迹</strong>  </p>
+<p>修改FixedFrame为odom<br />
+添加插件，Add-&gt;Odometry-&gt;OK<br />
+选择话题，Odometry-&gt;Topic-&gt;选/odom<br />
+去除协方差显示，Odometry-&gt;Covariance&gt;取消勾选<br />
+键盘控制节点，点个U，原地转圈圈  </p>
+<p><img alt="" src="http://fishros.com/d2lros2/humble/chapt9/get_started/4.Gazebo%E4%BB%BF%E7%9C%9F%E6%8F%92%E4%BB%B6%E4%B9%8B%E4%B8%A4%E8%BD%AE%E5%B7%AE%E9%80%9F/imgs/image-20220408142436034.png" /></p>
+<p><strong>在RVIZ2中显示机器人模型</strong>  </p>
+<p>虽然机器人的轨迹已经在RVIZ中显示出来了，但是并没有机器人的模型，也看不到轮子的转动。</p>
+<p>要发布机器人模型我们所使用的节点是robot_state_publisher,所以我们在gazebo.launch.py中加入这个节点，同时再加上rviz2的启动节点，最终的gazebo.launch.py内容如下：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaunchDescription</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch.actions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExecuteProcess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch_ros.actions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch_ros.substitutions</span><span class="w"> </span><span class="kn">import</span> <span class="n">FindPackageShare</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_launch_description</span><span class="p">():</span>
+   <span class="n">robot_name_in_model</span> <span class="o">=</span> <span class="s1">&#39;fishbot&#39;</span>
+   <span class="n">package_name</span> <span class="o">=</span> <span class="s1">&#39;fishbot_description&#39;</span>
+   <span class="n">urdf_name</span> <span class="o">=</span> <span class="s2">&quot;fishbot_gazebo.urdf&quot;</span>
+
+   <span class="n">ld</span> <span class="o">=</span> <span class="n">LaunchDescription</span><span class="p">()</span>
+   <span class="n">pkg_share</span> <span class="o">=</span> <span class="n">FindPackageShare</span><span class="p">(</span><span class="n">package</span><span class="o">=</span><span class="n">package_name</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">package_name</span><span class="p">)</span> 
+   <span class="n">urdf_model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pkg_share</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;urdf/</span><span class="si">{</span><span class="n">urdf_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+   <span class="c1"># Start Gazebo server</span>
+   <span class="n">start_gazebo_cmd</span> <span class="o">=</span>  <span class="n">ExecuteProcess</span><span class="p">(</span>
+       <span class="n">cmd</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gazebo&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;libgazebo_ros_init.so&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;libgazebo_ros_factory.so&#39;</span><span class="p">,</span> <span class="n">gazebo_world_path</span><span class="p">],</span>
+       <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span><span class="p">)</span>
+
+   <span class="c1"># Launch the robot</span>
+   <span class="n">spawn_entity_cmd</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+       <span class="n">package</span><span class="o">=</span><span class="s1">&#39;gazebo_ros&#39;</span><span class="p">,</span> 
+       <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;spawn_entity.py&#39;</span><span class="p">,</span>
+       <span class="n">arguments</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-entity&#39;</span><span class="p">,</span> <span class="n">robot_name_in_model</span><span class="p">,</span>  <span class="s1">&#39;-file&#39;</span><span class="p">,</span> <span class="n">urdf_model_path</span> <span class="p">],</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span><span class="p">)</span>
+
+   <span class="c1"># Start Robot State publisher</span>
+   <span class="n">start_robot_state_publisher_cmd</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+       <span class="n">package</span><span class="o">=</span><span class="s1">&#39;robot_state_publisher&#39;</span><span class="p">,</span>
+       <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;robot_state_publisher&#39;</span><span class="p">,</span>
+       <span class="n">arguments</span><span class="o">=</span><span class="p">[</span><span class="n">urdf_model_path</span><span class="p">]</span>
+   <span class="p">)</span>
+
+   <span class="c1"># Launch RViz</span>
+   <span class="n">start_rviz_cmd</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+       <span class="n">package</span><span class="o">=</span><span class="s1">&#39;rviz2&#39;</span><span class="p">,</span>
+       <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;rviz2&#39;</span><span class="p">,</span>
+       <span class="n">name</span><span class="o">=</span><span class="s1">&#39;rviz2&#39;</span><span class="p">,</span>
+       <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span><span class="p">,</span>
+       <span class="c1"># arguments=[&#39;-d&#39;, default_rviz_config_path]</span>
+       <span class="p">)</span>
+
+   <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">start_gazebo_cmd</span><span class="p">)</span>
+   <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">spawn_entity_cmd</span><span class="p">)</span>
+   <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">start_robot_state_publisher_cmd</span><span class="p">)</span>
+   <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">start_rviz_cmd</span><span class="p">)</span>
+
+
+   <span class="k">return</span> <span class="n">ld</span>
+</code></pre></div>
+
+<p>编译启动</p>
+<div class="highlight"><pre><span></span><code>colcon build
+ros2 launch fishbot_description gazebo.launch.py
+</code></pre></div>
+
+<p>然后继续启动键盘控制，现在你可以在rviz2中看到机器人模型。</p>
+<h1 id="gazeboimu">Gazebo仿真插件之IMU</h1>
+<p>仿真的IMU也是对应一个后缀为.so的动态链接库，使用下面的指令可以查看所有的动态链接库：</p>
+<div class="highlight"><pre><span></span><code>ls /opt/ros/humble/lib/libgazebo_ros*
+</code></pre></div>
+
+<p>IMU对应的消息类型为sensor_msgs/msg/Imu</p>
+<div class="highlight"><pre><span></span><code>ros2 interface show sensor_msgs/msg/Imu
+</code></pre></div>
+
+<h2 id="urdf_5">urdf</h2>
+<p>有了上节的经验，我们可以很轻松的添加IMU传感器，但是还有一个需要注意的地方，为了更真实的模拟IMU传感器，我们需要给我们的仿真IMU传感器加点高斯噪声.</p>
+<p>高斯噪声只需要指定平均值和标准差两个参数即可，不过因为IMU传感器的特殊性，我们还需要给模型添加两个偏差参数，分别是<code>平均值偏差</code>和<code>标准差偏差</code>。</p>
+<p>MU对应的插件库libgazebo_ros_imu_sensor.so</p>
+<div class="highlight"><pre><span></span><code>    <span class="o">&lt;</span><span class="n">gazebo</span> <span class="n">reference</span><span class="o">=</span><span class="s2">&quot;imu_link&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">sensor</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;imu_sensor&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;imu&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">plugin</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;libgazebo_ros_imu_sensor.so&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;imu_plugin&quot;</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">ros</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">namespace</span><span class="o">&gt;/&lt;/</span><span class="n">namespace</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">remapping</span><span class="o">&gt;~/</span><span class="n">out</span><span class="o">:=</span><span class="n">imu</span><span class="o">&lt;/</span><span class="n">remapping</span><span class="o">&gt;</span>
+          <span class="o">&lt;/</span><span class="n">ros</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">initial_orientation_as_reference</span><span class="o">&gt;</span><span class="n">false</span><span class="o">&lt;/</span><span class="n">initial_orientation_as_reference</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">plugin</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">always_on</span><span class="o">&gt;</span><span class="n">true</span><span class="o">&lt;/</span><span class="n">always_on</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">update_rate</span><span class="o">&gt;</span><span class="mi">100</span><span class="o">&lt;/</span><span class="n">update_rate</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">visualize</span><span class="o">&gt;</span><span class="n">true</span><span class="o">&lt;/</span><span class="n">visualize</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">imu</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">angular_velocity</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">x</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="n">noise</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">mean</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="o">&lt;/</span><span class="n">mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">stddev</span><span class="o">&gt;</span><span class="mf">2e-4</span><span class="o">&lt;/</span><span class="n">stddev</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_mean</span><span class="o">&gt;</span><span class="mf">0.0000075</span><span class="o">&lt;/</span><span class="n">bias_mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_stddev</span><span class="o">&gt;</span><span class="mf">0.0000008</span><span class="o">&lt;/</span><span class="n">bias_stddev</span><span class="o">&gt;</span>
+              <span class="o">&lt;/</span><span class="n">noise</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">x</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">y</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="n">noise</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">mean</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="o">&lt;/</span><span class="n">mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">stddev</span><span class="o">&gt;</span><span class="mf">2e-4</span><span class="o">&lt;/</span><span class="n">stddev</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_mean</span><span class="o">&gt;</span><span class="mf">0.0000075</span><span class="o">&lt;/</span><span class="n">bias_mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_stddev</span><span class="o">&gt;</span><span class="mf">0.0000008</span><span class="o">&lt;/</span><span class="n">bias_stddev</span><span class="o">&gt;</span>
+              <span class="o">&lt;/</span><span class="n">noise</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">y</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">z</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="n">noise</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">mean</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="o">&lt;/</span><span class="n">mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">stddev</span><span class="o">&gt;</span><span class="mf">2e-4</span><span class="o">&lt;/</span><span class="n">stddev</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_mean</span><span class="o">&gt;</span><span class="mf">0.0000075</span><span class="o">&lt;/</span><span class="n">bias_mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_stddev</span><span class="o">&gt;</span><span class="mf">0.0000008</span><span class="o">&lt;/</span><span class="n">bias_stddev</span><span class="o">&gt;</span>
+              <span class="o">&lt;/</span><span class="n">noise</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">z</span><span class="o">&gt;</span>
+          <span class="o">&lt;/</span><span class="n">angular_velocity</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">linear_acceleration</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">x</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="n">noise</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">mean</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="o">&lt;/</span><span class="n">mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">stddev</span><span class="o">&gt;</span><span class="mf">1.7e-2</span><span class="o">&lt;/</span><span class="n">stddev</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_mean</span><span class="o">&gt;</span><span class="mf">0.1</span><span class="o">&lt;/</span><span class="n">bias_mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_stddev</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="o">&lt;/</span><span class="n">bias_stddev</span><span class="o">&gt;</span>
+              <span class="o">&lt;/</span><span class="n">noise</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">x</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">y</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="n">noise</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">mean</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="o">&lt;/</span><span class="n">mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">stddev</span><span class="o">&gt;</span><span class="mf">1.7e-2</span><span class="o">&lt;/</span><span class="n">stddev</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_mean</span><span class="o">&gt;</span><span class="mf">0.1</span><span class="o">&lt;/</span><span class="n">bias_mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_stddev</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="o">&lt;/</span><span class="n">bias_stddev</span><span class="o">&gt;</span>
+              <span class="o">&lt;/</span><span class="n">noise</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">y</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">z</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="n">noise</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">mean</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="o">&lt;/</span><span class="n">mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">stddev</span><span class="o">&gt;</span><span class="mf">1.7e-2</span><span class="o">&lt;/</span><span class="n">stddev</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_mean</span><span class="o">&gt;</span><span class="mf">0.1</span><span class="o">&lt;/</span><span class="n">bias_mean</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">bias_stddev</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="o">&lt;/</span><span class="n">bias_stddev</span><span class="o">&gt;</span>
+              <span class="o">&lt;/</span><span class="n">noise</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">z</span><span class="o">&gt;</span>
+          <span class="o">&lt;/</span><span class="n">linear_acceleration</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">imu</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">sensor</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">gazebo</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<h2 id="_19">编译测试</h2>
+<div class="highlight"><pre><span></span><code>colcon build
+
+ros2 launch fishbot_description gazebo.launch.py
+</code></pre></div>
+
+<h2 id="gazebo_3">解决gazebo失败方案</h2>
+<p>修改 URDF 文件，添加 Gazebo ROS 控制插件  </p>
+<p>在你的 URDF 文件末尾（在 </robot> 标签之前）添加以下内容：</p>
+<div class="highlight"><pre><span></span><code>  <span class="o">&lt;</span><span class="err">!</span><span class="o">--</span> <span class="n">Gazebo</span> <span class="n">ROS</span> <span class="n">Control</span> <span class="o">--&gt;</span>
+  <span class="o">&lt;</span><span class="n">gazebo</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">plugin</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gazebo_ros_control&quot;</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;libgazebo_ros_control.so&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">robotNamespace</span><span class="o">&gt;/&lt;/</span><span class="n">robotNamespace</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">robotSimType</span><span class="o">&gt;</span><span class="n">gazebo_ros_control</span><span class="o">/</span><span class="n">DefaultRobotHWSim</span><span class="o">&lt;/</span><span class="n">robotSimType</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">plugin</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">gazebo</span><span class="o">&gt;</span>
+
+  <span class="o">&lt;</span><span class="err">!</span><span class="o">--</span> <span class="n">为左右轮添加传输</span> <span class="o">--&gt;</span>
+  <span class="o">&lt;</span><span class="n">gazebo</span> <span class="n">reference</span><span class="o">=</span><span class="s2">&quot;left_wheel_link&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">mu1</span><span class="o">&gt;</span><span class="mf">0.2</span><span class="o">&lt;/</span><span class="n">mu1</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">mu2</span><span class="o">&gt;</span><span class="mf">0.2</span><span class="o">&lt;/</span><span class="n">mu2</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">kp</span><span class="o">&gt;</span><span class="mf">1000000.0</span><span class="o">&lt;/</span><span class="n">kp</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">kd</span><span class="o">&gt;</span><span class="mf">1.0</span><span class="o">&lt;/</span><span class="n">kd</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">minDepth</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="o">&lt;/</span><span class="n">minDepth</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">maxVel</span><span class="o">&gt;</span><span class="mf">1.0</span><span class="o">&lt;/</span><span class="n">maxVel</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">gazebo</span><span class="o">&gt;</span>
+
+  <span class="o">&lt;</span><span class="n">gazebo</span> <span class="n">reference</span><span class="o">=</span><span class="s2">&quot;right_wheel_link&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">mu1</span><span class="o">&gt;</span><span class="mf">0.2</span><span class="o">&lt;/</span><span class="n">mu1</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">mu2</span><span class="o">&gt;</span><span class="mf">0.2</span><span class="o">&lt;/</span><span class="n">mu2</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">kp</span><span class="o">&gt;</span><span class="mf">1000000.0</span><span class="o">&lt;/</span><span class="n">kp</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">kd</span><span class="o">&gt;</span><span class="mf">1.0</span><span class="o">&lt;/</span><span class="n">kd</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">minDepth</span><span class="o">&gt;</span><span class="mf">0.001</span><span class="o">&lt;/</span><span class="n">minDepth</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">maxVel</span><span class="o">&gt;</span><span class="mf">1.0</span><span class="o">&lt;/</span><span class="n">maxVel</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">gazebo</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<p>修改launch启动文件，添加延迟和更好的启动方式</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaunchDescription</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch.actions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExecuteProcess</span><span class="p">,</span> <span class="n">TimerAction</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch_ros.actions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch_ros.substitutions</span><span class="w"> </span><span class="kn">import</span> <span class="n">FindPackageShare</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ament_index_python.packages</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_package_share_directory</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_launch_description</span><span class="p">():</span>
+    <span class="n">robot_name_in_model</span> <span class="o">=</span> <span class="s1">&#39;fishbot&#39;</span>
+    <span class="n">package_name</span> <span class="o">=</span> <span class="s1">&#39;fishbot_description&#39;</span>
+    <span class="n">urdf_name</span> <span class="o">=</span> <span class="s2">&quot;fishbot_base.urdf&quot;</span>
+
+    <span class="n">ld</span> <span class="o">=</span> <span class="n">LaunchDescription</span><span class="p">()</span>
+    <span class="n">pkg_share</span> <span class="o">=</span> <span class="n">FindPackageShare</span><span class="p">(</span><span class="n">package</span><span class="o">=</span><span class="n">package_name</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">package_name</span><span class="p">)</span> 
+    <span class="n">urdf_model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pkg_share</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;urdf/</span><span class="si">{</span><span class="n">urdf_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 启动 Gazebo 服务器（使用更好的参数）</span>
+    <span class="n">start_gazebo_cmd</span> <span class="o">=</span> <span class="n">ExecuteProcess</span><span class="p">(</span>
+        <span class="n">cmd</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gazebo&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;libgazebo_ros_factory.so&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;libgazebo_ros_init.so&#39;</span><span class="p">,</span> <span class="s1">&#39;worlds/empty.world&#39;</span><span class="p">],</span>
+        <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 使用 TimerAction 延迟生成实体，确保 Gazebo 完全启动</span>
+    <span class="n">spawn_entity_cmd</span> <span class="o">=</span> <span class="n">TimerAction</span><span class="p">(</span>
+        <span class="n">period</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>  <span class="c1"># 等待 5 秒</span>
+        <span class="n">actions</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">Node</span><span class="p">(</span>
+                <span class="n">package</span><span class="o">=</span><span class="s1">&#39;gazebo_ros&#39;</span><span class="p">,</span>
+                <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;spawn_entity.py&#39;</span><span class="p">,</span>
+                <span class="n">arguments</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s1">&#39;-entity&#39;</span><span class="p">,</span> <span class="n">robot_name_in_model</span><span class="p">,</span>
+                    <span class="s1">&#39;-file&#39;</span><span class="p">,</span> <span class="n">urdf_model_path</span><span class="p">,</span>
+                    <span class="s1">&#39;-x&#39;</span><span class="p">,</span> <span class="s1">&#39;0.0&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;-y&#39;</span><span class="p">,</span> <span class="s1">&#39;0.0&#39;</span><span class="p">,</span> 
+                    <span class="s1">&#39;-z&#39;</span><span class="p">,</span> <span class="s1">&#39;0.1&#39;</span>
+                <span class="p">],</span>
+                <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">start_gazebo_cmd</span><span class="p">)</span>
+    <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">spawn_entity_cmd</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ld</span>
+</code></pre></div>
+
+<h1 id="gazebo_4">Gazebo仿真插件之激光雷达</h1>
+<p>因为激光雷达是属于射线类传感器，该类传感在在Gazebo插件中都被封装成了一个动态库libgazebo_ros_ray_sensor.so。</p>
+<p>接着我们来看看LiDAR的话题消息接口sensor_msgs/msg/LaserScan。</p>
+<div class="highlight"><pre><span></span><code>ros2 interface show  sensor_msgs/msg/LaserScan
+</code></pre></div>
+
+<h2 id="urdf_6">urdf</h2>
+<div class="highlight"><pre><span></span><code>  <span class="o">&lt;</span><span class="n">gazebo</span> <span class="n">reference</span><span class="o">=</span><span class="s2">&quot;laser_link&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">sensor</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;laser_sensor&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;ray&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">always_on</span><span class="o">&gt;</span><span class="n">true</span><span class="o">&lt;/</span><span class="n">always_on</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">visualize</span><span class="o">&gt;</span><span class="n">true</span><span class="o">&lt;/</span><span class="n">visualize</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">update_rate</span><span class="o">&gt;</span><span class="mi">5</span><span class="o">&lt;/</span><span class="n">update_rate</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">pose</span><span class="o">&gt;</span><span class="mi">0</span> <span class="mi">0</span> <span class="mf">0.075</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="o">&lt;/</span><span class="n">pose</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">ray</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">scan</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">horizontal</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="n">samples</span><span class="o">&gt;</span><span class="mi">360</span><span class="o">&lt;/</span><span class="n">samples</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="n">resolution</span><span class="o">&gt;</span><span class="mf">1.000000</span><span class="o">&lt;/</span><span class="n">resolution</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="n">min_angle</span><span class="o">&gt;</span><span class="mf">0.000000</span><span class="o">&lt;/</span><span class="n">min_angle</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="n">max_angle</span><span class="o">&gt;</span><span class="mf">6.280000</span><span class="o">&lt;/</span><span class="n">max_angle</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">horizontal</span><span class="o">&gt;</span>
+          <span class="o">&lt;/</span><span class="n">scan</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nb">range</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nb">min</span><span class="o">&gt;</span><span class="mf">0.120000</span><span class="o">&lt;/</span><span class="nb">min</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nb">max</span><span class="o">&gt;</span><span class="mf">3.5</span><span class="o">&lt;/</span><span class="nb">max</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">resolution</span><span class="o">&gt;</span><span class="mf">0.015000</span><span class="o">&lt;/</span><span class="n">resolution</span><span class="o">&gt;</span>
+          <span class="o">&lt;/</span><span class="nb">range</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">noise</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="n">gaussian</span><span class="o">&lt;/</span><span class="nb">type</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">mean</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="o">&lt;/</span><span class="n">mean</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">stddev</span><span class="o">&gt;</span><span class="mf">0.01</span><span class="o">&lt;/</span><span class="n">stddev</span><span class="o">&gt;</span>
+          <span class="o">&lt;/</span><span class="n">noise</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">ray</span><span class="o">&gt;</span>
+
+      <span class="o">&lt;</span><span class="n">plugin</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;laserscan&quot;</span> <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;libgazebo_ros_ray_sensor.so&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">ros</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">remapping</span><span class="o">&gt;~/</span><span class="n">out</span><span class="o">:=</span><span class="n">scan</span><span class="o">&lt;/</span><span class="n">remapping</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">ros</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">output_type</span><span class="o">&gt;</span><span class="n">sensor_msgs</span><span class="o">/</span><span class="n">LaserScan</span><span class="o">&lt;/</span><span class="n">output_type</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">frame_name</span><span class="o">&gt;</span><span class="n">laser_link</span><span class="o">&lt;/</span><span class="n">frame_name</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">plugin</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">sensor</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">gazebo</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<p>可以看到:</p>
+<ul>
+<li>
+<p>雷达也可以设置更新频率update_rate，这里设置为5</p>
+</li>
+<li>
+<p>雷达可以设置分辨率，设置为1，采样数量360个，最终生成的点云数量就是360</p>
+</li>
+<li>
+<p>雷达也有噪声，模型为gaussian</p>
+</li>
+<li>
+<p>雷达有扫描范围range，这里配置成0.12-3.5，0.015分辨率</p>
+</li>
+<li>
+<p>雷达的pose就是雷达的joint中位置的设置值</p>
+</li>
+</ul>
+<h2 id="_20">编译测试</h2>
+<div class="highlight"><pre><span></span><code>colcon build
+source install/setup.bash
+ros2 launch fishbot_description gazebo.launch.py
+</code></pre></div>
+
+<blockquote>
+<p>ros2 topic list
+ros2 topic info /scan
+ros2 topic echo /scan</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+        </article>
+        <footer class="site-footer">
+            <a href="../index.html">&larr; 返回首页</a>
+        </footer>
+    </div>
+    <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <script>
+        const btn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+        });
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

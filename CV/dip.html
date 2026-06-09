@@ -1,0 +1,1958 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>目录 - floaritay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ]
+        });"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
+        onload="mermaid.initialize({startOnLoad:true, theme:'base', themeVariables:{primaryColor:'#f5f0e8', primaryTextColor:'#1a1814', primaryBorderColor:'rgba(26,24,20,0.12)', lineColor:'#8a8278', secondaryColor:'#faf7f0', tertiaryColor:'#faf7f0'}});"></script>
+    <style>
+        :root {
+            --paper: #f5f0e8;
+            --ink: #1a1814;
+            --ink-soft: #3d3830;
+            --ink-muted: #8a8278;
+            --ink-faint: #b5ae9f;
+            --accent: #b45309;
+            --accent-warm: #d97706;
+            --accent-soft: rgba(180, 83, 9, 0.08);
+            --teal: #0f766e;
+            --card-opaque: rgba(250, 247, 240, 0.88);
+            --border: rgba(26, 24, 20, 0.08);
+            --border-strong: rgba(26, 24, 20, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.35);
+            --shadow-sm: 0 1px 2px rgba(26, 24, 20, 0.03);
+            --shadow: 0 2px 12px rgba(26, 24, 20, 0.05), 0 1px 3px rgba(26, 24, 20, 0.03);
+            --shadow-lg: 0 8px 32px rgba(26, 24, 20, 0.07), 0 2px 8px rgba(26, 24, 20, 0.03);
+            --font-display: 'Instrument Serif', Georgia, serif;
+            --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Space Mono', 'Cascadia Code', monospace;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--ink);
+            background: var(--paper);
+            background-image:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(180, 83, 9, 0.04), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(15, 118, 110, 0.03), transparent);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.2;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(26, 24, 20, 0.12); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(26, 24, 20, 0.2); }
+
+        .page {
+            position: relative;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
+        }
+
+        .page::before {
+            content: '';
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 48px;
+            background: var(--card-opaque);
+            border-right: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        @media (max-width: 1100px) {
+            .page::before { display: none; }
+            .page { padding: 0 20px 60px; }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 32px 0 16px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            letter-spacing: 0.02em;
+        }
+        .breadcrumb a {
+            color: var(--ink-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb .sep { margin: 0 8px; color: var(--ink-faint); }
+
+        /* Article */
+        .markdown-body {
+            font-family: var(--font-body);
+            color: var(--ink-soft);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .markdown-body h1, .markdown-body h2, .markdown-body h3,
+        .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+            font-family: var(--font-display);
+            color: var(--ink);
+            font-weight: 400;
+            margin-top: 2em;
+            margin-bottom: 0.6em;
+            line-height: 1.3;
+        }
+
+        .markdown-body h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+            padding-bottom: 0.4em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h2 {
+            font-size: 1.65rem;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h3 { font-size: 1.35rem; }
+        .markdown-body h4 { font-size: 1.15rem; }
+        .markdown-body h5 { font-size: 1rem; }
+        .markdown-body h6 { font-size: 0.95rem; color: var(--ink-muted); }
+
+        .markdown-body p {
+            margin-bottom: 1em;
+        }
+
+        .markdown-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-soft);
+            transition: border-color 0.2s;
+        }
+        .markdown-body a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .markdown-body strong { color: var(--ink); font-weight: 600; }
+
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5em auto;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .markdown-body blockquote {
+            margin: 1.2em 0;
+            padding: 0.8em 1.2em;
+            border-left: 3px solid var(--accent);
+            background: var(--accent-soft);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            color: var(--ink-soft);
+        }
+        .markdown-body blockquote p:last-child { margin-bottom: 0; }
+
+        .markdown-body ul, .markdown-body ol {
+            margin: 0.8em 0;
+            padding-left: 1.8em;
+        }
+        .markdown-body li { margin-bottom: 0.3em; }
+        .markdown-body li > ul, .markdown-body li > ol { margin-top: 0.3em; }
+
+        .markdown-body code {
+            font-family: var(--font-mono);
+            font-size: 0.88em;
+            background: rgba(26, 24, 20, 0.05);
+            padding: 0.15em 0.4em;
+            border-radius: var(--radius-sm);
+            color: var(--accent);
+        }
+
+        .markdown-body pre {
+            margin: 1.2em 0;
+            padding: 1em 1.2em;
+            background: #2d2a24;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            box-shadow: var(--shadow);
+        }
+        .markdown-body pre code {
+            background: none;
+            padding: 0;
+            color: #e8e0d4;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2em 0;
+            font-size: 0.95rem;
+        }
+        .markdown-body th {
+            background: rgba(26, 24, 20, 0.04);
+            font-weight: 600;
+            text-align: left;
+            padding: 0.6em 1em;
+            border-bottom: 2px solid var(--border-strong);
+        }
+        .markdown-body td {
+            padding: 0.5em 1em;
+            border-bottom: 1px solid var(--border);
+        }
+        .markdown-body tr:hover td {
+            background: var(--accent-soft);
+        }
+
+        .markdown-body hr {
+            border: none;
+            border-top: 1px solid var(--border-strong);
+            margin: 2em 0;
+        }
+
+        /* Math blocks */
+        .math-block {
+            margin: 1.2em 0;
+            padding: 0.8em;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        /* Mermaid diagrams */
+        .mermaid {
+            margin: 1.5em 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        .mermaid svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Pygments code highlighting (dark theme matching warm palette) */
+        .highlight .hll { background-color: #49483e }
+        .highlight .c { color: #75715e }
+        .highlight .err { color: #f92672 }
+        .highlight .k { color: #66d9ef }
+        .highlight .l { color: #ae81ff }
+        .highlight .n { color: #f8f8f2 }
+        .highlight .o { color: #f92672 }
+        .highlight .p { color: #f8f8f2 }
+        .highlight .cm { color: #75715e }
+        .highlight .c1 { color: #75715e }
+        .highlight .cp { color: #75715e }
+        .highlight .kc { color: #66d9ef }
+        .highlight .kd { color: #66d9ef }
+        .highlight .kn { color: #f92672 }
+        .highlight .kp { color: #66d9ef }
+        .highlight .kr { color: #66d9ef }
+        .highlight .kt { color: #66d9ef }
+        .highlight .ld { color: #e6db74 }
+        .highlight .m { color: #ae81ff }
+        .highlight .s { color: #e6db74 }
+        .highlight .na { color: #a6e22e }
+        .highlight .nb { color: #f8f8f2 }
+        .highlight .nc { color: #a6e22e }
+        .highlight .no { color: #66d9ef }
+        .highlight .nd { color: #a6e22e }
+        .highlight .ni { color: #f8f8f2 }
+        .highlight .ne { color: #a6e22e }
+        .highlight .nf { color: #a6e22e }
+        .highlight .nl { color: #f8f8f2 }
+        .highlight .nn { color: #f8f8f2 }
+        .highlight .nx { color: #a6e22e }
+        .highlight .py { color: #f8f8f2 }
+        .highlight .nt { color: #f92672 }
+        .highlight .nv { color: #f8f8f2 }
+        .highlight .ow { color: #f92672 }
+        .highlight .w { color: #f8f8f2 }
+        .highlight .mf { color: #ae81ff }
+        .highlight .mh { color: #ae81ff }
+        .highlight .mi { color: #ae81ff }
+        .highlight .mo { color: #ae81ff }
+        .highlight .sb { color: #e6db74 }
+        .highlight .sc { color: #e6db74 }
+        .highlight .sd { color: #e6db74 }
+        .highlight .s2 { color: #e6db74 }
+        .highlight .se { color: #ae81ff }
+        .highlight .sh { color: #e6db74 }
+        .highlight .si { color: #e6db74 }
+        .highlight .sx { color: #e6db74 }
+        .highlight .sr { color: #e6db74 }
+        .highlight .s1 { color: #e6db74 }
+        .highlight .ss { color: #e6db74 }
+        .highlight .bp { color: #f8f8f2 }
+        .highlight .vc { color: #f8f8f2 }
+        .highlight .vg { color: #f8f8f2 }
+        .highlight .vi { color: #f8f8f2 }
+        .highlight .il { color: #ae81ff }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 32px 0;
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        .site-footer a {
+            color: var(--ink-muted);
+            text-decoration: none;
+        }
+        .site-footer a:hover { color: var(--accent); }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, color 0.2s, border-color 0.2s;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .page { padding: 0 16px 40px; }
+            .markdown-body h1 { font-size: 1.7rem; }
+            .markdown-body h2 { font-size: 1.35rem; }
+            .markdown-body { font-size: 0.95rem; }
+            .markdown-body pre { padding: 0.8em; }
+            .markdown-body pre code { font-size: 0.8rem; }
+            .back-to-top { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <nav class="breadcrumb">
+            <a href="../index.html">floaritay</a>
+            <span class="sep">/</span>
+            <span>CV</span>
+        </nav>
+        <article class="markdown-body">
+<h1 id="_1">目录</h1>
+<ul>
+<li><a href="#1-纲要">1 纲要</a><ul>
+<li><a href="#11-图像滤波">1.1 图像滤波</a><ul>
+<li><a href="#111-空间域滤波">1.1.1 空间域滤波</a></li>
+<li><a href="#112-频率域滤波">1.1.2 频率域滤波</a></li>
+</ul>
+</li>
+<li><a href="#12-边缘检测">1.2 边缘检测</a><ul>
+<li><a href="#121-一阶微分边缘检测算子">1.2.1 一阶微分边缘检测算子</a></li>
+<li><a href="#122-二阶微分边缘检测算子">1.2.2 二阶微分边缘检测算子</a></li>
+<li><a href="#123-canny边缘检测算子">1.2.3 Canny边缘检测算子</a></li>
+</ul>
+</li>
+<li><a href="#13-图像增强">1.3 图像增强</a><ul>
+<li><a href="#131-空间域增强">1.3.1 空间域增强</a></li>
+<li><a href="#132-频率域增强">1.3.2 频率域增强</a></li>
+<li><a href="#133-彩色图像增强">1.3.3 彩色图像增强</a></li>
+<li><a href="#134-基于深度学习的图像增强">1.3.4 基于深度学习的图像增强</a></li>
+</ul>
+</li>
+<li><a href="#14-图像复原">1.4 图像复原</a><ul>
+<li><a href="#141-基于退化模型估计的方法">1.4.1 基于退化模型估计的方法</a></li>
+<li><a href="#142-基于迭代运算的方法">1.4.2 基于迭代运算的方法</a></li>
+<li><a href="#143-基于退化图像先验信息的方法">1.4.3 基于退化图像先验信息的方法</a></li>
+<li><a href="#144-基于空间域和频率域处理的方法">1.4.4 基于空间域和频率域处理的方法</a></li>
+<li><a href="#145-基于物理模型和统计模型的方法">1.4.5 基于物理模型和统计模型的方法</a></li>
+</ul>
+</li>
+<li><a href="#15-图像重建">1.5 图像重建</a><ul>
+<li><a href="#151-基于物理模型的重建">1.5.1 基于物理模型的重建</a></li>
+<li><a href="#152-基于深度学习的重建">1.5.2 基于深度学习的重建</a></li>
+<li><a href="#153-基于数学变换的重建">1.5.3 基于数学变换的重建</a></li>
+<li><a href="#154-基于插值的重建">1.5.4 基于插值的重建</a></li>
+<li><a href="#155-基于压缩感知的重建">1.5.5 基于压缩感知的重建</a></li>
+<li><a href="#156-基于多视角的三维重建">1.5.6 基于多视角的三维重建</a></li>
+<li><a href="#157-基于模型的正则化重建">1.5.7 基于模型的正则化重建</a></li>
+</ul>
+</li>
+<li><a href="#16-形态学图像处理">1.6 形态学图像处理</a><ul>
+<li><a href="#161-基本形态学操作">1.6.1 <strong>基本形态学操作</strong></a></li>
+<li><a href="#162-组合形态学操作">1.6.2 <strong>组合形态学操作</strong></a></li>
+<li><a href="#163-高级形态学操作">1.6.3 <strong>高级形态学操作</strong></a></li>
+<li><a href="#164-结构元素的选择">1.6.4 <strong>结构元素的选择</strong></a></li>
+</ul>
+</li>
+<li><a href="#17-图像分割">1.7 图像分割</a><ul>
+<li><a href="#171-基于阈值的分割方法">1.7.1 <strong>基于阈值的分割方法</strong></a></li>
+<li><a href="#172-基于边缘的分割方法">1.7.2 <strong>基于边缘的分割方法</strong></a></li>
+<li><a href="#173-基于区域的分割方法">1.7.3 <strong>基于区域的分割方法</strong></a></li>
+<li><a href="#174-基于聚类的分割方法">1.7.4 <strong>基于聚类的分割方法</strong></a></li>
+<li><a href="#175-基于图论的分割方法">1.7.5 <strong>基于图论的分割方法</strong></a></li>
+<li><a href="#176-基于深度学习的分割方法">1.7.6 <strong>基于深度学习的分割方法</strong></a></li>
+<li><a href="#177-其他方法">1.7.7 <strong>其他方法</strong></a></li>
+<li><a href="#178-方法选择建议">1.7.8 <strong>方法选择建议</strong></a></li>
+<li><a href="#179-总结">1.7.9 <strong>总结</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="1-纲要">1 纲要</h1>
+<h2 id="11-图像滤波">1.1 图像滤波</h2>
+<h3 id="111-空间域滤波">1.1.1 空间域滤波</h3>
+<p>空间域滤波是直接对图像的像素进行处理，根据滤波器的作用不同，又可分为线性滤波和非线性滤波。</p>
+<h4 id="_2">线性滤波</h4>
+<ul>
+<li><strong>均值滤波</strong>
+    - <strong>原理</strong>：用滤波器模板确定的邻域内像素的平均灰度值去代替图像每个像素点的值，即对邻域内的像素进行简单的算术平均。
+    - <strong>特点</strong>：算法简单，计算速度快，但会导致图像边缘模糊，因为它对所有像素一视同仁，没有考虑到像素之间的差异。
+    - <strong>应用场景</strong>：常用于去除图像中的高斯噪声，对图像进行平滑处理。</li>
+<li><strong>高斯滤波</strong>
+    - <strong>原理</strong>：根据高斯函数的形状来选择权值，对邻域内的像素进行加权平均。离中心点越近的像素，其权重越大，离中心点越远的像素，其权重越小。
+    - <strong>特点</strong>：能够有效地平滑图像，同时保留图像的边缘信息，因为它对不同位置的像素赋予了不同的权重，更加符合人眼的视觉特性。
+    - <strong>应用场景</strong>：广泛应用于图像去噪、图像预处理等领域，特别是在需要保留图像边缘的情况下。</li>
+</ul>
+<h4 id="_3">非线性滤波</h4>
+<ul>
+<li><strong>中值滤波</strong>
+    - <strong>原理</strong>：将滤波器模板确定的邻域内的像素值进行排序，取中间值作为当前像素点的输出值。
+    - <strong>特点</strong>：对脉冲噪声（椒盐噪声）有很好的抑制作用，能够在去除噪声的同时，较好地保留图像的边缘和细节信息，因为它只考虑像素值的大小关系，而不涉及像素值的加减运算。
+    - <strong>应用场景</strong>：常用于处理受椒盐噪声污染的图像，如医学图像、遥感图像等。</li>
+<li><strong>双边滤波</strong>
+    - <strong>原理</strong>：结合了图像的空间邻近度和像素值相似度，在滤波过程中，不仅考虑了像素的空间位置关系，还考虑了像素值之间的差异。对于空间上相近且像素值相似的像素，赋予较大的权重；对于空间上较远或像素值差异较大的像素，赋予较小的权重。
+    - <strong>特点</strong>：能够在去噪的同时，更好地保留图像的边缘和纹理信息，因为它综合考虑了空间和像素值两个因素。
+    - <strong>应用场景</strong>：适用于对图像质量要求较高的场合，如人像美颜、图像增强等。</li>
+</ul>
+<h3 id="112-频率域滤波">1.1.2 频率域滤波</h3>
+<p>频率域滤波是先将图像从空间域转换到频率域，在频率域中对图像的频率成分进行处理，然后再将处理后的图像转换回空间域。常用的频率域滤波方法包括低通滤波、高通滤波、带通滤波和带阻滤波等。</p>
+<ul>
+<li><strong>低通滤波</strong>
+    - <strong>原理</strong>：允许低频信号通过，而抑制高频信号。在图像处理中，图像的低频部分对应着图像的平滑区域，高频部分对应着图像的边缘和噪声。因此，低通滤波可以用于图像的平滑处理，去除图像中的高频噪声。
+    - <strong>常见方法</strong>：理想低通滤波器、巴特沃斯低通滤波器、高斯低通滤波器等。
+    - <strong>应用场景</strong>：常用于图像去噪、图像模糊处理等。</li>
+<li><strong>高通滤波</strong>
+    - <strong>原理</strong>：允许高频信号通过，而抑制低频信号。在图像处理中，高通滤波可以增强图像的边缘和细节信息，使图像更加清晰。
+    - <strong>常见方法</strong>：理想高通滤波器、巴特沃斯高通滤波器、高斯高通滤波器等。
+    - <strong>应用场景</strong>：常用于图像锐化、边缘检测等。</li>
+<li><strong>带通滤波和带阻滤波</strong>
+    - <strong>原理</strong>：带通滤波器允许某一频带内的信号通过，而抑制该频带以外的信号；带阻滤波器则抑制某一频带内的信号，而允许该频带以外的信号通过。
+    - <strong>应用场景</strong>：在图像处理中，带通滤波和带阻滤波的应用相对较少，但在某些特定的图像处理任务中可能会用到，例如去除图像中特定频率的干扰信号。</li>
+</ul>
+<h2 id="12-边缘检测">1.2 边缘检测</h2>
+<h3 id="121-一阶微分边缘检测算子">1.2.1 一阶微分边缘检测算子</h3>
+<ul>
+<li><strong>Sobel算子</strong>
+    - <strong>原理</strong>：Sobel算子是一种离散微分算子，它结合了高斯平滑和微分求导。该算子包含两组3×3的矩阵，分别为横向及纵向，将之与图像作平面卷积，即可分别得出横向及纵向的亮度差分近似值。
+    - <strong>特点</strong>：计算简单，对噪声有一定的平滑作用，能够提供较为精确的边缘方向信息。但它对边缘的定位精度相对不高，检测出的边缘可能会比较粗。
+    - <strong>应用场景</strong>：常用于对实时性要求较高且对边缘精度要求不是特别严格的场景，如一些简单的目标检测、图像分割等任务。</li>
+<li><strong>Prewitt算子</strong>
+    - <strong>原理</strong>：Prewitt算子也是一种基于一阶微分的边缘检测算子，它同样利用像素点上下、左右邻点的灰度差，在边缘处达到极值检测边缘。与Sobel算子类似，它也有水平和垂直两个方向的模板。
+    - <strong>特点</strong>：对噪声相对敏感，边缘检测效果与Sobel算子相近，但在某些情况下，对边缘的响应可能会稍弱一些。
+    - <strong>应用场景</strong>：适用于图像噪声相对较小，且对边缘检测速度有一定要求的场景，例如在一些工业检测中对简单形状物体的边缘提取。</li>
+<li><strong>Roberts算子</strong>
+    - <strong>原理</strong>：Roberts算子是一种最简单的算子，它采用对角线方向相邻两像素之差近似梯度幅值来检测边缘。利用局部差分算子寻找边缘，通过计算2×2邻域内的对角线方向像素值之差来近似梯度幅值。
+    - <strong>特点</strong>：定位精度较高，但对噪声非常敏感，容易检测出伪边缘。由于其检测的边缘比较细，适合检测具有陡峭边缘且噪声较小的图像。
+    - <strong>应用场景</strong>：常用于对边缘细节要求较高、图像噪声较小的场景，如一些医学图像中特定组织的边缘检测。</li>
+</ul>
+<h3 id="122-二阶微分边缘检测算子">1.2.2 二阶微分边缘检测算子</h3>
+<ul>
+<li><strong>Laplacian算子</strong>
+    - <strong>原理</strong>：Laplacian算子是一种二阶微分算子，它具有各向同性，即与坐标轴方向无关，坐标轴旋转后梯度结果不变。通过对图像进行二阶微分运算，根据二阶导数的过零点来确定边缘的位置。
+    - <strong>特点</strong>：对噪声非常敏感，会增强图像中的噪声。但它能够检测出图像中的孤立点、线端和细线等细节，边缘定位精度较高。
+    - <strong>应用场景</strong>：通常需要先对图像进行平滑处理以减少噪声的影响，然后再使用Laplacian算子进行边缘检测，适用于一些对边缘细节要求较高且图像噪声相对容易控制的场景。</li>
+<li><strong>LoG（Laplacian of Gaussian）算子</strong>
+    - <strong>原理</strong>：LoG算子是Laplacian算子和高斯滤波器的结合。先使用高斯滤波器对图像进行平滑处理，以抑制噪声，然后再使用Laplacian算子进行边缘检测。这样可以在一定程度上克服Laplacian算子对噪声敏感的缺点。
+    - <strong>特点</strong>：能够有效地检测边缘，同时对噪声有一定的抑制作用。但它计算量相对较大，因为需要进行高斯滤波和二阶微分运算。
+    - <strong>应用场景</strong>：广泛应用于图像分割、特征提取等领域，特别是在对图像质量和边缘检测精度要求较高的情况下。</li>
+</ul>
+<h3 id="123-canny边缘检测算子">1.2.3 Canny边缘检测算子</h3>
+<ul>
+<li>
+<p><strong>原理</strong>：Canny边缘检测算子是一个多阶段算法，主要包括以下几个步骤：
+    1. <strong>高斯滤波</strong>：对图像进行高斯平滑滤波，以减少噪声的影响。
+    2. <strong>计算梯度幅值和方向</strong>：使用一阶微分算子（如Sobel算子）计算图像中每个像素点的梯度幅值和方向。
+    3. <strong>非极大值抑制</strong>：对梯度幅值图像进行非极大值抑制，以细化边缘，只保留局部梯度幅值最大的点作为候选边缘点。
+    4. <strong>双阈值检测和边缘连接</strong>：设置两个阈值（高阈值和低阈值），将梯度幅值大于高阈值的像素点标记为强边缘点，梯度幅值介于高阈值和低阈值之间的像素点标记为弱边缘点，梯度幅值小于低阈值的像素点则被抑制。然后通过连接强边缘点和与之相连的弱边缘点来形成最终的边缘。</p>
+</li>
+<li>
+<p><strong>特点</strong>：具有低错误率、高定位精度和单一边缘响应等优点。能够有效地检测出图像中的真实边缘，同时抑制虚假边缘的产生。</p>
+</li>
+<li><strong>应用场景</strong>：是目前应用最为广泛的边缘检测算法之一，适用于各种复杂的图像场景，如目标识别、图像匹配、自动驾驶中的环境感知等。</li>
+</ul>
+<h2 id="13-图像增强">1.3 图像增强</h2>
+<h3 id="131-空间域增强">1.3.1 空间域增强</h3>
+<p>空间域增强是直接对图像的像素灰度值进行操作，主要包括灰度变换和空间滤波。</p>
+<h4 id="_4">灰度变换</h4>
+<ul>
+<li><strong>线性灰度变换</strong>
+    - <strong>原理</strong>：通过线性函数对图像的灰度值进行拉伸或压缩。公式为<span class="math-inline">\(g(x,y)=a\times f(x,y)+b\)</span>，其中<span class="math-inline">\(f(x,y)\)</span>是输入图像在点<span class="math-inline">\((x,y)\)</span>处的灰度值，<span class="math-inline">\(g(x,y)\)</span>是输出图像在点<span class="math-inline">\((x,y)\)</span>处的灰度值，<span class="math-inline">\(a\)</span>和<span class="math-inline">\(b\)</span>是常数。
+    - <strong>特点</strong>：当<span class="math-inline">\(a &gt; 1\)</span>时，图像对比度增强；当<span class="math-inline">\(0 &lt; a &lt; 1\)</span>时，图像对比度降低；<span class="math-inline">\(b\)</span>用于调整图像的整体亮度。
+    - <strong>应用场景</strong>：适用于图像整体灰度范围较窄，需要扩展灰度范围以提高对比度的情况，如一些曝光不足或过度的图像处理。</li>
+<li><strong>非线性灰度变换</strong>
+    - <strong>对数变换</strong>：公式为<span class="math-inline">\(g(x,y)=c\times\log(1 + f(x,y))\)</span>，其中<span class="math-inline">\(c\)</span>是常数。对数变换可以压缩图像的动态范围，增强图像中暗区域的细节，常用于处理动态范围很大的图像，如傅里叶频谱图。
+    - <strong>幂律（伽马）变换</strong>：公式为<span class="math-inline">\(g(x,y)=c\times f(x,y)^{\gamma}\)</span>，其中<span class="math-inline">\(c\)</span>和<span class="math-inline">\(\gamma\)</span>是正常数。当<span class="math-inline">\(\gamma &gt; 1\)</span>时，图像的高灰度区域得到扩展，低灰度区域被压缩；当<span class="math-inline">\(\gamma &lt; 1\)</span>时，情况相反。幂律变换可用于图像的校正，如显示器或打印机的伽马校正。</li>
+</ul>
+<h4 id="_5">空间滤波</h4>
+<ul>
+<li><strong>平滑滤波</strong>
+    - <strong>均值滤波</strong>：用滤波器模板确定的邻域内像素的平均灰度值去代替图像每个像素点的值。算法简单，计算速度快，但会导致图像边缘模糊，常用于去除图像中的高斯噪声。
+    - <strong>中值滤波</strong>：将滤波器模板确定的邻域内的像素值进行排序，取中间值作为当前像素点的输出值。对脉冲噪声（椒盐噪声）有很好的抑制作用，能在去噪的同时较好地保留图像的边缘和细节信息。</li>
+<li><strong>锐化滤波</strong>
+    - <strong>拉普拉斯算子</strong>：是一种二阶微分算子，通过计算图像的二阶导数来检测边缘。对噪声敏感，会增强图像中的噪声，但边缘定位精度较高，常与其他方法结合使用来增强图像边缘。
+    - <strong>非锐化掩蔽</strong>：先对原图像进行模糊处理得到模糊图像，然后用原图像减去模糊图像得到掩蔽图像，最后将掩蔽图像按一定比例加到原图像上，从而增强图像的边缘和细节。</li>
+</ul>
+<h3 id="132-频率域增强">1.3.2 频率域增强</h3>
+<p>频率域增强是将图像从空间域转换到频率域，在频率域中对图像的频率成分进行处理，然后再转换回空间域。</p>
+<ul>
+<li><strong>低通滤波</strong>
+    - <strong>理想低通滤波器</strong>：在频率域中，以截止频率为半径的圆内，所有频率分量无衰减地通过，圆外的频率分量完全被滤除。但会产生“振铃”效应，即在图像的边缘附近出现明显的振荡。
+    - <strong>巴特沃斯低通滤波器</strong>：其特性是连续衰减的，没有明显的截止频率。随着频率的增加，滤波器的响应逐渐减小，过渡比较平滑，能有效减少“振铃”效应。
+    - <strong>高斯低通滤波器</strong>：其频率响应呈高斯分布，能够平滑图像，同时较好地保留图像的边缘信息，在图像去噪和模糊处理中应用广泛。</li>
+<li><strong>高通滤波</strong>
+    - <strong>理想高通滤波器</strong>：与理想低通滤波器相反，在截止频率为半径的圆内，所有频率分量被滤除，圆外的频率分量无衰减地通过。同样会产生“振铃”效应，可用于图像锐化，增强图像的高频成分，即边缘和细节。
+    - <strong>巴特沃斯高通滤波器</strong>：过渡特性平滑，能有效抑制“振铃”效应，在增强图像边缘的同时，保持图像的相对平滑。
+    - <strong>高斯高通滤波器</strong>：能够增强图像的高频信息，使图像的边缘更加清晰，同时对噪声有一定的抑制作用。</li>
+</ul>
+<h3 id="133-彩色图像增强">1.3.3 彩色图像增强</h3>
+<p>彩色图像增强不仅要考虑图像的亮度信息，还要考虑颜色信息，常见的方法有真彩色增强和假彩色增强。</p>
+<ul>
+<li><strong>真彩色增强</strong>：直接对彩色图像的三个颜色分量（如RGB颜色空间的R、G、B分量）分别进行灰度图像增强的处理，然后再将处理后的三个分量合成彩色图像。这种方法简单直接，但可能会改变图像的颜色平衡。</li>
+<li><strong>假彩色增强</strong>：将一幅彩色图像或多光谱图像的颜色映射到另一幅彩色图像的颜色空间中，以突出某些特定的信息。例如，将红外图像与可见光图像进行假彩色合成，可以突出目标与背景的差异，便于目标识别。</li>
+</ul>
+<h3 id="134-基于深度学习的图像增强">1.3.4 基于深度学习的图像增强</h3>
+<p>随着深度学习技术的发展，基于深度学习的图像增强方法取得了显著的成果。</p>
+<ul>
+<li><strong>卷积神经网络（CNN）</strong>
+    - <strong>原理</strong>：通过多层卷积层、池化层和全连接层的组合，自动学习图像的特征表示。在图像增强中，可以训练一个CNN模型，将低质量的图像作为输入，高质量的图像作为输出，让模型学习从低质量图像到高质量图像的映射关系。
+    - <strong>特点</strong>：能够自动提取图像的高级特征，对各种复杂的图像退化情况有较好的适应性，但需要大量的标注数据进行训练。
+    - <strong>应用场景</strong>：广泛应用于图像去噪、超分辨率重建、图像去模糊等任务。</li>
+<li><strong>生成对抗网络（GAN）</strong>
+    - <strong>原理</strong>：GAN由生成器和判别器组成。生成器负责生成逼真的图像，判别器负责判断输入的图像是真实图像还是生成器生成的图像。通过生成器和判别器之间的对抗训练，不断提高生成器生成图像的质量。
+    - <strong>特点</strong>：能够生成高质量、多样化的图像，在图像增强中可以生成更加自然、真实的增强结果。但训练过程相对复杂，容易出现模式崩溃等问题。
+    - <strong>应用场景</strong>：常用于图像风格迁移、图像修复、图像超分辨率重建等对图像质量要求较高的任务。</li>
+</ul>
+<h2 id="14-图像复原">1.4 图像复原</h2>
+<h3 id="141-基于退化模型估计的方法">1.4.1 基于退化模型估计的方法</h3>
+<ul>
+<li>
+<p><strong>逆滤波复原</strong>：<br />
+  通过傅里叶变换将图像转换到频域，利用公式<span class="math-inline">\(F^\prime(u,v) = G(u,v)/H(u,v)\)</span>（其中<span class="math-inline">\(G(u,v)\)</span>为退化图像频域表示，<span class="math-inline">\(H(u,v)\)</span>为退化函数）直接求解原始图像估计值。但该方法在<span class="math-inline">\(H(u,v)\)</span>接近零时可能失效，且对噪声敏感，需在分母中加入常数或限制滤波频率以改进。</p>
+</li>
+<li>
+<p><strong>维纳滤波复原</strong>：<br />
+  基于最小均方误差准则，利用噪声和图像的统计信息恢复图像。其传递函数为<span class="math-inline">\(H(u,v)=\frac{H^*(u,v)P_f(u,v)}{|H(u,v)|^2P_f(u,v)+P_n(u,v)}\)</span>，其中<span class="math-inline">\(P_f(u,v)\)</span>和<span class="math-inline">\(P_n(u,v)\)</span>分别为图像和噪声的功率谱。该方法可自动抑制噪声放大，但需较多先验知识。</p>
+</li>
+<li>
+<p><strong>有约束最小二乘复原</strong>：<br />
+  在约束条件下寻找使准则函数最小的复原图像，通常采用平滑约束（如使原始图像的二阶导数平方和最小）。通过拉格朗日乘数法求解，适用于噪声统计特性未知的情况。</p>
+</li>
+</ul>
+<h3 id="142-基于迭代运算的方法">1.4.2 基于迭代运算的方法</h3>
+<ul>
+<li><strong>Lucy-Richardson（L-R）复原</strong>：<br />
+  基于贝叶斯理论，假设退化图像、原始图像和点扩散函数服从泊松统计模型，通过迭代运算收敛于最大似然解。迭代公式为<span class="math-inline">\(f^{(n+1)}(x,y)=f^{(n)}(x,y)\left[\frac{h*(-g/h*f^{(n)})}{h*(-1+g/h*f^{(n)})}\right]\)</span>，适用于点扩散函数已知的情况。</li>
+</ul>
+<h3 id="143-基于退化图像先验信息的方法">1.4.3 基于退化图像先验信息的方法</h3>
+<ul>
+<li><strong>盲解卷积复原</strong>：<br />
+  在缺乏退化图像先验知识的情况下，通过迭代算法同时估计原始图像和点扩散函数。例如，使用<code>deconvblind</code>函数（如MATLAB中）进行复原，适用于无法准确获取退化模型参数的场景。</li>
+</ul>
+<h3 id="144-基于空间域和频率域处理的方法">1.4.4 基于空间域和频率域处理的方法</h3>
+<ul>
+<li>
+<p><strong>空间滤波复原</strong>：<br />
+  针对噪声存在的情况，采用均值滤波器（如算术均值、几何均值、谐波均值、逆谐波均值滤波器）或自适应滤波器（如自适应中值滤波器）进行去噪和复原。</p>
+</li>
+<li>
+<p><strong>频率域滤波复原</strong>：<br />
+  通过傅里叶变换将图像转换到频域，利用带阻滤波器、带通滤波器或陷波滤波器消除噪声或特定频率分量。例如，使用n阶巴特沃思带阻滤波器或高斯带阻滤波器进行周期噪声的削减。</p>
+</li>
+</ul>
+<h3 id="145-基于物理模型和统计模型的方法">1.4.5 基于物理模型和统计模型的方法</h3>
+<ul>
+<li>
+<p><strong>物理模型复原</strong>：<br />
+  基于光学和成像系统的物理原理（如反射、折射、衍射），模拟图像形成过程和退化现象，设计反卷积算法以重建清晰图像。例如，通过模拟运动模糊来设计反卷积算法。</p>
+</li>
+<li>
+<p><strong>统计模型复原</strong>：<br />
+  基于图像数据的概率分布和统计特性（如噪声模型、图像纹理模型、统计相关性），从数据层面理解和解释图像特性。例如，利用Wiener滤波进行基于噪声统计特性的去噪。</p>
+</li>
+</ul>
+<h2 id="15-图像重建">1.5 图像重建</h2>
+<h3 id="151-基于物理模型的重建">1.5.1 基于物理模型的重建</h3>
+<ul>
+<li><strong>CT重建技术</strong>：<ul>
+<li><strong>滤波反投影（FBP）</strong>：作为商用CT扫描仪最常用的分析重建方法，通过在投影数据上使用1D滤波器，将数据反投影到图像空间。其优势在于计算效率高且数值稳定性强，适用于不同世代的CT数据采集几何形状。</li>
+<li><strong>迭代重建（IR）</strong>：通过迭代优化数据保真项和保边正则化项的客观函数，在图像空间和投影空间之间进行正向与反向投影。相比FBP技术，迭代重建能更准确地纳入焦点和探测器几何形状、光子统计等物理因素，从而降低图像噪声、提高空间分辨率并减少伪影。</li>
+</ul>
+</li>
+</ul>
+<h3 id="152-基于深度学习的重建">1.5.2 基于深度学习的重建</h3>
+<ul>
+<li><strong>深度学习重建</strong>：通过深度神经网络学习图像的高级特征，实现高质量的图像重建。常见的模型包括自编码器和生成对抗网络（GAN）。例如，2025年AI图像重建系统通过将传统多步迭代采样过程整合为单次推理网络，直接优化图像重建目标，显著提升了推理速度和重建质量。</li>
+</ul>
+<h3 id="153-基于数学变换的重建">1.5.3 基于数学变换的重建</h3>
+<ul>
+<li><strong>傅里叶变换重建</strong>：将图像转换为频域表示，通过频域处理和滤波后再进行逆傅里叶变换，实现图像重建。例如，低通滤波可用于去除图像中的高频噪声，从而恢复出清晰的图像。</li>
+</ul>
+<h3 id="154-基于插值的重建">1.5.4 基于插值的重建</h3>
+<ul>
+<li><strong>插值法</strong>：通过已知像素信息估计未知像素值，常见的插值方法包括最近邻插值、双线性插值和双三次插值。这些方法简单易用，适用于对计算复杂度要求较低的场景。</li>
+</ul>
+<h3 id="155-基于压缩感知的重建">1.5.5 基于压缩感知的重建</h3>
+<ul>
+<li><strong>压缩感知重建</strong>：通过在采样阶段对图像进行稀疏表示，并利用稀疏性在重建阶段恢复图像。该方法在图像压缩和重建方面取得了显著效果，尤其适用于采样资源受限的场景。</li>
+</ul>
+<h3 id="156-基于多视角的三维重建">1.5.6 基于多视角的三维重建</h3>
+<ul>
+<li><strong>单目与多目图像重建</strong>：<ul>
+<li><strong>单目图像重建</strong>：通过单个视角的二维图像估计三维场景，通常需要时间序列上的多幅图像。例如，运动恢复结构（SFM）技术可根据连续图像重建三维环境。</li>
+<li><strong>多目图像重建</strong>：利用多个视角的图像数据，通过特征提取、匹配与建模，恢复三维场景。例如，立体视觉重建通过双目成像模型提取物体的三维信息，广泛应用于工业自动化和机器人领域。</li>
+</ul>
+</li>
+</ul>
+<h3 id="157-基于模型的正则化重建">1.5.7 基于模型的正则化重建</h3>
+<ul>
+<li><strong>基于模型的重建</strong>：利用先验知识和数学模型约束图像重建过程。例如，使用正则化方法（如TV正则化、稀疏表示正则化）对图像进行约束，以获得更准确的重建结果。</li>
+</ul>
+<h2 id="16-形态学图像处理">1.6 形态学图像处理</h2>
+<h3 id="161">1.6.1 <strong>基本形态学操作</strong></h3>
+<h4 id="1-erosion"><strong>1. 腐蚀（Erosion）</strong></h4>
+<ul>
+<li><strong>原理</strong>：用结构元素扫描图像的每个像素，将结构元素覆盖下的最小像素值作为输出图像对应位置的像素值。</li>
+<li><strong>效果</strong>：<ul>
+<li>缩小或细化图像中的物体。</li>
+<li>消除小的噪声点或孤立像素。</li>
+<li>分离两个或多个接触的物体。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：若结构元素为3×3的方形，腐蚀操作会“腐蚀”掉图像边缘的像素，使物体变薄。</li>
+</ul>
+<h4 id="2-dilation"><strong>2. 膨胀（Dilation）</strong></h4>
+<ul>
+<li><strong>原理</strong>：用结构元素扫描图像的每个像素，将结构元素覆盖下的最大像素值作为输出图像对应位置的像素值。</li>
+<li><strong>效果</strong>：<ul>
+<li>扩大或加粗图像中的物体。</li>
+<li>填充物体内部的小孔或断裂。</li>
+<li>连接相邻的物体。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：膨胀操作会使图像中的物体变厚，填补物体内部的微小空洞。</li>
+</ul>
+<hr />
+<h3 id="162">1.6.2 <strong>组合形态学操作</strong></h3>
+<h4 id="1-opening"><strong>1. 开运算（Opening）</strong></h4>
+<ul>
+<li><strong>定义</strong>：先腐蚀后膨胀。</li>
+<li><strong>效果</strong>：<ul>
+<li>消除小物体。</li>
+<li>平滑较大物体的边界，同时不明显改变其面积。</li>
+<li>用于去除图像中的噪声或小颗粒。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：在指纹图像中，开运算可以去除指纹纹路之间的细小噪点。</li>
+</ul>
+<h4 id="2-closing"><strong>2. 闭运算（Closing）</strong></h4>
+<ul>
+<li><strong>定义</strong>：先膨胀后腐蚀。</li>
+<li><strong>效果</strong>：<ul>
+<li>填充物体内部的小孔。</li>
+<li>连接邻近的物体。</li>
+<li>平滑边界，同时不明显改变其面积。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：在印刷字符图像中，闭运算可以填充字符内部的微小断裂。</li>
+</ul>
+<h4 id="3-hmt"><strong>3. 击中击不中变换（HMT）</strong></h4>
+<ul>
+<li><strong>原理</strong>：使用两个结构元素（一个匹配前景，一个匹配背景）来检测特定形状的物体。</li>
+<li><strong>效果</strong>：<ul>
+<li>精确提取图像中特定形状的物体。</li>
+<li>适用于形状匹配和定位。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：在细胞图像中，HMT可以用于检测特定大小和形状的细胞。</li>
+</ul>
+<h4 id="4-morphological-gradient"><strong>4. 形态学梯度（Morphological Gradient）</strong></h4>
+<ul>
+<li><strong>定义</strong>：膨胀图减去腐蚀图。</li>
+<li><strong>效果</strong>：<ul>
+<li>突出图像的边缘。</li>
+<li>增强图像中的细节。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：在医学图像中，形态学梯度可以用于增强肿瘤的边缘。</li>
+</ul>
+<h4 id="5-top-hat"><strong>5. 顶帽变换（Top-hat）</strong></h4>
+<ul>
+<li><strong>定义</strong>：原图减去开运算结果。</li>
+<li><strong>效果</strong>：<ul>
+<li>提取图像中的亮细节。</li>
+<li>用于增强图像中的亮点或小物体。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：在天文图像中，顶帽变换可以用于增强微弱的星体。</li>
+</ul>
+<h4 id="6-bottom-hat"><strong>6. 黑帽变换（Bottom-hat）</strong></h4>
+<ul>
+<li><strong>定义</strong>：闭运算结果减去原图。</li>
+<li><strong>效果</strong>：<ul>
+<li>提取图像中的暗细节。</li>
+<li>用于增强图像中的暗点或小孔。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：在X光图像中，黑帽变换可以用于检测骨骼中的微小裂缝。</li>
+</ul>
+<hr />
+<h3 id="163">1.6.3 <strong>高级形态学操作</strong></h3>
+<h4 id="1-thinning"><strong>1. 细化（Thinning）</strong></h4>
+<ul>
+<li><strong>原理</strong>：通过迭代腐蚀操作，逐步去除物体边界像素，直到得到单像素宽的骨架。</li>
+<li><strong>效果</strong>：<ul>
+<li>提取物体的骨架。</li>
+<li>减少数据量，便于后续处理。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：在字符识别中，细化操作可以将字符转换为单像素宽的骨架，便于特征提取。</li>
+</ul>
+<h4 id="2-thickening"><strong>2. 粗化（Thickening）</strong></h4>
+<ul>
+<li><strong>原理</strong>：通过迭代膨胀操作，逐步加粗物体。</li>
+<li><strong>效果</strong>：<ul>
+<li>增加物体的厚度。</li>
+<li>用于连接断裂的物体。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：在指纹识别中，粗化操作可以增强指纹纹路的连续性。</li>
+</ul>
+<h4 id="3-skeletonization"><strong>3. 骨架提取（Skeletonization）</strong></h4>
+<ul>
+<li><strong>原理</strong>：类似于细化操作，但更注重保持物体的拓扑结构。</li>
+<li><strong>效果</strong>：<ul>
+<li>提取物体的中心线。</li>
+<li>保留物体的形状信息。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：在血管图像中，骨架提取可以用于分析血管的拓扑结构。</li>
+</ul>
+<h4 id="4-region-filling"><strong>4. 区域填充（Region Filling）</strong></h4>
+<ul>
+<li><strong>原理</strong>：从种子点开始，通过迭代膨胀操作填充区域。</li>
+<li><strong>效果</strong>：<ul>
+<li>填充图像中的闭合区域。</li>
+<li>用于分割或标记物体。</li>
+</ul>
+</li>
+<li><strong>示例</strong>：在二值图像中，区域填充可以用于填充物体内部的空洞。</li>
+</ul>
+<hr />
+<h3 id="164">1.6.4 <strong>结构元素的选择</strong></h3>
+<ul>
+<li><strong>形状</strong>：常见的结构元素形状包括方形、圆形、线性等。</li>
+<li><strong>大小</strong>：结构元素的大小影响操作的强度。较大的结构元素会导致更强的腐蚀或膨胀效果。</li>
+<li><strong>方向</strong>：对于线性结构元素，方向会影响操作的各向异性。</li>
+</ul>
+<h2 id="17-图像分割">1.7 图像分割</h2>
+<h3 id="171">1.7.1 <strong>基于阈值的分割方法</strong></h3>
+<p><strong>原理</strong>：根据像素灰度值设定阈值，将图像分为前景和背景。<br />
+<strong>适用场景</strong>：目标与背景灰度差异明显的图像。  </p>
+<ol>
+<li>
+<p><strong>全局阈值法</strong>  </p>
+<ul>
+<li><strong>方法</strong>：如Otsu算法，通过最大化类间方差自动确定阈值。  </li>
+<li><strong>优点</strong>：计算简单，适合简单场景。  </li>
+<li><strong>缺点</strong>：对光照不均或复杂背景敏感。  </li>
+</ul>
+</li>
+<li>
+<p><strong>自适应阈值法</strong>  </p>
+<ul>
+<li><strong>方法</strong>：如局部二值化（Local Thresholding），根据局部区域动态调整阈值。  </li>
+<li><strong>优点</strong>：适应光照变化，适合复杂背景。  </li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="172">1.7.2 <strong>基于边缘的分割方法</strong></h3>
+<p><strong>原理</strong>：检测图像中灰度或颜色突变的边缘，连接边缘形成区域。<br />
+<strong>适用场景</strong>：目标边缘清晰、对比度高的图像。  </p>
+<ol>
+<li>
+<p><strong>边缘检测算子</strong>  </p>
+<ul>
+<li><strong>Sobel、Prewitt、Canny</strong>：通过梯度计算检测边缘。  </li>
+<li><strong>Canny算子</strong>：结合高斯滤波、非极大值抑制和双阈值处理，效果更鲁棒。  </li>
+</ul>
+</li>
+<li>
+<p><strong>边缘连接</strong>  </p>
+<ul>
+<li><strong>方法</strong>：通过霍夫变换或最小生成树算法连接断续边缘。  </li>
+<li><strong>挑战</strong>：噪声干扰可能导致边缘断裂或误检。  </li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="173">1.7.3 <strong>基于区域的分割方法</strong></h3>
+<p><strong>原理</strong>：根据像素相似性将图像划分为区域。<br />
+<strong>适用场景</strong>：目标内部颜色或纹理均匀的图像。  </p>
+<ol>
+<li>
+<p><strong>区域生长</strong>  </p>
+<ul>
+<li><strong>步骤</strong>：选择种子点，逐步合并相似像素。  </li>
+<li><strong>优点</strong>：简单直观，适合小区域分割。  </li>
+<li><strong>缺点</strong>：对种子点选择敏感，可能过度生长。  </li>
+</ul>
+</li>
+<li>
+<p><strong>区域分裂与合并</strong>  </p>
+<ul>
+<li><strong>步骤</strong>：从整图开始，分裂不均匀区域，合并相似区域。  </li>
+<li><strong>优点</strong>：适应复杂场景，但计算复杂度高。  </li>
+</ul>
+</li>
+<li>
+<p><strong>分水岭算法</strong>  </p>
+<ul>
+<li><strong>原理</strong>：将图像视为地形图，通过“淹水”过程划分区域。  </li>
+<li><strong>优点</strong>：适合分割粘连物体，但易受噪声影响。  </li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="174">1.7.4 <strong>基于聚类的分割方法</strong></h3>
+<p><strong>原理</strong>：将像素聚类为具有相似特征的组。<br />
+<strong>适用场景</strong>：无监督学习场景。  </p>
+<ol>
+<li>
+<p><strong>K-means聚类</strong>  </p>
+<ul>
+<li><strong>步骤</strong>：初始化K个中心点，迭代分配像素并更新中心。  </li>
+<li><strong>优点</strong>：简单高效，但K值需预设。  </li>
+</ul>
+</li>
+<li>
+<p><strong>Mean Shift聚类</strong>  </p>
+<ul>
+<li><strong>原理</strong>：通过密度梯度上升找到聚类中心。  </li>
+<li><strong>优点</strong>：无需预设K值，适合非均匀分布。  </li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="175">1.7.5 <strong>基于图论的分割方法</strong></h3>
+<p><strong>原理</strong>：将图像建模为图，通过优化分割准则划分节点。<br />
+<strong>适用场景</strong>：需要全局优化的复杂场景。  </p>
+<ol>
+<li>
+<p><strong>Graph Cut</strong>  </p>
+<ul>
+<li><strong>原理</strong>：将图像分割转化为最小割问题，通过最大化流算法求解。  </li>
+<li><strong>优点</strong>：结果稳定，但计算复杂度高。  </li>
+</ul>
+</li>
+<li>
+<p><strong>Normalized Cut（Ncut）</strong>  </p>
+<ul>
+<li><strong>改进</strong>：引入归一化项，避免偏好小区域分割。  </li>
+</ul>
+</li>
+<li>
+<p><strong>GrabCut</strong>  </p>
+<ul>
+<li><strong>原理</strong>：结合用户交互（如矩形框）和Graph Cut，实现半自动分割。  </li>
+<li><strong>优点</strong>：交互简单，适合复杂背景。  </li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="176">1.7.6 <strong>基于深度学习的分割方法</strong></h3>
+<p><strong>原理</strong>：利用卷积神经网络（CNN）自动学习特征，实现端到端分割。<br />
+<strong>适用场景</strong>：复杂场景、大规模数据集。  </p>
+<ol>
+<li>
+<p><strong>全卷积网络（FCN）</strong>  </p>
+<ul>
+<li><strong>创新</strong>：用全卷积层替代全连接层，输出像素级分类。  </li>
+<li><strong>优点</strong>：首次实现端到端语义分割。  </li>
+</ul>
+</li>
+<li>
+<p><strong>U-Net</strong>  </p>
+<ul>
+<li><strong>结构</strong>：编码器-解码器结构，结合跳跃连接保留细节。  </li>
+<li><strong>优点</strong>：适合小数据集，医学图像分割经典方法。  </li>
+</ul>
+</li>
+<li>
+<p><strong>Mask R-CNN</strong>  </p>
+<ul>
+<li><strong>原理</strong>：在目标检测基础上增加分割分支，实现实例分割。  </li>
+<li><strong>优点</strong>：同时检测和分割多个实例。  </li>
+</ul>
+</li>
+<li>
+<p><strong>DeepLab系列</strong>  </p>
+<ul>
+<li><strong>创新</strong>：引入空洞卷积（Atrous Convolution）和条件随机场（CRF）后处理。  </li>
+<li><strong>优点</strong>：扩大感受野，提升边界精度。  </li>
+</ul>
+</li>
+<li>
+<p><strong>Transformer-based方法</strong>  </p>
+<ul>
+<li><strong>方法</strong>：如Swin Transformer，利用自注意力机制捕捉全局依赖。  </li>
+<li><strong>优点</strong>：适合长距离依赖场景，但计算资源需求高。  </li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="177">1.7.7 <strong>其他方法</strong></h3>
+<ol>
+<li>
+<p><strong>基于活动轮廓模型（Snake）</strong>  </p>
+<ul>
+<li><strong>原理</strong>：通过能量最小化使曲线变形至目标边界。  </li>
+<li><strong>优点</strong>：适合形状先验已知的场景。  </li>
+</ul>
+</li>
+<li>
+<p><strong>超像素分割</strong>  </p>
+<ul>
+<li><strong>方法</strong>：如SLIC算法，将图像划分为局部相似的超像素。  </li>
+<li><strong>优点</strong>：减少计算量，常作为预处理步骤。  </li>
+</ul>
+</li>
+<li>
+<p><strong>弱监督/无监督分割</strong>  </p>
+<ul>
+<li><strong>方法</strong>：利用少量标注数据或无标注数据训练模型。  </li>
+<li><strong>挑战</strong>：标注成本高，但应用前景广阔。  </li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="178">1.7.8 <strong>方法选择建议</strong></h3>
+<ol>
+<li><strong>简单场景</strong>：优先选择阈值法、边缘检测。  </li>
+<li><strong>复杂背景</strong>：考虑深度学习方法（如U-Net、Mask R-CNN）。  </li>
+<li><strong>交互式需求</strong>：GrabCut或基于超像素的方法。  </li>
+<li><strong>实时性要求</strong>：轻量级网络（如MobileNetV3 + DeepLabV3+）。  </li>
+</ol>
+<hr />
+<h3 id="179">1.7.9 <strong>总结</strong></h3>
+<p>图像分割方法的选择需综合考虑数据特性、计算资源和任务需求。传统方法（如阈值、边缘检测）计算简单，但泛化能力有限；深度学习方法（如FCN、U-Net）性能强大，但依赖大量标注数据。未来趋势包括：  </p>
+<ul>
+<li><strong>弱监督/无监督学习</strong>：减少标注依赖。  </li>
+<li><strong>多模态融合</strong>：结合RGB、深度、热成像等多源数据。  </li>
+<li><strong>轻量化模型</strong>：优化计算效率，适应边缘设备。  </li>
+</ul>
+<h1 id="_6">基本函数</h1>
+<h2 id="cv2">cv2</h2>
+<h3 id="imread">imread()</h3>
+<p>cv2.imread() 用于读取图片文件，imread() 函数有两个参数，第一个参数是图片路径，第二个参数表示读取图片的形式，有三种  </p>
+<p>cv2.IMREAD_COLOR：加载彩色图片，这个是<code>默认</code>参数，可以直接写 1 <br />
+cv2.IMREAD_GRAYSCALE：以灰度模式加载图片，可以直接写 0 <br />
+cv2.IMREAD_UNCHANGED：包括 alpha，可以直接写 -1   </p>
+<h3 id="imwrite">imwrite()</h3>
+<p>cv2.imwrite() 用于保存一个图像。第一个参数是要保存的文件名，第二个参数是要保存的图像。</p>
+<h3 id="resize">resize( )</h3>
+<p>第一个参数是图片<br />
+第二个参数是要缩放的大小，如(256, 256)图像放缩到256</p>
+<h3 id="cv2waitkey">cv2.waitKey()</h3>
+<p>是一个用于等待用户按键输入的函数。默认参数 0 表示无限期等待，直到用户按下任意键为止  </p>
+<p>cv2.waitKey(1): 等待 1 毫秒，如果在这段时间内没有按键按下，则继续执行后续代码。这通常用于视频处理或实时显示图像时，以控制帧率  </p>
+<h3 id="cv2destroyallwindows">cv2.destroyAllWindows()</h3>
+<p>关闭所有OpenCV窗口</p>
+<h3 id="cvtcolor">cvtColor()</h3>
+<p>gray_image = cv2.cvtColor(image_path, cv2.COLOR_BGR2GRAY)<br />
+第一个参数是源图像<br />
+第二个参数是转换代码： <br />
+cv2.COLOR_BGR2GRAY：BGR 到灰度 <br />
+cv2.COLOR_GRAY2BGR：灰度到 BGR <br />
+cv2.COLOR_BGR2HSV：BGR 到 HSV <br />
+cv2.COLOR_HSV2BGR：HSV 到 BGR <br />
+HSV 表示色调（Hue）、饱和度（Saturation）和明度（Value）   </p>
+<h3 id="imshow">imshow()</h3>
+<p>两个参数：一个是窗口的名称（字符串类型），另一个是要显示的图像</p>
+<h3 id="threshold">threshold()</h3>
+<p>用于应用固定阈值操作来将灰度图像转换为二值图像 <br />
+它接收几个参数，包括输入图像、用于分类的阈值、最大值（当像素值超过（或低于，取决于阈值类型）阈值时赋予的值）以及阈值类型  <br />
+ret, thresh_image = cv2.threshold(src, x,y, Methods)  <br />
+第一个参数     src        指原图像，原图像应该是灰度图  <br />
+第二个参数     x          指用来对像素值进行分类的阈值  <br />
+第三个参数     y          指当像素值高于（有时是小于）阈值时应该被赋予的新的像素值  <br />
+第四个参数     Methods    指不同的不同的阈值方法  <br />
+ret 是阈值,thresh_image 是二值化后的图像    </p>
+<p>常用的阈值类型主要包括:  </p>
+<ul>
+<li>
+<p>cv2.THRESH_OTSU 或 cv2.THRESH_TRIANGLE 
+自动计算最佳阈值</p>
+</li>
+<li>
+<p>cv2.THRESH_BINARY二进制阈值化：
+将图像转换为仅包含两个可能像素值的图像（二值图像）
+如果像素值高于阈值，则将其设置为最大值（如255）
+如果像素值低于或等于阈值，则将其设置为0</p>
+</li>
+<li>
+<p>cv2.THRESH_BINARY_INV反二进制阈值化：
+与二进制阈值化相反
+如果像素值高于阈值，则将其设置为0
+如果像素值低于或等于阈值，则将其设置为最大值（如255）</p>
+</li>
+<li>
+<p>cv2.THRESH_TRUNC截断阈值化：
+将图像中大于阈值的像素值设置为阈值本身
+小于或等于阈值的像素值保持不变</p>
+</li>
+<li>
+<p>cv2.THRESH_TOZERO阈值化为0：
+将图像中小于或等于阈值的像素值设置为0
+大于阈值的像素值保持不变</p>
+</li>
+<li>
+<p>cv2.THRESH_TOZERO_INV反阈值化为0：
+与阈值化为0相反
+将图像中大于阈值的像素值设置为0
+小于或等于阈值的像素值保持不变</p>
+</li>
+</ul>
+<h3 id="gaussianblur">GaussianBlur() 高斯平滑</h3>
+<p>cv2.GaussianBlur(src, ksize, sigmaX[, dst[, sigmaY[, borderType]]])</p>
+<ul>
+<li>src: 输入图像矩阵,可为单通道或多通道，多通道时分别对每个通道进行卷积</li>
+<li>ksize:高斯卷积核的大小，宽，高都为奇数，且可以不相同</li>
+<li>sigmaX: 一维水平方向高斯卷积核的标准差 </li>
+<li></li>
+<li>sigmaY: 一维垂直方向高斯卷积核的标准差，默认值为0，表示与sigmaX相同</li>
+<li>dst:输出图像矩阵,大小和数据类型都与src相同,例如(3,5)</li>
+<li>borderType:填充边界类型</li>
+</ul>
+<h3 id="boxfilter">boxFilter() 均值平滑</h3>
+<p>cv2.boxFilter(src, ddepth, ksize[, dst[, normalize[, borderType]]])</p>
+<ul>
+<li>src: 输入图像对象矩阵,</li>
+<li>ddepth:数据格式,位深度-1代表使用原图深度</li>
+<li>ksize:高斯卷积核的大小，格式为(宽，高)</li>
+<li></li>
+<li>dst:输出图像矩阵,大小和数据类型都与src相同</li>
+<li>anchor：卷积核锚点，默认(-1,-1)表示卷积核的中心位置</li>
+<li>normalize:是否归一化 </li>
+<li>borderType:填充边界类型</li>
+</ul>
+<h3 id="blur">blur() 均值平滑</h3>
+<p>cv2.blur(src, ksize[, dst[, anchor[, borderType]]])</p>
+<ul>
+<li>src: 输入图像对象矩阵,可以为单通道或多通道</li>
+<li>ksize:高斯卷积核的大小，格式为(宽，高)</li>
+<li></li>
+<li>dst:输出图像矩阵,大小和数据类型都与src相同</li>
+<li>anchor：卷积核锚点，默认(-1,-1)表示卷积核的中心位置</li>
+<li>borderType:填充边界类型</li>
+</ul>
+<h3 id="medianblur">medianBlur() 中值平滑</h3>
+<p>cv2.medianBlur(src, ksize[, dst])</p>
+<ul>
+<li>src: 输入图像对象矩阵,可以为单通道或多通道</li>
+<li>ksize:核的大小，格式为 3  </li>
+<li></li>
+<li>dst:输出图像矩阵,大小和数据类型都与src相同</li>
+</ul>
+<h3 id="bilateralfilter">bilateralFilter() 双边滤波</h3>
+<p>cv2.bilateralFilter(src, d, sigmaColor, sigmaSpace[, dst[, borderType]])</p>
+<ul>
+<li>src: 输入图像对象矩阵,可以为单通道或多通道</li>
+<li>d: 用来计算卷积核的领域直径，如果d&lt;=0，从sigmaSpace计算d</li>
+<li>sigmaColor： 颜色空间过滤器的sigma值，这个参数的值越大，表明该像素邻域内有越宽广的颜色会被混合到一起，产生较大的半相等颜色区域</li>
+<li>sigmaSpace： 坐标空间中滤波器的sigma值，如果该值较大，则意味着颜色相近的较远的像素将相互影响，从而使更大的区域中足够相似的颜色获取相同的颜色</li>
+</ul>
+<p>当d&gt;0时，d指定了邻域大小且与sigmaSpace无关，否则d正比于sigmaSpace</p>
+<h3 id="sobel"><code>Sobel()</code></h3>
+<p>用于计算图像梯度的函数，常用于边缘检测。通过 Sobel 算子分别计算图像在水平（x）和垂直（y）方向上的梯度，从而突出图像的边缘特征。
+Sobel 算子通过卷积核计算梯度：</p>
+<ul>
+<li><strong>水平方向核</strong>（检测垂直边缘）：</li>
+</ul>
+<div class="highlight"><pre><span></span><code> [-1  0  1]
+ [-2  0  2]
+ [-1  0  1]
+</code></pre></div>
+
+<ul>
+<li><strong>垂直方向核</strong>（检测水平边缘）：</li>
+</ul>
+<div class="highlight"><pre><span></span><code> [-1 -2 -1]
+ [ 0  0  0]
+ [ 1  2  1]
+</code></pre></div>
+
+<hr />
+<div class="highlight"><pre><span></span><code>cv2.Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]])
+</code></pre></div>
+
+<ol>
+<li><strong><code>src</code></strong>：输入图像（单通道或多通道的灰度/彩色图像）。</li>
+<li>
+<p><strong><code>ddepth</code></strong>：输出图像的深度（数据类型），常用值：</p>
+<ul>
+<li><code>cv2.CV_64F</code>（64 位浮点，保留负梯度）</li>
+<li><code>cv2.CV_8U</code>（8 位无符号，默认，但会丢失负梯度）</li>
+<li><strong><code>dx</code></strong>：x 方向导数的阶数（如 <code>1</code> 表示计算水平梯度）。</li>
+<li><strong><code>dy</code></strong>：y 方向导数的阶数（如 <code>1</code> 表示计算垂直梯度）。</li>
+<li>
+<p><strong><code>ksize</code></strong>（可选）：Sobel 核的大小，必须是奇数（如 <code>1, 3, 5, 7</code>），默认 <code>3</code>。</p>
+</li>
+<li>
+<p><code>ksize=1</code> 时使用 3x1 或 1x3 核（无高斯平滑）。</p>
+</li>
+<li><code>ksize=-1</code> 时使用 Scharr 算子（更敏感的边缘检测）。</li>
+<li><strong><code>scale</code></strong>（可选）：梯度值的缩放因子（默认 <code>1</code>）。</li>
+<li><strong><code>delta</code></strong>（可选）：添加到结果中的偏移量（默认 <code>0</code>）。</li>
+<li><strong><code>borderType</code></strong>（可选）：边界填充方式（如 <code>cv2.BORDER_DEFAULT</code>）。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用示例：</span>
+<span class="c1">## 1. 计算水平和垂直梯度</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 读取图像并转为灰度图</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;image.jpg&quot;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+<span class="c1"># 计算 x 和 y 方向的梯度</span>
+<span class="n">sobel_x</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sobel_y</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># 转换为绝对值并映射到 8 位无符号</span>
+<span class="n">sobel_x_abs</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">sobel_x</span><span class="p">)</span>
+<span class="n">sobel_y_abs</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">sobel_y</span><span class="p">)</span>
+
+<span class="c1"># 合并梯度</span>
+<span class="n">sobel_combined</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">addWeighted</span><span class="p">(</span><span class="n">sobel_x_abs</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">sobel_y_abs</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 显示结果</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Original&quot;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Sobel X&quot;</span><span class="p">,</span> <span class="n">sobel_x_abs</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Sobel Y&quot;</span><span class="p">,</span> <span class="n">sobel_y_abs</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Combined Sobel&quot;</span><span class="p">,</span> <span class="n">sobel_combined</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+
+
+<span class="c1">## 2. 使用 Scharr 算子（更敏感的边缘检测）</span>
+<span class="n">scharr_x</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">scharr_y</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="c1">### 关键注意事项：</span>
+<span class="c1"># 1. **负梯度处理**：</span>
+<span class="c1">#    - 使用 `cv2.CV_64F` 保留负梯度，再通过 `cv2.convertScaleAbs()` 转换为 8 位。</span>
+<span class="c1">#    - 直接使用 `cv2.CV_8U` 会丢失负梯度信息（边缘方向可能不准确）。</span>
+
+<span class="c1"># 2. **梯度方向**：</span>
+<span class="c1">#    - `dx=1, dy=0`：检测垂直边缘（对水平变化敏感）。</span>
+<span class="c1">#    - `dx=0, dy=1`：检测水平边缘（对垂直变化敏感）。</span>
+
+<span class="c1"># 3. **噪声影响**：</span>
+<span class="c1">#    - Sobel 对噪声敏感，通常先使用高斯模糊（`cv2.GaussianBlur()`）平滑图像。</span>
+</code></pre></div>
+
+<h3 id="puttext">putText() 在图像上添加文本</h3>
+<p>cv2.putText(</p>
+<ul>
+<li>img, </li>
+<li>text,                   要添加的文本内容(字符串类型)</li>
+<li>org,                    文本左下角在图像中的坐标(元组 (x, y))。示例：(50, 50) 表示文本从图像左上角向右 50 像素、向下 50 像素的位置开始</li>
+<li>fontFace,               字体类型</li>
+<li>fontScale,              字体缩放比例(浮点数)。1.0 表示原始大小，2.0 放大一倍</li>
+<li>color,                  文本颜色(BGR 格式元组)。示例：(255, 0, 0) 表示蓝色，(0, 255, 0) 表示绿色</li>
+<li>thickness=1,            文本线条粗细(整数，默认 1)</li>
+<li>lineType=cv2.LINE_8,    线条类型(抗锯齿选项)cv2.LINE_AA：抗锯齿(平滑边缘，推荐)cv2.LINE_8：默认(无抗锯齿，速度快)</li>
+<li>bottomLeftOrigin=False  坐标原点方向(布尔值，默认 False)。若为 True，则 org 表示文本左上角坐标；若为 False，表示左下角坐标</li>
+</ul>
+<p>)</p>
+<h3 id="calchist">calcHist() 直方图</h3>
+<p>hist = cv2.calcHist([img], [0], None, [256], [0, 256])</p>
+<p><code>注意，除了mask，其他四个参数都要带[]号.后面两个参数基本不用管</code></p>
+<ul>
+<li>
+<p>images:
+    输入图像，应该是灰度图或者多通道图像。可以是一个图像列表</p>
+</li>
+<li>
+<p>channels:
+    指定要计算直方图的通道索引。例如，对于彩色图像，[0] 表示蓝色通道，[1] 表示绿色通道，[2] 表示红色通道。如果是灰度图，可以传入 [0]</p>
+</li>
+<li>
+<p>mask:
+    掩膜图像。如果为 None，则计算整个图像的直方图。如果提供了掩膜，则只计算掩膜中非零像素对应的区域</p>
+</li>
+<li>
+<p>histSize:
+    每个通道的直方图分箱(bin)数量。例如，[256] 表示将灰度值分成 256 个区间(0-255)</p>
+</li>
+<li>
+<p>ranges:
+    每个通道的像素值范围。例如，[0, 256] 表示像素值从 0 到 255(OpenCV 的范围是左闭右开，即 [0, 256])</p>
+</li>
+<li>
+<p>hist (可选):
+    输出直方图数组。如果提供，函数会将结果写入该数组</p>
+</li>
+<li>
+<p>accumulate (可选):
+    是否累加直方图。如果为 True，则新的直方图会累加到已有的直方图上</p>
+</li>
+</ul>
+<h3 id="equalizehist">equalizeHist() 直方图均衡化</h3>
+<p>equ=equalizeHist(img)  </p>
+<p>对图像操作而不是对直方图，结果得到的是均衡化后的图片</p>
+<h2 id="matplotlibpyplot">matplotlib.pyplot</h2>
+<p>import matplotlib.pyplot as plt</p>
+<h3 id="figure">figure() 图形窗口</h3>
+<p>创建一个新的图形窗口,特别是需要在同一脚本中创建多个独立的图形时</p>
+<ul>
+<li>num: 图形窗口的编号或名称。如果指定数字，则创建或激活该编号的图形窗口；如果指定字符串，则创建或激活该名称的图形窗口</li>
+<li>figsize: 指定图形窗口的大小，格式为 (width, height)，单位为英寸</li>
+<li>dpi: 指定图形窗口的分辨率，单位为每英寸点数（dots per inch）</li>
+<li>facecolor: 指定图形窗口的背景颜色</li>
+<li>edgecolor: 指定图形窗口的边框颜色</li>
+</ul>
+<h3 id="plot">plot()</h3>
+<ul>
+<li>x: X 轴数据</li>
+<li>y: Y 轴数据</li>
+<li>label: 图例标签</li>
+<li>
+<p>color: 线条颜色
+    'r' (红色), 'b' (蓝色), 'g' (绿色), 'k' (黑色), 'c' (青色), 'm' (洋红), 'y' (黄色), 'w' (白色) </p>
+</li>
+<li>
+<p>linewidth 或 lw: 线条宽度</p>
+</li>
+<li>
+<p>linestyle 或 ls: 线条样式
+    '-' (实线), '--' (虚线), '-.' (点划线), ':' (点线)</p>
+</li>
+<li>
+<p>marker: 数据点的标记样式
+   '.' (点), ',' (像素点), 'o' (圆圈), 'v' (向下三角形), '^' (向上三角形), '&lt;' (左三角形), '&gt;' (右三角形), '1' (下三叉), '2' (上三叉), '3' (左三叉), '4' (右三叉), 's' (正方形), 'p' (五角星), '*' (星号), 'h' (六边形1), 'H' (六边形2), '+' (加号), 'x' (叉号), '|' (垂直线), '_' (水平线)</p>
+</li>
+<li>
+<p>markersize 或 ms: 标记大小</p>
+</li>
+<li>markerfacecolor 或 mfc: 标记填充颜色</li>
+<li>markeredgecolor 或 mec: 标记边缘颜色</li>
+</ul>
+<h3 id="subplots">subplots()</h3>
+<p>plt.subplot(m, n, p)逗号可以省略
+plt.subplots(1, 5, figsize=(20, 4))
+创建一个包含5个子图的图形窗口,大小为20*4</p>
+<p>使用 subplots 创建子图，axes 是一个包含所有子图对象的数组
+每个子图对象，即 Axes 对象代表图形窗口中的一个绘图区域
+通过索引 axes[i]，访问和操作特定的子图 </p>
+<p>axes[0].imshow(imageA1)
+axes[0].set_title("Image A1")
+axes[0].axis('off')去掉坐标轴</p>
+<h1 id="_7">显示整个图形窗口</h1>
+<p>plt.show()</p>
+<h3 id="titlexlabelylabel">title,xlabel,ylabel</h3>
+<p>plt.title('Multiple Line Plots with Different Styles')
+plt.xlabel('X-axis Label')
+plt.ylabel('Y-axis Label')</p>
+<h3 id="legend">legend()</h3>
+<p>添加图例</p>
+<h3 id="gridtrue">grid(True)</h3>
+<p>添加网格</p>
+<h3 id="show">show()</h3>
+<p>显示所有当前打开的图形窗口
+当调用 plt.show() 时，程序会暂停执行，直到所有的图形窗口都被关闭</p>
+<h3 id="imshow_1">imshow()</h3>
+<p>用于在 Axes 对象上显示图像数据</p>
+<p>参数:
+X: 要显示的图像数据，通常是二维数组
+cmap: 颜色映射表（colormap），用于灰度图像
+vmin, vmax: 显示数据范围内的最小值和最大值
+aspect: 图像的宽高比控制
+interpolation: 插值方法，用于平滑图像</p>
+<p>plt.imshow(img, "gray")</p>
+<h2 id="numpy">numpy</h2>
+<h1 id="_8">基本定义</h1>
+<h2 id="_9">二值化</h2>
+<p>图像的二值化，就是将图像上的像素点的灰度值设置为0或255，也就是将整个图像呈现出明显的只有黑和白的视觉效果</p>
+<h1 id="_10">计算处理</h1>
+<h2 id="divide">除法运算divide()</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在 python 语言中，图像的除法运算可以调用 opencv-python 库中的 divide() 函数进行；</span>
+
+<span class="c1"># 导入库</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="c1"># 定义 X,Y 矩阵</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">44</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span>
+<span class="c1"># 调用 divide() 函数进行除法运算</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="c1"># 打印结果</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="c1"># 输出：</span>
+
+<span class="c1"># [[  0   0   3   0]</span>
+<span class="c1">#  [  0 255   2   1]]</span>
+<span class="c1"># 结果说明：在保存成图像时，会自动截取（如果大于 255，则取 255）。</span>
+</code></pre></div>
+
+<h2 id="multiply">乘法运算multiply()</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在 python 语言中，图像的乘法运算可以调用 opencv-python 库中的 multiply() 函数进行。</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="subtract">减法运算subtract()</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在 python 语言中，图像的减法运算可以调用 opencv-python 库中的 subtract() 函数进行；</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">44</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">],[</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">]])</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="c1"># 输出：</span>
+
+<span class="c1"># [[205 -50  25 -50]</span>
+<span class="c1">#  [ -6 205  50 -47]]</span>
+<span class="c1"># 结果说明：在保存成图像时，会自动截取（如果小于 0，则取 0）</span>
+</code></pre></div>
+
+<h2 id="add">加法运算add()</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">44</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">],[</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">]])</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="c1"># 输出：</span>
+
+<span class="c1"># [[305  50 125  50]</span>
+<span class="c1">#  [ 94 305 150  53]]</span>
+<span class="c1"># 结果说明：在保存成图像时，会自动截取（如果大于255，则取255）</span>
+</code></pre></div>
+
+<h2 id="_11">异或运算^</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 相同为0</span>
+<span class="c1"># 在 python 语言中，异或运算可以使用 ^ 表示</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;/data/workspace/myshixun/step4/A/image1.jpg&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;/data/workspace/myshixun/step4/A/image2.jpg&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">X</span> <span class="o">^</span> <span class="n">Y</span>
+
+<span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s2">&quot;/data/workspace/myshixun/step4/C/result.jpg&quot;</span><span class="p">,</span><span class="n">result</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</code></pre></div>
+
+<h2 id="_12">或运算|</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在 python 语言中，或运算用 | 表示</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">X</span> <span class="o">|</span> <span class="n">Y</span>
+</code></pre></div>
+
+<h1 id="_13">二值化与阈值化处理</h1>
+<p>全局阈值法方法就是将图像中低于某个阈值的像素设置为黑色（0），而其他的设置为白色（255）</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">hdss_su</span><span class="p">():</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;home/OpenCV_2zhih/imgs/timg2.jpg&#39;</span><span class="p">)</span>
+    <span class="c1"># 任务1先将img转灰度</span>
+    <span class="n">Image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+    <span class="c1"># 再对其使用两个阈值方法对其二值化，阈值为127</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">BINARY</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">Image</span><span class="p">,</span><span class="mi">127</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">BINARY_INV</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">Image</span><span class="p">,</span><span class="mi">127</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY_INV</span><span class="p">)</span>
+    <span class="c1"># 传出值Image, BINARY, BINARY_INV</span>
+
+
+    <span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Image&#39;</span><span class="p">,</span><span class="s1">&#39;BINARY&#39;</span><span class="p">,</span><span class="s1">&#39;BINARY_INV&#39;</span><span class="p">]</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="n">BINARY</span><span class="p">,</span> <span class="n">BINARY_INV</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([]),</span> <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="c1"># plt.savefig(&quot;home/OpenCV_2zhih/2z_out/test.png&quot;)</span>
+    <span class="k">return</span> <span class="n">images</span>
+</code></pre></div>
+
+<p>Opencv中阈值化操作和自适应阈值化:<br />
+cv2.threshold(src, thresh, maxval, type[, dst]) -&gt; retval, dst  </p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">src</span><span class="w"> </span><span class="nx">参数表示输入图像</span><span class="err">（</span><span class="nx">多通道</span><span class="err">，</span><span class="mi">8</span><span class="nx">位或32位浮点</span><span class="err">）</span><span class="w">  </span>
+<span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">thresh</span><span class="w"> </span><span class="nx">参数表示阈值</span><span class="w">  </span>
+<span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">maxval</span><span class="w"> </span><span class="nx">参数表示与THRESH_BINARY和THRESH_BINARY_INV阈值类型一起使用设置的最大值一般为255</span><span class="w">  </span>
+<span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="nx">参数表示阈值类型</span><span class="w">  </span>
+<span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">retval</span><span class="w"> </span><span class="nx">参数表示返回的阈值</span><span class="err">。</span><span class="nx">若是全局固定阈值算法</span><span class="err">，</span><span class="nx">则返回</span><span class="w">    </span><span class="nx">thresh</span><span class="w"> </span><span class="nx">参数值</span><span class="err">。</span><span class="nx">若是全局自适应阈值算法</span><span class="err">，</span><span class="nx">则返回自适应计算得出的合适阈值</span><span class="w">   </span>
+<span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">dst</span><span class="w"> </span><span class="nx">参数表示输出与src相同大小和类型以及相同通道数的图像</span><span class="w">  </span>
+<span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="nx">参数单独选择上述五种阈值类型时</span><span class="err">，</span><span class="nx">是固定阈值算法</span><span class="err">，</span><span class="nx">效果比较差</span>
+</code></pre></div>
+
+<p>例子：ret, binary = cv2.threshold(gray, 0, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)<br />
+OTSU为大律法,全局自适应阈值,第二个参数值0可改为任意数字或不写，因为它会被忽略<br />
+注：cv2.THRESH_OTSU也可单独使用，不一定要写成和固定阈值算法结合的形式。单独写和结合起来写，都是自适应阈值算法优先  </p>
+<p>例子：ret, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_TRIANGLE)<br />
+TRIANGLE法,全局自适应阈值，第二个参数值0可改为任意数字但不起作用，适用于单个波峰<br />
+注：cv2.THRESH_TRIANGLE也可单独使用，不一定要写成和固定阈值算法结合的形式。单独写和结合起来写，都是自适应阈值算法优先  </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">threshold_us</span><span class="p">():</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;home/OpenCV_yz/img/lp.jpg&#39;</span><span class="p">)</span>
+    <span class="c1"># 将图片从BGR颜色空间转换为灰度图</span>
+    <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+    <span class="c1"># 任务1 TRIANGLE自适应阈值</span>
+    <span class="c1"># 使用cv2.threshold函数，其中cv2.THRESH_TRIANGLE表示自动计算一个合适的阈值（基于直方图）</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">TRIANGLE_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_TRIANGLE</span><span class="p">)</span>
+
+
+    <span class="c1"># 任务2 OTSU自适应阈值</span>
+    <span class="c1"># cv2.THRESH_OTSU也用于自动计算阈值，但算法与THRESH_TRIANGLE不同</span>
+    <span class="c1"># 注意：在使用THRESH_OTSU时，通常不需要手动指定阈值参数（第一个参数），因为它会被忽略</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">OTSU_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_OTSU</span><span class="p">)</span>
+
+    <span class="c1"># 任务3 TRUNC截断阈值(200)</span>
+    <span class="c1"># 对于大于200的像素值，它们会被截断为200；小于200的像素值保持不变</span>
+    <span class="c1"># 注意：THRESH_TRUNC模式下，maxval参数（这里是255）实际上不会被用到，但仍需设置</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">TRUNC_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_TRUNC</span><span class="p">)</span>
+
+    <span class="c1"># 任务4 TOZERO归零阈值(100)</span>
+    <span class="c1"># 对于小于100的像素值，它们会被设置为0；大于或等于100的像素值保持不变</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">TOZERO_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_TOZERO</span><span class="p">)</span>
+
+
+    <span class="c1"># 将处理后的图像保存到指定的文件夹中</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;home/OpenCV_yz/img_out/TRIANGLE_img.jpg&#39;</span><span class="p">,</span><span class="n">TRIANGLE_img</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;home/OpenCV_yz/img_out/OTSU_img.jpg&#39;</span><span class="p">,</span><span class="n">OTSU_img</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;home/OpenCV_yz/img_out/TRUNC_img.jpg&#39;</span><span class="p">,</span><span class="n">TRUNC_img</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;home/OpenCV_yz/img_out/TOZERO__img.jpg&#39;</span><span class="p">,</span><span class="n">TOZERO_img</span><span class="p">)</span>
+    <span class="c1"># 返回处理后的图像</span>
+    <span class="k">return</span>  <span class="n">TRIANGLE_img</span><span class="p">,</span> <span class="n">OTSU_img</span><span class="p">,</span> <span class="n">TRUNC_img</span><span class="p">,</span> <span class="n">TOZERO_img</span>
+</code></pre></div>
+
+<h1 id="_14">平滑处理</h1>
+<h2 id="_15">高斯平滑</h2>
+<p>高斯平滑即采用高斯卷积核对图像矩阵进行卷积操作
+高斯卷积核是一个近似服从高斯分布的矩阵，随着距离中心点的距离增加，其值变小。这样进行平滑处理时，图像矩阵中锚点处像素值权重大，边缘处像素值权重小</p>
+<p>dst = cv2.GaussianBlur(src,ksize,sigmaX,sigmay,borderType)
+参数说明：
+src: 输入图像矩阵,可为单通道或多通道，多通道时分别对每个通道进行卷积
+dst:输出图像矩阵,大小和数据类型都与src相同
+ksize:高斯卷积核的大小，宽，高都为<code>正奇数</code>，且可以不相同，格式为(宽，高)
+    核大小：核越大，参与卷积的像素越多，平滑效果越明显，但计算量增加
+    奇偶性：必须为奇数以确保存在明确的中心点，避免核偏移。若输入偶数，OpenCV 会报错
+    方向性：若宽度 ≠ 高度（如 (5,3)），水平和垂直方向的平滑强度不同，可能导致图像在特定方向更模糊
+sigmaX: 一维水平方向高斯卷积核的标准差 
+    标准差越大：高斯分布越平缓，更多周围像素参与计算，平滑效果更强
+    默认值：若未指定（sigmaX=0），OpenCV 会根据 ksize 自动计算（公式：sigma = 0.3*((ksize-1)/2 - 1) + 0.8）
+sigmaY: 一维垂直方向高斯卷积核的标准差
+    默认值为0，表示与sigmaX相同
+borderType:填充边界类型
+    cv2.BORDER_REPLICATE：复制边缘像素值
+    cv2.BORDER_CONSTANT：填充固定值（如 0，默认黑色）
+    cv2.BORDER_REFLECT：镜像反射边缘像素</p>
+<p>见'高斯滤波.py'</p>
+<h2 id="_16">均值平滑</h2>
+<p>高斯卷积核，对卷积框中像素值赋予不同权重，而均值平滑赋予相同权重
+opencv的boxFilter()函数和blur()函数都能用来进行均值平滑。</p>
+<p>cv2.boxFilter(src,ddepth,ksize,dst,anchor,normalize,borderType)
+dst=cv2.boxFilter(src,ddepth,ksize,anchor,normalize,borderType)
+参数说明：
+src: 输入图像对象矩阵,
+ddepth:输出图像的位深度(数据格式)
+    -1：与输入图像深度相同。
+ksize:高斯卷积核的大小，必须为<code>正奇数</code>,格式为(宽，高)
+    同上
+dst:输出图像矩阵,大小和数据类型都与src相同
+anchor：卷积核锚点，默认(-1,-1)表示卷积核的中心位置
+normalize:是否归一化 
+    True（默认）：计算均值（均值平滑）,输出为均值滤波结果
+    False：计算邻域像素和（积分图像）,输出为邻域像素和，可用于快速计算 Haar 特征
+borderType:填充边界类型
+    同上</p>
+<p>cv2.blur(src,ksize,dst,anchor,borderType)
+dst=cv2.blur(src,ksize,anchor,borderType)
+参数说明：
+src: 输入图像对象矩阵,可以为单通道或多通道
+ksize:高斯卷积核的大小，格式为(宽，高)
+dst:输出图像矩阵,大小和数据类型都与src相同
+anchor：卷积核锚点，默认(-1,-1)表示卷积核的中心位置
+borderType:填充边界类型</p>
+<p>与高斯平滑相比：边缘模糊更严重，简单降噪，计算效率高
+见'均值滤波.py'</p>
+<h2 id="_17">中值平滑</h2>
+<p>是对核中所有像素值排序得到中间值，用该中间值来代替锚点值。
+opencv中利用medianBlur()来进行中值平滑。</p>
+<p>cv2.medianBlur(src,ksize,dst)
+dst=cv2.medianBlur(src,ksize)
+参数说明：
+src: 输入图像对象矩阵,可以为单通道或多通道
+ksize:核的大小，格式为 3   <br />
+    必须为正奇数
+dst:输出图像矩阵,大小和数据类型都与src相同</p>
+<p>优点：对椒盐噪声（随机黑白点）效果显著，且能保留边缘。
+缺点：对高斯噪声（连续渐变噪声）效果有限，且计算复杂度较高（需排序）
+见'排序统计滤波.py'</p>
+<h2 id="_18">双边滤波</h2>
+<p>双边滤波是一种非线性滤波方法,相比于上面几种平滑算法，双边滤波在平滑的同时还能保持图像中物体的轮廓信息
+它通过结合空间距离权重（空间域）和像素值相似性权重（值域）实现这一目标
+双边滤波在高斯平滑的基础上引入了灰度值相似性权重因子，所以在构建其卷积核核时，要同时考虑空间距离权重和灰度值相似性权重
+在进行卷积时，每个位置的邻域内，根据和锚点的距离d构建距离权重模板，根据和锚点灰度值差异r构建灰度值权重模板，结合两个模板生成该位置的卷积核。</p>
+<p>opencv中的bilateralFilter()函数实现了双边滤波，其参数对应如下：</p>
+<p>dst = cv2.bilateralFilter(src,d,sigmaColor,sigmaSpace,borderType)
+参数说明：
+src: 输入图像对象矩阵,可以为单通道或多通道
+d: 用来计算卷积核的领域直径，如果d&lt;=0，从sigmaSpace自动计算d
+    邻域大小：d 越大，参与滤波的像素越多，但计算量显著增加
+    推荐值：通常取 5~9，过大可能导致过度平滑
+    与 sigmaSpace 的关系：若 d &gt; 0，邻域直径为 d，否则邻域直径与 sigmaSpace 成正比
+sigmaColor：值域（颜色空间）的标准差
+    值越大：颜色差异较大的像素也会被混合，可能导致颜色区域过度平滑，边缘保留能力下降
+    值越小：仅颜色相近的像素参与滤波，边缘保留更好，但去噪能力减弱
+    推荐值：通常取 30~100，需根据图像噪声水平调整
+sigmaSpace： 空间域（坐标空间）的标准差
+    值越大：颜色相近的较远的像素对滤波结果影响增强，从而使更大的区域中足够相似的颜色获取相同的颜色，平滑范围扩大，但可能导致边缘模糊
+    值越小：仅邻近像素参与滤波，边缘保留更好，但去噪能力减弱
+    推荐值：通常取 30~100，需与 sigmaColor 协同调整。</p>
+<h2 id="_19">示例</h2>
+<p>见'平滑处理.py'</p>
+<h1 id="_20">直方图</h1>
+<ol>
+<li>概念
+直方图是一种统计报告图，形式上是一个个的长条形，长条形的面积表示频数，高度表示频数组距，宽度表示组距。当宽度相同时，一般就用长条形长度表示频数
+直方图反映了<code>图像像素</code>分布的统计特性</li>
+<li>基本性质
+以图形化参数来显示图片曝光精确度的手段，其描述的是图片显示范围内影像的灰度分布曲线
+它可以帮助分析图片的曝光水平等一些信息。直方图的<code>左边显示了图像的阴影信息``中间显示了图像的中间色调信息``右边显示了图像的高亮信息</code></li>
+<li>重要性质：
+反映了图像中的灰度分布规律。它描述每个灰度级具有的像素个数，但<code>不包含这些像素在图像中的位置信息</code>
+直方图和图像之间的关系是多对一的关系。任何一幅特定的图像都有唯一的直方图与之对应，但不同的图像可以有相同的直方图。
+如果一幅图像有两个不相连的区域组成，并且每个区域的直方图已知，则整幅图像的直方图是该两个区域的直方图之和</li>
+<li>应用
+根据直方图的形态可以大致推断图像质量的好坏。由于图像包含有大量的像元，其像元灰度值的分布应符合概率统计分布规律。假定像元的灰度值是随机分布的，那么其直方图应该是正态分布
+图像的灰度值是离散变量，因此直方图表示的是离散的概率分布。若以各灰度级的像元数占总像元数的比例值为纵坐标轴做出图像的直方图，将直方图中各条形的最高点连成一条外轮廓线，纵坐标的比例值即为某灰度级出现的概率密度，轮廓线可近似看成图像相应的连续函数的概率分布曲线</li>
+</ol>
+<h2 id="_21">直方图与线性图</h2>
+<p>plt 绘制直方图和线性图</p>
+<p>plt.hist(data,bins=30, normed=0, facecolor="red", alpha=0.7)
+参数          作用
+data      必选参数，绘图数据
+bins      直方图的长条形数目，可选项，默认为10
+normed      是否将得到的直方图向量归一化，可选项，默认为0，代表不归一化，显示频数。normed=1，表示归一化，显示频率。
+facecolor 长条形的颜色
+edgecolor 长条形边框的颜色
+alpha     透明度</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">student</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    根据输入数据将直方图与线形图绘制在同一面板中,并设置直方图为红色,线形图为蓝色</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># 创建一个新的图形,设置figsize为(10, 10)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+    <span class="c1"># 绘制直方图</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+    <span class="c1"># 绘制线形图</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 保存图形</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Task4/img/T1.png&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="_22">绘制直方图</h2>
+<p>cv2 绘制直方图
+cv2.calcHist([img], [0], None, [256], [0,256]) 
+见'绘制直方图.py'</p>
+<h2 id="_23">二维直方图</h2>
+<p>plt.hist2d()</p>
+<h2 id="_24">灰度直方图的计算</h2>
+<p>见'灰度直方图的计算.py'</p>
+<h2 id="_25">直方图均衡化</h2>
+<p>直方图均衡化是灰度变换的一个重要应用，它高效且易于实现，广泛应用于图像增强处理中<br />
+图像的像素灰度变化是随机的，直方图的图形高低不齐，直方图均衡化就是用一定的算法使<code>直方图大致平和</code><br />
+均衡化处理后的图象只能是近似均匀分布。本质是扩大量化间隔，而减少量化级别，<br />
+因此，原来灰度不同的像素经处理后可能变的相同，形成了一片的相同灰度的区域，各区域之间有明显的边界，从而出现了<code>伪轮廓</code><br />
+灰度直方图均衡化的算法，简单地说，就是把直方图的每个灰度级进行归一化处理，求每种灰度的累积分布，得到一个映射的灰度映射表，然后根据相应的灰度值来修正原图中的每个像素  </p>
+<p>equalizeHist()   </p>
+<p>见 '直方图均衡化.py'  </p>
+<h1 id="_26">图像分割</h1>
+<ol>
+<li>
+<p>基于RGB，HSV  </p>
+</li>
+<li>
+<p>OTSU</p>
+</li>
+<li>
+<p>基于边缘的分割方法(Canny 边缘检测,Sobel 算子)</p>
+<div class="highlight"><pre><span></span><code>- 图像中前景和背景的边缘清晰。形状规则、边缘明显的物体
+</code></pre></div>
+
+<ol>
+<li>
+<p>基于区域的分割方法(区域生长,分水岭算法)</p>
+<ul>
+<li>图像中前景和背景的纹理或颜色相似性明显。适用于复杂场景，但可能对噪声敏感</li>
+<li>
+<p>基于聚类的分割方法(K-Means 聚类)</p>
+</li>
+<li>
+<p>适用于彩色图像分割，尤其是前景和背景颜色差异明显的场景。无需手动调整阈值，但需要指定聚类数量 K</p>
+</li>
+<li>
+<p>基于深度学习的分割方法</p>
+</li>
+<li>
+<p>适用于复杂场景，尤其是前景和背景颜色或纹理相似时。需要大量标注数据和计算资源</p>
+</li>
+<li>
+<p>基于图论的分割方法(GrabCut)</p>
+</li>
+<li>
+<p>需要用户交互分割</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">M</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;/data/bigfiles/M.jpg&#39;</span><span class="p">)</span><span class="c1">#BGR</span>
+<span class="n">M_rgb</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+<span class="n">R</span><span class="o">=</span><span class="n">M_rgb</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">G</span><span class="o">=</span><span class="n">M_rgb</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">B</span><span class="o">=</span><span class="n">M_rgb</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">M_hsv</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">M_rgb</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2HSV</span><span class="p">)</span>
+<span class="c1"># 分割黄色花朵部分</span>
+<span class="c1"># 定义黄色的HSV范围（可以根据实际情况调整）</span>
+<span class="n">lower_yellow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">upper_yellow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">30</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>
+<span class="c1"># 创建掩膜</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">M_hsv</span><span class="p">,</span> <span class="n">lower_yellow</span><span class="p">,</span> <span class="n">upper_yellow</span><span class="p">)</span>
+<span class="c1"># 应用掩膜获取黄色部分</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_and</span><span class="p">(</span><span class="n">M_rgb</span><span class="p">,</span> <span class="n">M_rgb</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+<span class="c1"># 计算E的像素值总和</span>
+<span class="n">sum_pixels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+
+<span class="c1"># 显示图像</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># 显示原图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">M_rgb</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="c1"># 显示R分量图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="c1"># 显示G分量图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greens&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="c1"># 显示B分量图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="c1"># 显示HSV图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="c1"># 将HSV转换为RGB以便显示（因为Matplotlib不直接支持HSV显示）</span>
+<span class="n">M_hsv_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">M_hsv</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_HSV2RGB</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">M_hsv_rgb</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;HSV&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="c1"># 显示分割后的E图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 打印E的像素值总和</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SUM:</span><span class="si">{</span><span class="n">sum_pixels</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="canny">Canny</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;M.jpg&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>  <span class="c1"># 读取为灰度图</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>  <span class="c1"># Canny边缘检测</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Canny Edge Detection&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="_27">分水岭算法</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;M.jpg&#39;</span><span class="p">)</span>
+<span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+<span class="n">ret</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY_INV</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_OTSU</span><span class="p">)</span>
+
+<span class="c1"># 去除噪声</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">opening</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">morphologyEx</span><span class="p">(</span><span class="n">thresh</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">MORPH_OPEN</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># 确定背景区域</span>
+<span class="n">sure_bg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dilate</span><span class="p">(</span><span class="n">opening</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># 确定前景区域</span>
+<span class="n">dist_transform</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">distanceTransform</span><span class="p">(</span><span class="n">opening</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">DIST_L2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">ret</span><span class="p">,</span> <span class="n">sure_fg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">dist_transform</span><span class="p">,</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">dist_transform</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 找到未知区域</span>
+<span class="n">sure_fg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span><span class="n">sure_fg</span><span class="p">)</span>
+<span class="n">unknown</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">sure_bg</span><span class="p">,</span> <span class="n">sure_fg</span><span class="p">)</span>
+
+<span class="c1"># 标记标签</span>
+<span class="n">ret</span><span class="p">,</span> <span class="n">markers</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">connectedComponents</span><span class="p">(</span><span class="n">sure_fg</span><span class="p">)</span>
+<span class="n">markers</span> <span class="o">=</span> <span class="n">markers</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">markers</span><span class="p">[</span><span class="n">unknown</span> <span class="o">==</span> <span class="mi">255</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># 应用分水岭算法</span>
+<span class="n">markers</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">watershed</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">markers</span><span class="p">)</span>
+<span class="n">M</span><span class="p">[</span><span class="n">markers</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># 标记边界为红色</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Watershed Segmentation&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="k-means">K-Means 聚类</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;M.jpg&#39;</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># 转换为二维数组，形状为 (像素数, 3)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>  <span class="c1"># 转换为float32类型</span>
+
+<span class="c1"># 定义K-Means参数</span>
+<span class="n">criteria</span> <span class="o">=</span> <span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_EPS</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_MAX_ITER</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># 聚类数量</span>
+<span class="n">ret</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">center</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">kmeans</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">criteria</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">KMEANS_RANDOM_CENTERS</span><span class="p">)</span>
+
+<span class="c1"># 将聚类结果转换回图像</span>
+<span class="n">center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">center</span><span class="p">[</span><span class="n">label</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span>
+<span class="n">res2</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">res2</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;K-Means Segmentation&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="grabcut">Grabcut</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;M.jpg&#39;</span><span class="p">)</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+<span class="c1"># 定义矩形区域（包含前景）</span>
+<span class="n">bgd_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">65</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="n">fgd_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">65</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="n">rect</span> <span class="o">=</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">290</span><span class="p">)</span>  <span class="c1"># 矩形坐标 (x, y, w, h)</span>
+
+<span class="c1"># 应用GrabCut算法</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">grabCut</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">rect</span><span class="p">,</span> <span class="n">bgd_model</span><span class="p">,</span> <span class="n">fgd_model</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GC_INIT_WITH_RECT</span><span class="p">)</span>
+
+<span class="c1"># 创建掩膜</span>
+<span class="n">mask2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">mask</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">mask</span> <span class="o">==</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;uint8&#39;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">M</span> <span class="o">*</span> <span class="n">mask2</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;GrabCut Segmentation&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<h1 id="_28">边缘检测</h1>
+<h1 id="_29">频率域滤波</h1>
+<div class="highlight"><pre><span></span><code><span class="c1"># 低通滤波</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ideal_low_pass_filter</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">):</span>
+    <span class="c1"># 计算图像的二维傅里叶变换</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft2</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+    <span class="c1"># 将傅里叶变换的低频分量移到频谱的中心</span>
+    <span class="n">fshift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># 获取图像的行数和列数</span>
+    <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="c1"># 计算频谱的中心位置</span>
+    <span class="n">crow</span><span class="p">,</span> <span class="n">ccol</span> <span class="o">=</span> <span class="n">rows</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cols</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="c1"># 创建一个与图像大小相同的零矩阵作为掩码</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+    <span class="c1"># 在掩码的中心区域设置截止频率的范围，并将该区域的值设为1</span>
+    <span class="n">mask</span><span class="p">[</span><span class="n">crow</span> <span class="o">-</span> <span class="n">cutoff</span><span class="p">:</span><span class="n">crow</span> <span class="o">+</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">ccol</span> <span class="o">-</span> <span class="n">cutoff</span><span class="p">:</span><span class="n">ccol</span> <span class="o">+</span> <span class="n">cutoff</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># 将频谱与掩码相乘，实现低通滤波</span>
+    <span class="n">fshift_filtered</span> <span class="o">=</span> <span class="n">fshift</span> <span class="o">*</span> <span class="n">mask</span>
+
+    <span class="c1"># 将频谱的低频分量移回原始位置</span>
+    <span class="n">f_ishift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">fshift_filtered</span><span class="p">)</span>
+
+    <span class="c1"># 计算逆傅里叶变换，将频域数据转换回空间域</span>
+    <span class="n">img_back</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft2</span><span class="p">(</span><span class="n">f_ishift</span><span class="p">)</span>
+
+    <span class="c1"># 取逆傅里叶变换结果的绝对值，得到空间域图像</span>
+    <span class="n">img_back</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">img_back</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">img_back</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># 高通滤波</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ideal_high_pass_filter</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">):</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft2</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+    <span class="n">fshift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="n">crow</span><span class="p">,</span> <span class="n">ccol</span> <span class="o">=</span> <span class="n">rows</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cols</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="c1"># 创建一个与图像大小相同的全1矩阵作为掩码</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+    <span class="c1"># 在掩码的中心区域设置截止频率的范围，并将该区域的值设为0</span>
+    <span class="n">mask</span><span class="p">[</span><span class="n">crow</span> <span class="o">-</span> <span class="n">cutoff</span><span class="p">:</span><span class="n">crow</span> <span class="o">+</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">ccol</span> <span class="o">-</span> <span class="n">cutoff</span><span class="p">:</span><span class="n">ccol</span> <span class="o">+</span> <span class="n">cutoff</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">fshift_filtered</span> <span class="o">=</span> <span class="n">fshift</span> <span class="o">*</span> <span class="n">mask</span>
+
+
+    <span class="n">f_ishift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">fshift_filtered</span><span class="p">)</span>
+
+    <span class="n">img_back</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft2</span><span class="p">(</span><span class="n">f_ishift</span><span class="p">)</span>
+
+    <span class="n">img_back</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">img_back</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">img_back</span>
+</code></pre></div>
+        </article>
+        <footer class="site-footer">
+            <a href="../index.html">&larr; 返回首页</a>
+        </footer>
+    </div>
+    <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <script>
+        const btn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+        });
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

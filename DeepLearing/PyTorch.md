@@ -1,19 +1,7 @@
 # 目录
-- [第一个神经网络](#第一个神经网络)
-- [数据处理与加载](#数据处理与加载)
-- [卷积神经网络](#卷积神经网络)
-- [循环神经网络](#循环神经网络)
-- [Transformer](#transformer)
-- [Transformer Pytorch 实现](#transformer-pytorch-实现)
-- [optim 优化器模块](#optim-优化器模块)
-- [torchvision 模块](#torchvision-模块)
-- [模型保存与加载](#模型保存与加载)
-- [numpy原理](#numpy原理)
+
 
 ---
-
-
-
 # 简介
 PyTorch 是一个开源的 Python 机器学习库，基于 Torch 库，底层由 C++ 实现，应用于人工智能领域，如计算机视觉和自然语言处理。
 
@@ -1884,7 +1872,7 @@ plt.show()
 
 Transformer 通过引入自注意力机制解决了这些问题，允许模型同时处理整个输入序列，并动态地为序列中的每个位置分配不同的权重。
 
-![image-2.png](../images/Transformer.png)
+![image-2.png](../docs/images/Transformer.png)
 
 >```mermaid
 >flowchart TD

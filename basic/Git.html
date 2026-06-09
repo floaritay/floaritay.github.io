@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>目录 - floaritay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ]
+        });"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
+        onload="mermaid.initialize({startOnLoad:true, theme:'base', themeVariables:{primaryColor:'#f5f0e8', primaryTextColor:'#1a1814', primaryBorderColor:'rgba(26,24,20,0.12)', lineColor:'#8a8278', secondaryColor:'#faf7f0', tertiaryColor:'#faf7f0'}});"></script>
+    <style>
+        :root {
+            --paper: #f5f0e8;
+            --ink: #1a1814;
+            --ink-soft: #3d3830;
+            --ink-muted: #8a8278;
+            --ink-faint: #b5ae9f;
+            --accent: #b45309;
+            --accent-warm: #d97706;
+            --accent-soft: rgba(180, 83, 9, 0.08);
+            --teal: #0f766e;
+            --card-opaque: rgba(250, 247, 240, 0.88);
+            --border: rgba(26, 24, 20, 0.08);
+            --border-strong: rgba(26, 24, 20, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.35);
+            --shadow-sm: 0 1px 2px rgba(26, 24, 20, 0.03);
+            --shadow: 0 2px 12px rgba(26, 24, 20, 0.05), 0 1px 3px rgba(26, 24, 20, 0.03);
+            --shadow-lg: 0 8px 32px rgba(26, 24, 20, 0.07), 0 2px 8px rgba(26, 24, 20, 0.03);
+            --font-display: 'Instrument Serif', Georgia, serif;
+            --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Space Mono', 'Cascadia Code', monospace;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--ink);
+            background: var(--paper);
+            background-image:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(180, 83, 9, 0.04), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(15, 118, 110, 0.03), transparent);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.2;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(26, 24, 20, 0.12); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(26, 24, 20, 0.2); }
+
+        .page {
+            position: relative;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
+        }
+
+        .page::before {
+            content: '';
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 48px;
+            background: var(--card-opaque);
+            border-right: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        @media (max-width: 1100px) {
+            .page::before { display: none; }
+            .page { padding: 0 20px 60px; }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 32px 0 16px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            letter-spacing: 0.02em;
+        }
+        .breadcrumb a {
+            color: var(--ink-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb .sep { margin: 0 8px; color: var(--ink-faint); }
+
+        /* Article */
+        .markdown-body {
+            font-family: var(--font-body);
+            color: var(--ink-soft);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .markdown-body h1, .markdown-body h2, .markdown-body h3,
+        .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+            font-family: var(--font-display);
+            color: var(--ink);
+            font-weight: 400;
+            margin-top: 2em;
+            margin-bottom: 0.6em;
+            line-height: 1.3;
+        }
+
+        .markdown-body h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+            padding-bottom: 0.4em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h2 {
+            font-size: 1.65rem;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h3 { font-size: 1.35rem; }
+        .markdown-body h4 { font-size: 1.15rem; }
+        .markdown-body h5 { font-size: 1rem; }
+        .markdown-body h6 { font-size: 0.95rem; color: var(--ink-muted); }
+
+        .markdown-body p {
+            margin-bottom: 1em;
+        }
+
+        .markdown-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-soft);
+            transition: border-color 0.2s;
+        }
+        .markdown-body a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .markdown-body strong { color: var(--ink); font-weight: 600; }
+
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5em auto;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .markdown-body blockquote {
+            margin: 1.2em 0;
+            padding: 0.8em 1.2em;
+            border-left: 3px solid var(--accent);
+            background: var(--accent-soft);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            color: var(--ink-soft);
+        }
+        .markdown-body blockquote p:last-child { margin-bottom: 0; }
+
+        .markdown-body ul, .markdown-body ol {
+            margin: 0.8em 0;
+            padding-left: 1.8em;
+        }
+        .markdown-body li { margin-bottom: 0.3em; }
+        .markdown-body li > ul, .markdown-body li > ol { margin-top: 0.3em; }
+
+        .markdown-body code {
+            font-family: var(--font-mono);
+            font-size: 0.88em;
+            background: rgba(26, 24, 20, 0.05);
+            padding: 0.15em 0.4em;
+            border-radius: var(--radius-sm);
+            color: var(--accent);
+        }
+
+        .markdown-body pre {
+            margin: 1.2em 0;
+            padding: 1em 1.2em;
+            background: #2d2a24;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            box-shadow: var(--shadow);
+        }
+        .markdown-body pre code {
+            background: none;
+            padding: 0;
+            color: #e8e0d4;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2em 0;
+            font-size: 0.95rem;
+        }
+        .markdown-body th {
+            background: rgba(26, 24, 20, 0.04);
+            font-weight: 600;
+            text-align: left;
+            padding: 0.6em 1em;
+            border-bottom: 2px solid var(--border-strong);
+        }
+        .markdown-body td {
+            padding: 0.5em 1em;
+            border-bottom: 1px solid var(--border);
+        }
+        .markdown-body tr:hover td {
+            background: var(--accent-soft);
+        }
+
+        .markdown-body hr {
+            border: none;
+            border-top: 1px solid var(--border-strong);
+            margin: 2em 0;
+        }
+
+        /* Math blocks */
+        .math-block {
+            margin: 1.2em 0;
+            padding: 0.8em;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        /* Mermaid diagrams */
+        .mermaid {
+            margin: 1.5em 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        .mermaid svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Pygments code highlighting (dark theme matching warm palette) */
+        .highlight .hll { background-color: #49483e }
+        .highlight .c { color: #75715e }
+        .highlight .err { color: #f92672 }
+        .highlight .k { color: #66d9ef }
+        .highlight .l { color: #ae81ff }
+        .highlight .n { color: #f8f8f2 }
+        .highlight .o { color: #f92672 }
+        .highlight .p { color: #f8f8f2 }
+        .highlight .cm { color: #75715e }
+        .highlight .c1 { color: #75715e }
+        .highlight .cp { color: #75715e }
+        .highlight .kc { color: #66d9ef }
+        .highlight .kd { color: #66d9ef }
+        .highlight .kn { color: #f92672 }
+        .highlight .kp { color: #66d9ef }
+        .highlight .kr { color: #66d9ef }
+        .highlight .kt { color: #66d9ef }
+        .highlight .ld { color: #e6db74 }
+        .highlight .m { color: #ae81ff }
+        .highlight .s { color: #e6db74 }
+        .highlight .na { color: #a6e22e }
+        .highlight .nb { color: #f8f8f2 }
+        .highlight .nc { color: #a6e22e }
+        .highlight .no { color: #66d9ef }
+        .highlight .nd { color: #a6e22e }
+        .highlight .ni { color: #f8f8f2 }
+        .highlight .ne { color: #a6e22e }
+        .highlight .nf { color: #a6e22e }
+        .highlight .nl { color: #f8f8f2 }
+        .highlight .nn { color: #f8f8f2 }
+        .highlight .nx { color: #a6e22e }
+        .highlight .py { color: #f8f8f2 }
+        .highlight .nt { color: #f92672 }
+        .highlight .nv { color: #f8f8f2 }
+        .highlight .ow { color: #f92672 }
+        .highlight .w { color: #f8f8f2 }
+        .highlight .mf { color: #ae81ff }
+        .highlight .mh { color: #ae81ff }
+        .highlight .mi { color: #ae81ff }
+        .highlight .mo { color: #ae81ff }
+        .highlight .sb { color: #e6db74 }
+        .highlight .sc { color: #e6db74 }
+        .highlight .sd { color: #e6db74 }
+        .highlight .s2 { color: #e6db74 }
+        .highlight .se { color: #ae81ff }
+        .highlight .sh { color: #e6db74 }
+        .highlight .si { color: #e6db74 }
+        .highlight .sx { color: #e6db74 }
+        .highlight .sr { color: #e6db74 }
+        .highlight .s1 { color: #e6db74 }
+        .highlight .ss { color: #e6db74 }
+        .highlight .bp { color: #f8f8f2 }
+        .highlight .vc { color: #f8f8f2 }
+        .highlight .vg { color: #f8f8f2 }
+        .highlight .vi { color: #f8f8f2 }
+        .highlight .il { color: #ae81ff }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 32px 0;
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        .site-footer a {
+            color: var(--ink-muted);
+            text-decoration: none;
+        }
+        .site-footer a:hover { color: var(--accent); }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, color 0.2s, border-color 0.2s;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .page { padding: 0 16px 40px; }
+            .markdown-body h1 { font-size: 1.7rem; }
+            .markdown-body h2 { font-size: 1.35rem; }
+            .markdown-body { font-size: 0.95rem; }
+            .markdown-body pre { padding: 0.8em; }
+            .markdown-body pre code { font-size: 0.8rem; }
+            .back-to-top { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <nav class="breadcrumb">
+            <a href="../index.html">floaritay</a>
+            <span class="sep">/</span>
+            <span>basic</span>
+        </nav>
+        <article class="markdown-body">
+<h1 id="_1">目录</h1>
+<ul>
+<li><a href="#1-git-简介">1 Git 简介</a><ul>
+<li><a href="#11-git-与-svn-区别">1.1 Git 与 SVN 区别</a></li>
+<li><a href="#12-git-与-github">1.2 Git 与 Github</a></li>
+</ul>
+</li>
+<li><a href="#2-git-安装配置">2 Git 安装配置</a><ul>
+<li><a href="#21-git-配置">2.1 Git 配置</a></li>
+</ul>
+</li>
+<li><a href="#3-git-工作流程">3 Git 工作流程</a></li>
+<li><a href="#4-git-工作区暂存区和版本库">4 Git 工作区、暂存区和版本库</a><ul>
+<li><a href="#41-工作区暂存区和版本库之间的关系">4.1 工作区、暂存区和版本库之间的关系</a></li>
+</ul>
+</li>
+<li><a href="#5-git-创建仓库">5 Git 创建仓库</a></li>
+<li><a href="#6-git-基本命令">6 Git 基本命令</a><ul>
+<li><a href="#61-创建仓库">6.1 创建仓库</a></li>
+<li><a href="#62-提交与修改">6.2 提交与修改</a></li>
+<li><a href="#63-提交日志">6.3 提交日志</a></li>
+<li><a href="#64-远程操作">6.4 远程操作</a></li>
+</ul>
+</li>
+<li><a href="#65-git-文件状态">6.5 Git 文件状态</a></li>
+<li><a href="#7-git-分支管理">7 Git 分支管理</a><ul>
+<li><a href="#71-创建与切换分支">7.1 创建与切换分支</a></li>
+<li><a href="#72-查看分支">7.2 查看分支</a></li>
+<li><a href="#73-合并分支">7.3 合并分支</a></li>
+<li><a href="#74-删除分支">7.4 删除分支</a></li>
+<li><a href="#75-最常用分支命令">7.5 最常用分支命令</a></li>
+<li><a href="#76-完整工作流程">7.6 完整工作流程</a><ul>
+<li><a href="#761-永远从最新主分支开新功能">7.6.1 永远从最新主分支开新功能</a></li>
+<li><a href="#762-创建你的功能分支">7.6.2 创建你的功能分支</a></li>
+<li><a href="#763-在分支上正常写代码提交">7.6.3 在分支上正常写代码、提交</a></li>
+<li><a href="#764-写完了合并回主分支">7.6.4 写完了，合并回主分支</a></li>
+<li><a href="#765-合并完删除旧分支">7.6.5 合并完，删除旧分支</a></li>
+</ul>
+</li>
+<li><a href="#77-主分支被改怎么同步到你的分支">7.7 主分支被改，怎么同步到你的分支？</a></li>
+<li><a href="#78-遇到冲突怎么办">7.8 遇到冲突怎么办？</a></li>
+<li><a href="#79-远程分支操作">7.9 远程分支操作</a><ul>
+<li><a href="#791-把本地分支发到远程">7.9.1 把本地分支发到远程</a></li>
+<li><a href="#792-拉取别人创建的远程分支">7.9.2 拉取别人创建的远程分支</a></li>
+<li><a href="#793-删除远程分支">7.9.3 删除远程分支</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#8-git-查看提交历史">8 Git 查看提交历史</a><ul>
+<li><a href="#81-git-log">8.1 git log</a></li>
+<li><a href="#82-git-blame">8.2 git blame</a></li>
+</ul>
+</li>
+<li><a href="#9-git-恢复和回退">9 Git 恢复和回退</a><ul>
+<li><a href="#91-git-checkout">9.1 git checkout</a></li>
+<li><a href="#92-git-reset">9.2 git reset</a></li>
+<li><a href="#93-git-revert">9.3 git revert</a></li>
+<li><a href="#94-git-reflog">9.4 git reflog</a></li>
+<li><a href="#95-示例">9.5 示例</a></li>
+</ul>
+</li>
+<li><a href="#10-git-标签">10 Git 标签</a></li>
+<li><a href="#10-git-flow">10 Git Flow</a><ul>
+<li><a href="#101-git-flow-安装">10.1 Git Flow 安装</a></li>
+<li><a href="#102-git-flow-工作流程">10.2 Git Flow 工作流程</a></li>
+</ul>
+</li>
+<li><a href="#11-git-进阶操作">11 Git 进阶操作</a><ul>
+<li><a href="#111-git-stash">11.1 Git Stash</a></li>
+<li><a href="#112-git-rebase">11.2 Git Rebase</a></li>
+<li><a href="#113-git-cherry-pick">11.3 Git Cherry-Pick</a></li>
+</ul>
+</li>
+<li><a href="#12-git-远程仓库">12 Git 远程仓库</a><ul>
+<li><a href="#121-关联远程仓库">12.1 <strong>关联远程仓库</strong></a></li>
+<li><a href="#122-验证是否关联成功">12.2 <strong>验证是否关联成功</strong></a></li>
+<li><a href="#123-常见问题解决">12.3 <strong>常见问题解决</strong></a></li>
+<li><a href="#124-提取远程仓库">12.4 <strong>提取远程仓库</strong></a></li>
+</ul>
+</li>
+<li><a href="#13-git-服务器搭建">13 Git 服务器搭建</a><ul>
+<li><a href="#131-使用裸存储库bare-repository">13.1 使用裸存储库（Bare Repository）</a></li>
+</ul>
+</li>
+<li><a href="#14-sourcetree">14 Sourcetree</a></li>
+<li><a href="#15-vscode中操作gui操作">15 VSCode中操作（GUI操作）</a>
+    - <a href="#151-初始化或打开-git-仓库">15.1 <strong>初始化或打开 Git 仓库</strong></a>
+    - <a href="#152-基本操作流程">15.2 <strong>基本操作流程</strong></a>
+    - <a href="#153-其他常用操作">15.3 <strong>其他常用操作</strong></a>
+    - <a href="#154-配置-git-信息">15.4 <strong>配置 Git 信息</strong></a></li>
+<li><a href="#16-gui图标">16 GUI图标</a></li>
+<li><a href="#17-分支">17 分支</a></li>
+<li><a href="#18-gui分支">18 GUI分支</a></li>
+<li><a href="#19-常用命令">19 常用命令</a><ul>
+<li><a href="#191-仓库初始化与配置">19.1 <strong>仓库初始化与配置</strong></a></li>
+<li><a href="#192-文件暂存与提交">19.2 <strong>文件暂存与提交</strong></a></li>
+<li><a href="#193-分支管理">19.3 <strong>分支管理</strong></a></li>
+<li><a href="#194-远程仓库操作">19.4 <strong>远程仓库操作</strong></a></li>
+<li><a href="#195-版本回退与历史查看">19.5 <strong>版本回退与历史查看</strong></a></li>
+<li><a href="#196-标签管理用于版本发布">19.6 <strong>标签管理（用于版本发布）</strong></a></li>
+<li><a href="#197-其他常用命令">19.7 <strong>其他常用命令</strong></a></li>
+<li><a href="#198-使用建议">19.8 <strong>使用建议</strong></a></li>
+</ul>
+</li>
+<li><a href="#20-gitignore">20 .gitignore</a><ul>
+<li><a href="#201-基础语法规则">20.1 <strong>基础语法规则</strong></a></li>
+<li><a href="#202-通用模板">20.2 <strong>通用模板</strong></a></li>
+<li><a href="#203-其他">20.3 <strong>其他</strong></a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="1-git-简介">1 Git 简介</h1>
+<p>Git 是一个开源的分布式版本控制系统。</p>
+<p>Git 与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持。</p>
+<h2 id="11-git-与-svn-区别">1.1 Git 与 SVN 区别</h2>
+<p>Git 不仅仅是个版本控制系统，它也是个内容管理系统(CMS)，工作管理系统等。</p>
+<ol>
+<li>
+<p><strong>Git 是分布式的，SVN 不是</strong></p>
+</li>
+<li>
+<p><strong>Git 把内容按元数据方式存储，而 SVN 是按文件</strong>：所有的资源控制系统都是把文件的元信息隐藏在一个类似 .svn、.cvs 等的文件夹里。</p>
+</li>
+<li>
+<p><strong>Git 分支和 SVN 的分支不同</strong>：分支在 SVN 中一点都不特别，其实它就是版本库中的另外一个目录。</p>
+</li>
+<li>
+<p><strong>Git 没有一个全局的版本号，而 SVN 有</strong></p>
+</li>
+<li>
+<p><strong>Git 的内容完整性要优于 SVN</strong>：Git 的内容存储使用的是 SHA-1 哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。</p>
+</li>
+</ol>
+<p><img alt="image.png" src="../docs/images/Git_SVN.png" /></p>
+<h2 id="12-git-与-github">1.2 Git 与 Github</h2>
+<p>Git是个版本控制的工具，用来管理本地的代码工程，它可以记录代码内容的变更；而Github是一个代码托管平台，我们可以使用Git将本地代码上传到Github。</p>
+<p><strong>Git工作流程</strong><br />
+<img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/013351ded9e12029049ff949cbb40260.png" /></p>
+<ul>
+<li>工作区(Workspace)：平时存放项目代码的地方</li>
+<li>暂存区(Index/Stage)：用于临时存放改动信息</li>
+<li>本地仓库(Repository)：存放所有提交的版本数据</li>
+<li>远程仓库(Remote)：托管代码的服务器，比如我们经常用的Github就是个代码托管平台</li>
+</ul>
+<h1 id="2-git-安装配置">2 Git 安装配置</h1>
+<p>跳过</p>
+<p>检查git安装是否成功，请在cmd中键入以下内容</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>-version
+</code></pre></div>
+
+<p>在GitHub上创建账户,Git和GitHub账户应该同步。基本配置，应在命令提示符中输入以下命令</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>–-global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;UserNameOnGithub&quot;</span><span class="w">  </span>
+git<span class="w"> </span>config<span class="w"> </span>–-global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;Email&quot;</span>
+</code></pre></div>
+
+<h2 id="21-git-配置">2.1 Git 配置</h2>
+<p>Git 提供了一个叫做 <code>git config</code> 的命令，用来配置或读取相应的工作环境变量。</p>
+<p>这些环境变量，决定了 Git 在各个环节的具体工作方式和行为。</p>
+<p>这些变量可以存放在以下三个不同的地方：</p>
+<ul>
+<li>
+<p>/etc/gitconfig 文件：系统中对所有用户都普遍适用的配置。若使用 git config 时用 --system 选项，读写的就是这个文件。</p>
+</li>
+<li>
+<p>~/.gitconfig 文件：用户目录下的配置文件只适用于该用户。若使用 git config 时用 --global 选项，读写的就是这个文件。</p>
+</li>
+<li>
+<p>当前项目的 Git 目录中的配置文件（也就是工作目录中的 .git/config 文件）：这里的配置仅仅针对当前项目有效。每一个级别的配置都会覆盖上层的相同配置，所以 .git/config 里的配置会覆盖 /etc/gitconfig 中的同名变量。</p>
+</li>
+</ul>
+<p>在 Windows 系统上，Git 会找寻用户主目录下的 .gitconfig 文件。主目录即 <span class="math-inline">\(HOME 变量指定的目录，一般都是 C:\Documents and Settings\\)</span>USER。</p>
+<p>此外，Git 还会尝试找寻 /etc/gitconfig 文件，只不过看当初 Git 装在什么目录，就以此作为根目录来定位。</p>
+<p><strong>用户信息</strong></p>
+<p>配置个人的用户名称和电子邮件地址，这是为了在每次提交代码时记录提交者的信息：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>–-global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;UserNameOnGithub&quot;</span><span class="w">  </span>
+git<span class="w"> </span>config<span class="w"> </span>–-global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;Email&quot;</span>
+</code></pre></div>
+
+<p>如果用了 --global 选项，那么更改的配置文件就是位于你用户主目录下的那个，以后你所有的项目都会默认使用这里配置的用户信息。</p>
+<p>如果去掉 --global 参数只对当前仓库有效。</p>
+<p>如果要在某个特定的项目中使用其他名字或者电邮，只要去掉 --global 选项重新配置即可，新的设定保存在当前项目的 .git/config 文件里。</p>
+<p><strong>文本编辑器</strong></p>
+<p>设置 Git 默认使用的文本编辑器,一般可能会是 Vi 或者 Vim，如果你有其他偏好，比如 VS Code 的话，可以重新设置：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.editor<span class="w"> </span><span class="s2">&quot;code --wait&quot;</span>
+</code></pre></div>
+
+<p><strong>差异分析工具</strong></p>
+<p>还有一个比较常用的是，在解决合并冲突时使用哪种差异分析工具。比如要改用 vimdiff 的话：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>merge.tool<span class="w"> </span>vimdiff
+</code></pre></div>
+
+<p>Git 可以理解 kdiff3，tkdiff，meld，xxdiff，emerge，vimdiff，gvimdiff，ecmerge，和 opendiff 等合并工具的输出信息。</p>
+<p>当然，也可以指定使用自己开发的工具，具体怎么做可以参阅Git分支管理。</p>
+<p><strong>查看配置信息</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>--list
+</code></pre></div>
+
+<p>有时候会看到重复的变量名，那就说明它们来自不同的配置文件（比如 /etc/gitconfig 和 ~/.gitconfig），不过最终 Git 实际采用的是最后一个。</p>
+<p>这些配置我们也可以在 ~/.gitconfig 或 /etc/gitconfig 看到</p>
+<p>也可以直接查阅某个环境变量的设定，只要把特定的名字跟在后面即可：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>user.name
+</code></pre></div>
+
+<p>编辑 git 配置文件:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>-e<span class="w">    </span><span class="c1"># 针对当前仓库 </span>
+git<span class="w"> </span>config<span class="w"> </span>-e<span class="w"> </span>--global<span class="w">   </span><span class="c1"># 针对系统上所有仓库</span>
+</code></pre></div>
+
+<p><strong>生成 SSH 密钥（可选）</strong></p>
+<p>如果你需要通过 SSH 进行 Git 操作，可以生成 SSH 密钥并添加到你的 Git 托管服务（如 GitHub、GitLab 等）上。</p>
+<div class="highlight"><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-b<span class="w"> </span><span class="m">4096</span><span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;your.email@example.com&quot;</span>
+</code></pre></div>
+
+<p>按提示完成生成过程，然后将生成的公钥添加到相应的平台。</p>
+<p><strong>验证安装</strong></p>
+<p>在终端或命令行中运行以下命令，确保 Git 已正确安装并配置：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>--version
+git<span class="w"> </span>config<span class="w"> </span>--list
+</code></pre></div>
+
+<h1 id="3-git-工作流程">3 Git 工作流程</h1>
+<p><img alt="image.png" src="../images/Git工作流程.png" /></p>
+<ol>
+<li>克隆仓库<br />
+如果你要参与一个已有的项目，首先需要将远程仓库克隆到本地：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;git<span class="w"> </span>clone<span class="w"> </span>https://github.com/username/repo.git
+<span class="w">  </span>&gt;cd<span class="w"> </span>repo
+</code></pre></div>
+
+<ol>
+<li>创建新分支<br />
+为了避免直接在 main 或 master 分支上进行开发，通常会创建一个新的分支：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>new-feature
+</code></pre></div>
+
+<ol>
+<li>
+<p>工作目录<br />
+在工作目录中进行代码编辑、添加新文件或删除不需要的文件。</p>
+</li>
+<li>
+<p>暂存文件<br />
+将修改过的文件添加到暂存区，以便进行下一步的提交操作：</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;git<span class="w"> </span>add<span class="w"> </span>filename
+<span class="w">  </span>&gt;#<span class="w"> </span>或者添加所有修改的文件
+<span class="w">  </span>&gt;git<span class="w"> </span>add<span class="w"> </span>.
+</code></pre></div>
+
+<ol>
+<li>提交更改<br />
+将暂存区的更改提交到本地仓库，并添加提交信息：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add new feature&quot;</span>
+</code></pre></div>
+
+<ol>
+<li>拉取最新更改<br />
+在推送本地更改之前，最好从远程仓库拉取最新的更改，以避免冲突：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+<span class="w">  </span>&gt;#<span class="w"> </span>或者如果在新的分支上工作
+<span class="w">  </span>&gt;git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>new-feature
+</code></pre></div>
+
+<ol>
+<li>推送更改<br />
+将本地的提交推送到远程仓库：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>new-feature
+</code></pre></div>
+
+<ol>
+<li>
+<p>创建 Pull Request（PR）<br />
+在 GitHub 或其他托管平台上创建 Pull Request，邀请团队成员进行代码审查。PR 合并后，你的更改就会合并到主分支。</p>
+</li>
+<li>
+<p>合并更改<br />
+在 PR 审核通过并合并后，可以将远程仓库的主分支合并到本地分支：</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;git<span class="w"> </span>checkout<span class="w"> </span>main
+<span class="w">  </span>&gt;git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+<span class="w">  </span>&gt;git<span class="w"> </span>merge<span class="w"> </span>new-feature
+</code></pre></div>
+
+<ol>
+<li>删除分支<br />
+如果不再需要新功能分支，可以将其删除：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>new-feature
+<span class="w">  </span>&gt;#<span class="w"> </span>或者从远程仓库删除分支：
+<span class="w">  </span>&gt;git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>new-feature
+</code></pre></div>
+
+<h1 id="4-git-工作区暂存区和版本库">4 Git 工作区、暂存区和版本库</h1>
+<ul>
+<li>
+<p><strong>工作区</strong>：就是你在电脑里能看到的目录，当前项目的所有文件和子目录都属于工作区。</p>
+<ul>
+<li>文件的修改在工作区中进行，但这些修改还没有被记录到版本控制中。</li>
+</ul>
+</li>
+<li>
+<p><strong>暂存区</strong>：英文叫 stage 或 index。一般存放在 .git 目录下的 index 文件（.git/index）中，所以我们把暂存区也叫作索引。是一个临时存储区域，它包含了即将被提交到版本库中的文件快照。</p>
+<ul>
+<li>暂存区保存了将被包括在下一个提交中的更改。</li>
+<li>你可以多次使用 git add 命令来将文件添加到暂存区，直到你准备好提交所有更改。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>&gt;<span class="w">  </span>git<span class="w"> </span>add<span class="w"> </span>filename<span class="w">       </span><span class="c1"># 将单个文件添加到暂存区</span>
+&gt;<span class="w">  </span>git<span class="w"> </span>add<span class="w"> </span>.<span class="w">              </span><span class="c1"># 将工作区中的所有修改添加到暂存区</span>
+&gt;<span class="w">  </span>git<span class="w"> </span>status
+</code></pre></div>
+
+<ul>
+<li><strong>版本库</strong>：工作区有一个隐藏目录 .git 它是 Git 的版本库。包含项目的所有版本历史记录。每次提交都会在版本库中创建一个新的快照，这些快照是不可变的，确保了项目的完整历史记录。<ul>
+<li>版本库分为本地版本库和远程版本库。这里主要指本地版本库。</li>
+<li>本地版本库存储在 .git 目录中，它包含了所有提交的对象和引用。</li>
+</ul>
+</li>
+</ul>
+<p><img alt="image.png" src="../docs/images/Git工作区.png" /></p>
+<ul>
+<li>
+<p>图中左侧为工作区，右侧为版本库。在版本库中标记为 "index" 的区域是暂存区（stage/index），标记为 "master" 的是 master 分支所代表的目录树。</p>
+</li>
+<li>
+<p>图中我们可以看出此时 "HEAD" 实际是指向 master 分支的一个"游标"。所以图示的命令中出现 HEAD 的地方可以用 master 来替换。</p>
+</li>
+<li>
+<p>图中的 objects 标识的区域为 Git 的对象库，实际位于 ".git/objects" 目录下，里面包含了创建的各种对象及内容。</p>
+</li>
+<li>
+<p>当对工作区修改（或新增）的文件执行 <code>git add</code> 命令时，暂存区的目录树被更新，同时工作区修改（或新增）的文件内容被写入到对象库中的一个新的对象中，而该对象的ID被记录在暂存区的文件索引中。</p>
+</li>
+<li>
+<p>当执行提交操作<code>git commit</code>时，暂存区的目录树写到版本库（对象库）中，master 分支会做相应的更新。即 master 指向的目录树就是提交时暂存区的目录树。</p>
+</li>
+<li>
+<p>当执行 <code>git reset HEAD</code> 命令时，暂存区的目录树会被重写，被 master 分支指向的目录树所替换，但是工作区不受影响。</p>
+</li>
+<li>
+<p>当执行 <code>git rm --cached &lt;file&gt;</code> 命令时，会直接从暂存区删除文件，工作区则不做出改变。</p>
+</li>
+<li>
+<p>当执行 <code>git checkout .</code> 或者 <code>git checkout -- &lt;file&gt;</code> 命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区中的改动。</p>
+</li>
+<li>
+<p>当执行 <code>git checkout HEAD .</code> 或者 <code>git checkout HEAD &lt;file&gt;</code> 命令时，会用 HEAD 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。</p>
+</li>
+</ul>
+<h2 id="41-工作区暂存区和版本库之间的关系">4.1 工作区、暂存区和版本库之间的关系</h2>
+<ol>
+<li>工作区 -&gt; 暂存区
+使用 git add 命令将工作区中的修改添加到暂存区。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;<span class="w">    </span>git<span class="w"> </span>add<span class="w"> </span>filename
+</code></pre></div>
+
+<ol>
+<li>暂存区 -&gt; 版本库
+使用 git commit 命令将暂存区中的修改提交到版本库。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;<span class="w">    </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Commit message&quot;</span>
+</code></pre></div>
+
+<ol>
+<li>版本库 -&gt; 远程仓库
+使用 git push 命令将本地版本库的提交推送到远程仓库。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;<span class="w">    </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>branch-name
+</code></pre></div>
+
+<ol>
+<li>远程仓库 -&gt; 本地版本库
+使用 git pull 或 git fetch 命令从远程仓库获取更新。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;<span class="w">    </span>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>branch-name
+<span class="w">  </span>&gt;<span class="w">    </span><span class="c1"># 或者</span>
+<span class="w">  </span>&gt;<span class="w">    </span>git<span class="w"> </span>fetch<span class="w"> </span>origin<span class="w"> </span>branch-name
+<span class="w">  </span>&gt;<span class="w">    </span>git<span class="w"> </span>merge<span class="w"> </span>origin/branch-name
+</code></pre></div>
+
+<h1 id="5-git-创建仓库">5 Git 创建仓库</h1>
+<p>三种方式</p>
+<p>1、 从创建一个新的目录开始</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>my-project
+<span class="nb">cd</span><span class="w"> </span>my-project
+</code></pre></div>
+
+<p>使用当前目录作为 Git 仓库，我们只需使它初始化。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>init
+</code></pre></div>
+
+<p>该命令执行完后会在当前目录生成一个 .git 目录。</p>
+<p>2、 从已有目录作为Git仓库。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>init<span class="w"> </span>newrepo
+</code></pre></div>
+
+<p>初始化后，会在 newrepo 目录下会出现一个名为 .git 的目录，所有 Git 需要的数据和资源都存放在这个目录中。</p>
+<p>如果当前目录下有几个文件想要纳入版本控制，需要先用 git add 命令告诉 Git 开始对这些文件进行跟踪，然后提交：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>*.c
+git<span class="w"> </span>add<span class="w"> </span>README
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s1">&#39;初始化项目版本&#39;</span>
+</code></pre></div>
+
+<p>以上命令将目录下以 .c 结尾及 README 文件提交到仓库中。</p>
+<p><strong>注</strong>： 在 Linux 系统中，commit 信息使用单引号 '，Windows 系统，commit 信息使用双引号 "。</p>
+<p>3、从现有 Git 仓库中拷贝项目</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>&lt;repo&gt;
+<span class="c1"># 如果需要克隆到指定的目录，可以使用</span>
+git<span class="w"> </span>clone<span class="w"> </span>&lt;repo&gt;<span class="w"> </span>&lt;directory&gt;
+</code></pre></div>
+
+<ul>
+<li>repo：Git 仓库。</li>
+<li>directory：本地目录。</li>
+</ul>
+<h1 id="6-git-基本命令">6 Git 基本命令</h1>
+<h2 id="61-创建仓库">6.1 创建仓库</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>git init</td>
+<td>初始化仓库</td>
+</tr>
+<tr>
+<td>git clone</td>
+<td>拷贝一份远程仓库，也就是下载一个项目</td>
+</tr>
+</tbody>
+</table>
+<h2 id="62-提交与修改">6.2 提交与修改</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>git add</td>
+<td>添加文件到暂存区</td>
+</tr>
+<tr>
+<td>git status</td>
+<td>查看仓库当前的状态，显示有变更的文件</td>
+</tr>
+<tr>
+<td>git diff</td>
+<td>比较文件的不同，即暂存区和工作区的差异</td>
+</tr>
+<tr>
+<td>git difftool</td>
+<td>使用外部差异工具查看和比较文件的更改</td>
+</tr>
+<tr>
+<td>git range-diff</td>
+<td>比较两个提交范围之间的差异</td>
+</tr>
+<tr>
+<td>git commit</td>
+<td>提交暂存区到本地仓库</td>
+</tr>
+<tr>
+<td>git reset</td>
+<td>回退版本</td>
+</tr>
+<tr>
+<td>git rm</td>
+<td>将文件从暂存区和工作区中删除</td>
+</tr>
+<tr>
+<td>git mv</td>
+<td>移动或重命名工作区文件</td>
+</tr>
+<tr>
+<td>git notes</td>
+<td>添加注释</td>
+</tr>
+<tr>
+<td>git checkout</td>
+<td>分支切换</td>
+</tr>
+<tr>
+<td>git switch （Git 2.23 版本引入）</td>
+<td>更清晰地切换分支</td>
+</tr>
+<tr>
+<td>git restore （Git 2.23 版本引入）</td>
+<td>恢复或撤销文件的更改</td>
+</tr>
+<tr>
+<td>git show</td>
+<td>显示 Git 对象的详细信息</td>
+</tr>
+</tbody>
+</table>
+<h2 id="63-提交日志">6.3 提交日志</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>git log</td>
+<td>查看历史提交记录</td>
+</tr>
+<tr>
+<td>git blame <file></td>
+<td>以列表形式查看指定文件的历史修改记录</td>
+</tr>
+<tr>
+<td>git shortlog</td>
+<td>生成简洁的提交日志摘要</td>
+</tr>
+<tr>
+<td>git describe</td>
+<td>生成一个可读的字符串，该字符串基于 Git 的标签系统来描述当前的提交</td>
+</tr>
+</tbody>
+</table>
+<h2 id="64-远程操作">6.4 远程操作</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>git remote</td>
+<td>远程仓库操作</td>
+</tr>
+<tr>
+<td>git fetch</td>
+<td>从远程获取代码库</td>
+</tr>
+<tr>
+<td>git pull</td>
+<td>下载远程代码并合并</td>
+</tr>
+<tr>
+<td>git push</td>
+<td>上传远程代码并合并</td>
+</tr>
+<tr>
+<td>git submodule</td>
+<td>管理包含其他 Git 仓库的项目</td>
+</tr>
+</tbody>
+</table>
+<h1 id="65-git-文件状态">6.5 Git 文件状态</h1>
+<p><strong>未跟踪（Untracked）</strong>：新创建的文件，未被 Git 记录。</p>
+<p><strong>已跟踪（Tracked）</strong>： 通过 git add 命令将未跟踪的文件添加到暂存区后，文件变为已跟踪状态。</p>
+<p><strong>已修改（Modified）</strong>：已被 Git 跟踪的文件发生了更改，但这些更改还没有被提交到 Git 记录中。</p>
+<p><strong>已暂存（Staged）</strong>： 使用 git add 命令将修改过的文件添加到暂存区后，文件进入已暂存状态，等待提交。</p>
+<p><strong>已提交（Committed）</strong>： 使用 git commit 命令将暂存区的更改提交到本地仓库后，这些更改被记录下来，文件状态返回为已跟踪状态。</p>
+<h1 id="7-git-分支管理">7 Git 分支管理</h1>
+<p>能够让多个开发人员并行工作，开发新功能、修复 bug 或进行实验，而不会影响主代码库。</p>
+<p>Git 分支实际上是指向更改快照的指针。</p>
+<p><img alt="image.png" src="https://static.jyshare.com/images/svg/git-brance.svg" /></p>
+<h2 id="71-创建与切换分支">7.1 创建与切换分支</h2>
+<p>创建新分支：<br />
+<code>git branch &lt;branch_name&gt;</code></p>
+<p>创建新分支并切换到该分支：(checkout 是老版本，新版switch)<br />
+<code>git checkout -b &lt;branch_name&gt;</code> </p>
+<p>切换分支：<br />
+<code>git checkout &lt;branch_name&gt;</code></p>
+<p>注：当你切换分支的时候，Git 会用该分支的最后提交的快照替换你的工作目录的内容， 所以多个分支不需要多个目录。</p>
+<h2 id="72-查看分支">7.2 查看分支</h2>
+<p>查看所有分支：  <br />
+<code>git branch</code></p>
+<p>查看远程分支：<br />
+<code>git branch -r</code></p>
+<p>查看所有本地和远程分支：<br />
+<code>git branch -a</code></p>
+<h2 id="73-合并分支">7.3 合并分支</h2>
+<p>将其他分支合并到当前分支：<br />
+<code>git merge &lt;branch_name&gt;</code></p>
+<p><code>git merge [被合并的分支] -&gt; 合并到 [你当前的分支] 上</code>  </p>
+<h2 id="74-删除分支">7.4 删除分支</h2>
+<p>删除本地分支：<br />
+<code>git branch -d &lt;branch_name&gt;</code></p>
+<p>强制删除未合并的分支：<br />
+<code>git branch -D &lt;branch_name&gt;</code></p>
+<p>删除远程分支：<br />
+<code>git push origin --delete &lt;branch_name&gt;</code></p>
+<h2 id="75-最常用分支命令">7.5 最常用分支命令</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 查看所有分支（当前分支前面有 *）</span>
+git<span class="w"> </span>branch
+
+<span class="c1"># 2. 新建分支</span>
+git<span class="w"> </span>branch<span class="w"> </span>分支名
+
+<span class="c1"># 3. 切换分支</span>
+git<span class="w"> </span>switch<span class="w"> </span>分支名
+
+<span class="c1"># 4. 新建 + 立刻切换</span>
+git<span class="w"> </span>switch<span class="w"> </span>-c<span class="w"> </span>分支名
+
+<span class="c1"># 5. 把分支合并到当前所在分支</span>
+git<span class="w"> </span>merge<span class="w"> </span>要合并的分支名
+
+<span class="c1"># 6. 删除本地分支</span>
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>分支名
+
+<span class="c1"># 7. 把本地分支推送到远程</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>分支名
+
+<span class="c1"># 8. 查看本地 + 远程所有分支</span>
+git<span class="w"> </span>branch<span class="w"> </span>-a
+</code></pre></div>
+
+<h2 id="76-完整工作流程">7.6 完整工作流程</h2>
+<h3 id="761-永远从最新主分支开新功能">7.6.1 永远从最新主分支开新功能</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 切到主分支</span>
+git<span class="w"> </span>switch<span class="w"> </span>main
+
+<span class="c1"># 拉取最新代码（保证你的主分支是最新的）</span>
+git<span class="w"> </span>pull
+</code></pre></div>
+
+<h3 id="762-创建你的功能分支">7.6.2 创建你的功能分支</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>switch<span class="w"> </span>-c<span class="w"> </span>feature-login
+</code></pre></div>
+
+<p>现在你进入独立开发空间，<strong>随便写代码，不影响主分支</strong>。</p>
+<h3 id="763-在分支上正常写代码提交">7.6.3 在分支上正常写代码、提交</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;完成登录功能&quot;</span>
+</code></pre></div>
+
+<h3 id="764-写完了合并回主分支">7.6.4 写完了，合并回主分支</h3>
+<p>先切回主分支</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>switch<span class="w"> </span>main
+</code></pre></div>
+
+<p>再合并你的功能分支</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>merge<span class="w"> </span>feature-login
+</code></pre></div>
+
+<p>合并成功后，推送到远程</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push
+</code></pre></div>
+
+<h3 id="765-合并完删除旧分支">7.6.5 合并完，删除旧分支</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature-login
+</code></pre></div>
+
+<h2 id="77-主分支被改怎么同步到你的分支">7.7 主分支被改，怎么同步到你的分支？</h2>
+<p>场景：
+你在写分支，同事更新了 main 分支，你想<strong>把最新主分支代码拿到你的分支里</strong>。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 切到 main，拉最新</span>
+git<span class="w"> </span>switch<span class="w"> </span>main
+git<span class="w"> </span>pull
+
+<span class="c1"># 2. 切回你的分支</span>
+git<span class="w"> </span>switch<span class="w"> </span>feature-login
+
+<span class="c1"># 3. 把 main 合并进来</span>
+git<span class="w"> </span>merge<span class="w"> </span>main
+</code></pre></div>
+
+<p>你的分支就变成<strong>最新代码 + 你的新功能</strong>了。</p>
+<h2 id="78-遇到冲突怎么办">7.8 遇到冲突怎么办？</h2>
+<p>Git 提示：
+<code>Automatic merge failed; fix conflicts and then commit the result.</code></p>
+<p>解决方法：
+1. 打开 VS Code
+2. 点文件里的冲突标记
+3. 选择：</p>
+<div class="highlight"><pre><span></span><code> - Accept Current Change（保留当前）
+ - Accept Incoming Change（保留 incoming）
+ - Accept Both（都保留）
+</code></pre></div>
+
+<ol>
+<li>保存文件</li>
+<li>提交</li>
+</ol>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;解决冲突&quot;</span>
+</code></pre></div>
+
+<h2 id="79-远程分支操作">7.9 远程分支操作</h2>
+<h3 id="791-把本地分支发到远程">7.9.1 把本地分支发到远程</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature-login
+</code></pre></div>
+
+<h3 id="792-拉取别人创建的远程分支">7.9.2 拉取别人创建的远程分支</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>fetch
+git<span class="w"> </span>switch<span class="w"> </span>分支名
+</code></pre></div>
+
+<h3 id="793-删除远程分支">7.9.3 删除远程分支</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>分支名
+</code></pre></div>
+
+<h2 id="710">7.10分支模板</h2>
+<div class="highlight"><pre><span></span><code><span class="m">1</span>.<span class="w"> </span>切回主分支
+git<span class="w"> </span>switch<span class="w"> </span>main
+
+<span class="m">2</span>.<span class="w"> </span>拉最新（把远程主分支同步到本地）
+git<span class="w"> </span>pull
+
+<span class="m">3</span>.<span class="w"> </span>切回你的分支
+git<span class="w"> </span>switch<span class="w"> </span>feature-login
+
+<span class="m">4</span>.<span class="w"> </span>把最新主分支合并进你的分支（让你的分支变最新）
+git<span class="w"> </span>merge<span class="w"> </span>main
+
+<span class="m">5</span>.<span class="w"> </span>再切回主分支
+git<span class="w"> </span>switch<span class="w"> </span>main
+
+<span class="m">6</span>.<span class="w"> </span>把你的功能合并进主分支
+git<span class="w"> </span>merge<span class="w"> </span>feature-login
+
+<span class="m">7</span>.<span class="w"> </span>推送到网上
+git<span class="w"> </span>push
+
+<span class="m">8</span>.<span class="w"> </span>删除分支（清理）
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature-login
+</code></pre></div>
+
+<h1 id="8-git-查看提交历史">8 Git 查看提交历史</h1>
+<p>查看 Git 提交历史可以帮助你了解代码的变更情况和开发进度。</p>
+<p>Git 提供了多种命令和选项来查看提交历史，从简单的日志到详细的差异对比。</p>
+<ul>
+<li>git log - 查看历史提交记录。</li>
+<li>git blame <file> - 以列表形式查看指定文件的历史修改记录。</li>
+</ul>
+<h2 id="81-git-log">8.1 git log</h2>
+<p>查看 Git 仓库中提交历史记录，包括提交的哈希值、作者、提交日期和提交消息等。</p>
+<p>基本语法：</p>
+<p><code>git log [选项] [分支名/提交哈希]</code></p>
+<p>常用的选项包括：</p>
+<ul>
+<li>-p：显示提交的补丁（具体更改内容）。</li>
+<li>--oneline：以简洁的一行格式显示提交信息。</li>
+<li>--graph：以图形化方式显示分支和合并历史。</li>
+<li>--decorate：显示分支和标签指向的提交。</li>
+<li>--author=&lt;作者&gt;：只显示特定作者的提交。</li>
+<li>--since=&lt;时间&gt;：只显示指定时间之后的提交。</li>
+<li>--until=&lt;时间&gt;：只显示指定时间之前的提交。</li>
+<li>--grep=&lt;模式&gt;：只显示包含指定模式的提交消息。</li>
+<li>--no-merges：不显示合并提交。</li>
+<li>--stat：显示简略统计信息，包括修改的文件和行数。</li>
+<li>--abbrev-commit：使用短提交哈希值。</li>
+<li>--pretty=&lt;格式&gt;：使用自定义的提交信息显示格式。</li>
+</ul>
+<h2 id="82-git-blame">8.2 git blame</h2>
+<p>逐行显示指定文件的每一行代码是由谁在什么时候引入或修改的，包括作者、提交哈希、提交日期和提交消息等信息。</p>
+<p><code>git blame [选项] &lt;文件路径&gt;</code></p>
+<p>常用的选项包括：</p>
+<ul>
+<li>-L &lt;起始行号&gt;,&lt;结束行号&gt;：只显示指定行号范围内的代码注释。</li>
+<li>-C：对于重命名或拷贝的代码行，也进行代码行溯源。</li>
+<li>-M：对于移动的代码行，也进行代码行溯源。</li>
+<li>-C -C 或 -M -M：对于较多改动的代码行，进行更进一步的溯源。</li>
+<li>--show-stats：显示包含每个作者的行数统计信息。</li>
+</ul>
+<h1 id="9-git-恢复和回退">9 Git 恢复和回退</h1>
+<p>Git 提供了多种方式来恢复和回退到之前的版本，不同的命令适用于不同的场景和需求。</p>
+<p>以下是几种常见的方法：</p>
+<ul>
+<li>git checkout：切换分支或恢复文件到指定提交。</li>
+<li>git reset：重置当前分支到指定提交（软重置、混合重置、硬重置）。</li>
+<li>git revert：创建一个新的提交以撤销指定提交，不改变提交历史。</li>
+<li>git reflog：查看历史操作记录，找回丢失的提交。</li>
+</ul>
+<h2 id="91-git-checkout">9.1 git checkout</h2>
+<p>恢复工作目录中的文件到某个提交：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>&lt;commit&gt;<span class="w"> </span>--<span class="w"> </span>&lt;filename&gt;
+</code></pre></div>
+
+<p>例如，将 file.txt 恢复到 abc123 提交时的版本：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>abc123<span class="w"> </span>--<span class="w"> </span>file.txt
+</code></pre></div>
+
+<p>切换到特定提交：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>&lt;commit&gt;
+</code></pre></div>
+
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>abc123
+</code></pre></div>
+
+<p>这种方式切换到特定的提交时，处于分离头指针（detached HEAD）状态。</p>
+<h2 id="92-git-reset">9.2 git reset</h2>
+<p>git reset 命令可以更改当前分支的提交历史，它有三种主要模式：--soft、--mixed 和 --hard。</p>
+<p><code>--soft</code>：只重置 HEAD 到指定的提交，暂存区和工作目录保持不变。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--soft<span class="w"> </span>&lt;commit&gt;
+</code></pre></div>
+
+<p><code>--mixed（默认）</code>：重置 HEAD 到指定的提交，暂存区重置，但工作目录保持不变。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--mixed<span class="w"> </span>&lt;commit&gt;
+</code></pre></div>
+
+<p><code>--hard</code>：重置 HEAD 到指定的提交，暂存区和工作目录都重置。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>&lt;commit&gt;
+</code></pre></div>
+
+<p>例如，将当前分支重置到 abc123 提交：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>abc123
+</code></pre></div>
+
+<h2 id="93-git-revert">9.3 git revert</h2>
+<p>git revert 命令创建一个新的提交，用来撤销指定的提交，它不会改变提交历史，适用于已经推送到远程仓库的提交。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>revert<span class="w"> </span>&lt;commit&gt;
+</code></pre></div>
+
+<p>例如，撤销 abc123 提交：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>revert<span class="w"> </span>abc123
+</code></pre></div>
+
+<h2 id="94-git-reflog">9.4 git reflog</h2>
+<p>git reflog 命令记录了所有 HEAD 的移动。即使提交被删除或重置，也可以通过 reflog 找回。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reflog
+</code></pre></div>
+
+<p>利用 reflog 可以找到之前的提交哈希，从而恢复到特定状态。例如：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">3</span><span class="o">}</span>
+</code></pre></div>
+
+<h2 id="95-示例">9.5 示例</h2>
+<p>查看提交历史：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>log<span class="w"> </span>--oneline
+</code></pre></div>
+
+<p>假设输出如下：</p>
+<div class="highlight"><pre><span></span><code>abc1234<span class="w"> </span>Commit<span class="w"> </span><span class="m">1</span>
+def5678<span class="w"> </span>Commit<span class="w"> </span><span class="m">2</span>
+ghi9012<span class="w"> </span>Commit<span class="w"> </span><span class="m">3</span>
+</code></pre></div>
+
+<p>切换到 Commit 2（处于分离头指针状态）：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>def5678
+</code></pre></div>
+
+<p>重置到 Commit 2，保留更改到暂存区：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--soft<span class="w"> </span>def5678
+</code></pre></div>
+
+<p>重置到 Commit 2，取消暂存区更改：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--mixed<span class="w"> </span>def5678
+</code></pre></div>
+
+<p>重置到 Commit 2，丢弃所有更改：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>def5678
+</code></pre></div>
+
+<p>撤销 Commit 2：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>revert<span class="w"> </span>def5678
+</code></pre></div>
+
+<p>查看 reflog 找回丢失的提交：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reflog
+</code></pre></div>
+
+<p>找到之前的提交哈希并恢复：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">3</span><span class="o">}</span>
+</code></pre></div>
+
+<h1 id="10-git-标签">10 Git 标签</h1>
+<p>如果你达到一个重要的阶段，并希望永远记住提交的快照，你可以使用 git tag 给它打上标签。  </p>
+<p>比如说，我们想为我们的 test 项目发布一个 "1.0" 版本，我们可以用 git tag -a v1.0 命令给最新一次提交打上（HEAD） "v1.0" 的标签。  </p>
+<p>-a 选项意为"创建一个带注解的标签"，它会记录这标签是啥时候打的，谁打的。不用 -a 选项也可以执行，但我们推荐一直创建带注解的标签。  </p>
+<p>当你执行 git tag -a 命令时，Git 会打开你的编辑器，让你写一句标签注解，就像你给提交写注解一样。  </p>
+<p><code>git tag &lt;tagname&gt;</code></p>
+<p>如果我们忘了给某个提交打标签，又将它发布了，我们可以给它追加标签。  </p>
+<p><code>git tag -a &lt;tagname&gt; &lt;commit&gt;</code></p>
+<p>如果我们要查看所有标签可以使用以下命令：  </p>
+<p><code>git tag</code></p>
+<p><strong>推送标签到远程仓库</strong></p>
+<p>默认情况下，git push 不会推送标签，你需要显式地推送标签。</p>
+<p><code>git push origin &lt;tagname&gt;</code></p>
+<p>推送所有标签：</p>
+<p><code>git push origin --tags</code></p>
+<p><strong>删除标签</strong></p>
+<p>本地删除：</p>
+<p><code>git tag -d &lt;tagname&gt;</code></p>
+<p>远程删除：</p>
+<p><code>git push origin --delete &lt;tagname&gt;</code></p>
+<p><strong>附注标签</strong></p>
+<p><code>git tag -a &lt;tagname&gt; -m "message"</code></p>
+<p>查看标签信息：</p>
+<p><code>git show &lt;tagname&gt;</code></p>
+<h1 id="10-git-flow">10 Git Flow</h1>
+<p>Git Flow 是一种基于 Git 的分支模型。</p>
+<p>Git Flow 主要由以下几类分支组成：</p>
+<ul>
+<li>
+<p>主分支（main/master）</p>
+<ul>
+<li>永远保持稳定和可发布的状态。</li>
+<li>每次发布一个新的版本时，都会从 develop 分支合并到 master 分支。</li>
+</ul>
+</li>
+<li>
+<p>开发分支（develop）</p>
+<ul>
+<li>代表了最新的开发进度。</li>
+<li>功能分支、发布分支和修复分支都从这里分支出去，最终合并回这里。</li>
+</ul>
+</li>
+<li>
+<p>功能分支（feature）</p>
+<ul>
+<li>从 develop 分支创建，用于开发新功能。</li>
+<li>用于开发新功能。</li>
+<li>命名规范：feature/feature-name。</li>
+</ul>
+</li>
+<li>
+<p>发布分支（release）</p>
+<ul>
+<li>从 develop 分支创建，用于准备发布。</li>
+<li>用于准备新版本的发布。</li>
+<li>命名规范：release/release-name。</li>
+</ul>
+</li>
+<li>
+<p>热修复分支（hotfix）</p>
+<ul>
+<li>从 main 分支创建，修复完成后合并回 master 和 develop 分支，并打上版本标签。</li>
+<li>用于紧急修复生产问题。</li>
+<li>命名规范：hotfix/hotfix-name。</li>
+</ul>
+</li>
+</ul>
+<p><img alt="image.png" src="https://www.runoob.com/wp-content/uploads/2024/07/git-flow.png" />  </p>
+<p>Master 分支上的每个 Commit 应打上 Tag，Develop 分支基于 Master 创建。</p>
+<p>Feature 分支完成后合并回 Develop 分支，并通常删除该分支。</p>
+<p>Release 分支基于 Develop 创建，用于测试和修复 Bug，发布后合并回 Master 和 Develop，并打 Tag 标记版本号。</p>
+<p>Hotfix 分支基于 Master 创建，完成后合并回 Master 和 Develop，并打 Tag。</p>
+<h2 id="101-git-flow-安装">10.1 Git Flow 安装</h2>
+<p>在 Windows 上，你可以通过以下方式安装 Git Flow：</p>
+<p>使用 Git for Windows: 其中包含了 Git Flow。你可以从 Git for Windows 安装 Git，然后使用 Git Bash 来使用 Git Flow。</p>
+<h2 id="102-git-flow-工作流程">10.2 Git Flow 工作流程</h2>
+<p>1.初始化 Git Flow  </p>
+<p>首先，在项目中初始化 Git Flow。可以使用 Git Flow 插件（例如 git-flow）来简化操作。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>flow<span class="w"> </span>init
+</code></pre></div>
+
+<p>初始化时，你需要设置分支命名规则和默认分支。</p>
+<p>2.创建功能分支  </p>
+<p>当开始开发一个新功能时，从 develop 分支创建一个功能分支。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>flow<span class="w"> </span>feature<span class="w"> </span>start<span class="w"> </span>feature-name
+</code></pre></div>
+
+<p>完成开发后，将功能分支合并回 develop 分支，并删除功能分支。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>flow<span class="w"> </span>feature<span class="w"> </span>finish<span class="w"> </span>feature-name
+</code></pre></div>
+
+<p>3.创建发布分支  </p>
+<p>当准备发布一个新版本时，从 develop 分支创建一个发布分支。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>flow<span class="w"> </span>release<span class="w"> </span>start<span class="w"> </span>release-name
+</code></pre></div>
+
+<p>在发布分支上进行最后的测试和修复，准备好发布后，将发布分支合并回 develop 和 master 分支，并打上版本标签。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>flow<span class="w"> </span>release<span class="w"> </span>finish<span class="w"> </span>release-name
+</code></pre></div>
+
+<p>4.创建修复分支  </p>
+<p>当发现需要紧急修复的问题时，从 master 分支创建一个修复分支。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>flow<span class="w"> </span>hotfix<span class="w"> </span>start<span class="w"> </span>hotfix-name
+</code></pre></div>
+
+<p>修复完成后，将修复分支合并回 master 和 develop 分支，并打上版本标签。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>flow<span class="w"> </span>hotfix<span class="w"> </span>finish<span class="w"> </span>hotfix-name
+</code></pre></div>
+
+<h1 id="11-git-进阶操作">11 Git 进阶操作</h1>
+<h2 id="111-git-stash">11.1 Git Stash</h2>
+<p>允许你临时保存当前工作目录的更改，以便你可以切换到其他分支或处理其他任务。</p>
+<p>保存当前工作进度：
+<code>git stash</code></p>
+<p>查看存储的进度：
+<code>git stash list</code></p>
+<p>应用最近一次存储的进度：
+<code>git stash apply</code></p>
+<p>应用并删除最近一次存储的进度：
+<code>git stash pop</code></p>
+<p>删除特定存储：
+<code>git stash drop stash@{n}</code></p>
+<p>清空所有存储：
+<code>git stash clear</code></p>
+<h2 id="112-git-rebase">11.2 Git Rebase</h2>
+<p>变基：将一个分支上的更改移到另一个分支之上。它可以帮助保持提交历史的线性，减少合并时的冲突。</p>
+<p>变基当前分支到指定分支：
+<code>git rebase &lt;branchname&gt;</code></p>
+<p>例如，将当前分支变基到 main 分支：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>rebase<span class="w"> </span>main
+</code></pre></div>
+
+<p>交互式变基：
+<code>git rebase -i &lt;commit&gt;</code><br />
+交互式变基允许你在变基过程中编辑、删除或合并提交。常用选项包括：</p>
+<ul>
+<li>pick：保留提交</li>
+<li>reword：修改提交信息</li>
+<li>edit：编辑提交</li>
+<li>squash：将当前提交与前一个提交合并</li>
+<li>fixup：将当前提交与前一个提交合并，不保留提交信息</li>
+<li>drop：删除提交</li>
+</ul>
+<h2 id="113-git-cherry-pick">11.3 Git Cherry-Pick</h2>
+<p>允许你选择特定的提交并将其应用到当前分支。它在需要从一个分支移植特定更改到另一个分支时非常有用。   </p>
+<p><code>git cherry-pick &lt;commit&gt;</code></p>
+<p>例如，将 abc123 提交应用到当前分支：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>cherry-pick<span class="w"> </span>abc123
+</code></pre></div>
+
+<h1 id="12-git-远程仓库">12 Git 远程仓库</h1>
+<p>常用远程仓库及简单教程<br />
+GitHub：https://www.runoob.com/w3cnote/git-guide.html<br />
+GitLab：https://about.gitlab.com/<br />
+Gitee：https://gitee.com/help/articles/</p>
+<h2 id="121">12.1 <strong>关联远程仓库</strong></h2>
+<p>如果已有远程仓库（例如在 GitHub 手动创建的空仓库），可通过命令关联：</p>
+<ol>
+<li>
+<p><strong>复制远程仓库的 URL</strong><br />
+   登录 GitHub/GitLab，进入你的远程仓库页面，点击 <strong>“Code”</strong> 按钮，复制仓库的 HTTPS 或 SSH 地址（例如 <code>https://github.com/你的用户名/仓库名.git</code>）。</p>
+</li>
+<li>
+<p><strong>在 VS Code 中打开终端</strong><br />
+   快捷键：<code>Ctrl+</code>`（反引号），或点击菜单栏「终端」→「新建终端」。</p>
+</li>
+<li>
+<p><strong>执行关联命令</strong><br />
+   在终端中输入以下命令（替换为你的远程仓库 URL）：  </p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w"> </span>&gt;<span class="w">   </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/你的用户名/仓库名.git
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="o">&gt;</span><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n n-Quoted">`origin`</span><span class="w"> </span><span class="n">是远程仓库的默认别名（可自定义，但通常用</span><span class="w"> </span><span class="n n-Quoted">`origin`</span><span class="n">）。</span>
+</code></pre></div>
+
+<ol>
+<li><strong>首次推送并绑定分支</strong><br />
+   关联后，第一次推送需要指定分支并绑定（以 <code>main</code> 分支为例）：  </li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w"> </span>&gt;<span class="w">   </span>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="o">&gt;</span><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n n-Quoted">`-u`</span><span class="w"> </span><span class="n">表示将本地</span><span class="w"> </span><span class="n n-Quoted">`main`</span><span class="w"> </span><span class="n">分支与远程</span><span class="w"> </span><span class="n n-Quoted">`main`</span><span class="w"> </span><span class="n">分支绑定，后续可直接用</span><span class="w"> </span><span class="n n-Quoted">`git push`</span><span class="w"> </span><span class="n">推送。</span>
+</code></pre></div>
+
+<h2 id="122">12.2 <strong>验证是否关联成功</strong></h2>
+<p>在终端输入以下命令，若显示远程仓库 URL，则说明关联成功：  </p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>-v
+</code></pre></div>
+
+<p>输出类似：  </p>
+<div class="highlight"><pre><span></span><code>origin<span class="w">  </span>https://github.com/你的用户名/仓库名.git<span class="w"> </span><span class="o">(</span>fetch<span class="o">)</span>
+origin<span class="w">  </span>https://github.com/你的用户名/仓库名.git<span class="w"> </span><span class="o">(</span>push<span class="o">)</span>
+</code></pre></div>
+
+<h2 id="123">12.3 <strong>常见问题解决</strong></h2>
+<ul>
+<li>若提示 <code>fatal: remote origin already exists</code>：表示已关联过远程仓库，可先删除旧关联再重新添加：  </li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>rm<span class="w"> </span>origin<span class="w">  </span><span class="c1"># 删除旧关联</span>
+<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>新的远程URL<span class="w">  </span><span class="c1"># 添加新关联</span>
+</code></pre></div>
+
+<ul>
+<li>若推送失败（提示权限问题）：检查是否已登录正确账号，或远程仓库是否设置了访问权限。</li>
+</ul>
+<h2 id="124">12.4 <strong>提取远程仓库</strong></h2>
+<p>1、从远程仓库下载新分支与数据：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>fetch
+</code></pre></div>
+
+<p>该命令执行完后需要执行 git merge 远程分支到你所在的分支。</p>
+<p>2、从远端仓库提取数据并尝试合并到当前分支：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>merge
+</code></pre></div>
+
+<p>该命令就是在执行 git fetch 之后紧接着执行 git merge 远程分支到你所在的任意分支。</p>
+<p><img alt="image.png" src="https://www.runoob.com/wp-content/uploads/2015/03/main-qimg-00a6b5a8ec82400657444504c4d4d1a7.png" /></p>
+<h1 id="13-git-服务器搭建">13 Git 服务器搭建</h1>
+<p>Github 公开的项目是免费的，2019 年开始 Github 私有存储库也可以无限制使用。我们也可以自己搭建一台 Git 服务器作为私有仓库使用。</p>
+<h2 id="131-使用裸存储库bare-repository">13.1 使用裸存储库（Bare Repository）</h2>
+<p>1、安装Git</p>
+<p>接下来我们 创建一个 git 用户组和用户，用来运行git服务：</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>groupadd<span class="w"> </span>git
+$<span class="w"> </span>useradd<span class="w"> </span>git<span class="w"> </span>-g<span class="w"> </span>git
+</code></pre></div>
+
+<p>2、创建裸存储库</p>
+<p>登录到 Git 用户，然后在其 home 目录下创建一个裸存储库。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>git
+</code></pre></div>
+
+<p>首先我们选定一个目录作为 Git 仓库，假定是 /home/gitrepo/runoob.git，在 /home/gitrepo 目录下输入命令：</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/home
+$<span class="w"> </span>mkdir<span class="w"> </span>gitrepo
+$<span class="w"> </span>chown<span class="w"> </span>git:git<span class="w"> </span>gitrepo/
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>gitrepo
+
+$<span class="w"> </span>git<span class="w"> </span>init<span class="w"> </span>--bare<span class="w"> </span>runoob.git
+</code></pre></div>
+
+<p>以上命令Git创建一个空仓库，服务器上的 Git 仓库通常都以 .git 结尾。然后，把仓库所属用户改为 git（如果是其他用户操作，比如 root）：</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>git:git<span class="w"> </span>runoob.git
+</code></pre></div>
+
+<p>3、创建证书登录</p>
+<p>将你的公钥添加到 ~/.ssh/authorized_keys 中，允许远程访问。</p>
+<p>收集所有需要登录的用户的公钥，公钥位于 id_rsa.pub 文件中，把我们的公钥导入到 /home/git/.ssh/authorized_keys 文件里，一行一个。</p>
+<p>如果没有该文件创建它：</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/home/git/
+$<span class="w"> </span>mkdir<span class="w"> </span>.ssh
+$<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>.ssh
+$<span class="w"> </span>touch<span class="w"> </span>.ssh/authorized_keys
+$<span class="w"> </span>chmod<span class="w"> </span><span class="m">644</span><span class="w"> </span>.ssh/authorized_keys
+<span class="c1"># 在文件中添加你的 SSH 公钥</span>
+</code></pre></div>
+
+<p>4、克隆仓库</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>git@192.168.45.4:/home/gitrepo/runoob.git
+Cloning<span class="w"> </span>into<span class="w"> </span><span class="s1">&#39;runoob&#39;</span>...
+warning:<span class="w"> </span>You<span class="w"> </span>appear<span class="w"> </span>to<span class="w"> </span>have<span class="w"> </span>cloned<span class="w"> </span>an<span class="w"> </span>empty<span class="w"> </span>repository.
+Checking<span class="w"> </span>connectivity...<span class="w"> </span><span class="k">done</span>.
+</code></pre></div>
+
+<p>192.168.45.4 为 Git 所在服务器 ip ，你需要将其修改为你自己的 Git 服务 ip。</p>
+<p>这样我们的 Git 服务器安装就完成。</p>
+<h1 id="14-sourcetree">14 Sourcetree</h1>
+<p>Git 有很多图形界面工具 ( GUI )，比如 SourceTree、Github Desktop、TortoiseGit 等。</p>
+<p>SourceTree 是一个 Git 客户端管理工具，适用于 Windows 和 Mac 系统。</p>
+<p>可以通过界面菜单很方便的处理 Git 操作，而不需要通过命令。</p>
+<p>通过 SourceTree，我们可以管理所有的 Git 库，无论是远程还是本地的。SourceTree 支持 Bitbucket、GitHub 以及 Gitlab 等远程仓库。</p>
+<h1 id="-">-----------------------------------------</h1>
+<h1 id="15-vscode中操作gui操作">15 VSCode中操作（GUI操作）</h1>
+<p>在 VS Code 中使用 Git 非常方便，它内置了对 Git 的集成支持，无需额外安装插件即可完成大部分 Git 操作。</p>
+<h3 id="151-git">15.1 <strong>初始化或打开 Git 仓库</strong></h3>
+<ul>
+<li>
+<p><strong>新建仓库</strong>：<br />
+  打开项目文件夹后，点击左侧边栏的 <strong>源代码管理</strong> 图标（类似分支的图标），然后点击 <strong>初始化仓库</strong>，将当前文件夹转为 Git 仓库。</p>
+</li>
+<li>
+<p><strong>打开已有仓库</strong>：<br />
+  直接用 VS Code 打开包含 <code>.git</code> 文件夹的项目，会自动识别为 Git 仓库。</p>
+</li>
+</ul>
+<h3 id="152">15.2 <strong>基本操作流程</strong></h3>
+<p><strong>① 暂存更改（Stage Changes）</strong></p>
+<ul>
+<li>对文件修改后，在 <strong>源代码管理</strong> 面板中会显示更改的文件：<ul>
+<li><strong>U</strong>（未跟踪）：新创建的文件，尚未加入 Git 管理</li>
+<li><strong>M</strong>（已修改）：已跟踪文件被修改</li>
+<li><strong>D</strong>（已删除）：已跟踪文件被删除</li>
+<li><strong>A</strong> （Added） :表示这个文件是新添加到暂存区的文件</li>
+<li><strong>R</strong> （Renamed）：文件被重命名后暂存</li>
+</ul>
+</li>
+<li>点击文件右侧的 <strong>+</strong> 号，将更改暂存到暂存区（Stage）；或点击面板顶部的 <strong>+</strong> 暂存所有更改。</li>
+</ul>
+<p><strong>② 提交更改（Commit）</strong></p>
+<ul>
+<li>暂存后，在面板顶部的输入框中填写 <strong>提交信息</strong>（描述本次修改的内容），然后点击输入框下方的 <strong>√</strong> 按钮，完成提交。</li>
+<li>快捷键：<code>Ctrl+Enter</code>（提交）</li>
+</ul>
+<p><strong>③ 推送到远程仓库（Push）</strong></p>
+<ul>
+<li>首次推送需要关联远程仓库：<br />
+  点击面板中的 <strong>发布到 GitHub</strong>（或其他平台），按提示登录并创建远程仓库，或手动添加远程地址：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="c1"># 在终端中执行</span>
+<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>&lt;远程仓库URL&gt;
+</code></pre></div>
+
+<ul>
+<li>后续推送：点击面板中的 <strong>↑</strong> 按钮，将本地提交推送到远程仓库。</li>
+</ul>
+<p><strong>④ 拉取远程更新（Pull）</strong></p>
+<ul>
+<li>当远程仓库有新内容时，点击面板中的 <strong>↓</strong> 按钮，拉取远程更新到本地。</li>
+<li>若存在冲突，VS Code 会提示并提供可视化的冲突解决界面。</li>
+</ul>
+<h3 id="153">15.3 <strong>其他常用操作</strong></h3>
+<p><strong>分支管理</strong></p>
+<ul>
+<li>查看分支：点击左下角的分支名称（默认显示 <code>main</code> 或 <code>master</code>）。</li>
+<li>创建分支：点击分支名称 → <strong>创建新分支</strong>，输入分支名后回车。</li>
+<li>切换分支：在分支列表中点击目标分支即可切换。</li>
+<li>合并分支：切换到目标分支（如 <code>main</code>），右键需要合并的分支 → <strong>合并到当前分支</strong>。</li>
+</ul>
+<p><strong>查看历史记录</strong></p>
+<ul>
+<li>点击源代码管理面板中的 <strong>更多操作</strong>（...）→ <strong>查看历史记录</strong>，可查看所有提交记录，包括作者、时间、修改内容等。</li>
+</ul>
+<p><strong>对比文件修改</strong></p>
+<ul>
+<li>在更改列表中点击文件，右侧会显示 <strong>差异对比</strong>：<ul>
+<li>红色：删除的内容</li>
+<li>绿色：新增的内容</li>
+</ul>
+</li>
+<li>可直接在对比界面编辑文件。</li>
+</ul>
+<p><strong>终端操作</strong></p>
+<ul>
+<li>若需要执行复杂的 Git 命令，可打开 VS Code 终端（<code>Ctrl+</code>`），直接输入 Git 命令，例如：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>新分支名<span class="w">  </span><span class="c1"># 创建并切换分支</span>
+<span class="w"> </span>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>HEAD~1<span class="w">  </span><span class="c1"># 撤销最近一次提交</span>
+<span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w">        </span><span class="c1"># 简洁显示提交历史</span>
+</code></pre></div>
+
+<h3 id="154-git">15.4 <strong>配置 Git 信息</strong></h3>
+<p>首次使用需配置用户名和邮箱（用于提交记录）：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在终端中执行</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;你的名字&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;你的邮箱&quot;</span>
+</code></pre></div>
+
+<h1 id="16-gui图标">16 GUI图标</h1>
+<p>左下角的main说明处在main这个分支</p>
+<p>'*' 代表当前分支有未提交的修改</p>
+<p>'+' 代表有已添加未提交的修改</p>
+<p>'↑' 代表本地提交需要推送到云端</p>
+<p>'↓' 有提交需要从云端拉取</p>
+<p>这是 VS Code 「源代码管理」面板的功能菜单，每个选项对应 Git 的核心操作，以下是详细说明：</p>
+<ol>
+<li>
+<p><strong>拉取</strong></p>
+</li>
+<li>
+<p>功能：从<strong>远程仓库</strong>（如 Gitee、GitHub）拉取最新代码到本地，同步远程的更新。</p>
+</li>
+<li>
+<p>场景：团队协作时，他人提交了新代码，你需要更新本地仓库时使用。</p>
+</li>
+<li>
+<p><strong>推送</strong></p>
+</li>
+<li>
+<p>功能：将本地已提交的代码<strong>推送到远程仓库</strong>，同步本地的修改。</p>
+</li>
+<li>
+<p>场景：你在本地完成开发并提交后，需要把代码分享到远程时使用。</p>
+</li>
+<li>
+<p><strong>克隆</strong></p>
+</li>
+<li>
+<p>功能：从远程仓库<strong>复制整个项目到本地</strong>（包括所有分支、提交记录）。</p>
+</li>
+<li>
+<p>场景：首次获取别人的项目或自己的远程仓库到本地时使用。</p>
+</li>
+<li>
+<p><strong>签出到...</strong></p>
+</li>
+<li>
+<p>功能：切换到其他<strong>分支、标签或历史提交版本</strong>（“签出”即切换分支/版本）。</p>
+</li>
+<li>
+<p>场景：需要切换到 <code>dev</code> 分支开发新功能，或回退到某个历史版本调试时使用。</p>
+</li>
+<li>
+<p><strong>抓取</strong></p>
+</li>
+<li>
+<p>功能：从远程仓库<strong>获取所有分支和提交记录</strong>（但不合并到本地分支）。</p>
+</li>
+<li>区别：<code>拉取</code> = <code>抓取 + 合并</code>；<code>抓取</code> 仅获取信息，需手动合并。</li>
+<li>
+<p>场景：想先查看远程有哪些更新，再决定是否合并时使用。</p>
+</li>
+<li>
+<p><strong>提交</strong></p>
+</li>
+<li>
+<p>子菜单包含「提交」「全部提交」等选项：</p>
+<ul>
+<li><strong>提交</strong>：将本地暂存的修改<strong>记录到本地仓库</strong>（需填写提交信息）。</li>
+<li><strong>提交所有更改并推送</strong>：自动将 <strong>所有修改的文件（包括未暂存的）</strong> 暂存并提交到本地仓库。</li>
+</ul>
+<p>普通提交（无后缀）是最常用的流程，需手动暂存 + 提交。  <br />
+“全部提交” 可简化 “暂存 + 提交” 步骤，适合快速迭代。<br />
+“(修改)” 系列强调是对已有分支的增量更新。<br />
+“(已签名)” 系列用于需要身份验证的场景（如开源项目的贡献者验证）。<br />
+日常开发用 “提交” 或 “全部提交”；需要身份签名时选 “已签名” 系列；操作失误时用 “撤消上次提交” 回退。  </p>
+</li>
+<li>
+<p><strong>更改</strong></p>
+</li>
+<li>
+<p>子菜单包含「暂存所有更改」「取消暂存所有更改」等选项：</p>
+<ul>
+<li><strong>暂存所有更改</strong>：将所有修改的文件加入「暂存区」（相当于 <code>git add .</code>）。</li>
+<li><strong>取消暂存所有更改</strong>：将暂存区的文件移出（相当于 <code>git reset</code>）。</li>
+</ul>
+</li>
+<li>
+<p><strong>拉取，推送</strong></p>
+</li>
+<li>
+<p>子菜单包含「拉取（所有分支）」「推送（所有分支）」等选项：</p>
+<ul>
+<li>批量操作多个分支的拉取/推送，适合多分支管理的场景。</li>
+</ul>
+</li>
+<li>
+<p><strong>分支</strong></p>
+</li>
+<li>
+<p>子菜单包含「创建分支」「合并分支」「删除分支」等选项：</p>
+<ul>
+<li>图形化管理分支的创建、切换、合并、删除，无需记命令。</li>
+</ul>
+</li>
+<li>
+<p><strong>远程</strong></p>
+</li>
+<li>
+<p>子菜单包含「添加远程」「移除远程」「重命名远程」等选项：</p>
+<ul>
+<li>管理远程仓库的关联（如添加 Gitee 远程、删除旧的远程仓库）。</li>
+</ul>
+</li>
+<li>
+<p><strong>存储</strong></p>
+</li>
+<li>
+<p>功能：临时<strong>保存未提交的修改</strong>（相当于 <code>git stash</code>），可在后续恢复。</p>
+</li>
+<li>
+<p>场景：需要切换分支但本地有未提交的修改时，先存储再切换。</p>
+</li>
+<li>
+<p><strong>标记</strong></p>
+</li>
+<li>
+<p>功能：给特定提交记录打<strong>标签</strong>（如 <code>v1.0</code>），用于版本发布或重要节点标记。</p>
+</li>
+<li>
+<p><strong>工作树</strong></p>
+</li>
+<li>
+<p>功能：管理<strong>多个工作目录</strong>（Git 2.5+ 特性），可在不同目录中并行开发同一仓库的不同分支。</p>
+</li>
+<li>
+<p><strong>显示 GIT 输出</strong></p>
+</li>
+<li>
+<p>功能：打开 Git 命令的<strong>详细日志窗口</strong>，方便排查拉取、推送、提交时的错误。</p>
+</li>
+</ol>
+<h1 id="17-分支">17 分支</h1>
+<p>分支管理是版本控制中一个很重要的内容，在Git中主要有切换/创建分支(checkout)、合并分支(merge)两个指令。下面是部分分支操作的指令和图示</p>
+<ul>
+<li>圆圈表示一个提交(commit)记录</li>
+<li>矩形表示分支，它指向一个提交记录，由这个记录可以遍历之前所有的提交记录  </li>
+</ul>
+<p>第一步：初始化了一个git，这个git中只有一个master分支，包含两个commit记录<br />
+<img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/db719083c2b8b3dd0cf81ed64e86707f.png" /></p>
+<p>第二步：现在我们创建一个新分支，命名为develop：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>develop<span class="w"> </span><span class="c1"># 表示创建并切换到develop分支</span>
+</code></pre></div>
+
+<p><img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/a9140aca2d5a190114b18742a4e3b41f.png" /><br />
+此时master分支和develop分支都指向C1这个提交记录。</p>
+<p>第三步：我们分别在这两个分支上进行修改并提交：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit
+git<span class="w"> </span>checkout<span class="w"> </span>master<span class="w"> </span><span class="c1"># 切换到master分支</span>
+git<span class="w"> </span>commit
+</code></pre></div>
+
+<p><img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/b0144bbf7fa65efddecc756257527f28.png" /><br />
+可以看到master分支和develop分支指向了不同的提交记录</p>
+<p>第四步：接下来我们将develop分支合并到master分支中</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>merge<span class="w"> </span>develop
+</code></pre></div>
+
+<p><img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/5c2c3a669a80dba16807e6f810e63661.png" /><br />
+执行上面的指令后，产生了一个新的提交记录C4，由C4我们可以遍历之前所有的提交记录，但是此时master分支和develop分支仍然指向不同的提交记录。</p>
+<p>第五步：继续切换到develop分支，将master分支合并到develop分支中</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>master
+</code></pre></div>
+
+<p><img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/3a37bdb6325970925bb34907b6a76ac7.png" /></p>
+<h1 id="18-gui分支">18 GUI分支</h1>
+<p>点击左下角图标</p>
+<p>三个选项</p>
+<ul>
+<li>创建新分支：从当前分支创建</li>
+<li>创建新分支依据：从当前分支移动到其他分支创建</li>
+<li>签出已分离：创建临时分支。未正式保存临时分支，而离开时，会删除该分支和其提交</li>
+</ul>
+<p>命名建议：<br />
+feature/功能名（新功能）、fix/问题描述（修复bug）、docs/文档说明（文档更新）</p>
+<h1 id="19-常用命令">19 常用命令</h1>
+<h2 id="191">19.1 <strong>仓库初始化与配置</strong></h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git init</code></td>
+<td>在当前目录初始化 Git 仓库（创建 <code>.git</code> 文件夹）</td>
+</tr>
+<tr>
+<td><code>git clone &lt;远程地址&gt;</code></td>
+<td>克隆远程仓库到本地（如 <code>git clone https://gitee.com/xxx.git</code>）</td>
+</tr>
+<tr>
+<td><code>git config --global user.name "用户名"</code></td>
+<td>设置全局用户名（所有仓库生效）</td>
+</tr>
+<tr>
+<td><code>git config --global user.email "邮箱"</code></td>
+<td>设置全局邮箱</td>
+</tr>
+<tr>
+<td><code>git config user.name "用户名"</code></td>
+<td>设置当前仓库单独的用户名（覆盖全局）</td>
+</tr>
+<tr>
+<td><code>git config --list</code></td>
+<td>查看当前 Git 配置（全局加 <code>--global</code>）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="192">19.2 <strong>文件暂存与提交</strong></h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git add &lt;文件名&gt;</code></td>
+<td>暂存单个文件（如 <code>git add README.md</code>）</td>
+</tr>
+<tr>
+<td><code>git add .</code></td>
+<td>暂存当前目录所有修改（包括新增、修改，忽略 <code>.gitignore</code> 文件）</td>
+</tr>
+<tr>
+<td><code>git add -u</code></td>
+<td>暂存已跟踪文件的修改（不包括新增文件）</td>
+</tr>
+<tr>
+<td><code>git commit -m "提交信息"</code></td>
+<td>提交暂存区文件到本地仓库（需填写描述）</td>
+</tr>
+<tr>
+<td><code>git commit -am "提交信息"</code></td>
+<td>跳过暂存，直接提交所有已跟踪文件的修改（新增文件不生效）</td>
+</tr>
+<tr>
+<td><code>git commit --amend</code></td>
+<td>追加修改到上一次提交（用于修正最近的提交）</td>
+</tr>
+<tr>
+<td><code>git status</code></td>
+<td>查看文件状态（未跟踪、已暂存、已提交）</td>
+</tr>
+<tr>
+<td><code>git diff</code></td>
+<td>查看未暂存的修改内容</td>
+</tr>
+<tr>
+<td><code>git diff --staged</code></td>
+<td>查看已暂存但未提交的修改内容</td>
+</tr>
+</tbody>
+</table>
+<h2 id="193">19.3 <strong>分支管理</strong></h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git branch</code></td>
+<td>查看本地所有分支（当前分支前带 <code>*</code>）</td>
+</tr>
+<tr>
+<td><code>git branch -r</code></td>
+<td>查看远程所有分支</td>
+</tr>
+<tr>
+<td><code>git branch -a</code></td>
+<td>查看本地 + 远程所有分支</td>
+</tr>
+<tr>
+<td><code>git branch &lt;分支名&gt;</code></td>
+<td>创建新分支（如 <code>git branch feature/login</code>）</td>
+</tr>
+<tr>
+<td><code>git checkout &lt;分支名&gt;</code></td>
+<td>切换到指定分支（如 <code>git checkout dev</code>）</td>
+</tr>
+<tr>
+<td><code>git checkout -b &lt;分支名&gt;</code></td>
+<td>创建并切换到新分支（相当于 <code>branch + checkout</code>）</td>
+</tr>
+<tr>
+<td><code>git merge &lt;分支名&gt;</code></td>
+<td>合并指定分支到当前分支（如 <code>git merge feature/login</code>）</td>
+</tr>
+<tr>
+<td><code>git branch -d &lt;分支名&gt;</code></td>
+<td>删除本地分支（需先切换到其他分支，分支已合并才允许删除）</td>
+</tr>
+<tr>
+<td><code>git branch -D &lt;分支名&gt;</code></td>
+<td>强制删除本地未合并的分支</td>
+</tr>
+<tr>
+<td><code>git push origin --delete &lt;分支名&gt;</code></td>
+<td>删除远程分支（如 <code>git push gitee --delete feature/login</code>）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="194">19.4 <strong>远程仓库操作</strong></h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git remote add &lt;别名&gt; &lt;远程地址&gt;</code></td>
+<td>关联远程仓库（如 <code>git remote add gitee https://gitee.com/xxx.git</code>）</td>
+</tr>
+<tr>
+<td><code>git remote -v</code></td>
+<td>查看已关联的远程仓库（别名和地址）</td>
+</tr>
+<tr>
+<td><code>git remote remove &lt;别名&gt;</code></td>
+<td>取消关联远程仓库（如 <code>git remote remove gitee</code>）</td>
+</tr>
+<tr>
+<td><code>git fetch &lt;远程别名&gt;</code></td>
+<td>从远程拉取所有分支信息（不合并到本地）</td>
+</tr>
+<tr>
+<td><code>git pull &lt;远程别名&gt; &lt;分支名&gt;</code></td>
+<td>拉取远程分支并合并到本地当前分支（如 <code>git pull gitee main</code>）</td>
+</tr>
+<tr>
+<td><code>git push &lt;远程别名&gt; &lt;分支名&gt;</code></td>
+<td>推送本地分支到远程（如 <code>git push gitee main</code>）</td>
+</tr>
+<tr>
+<td><code>git push -u &lt;远程别名&gt; &lt;分支名&gt;</code></td>
+<td>推送并绑定本地分支与远程分支（后续可简化为 <code>git push</code>）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="195">19.5 <strong>版本回退与历史查看</strong></h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git log</code></td>
+<td>查看提交历史（按时间倒序，显示哈希、作者、时间、信息）</td>
+</tr>
+<tr>
+<td><code>git log --oneline</code></td>
+<td>简洁显示提交历史（仅哈希前7位和提交信息）</td>
+</tr>
+<tr>
+<td><code>git log --graph</code></td>
+<td>图形化显示分支合并历史</td>
+</tr>
+<tr>
+<td><code>git reset --hard &lt;提交哈希&gt;</code></td>
+<td>回退到指定版本（哈希可通过 <code>git log</code> 获取，谨慎使用）</td>
+</tr>
+<tr>
+<td><code>git reset --soft HEAD^</code></td>
+<td>撤销上一次提交（保留修改内容，回到暂存状态）</td>
+</tr>
+<tr>
+<td><code>git revert &lt;提交哈希&gt;</code></td>
+<td>创建新提交来抵消指定提交的修改（安全回退，不删除历史）</td>
+</tr>
+<tr>
+<td><code>git reflog</code></td>
+<td>查看所有操作记录（包括已删除的提交，用于找回误删版本）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="196">19.6 <strong>标签管理（用于版本发布）</strong></h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git tag</code></td>
+<td>查看所有标签</td>
+</tr>
+<tr>
+<td><code>git tag &lt;标签名&gt;</code></td>
+<td>给当前提交打标签（如 <code>git tag v1.0</code>）</td>
+</tr>
+<tr>
+<td><code>git tag &lt;标签名&gt; &lt;提交哈希&gt;</code></td>
+<td>给指定提交打标签</td>
+</tr>
+<tr>
+<td><code>git tag -a &lt;标签名&gt; -m "标签说明"</code></td>
+<td>创建带说明的标签</td>
+</tr>
+<tr>
+<td><code>git push &lt;远程别名&gt; &lt;标签名&gt;</code></td>
+<td>推送标签到远程（如 <code>git push gitee v1.0</code>）</td>
+</tr>
+<tr>
+<td><code>git push &lt;远程别名&gt; --tags</code></td>
+<td>推送所有标签到远程</td>
+</tr>
+<tr>
+<td><code>git tag -d &lt;标签名&gt;</code></td>
+<td>删除本地标签</td>
+</tr>
+<tr>
+<td><code>git push &lt;远程别名&gt; --delete &lt;标签名&gt;</code></td>
+<td>删除远程标签</td>
+</tr>
+</tbody>
+</table>
+<h2 id="197">19.7 <strong>其他常用命令</strong></h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git stash</code></td>
+<td>临时存储未提交的修改（用于切换分支前保存工作进度）</td>
+</tr>
+<tr>
+<td><code>git stash pop</code></td>
+<td>恢复最近一次存储的修改，并删除存储记录</td>
+</tr>
+<tr>
+<td><code>git stash list</code></td>
+<td>查看所有存储的修改</td>
+</tr>
+<tr>
+<td><code>git rm &lt;文件名&gt;</code></td>
+<td>删除文件并暂存删除操作（相当于 <code>rm + git add</code>）</td>
+</tr>
+<tr>
+<td><code>git rm --cached &lt;文件名&gt;</code></td>
+<td>取消跟踪文件（文件保留在本地，仅从 Git 管理中移除）</td>
+</tr>
+<tr>
+<td><code>git checkout -- &lt;文件名&gt;</code></td>
+<td>丢弃未暂存的修改（恢复到最近一次提交的状态）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="198">19.8 <strong>使用建议</strong></h2>
+<ul>
+<li>日常开发高频命令：<code>git add .</code>、<code>git commit -m ""</code>、<code>git pull</code>、<code>git push</code>、<code>git branch</code>、<code>git checkout</code>。</li>
+<li>复杂操作（如回退版本、解决冲突）建议先通过 <code>git status</code> 和 <code>git log</code> 确认当前状态，避免误操作。</li>
+<li>多平台（GitHub/Gitee）管理时，用不同远程别名区分（如 <code>origin</code> 对应 GitHub，<code>gitee</code> 对应 Gitee）。</li>
+</ul>
+<p>掌握这些命令可满足绝大多数开发场景，遇到问题时可通过 <code>git &lt;命令&gt; --help</code> 查看官方文档（如 <code>git commit --help</code>）。</p>
+<h1 id="20-gitignore">20 .gitignore</h1>
+<p><code>.gitignore</code> 文件用于告诉 Git 哪些文件或文件夹不需要纳入版本控制（避免提交垃圾文件、敏感信息或环境相关文件）</p>
+<h2 id="201">20.1 <strong>基础语法规则</strong></h2>
+<ol>
+<li><strong># 注释</strong>：以 <code>#</code> 开头的行是注释，会被 Git 忽略。</li>
+<li><strong>匹配文件/文件夹</strong>：直接写文件名或路径（如 <code>logs/</code> 忽略 logs 文件夹）。</li>
+<li><strong>通配符 <code>*</code></strong>：匹配任意字符（如 <code>*.pyc</code> 忽略所有 <code>.pyc</code> 后缀的文件）。</li>
+<li><strong>递归匹配 <code>**</code></strong>：匹配任意层级的目录（如 <code>**/temp/</code> 忽略所有目录下的 temp 文件夹）。</li>
+<li><strong>排除规则 <code>!</code></strong>：在匹配规则前加 <code>!</code> 表示“不忽略”（如 <code>!important.txt</code> 保留 important.txt，即使它被前面的规则匹配）。</li>
+<li>
+<p><strong>路径分隔符 <code>/</code></strong>：</p>
+<ul>
+<li>末尾加 <code>/</code> 表示匹配文件夹（如 <code>venv/</code> 忽略 venv 文件夹，而 <code>venv</code> 会同时忽略名为 venv 的文件或文件夹）。</li>
+<li>开头加 <code>/</code> 表示仅匹配项目根目录下的文件（如 <code>/README.md</code> 只忽略根目录的 README.md，子目录的不忽略）。</li>
+</ul>
+</li>
+</ol>
+<h2 id="202">20.2 <strong>通用模板</strong></h2>
+<p>在项目根目录创建 <code>.gitignore</code> 文件，复制以下内容（根据需求删减）：</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">Python</span><span class="w"> </span><span class="n">虚拟环境</span><span class="err">（</span><span class="n">必须忽略</span><span class="err">）</span>
+<span class="p">.</span><span class="n">venv</span><span class="o">/</span>
+<span class="n">venv</span><span class="o">/</span>
+<span class="n">env</span><span class="o">/</span>
+<span class="n">ENV</span><span class="o">/</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">字节码文件</span><span class="err">（</span><span class="n">Python</span><span class="w"> </span><span class="n">编译产物</span><span class="err">）</span>
+<span class="n">__pycache__</span><span class="o">/</span>
+<span class="o">*</span><span class="p">.</span><span class="n">py</span><span class="o">[</span><span class="n">cod</span><span class="o">]</span>
+<span class="o">*</span><span class="err">$</span><span class="n">py</span><span class="p">.</span><span class="k">class</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">日志文件</span>
+<span class="n">logs</span><span class="o">/</span>
+<span class="o">*</span><span class="p">.</span><span class="nf">log</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">临时文件</span>
+<span class="n">tmp</span><span class="o">/</span>
+<span class="n">temp</span><span class="o">/</span>
+<span class="o">*</span><span class="p">.</span><span class="n">tmp</span>
+<span class="o">*</span><span class="p">.</span><span class="n">temp</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">操作系统自动生成的文件</span>
+<span class="p">.</span><span class="n">DS_Store</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">macOS</span>
+<span class="n">Thumbs</span><span class="p">.</span><span class="n">db</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Windows</span>
+<span class="n">desktop</span><span class="p">.</span><span class="n">ini</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Windows</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">编辑器配置文件</span><span class="err">（</span><span class="n">根据你的编辑器添加</span><span class="err">）</span>
+<span class="p">.</span><span class="n">idea</span><span class="o">/</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">PyCharm</span>
+<span class="p">.</span><span class="n">vscode</span><span class="o">/</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">VS</span><span class="w"> </span><span class="n">Code</span><span class="err">（</span><span class="n">如需共享配置</span><span class="err">，</span><span class="n">可删除此行</span><span class="err">）</span>
+<span class="o">*</span><span class="p">.</span><span class="n">swp</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Vim</span><span class="w"> </span><span class="n">临时文件</span>
+<span class="o">*</span><span class="p">.</span><span class="n">swo</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Vim</span><span class="w"> </span><span class="n">临时文件</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">环境变量文件</span><span class="err">（</span><span class="n">可能包含密码</span><span class="err">、</span><span class="n">密钥</span><span class="err">）</span>
+<span class="p">.</span><span class="n">env</span>
+<span class="p">.</span><span class="n">env</span><span class="p">.</span><span class="k">local</span>
+<span class="p">.</span><span class="n">env</span><span class="p">.</span><span class="o">*</span><span class="p">.</span><span class="k">local</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">打包</span><span class="o">/</span><span class="n">分发文件</span>
+<span class="n">dist</span><span class="o">/</span>
+<span class="n">build</span><span class="o">/</span>
+<span class="o">*</span><span class="p">.</span><span class="n">egg</span><span class="o">-</span><span class="n">info</span><span class="o">/</span>
+<span class="o">*</span><span class="p">.</span><span class="n">whl</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">数据库文件</span>
+<span class="o">*</span><span class="p">.</span><span class="n">db</span>
+<span class="o">*</span><span class="p">.</span><span class="n">sqlite3</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">个人笔记</span><span class="o">/</span><span class="n">草稿</span><span class="err">（</span><span class="n">根据需要添加</span><span class="err">）</span>
+<span class="n">notes</span><span class="o">/</span>
+<span class="o">*</span><span class="p">.</span><span class="n">bak</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">备份文件</span>
+</code></pre></div>
+
+<h2 id="203">20.3 <strong>其他</strong></h2>
+<ol>
+<li>
+<p><strong>按项目类型选择模板</strong>：<br />
+   不同项目（Python/Java/前端等）有不同的忽略需求，可直接使用 <a href="https://github.com/github/gitignore">GitHub 官方 <code>.gitignore</code> 模板库</a> 中的现成模板（搜索对应语言，如 <code>Python.gitignore</code>）。</p>
+</li>
+<li>
+<p><strong>本地专属忽略</strong>：<br />
+   若某些文件仅需自己忽略（不共享给团队），可编辑 <code>.git/info/exclude</code> 文件（作用同 <code>.gitignore</code>，但不会提交到仓库）。</p>
+</li>
+<li>
+<p><strong>生效方式</strong>：<br />
+   新建 <code>.gitignore</code> 后，需要提交到仓库才能让团队成员共享规则：</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w"> </span>&gt;<span class="w">   </span>git<span class="w"> </span>add<span class="w"> </span>.gitignore
+<span class="w"> </span>&gt;<span class="w">   </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;添加 .gitignore 忽略不必要文件&quot;</span>
+</code></pre></div>
+
+<ol>
+<li><strong>已提交的文件如何忽略</strong>：<br />
+   若文件已被 Git 跟踪（之前提交过），需先移除跟踪，再忽略：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="w"> </span>&gt;<span class="w">   </span>git<span class="w"> </span>rm<span class="w"> </span>--cached<span class="w"> </span>文件名<span class="w">  </span><span class="c1"># 移除跟踪（本地文件保留）</span>
+<span class="w"> </span>&gt;<span class="w">   </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;停止跟踪 xxx 文件&quot;</span>
+</code></pre></div>
+        </article>
+        <footer class="site-footer">
+            <a href="../index.html">&larr; 返回首页</a>
+        </footer>
+    </div>
+    <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <script>
+        const btn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+        });
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

@@ -1,3 +1,8 @@
+# 目录
+
+    - [2.1.2 导入数据](#212-导入数据)
+
+---
 #  机器学习练习 Scikit-learn的介绍
 代码更新地址：https://github.com/fengdu78/WZU-machine-learning-course
 
@@ -24,7 +29,6 @@ Scikit-Learn库的算法主要有四类：分类、回归、聚类、降维。�
 
 4.  常用降维：LinearDiscriminantAnalysis、PCA。
 
-![](images/sklearn.jpeg)
 
 上图代表了Scikit-Learn算法选择的一个简单路径，这个路径图代表：蓝色圆圈是判断条件，绿色方框是可以选择的算法，我们可以根据自己的数据特征和任务目标去找一条自己的操作路线。
 
@@ -146,7 +150,6 @@ y = iris.target
 
 机器学习的数据，可以划分为训练集、验证集和测试集，也可以划分为训练集和测试集。
 
-![](images/8dcde98a61699afa97dc30596cbc71d5.png)
 
 
 
@@ -371,7 +374,6 @@ accuracy_score(y_test, y_pred)
 
 交叉验证的方法如图，具体原理将在第7章“机器学习实践”中讲解，本章仅讲解使用方法。
 
-![](images/2daa4a9b0a9881b23397ae6ddca0ff53.png)
 
 
 代码示例：

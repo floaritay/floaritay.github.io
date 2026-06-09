@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>目录 - floaritay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ]
+        });"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
+        onload="mermaid.initialize({startOnLoad:true, theme:'base', themeVariables:{primaryColor:'#f5f0e8', primaryTextColor:'#1a1814', primaryBorderColor:'rgba(26,24,20,0.12)', lineColor:'#8a8278', secondaryColor:'#faf7f0', tertiaryColor:'#faf7f0'}});"></script>
+    <style>
+        :root {
+            --paper: #f5f0e8;
+            --ink: #1a1814;
+            --ink-soft: #3d3830;
+            --ink-muted: #8a8278;
+            --ink-faint: #b5ae9f;
+            --accent: #b45309;
+            --accent-warm: #d97706;
+            --accent-soft: rgba(180, 83, 9, 0.08);
+            --teal: #0f766e;
+            --card-opaque: rgba(250, 247, 240, 0.88);
+            --border: rgba(26, 24, 20, 0.08);
+            --border-strong: rgba(26, 24, 20, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.35);
+            --shadow-sm: 0 1px 2px rgba(26, 24, 20, 0.03);
+            --shadow: 0 2px 12px rgba(26, 24, 20, 0.05), 0 1px 3px rgba(26, 24, 20, 0.03);
+            --shadow-lg: 0 8px 32px rgba(26, 24, 20, 0.07), 0 2px 8px rgba(26, 24, 20, 0.03);
+            --font-display: 'Instrument Serif', Georgia, serif;
+            --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Space Mono', 'Cascadia Code', monospace;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--ink);
+            background: var(--paper);
+            background-image:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(180, 83, 9, 0.04), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(15, 118, 110, 0.03), transparent);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.2;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(26, 24, 20, 0.12); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(26, 24, 20, 0.2); }
+
+        .page {
+            position: relative;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
+        }
+
+        .page::before {
+            content: '';
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 48px;
+            background: var(--card-opaque);
+            border-right: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        @media (max-width: 1100px) {
+            .page::before { display: none; }
+            .page { padding: 0 20px 60px; }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 32px 0 16px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            letter-spacing: 0.02em;
+        }
+        .breadcrumb a {
+            color: var(--ink-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb .sep { margin: 0 8px; color: var(--ink-faint); }
+
+        /* Article */
+        .markdown-body {
+            font-family: var(--font-body);
+            color: var(--ink-soft);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .markdown-body h1, .markdown-body h2, .markdown-body h3,
+        .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+            font-family: var(--font-display);
+            color: var(--ink);
+            font-weight: 400;
+            margin-top: 2em;
+            margin-bottom: 0.6em;
+            line-height: 1.3;
+        }
+
+        .markdown-body h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+            padding-bottom: 0.4em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h2 {
+            font-size: 1.65rem;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h3 { font-size: 1.35rem; }
+        .markdown-body h4 { font-size: 1.15rem; }
+        .markdown-body h5 { font-size: 1rem; }
+        .markdown-body h6 { font-size: 0.95rem; color: var(--ink-muted); }
+
+        .markdown-body p {
+            margin-bottom: 1em;
+        }
+
+        .markdown-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-soft);
+            transition: border-color 0.2s;
+        }
+        .markdown-body a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .markdown-body strong { color: var(--ink); font-weight: 600; }
+
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5em auto;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .markdown-body blockquote {
+            margin: 1.2em 0;
+            padding: 0.8em 1.2em;
+            border-left: 3px solid var(--accent);
+            background: var(--accent-soft);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            color: var(--ink-soft);
+        }
+        .markdown-body blockquote p:last-child { margin-bottom: 0; }
+
+        .markdown-body ul, .markdown-body ol {
+            margin: 0.8em 0;
+            padding-left: 1.8em;
+        }
+        .markdown-body li { margin-bottom: 0.3em; }
+        .markdown-body li > ul, .markdown-body li > ol { margin-top: 0.3em; }
+
+        .markdown-body code {
+            font-family: var(--font-mono);
+            font-size: 0.88em;
+            background: rgba(26, 24, 20, 0.05);
+            padding: 0.15em 0.4em;
+            border-radius: var(--radius-sm);
+            color: var(--accent);
+        }
+
+        .markdown-body pre {
+            margin: 1.2em 0;
+            padding: 1em 1.2em;
+            background: #2d2a24;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            box-shadow: var(--shadow);
+        }
+        .markdown-body pre code {
+            background: none;
+            padding: 0;
+            color: #e8e0d4;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2em 0;
+            font-size: 0.95rem;
+        }
+        .markdown-body th {
+            background: rgba(26, 24, 20, 0.04);
+            font-weight: 600;
+            text-align: left;
+            padding: 0.6em 1em;
+            border-bottom: 2px solid var(--border-strong);
+        }
+        .markdown-body td {
+            padding: 0.5em 1em;
+            border-bottom: 1px solid var(--border);
+        }
+        .markdown-body tr:hover td {
+            background: var(--accent-soft);
+        }
+
+        .markdown-body hr {
+            border: none;
+            border-top: 1px solid var(--border-strong);
+            margin: 2em 0;
+        }
+
+        /* Math blocks */
+        .math-block {
+            margin: 1.2em 0;
+            padding: 0.8em;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        /* Mermaid diagrams */
+        .mermaid {
+            margin: 1.5em 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        .mermaid svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Pygments code highlighting (dark theme matching warm palette) */
+        .highlight .hll { background-color: #49483e }
+        .highlight .c { color: #75715e }
+        .highlight .err { color: #f92672 }
+        .highlight .k { color: #66d9ef }
+        .highlight .l { color: #ae81ff }
+        .highlight .n { color: #f8f8f2 }
+        .highlight .o { color: #f92672 }
+        .highlight .p { color: #f8f8f2 }
+        .highlight .cm { color: #75715e }
+        .highlight .c1 { color: #75715e }
+        .highlight .cp { color: #75715e }
+        .highlight .kc { color: #66d9ef }
+        .highlight .kd { color: #66d9ef }
+        .highlight .kn { color: #f92672 }
+        .highlight .kp { color: #66d9ef }
+        .highlight .kr { color: #66d9ef }
+        .highlight .kt { color: #66d9ef }
+        .highlight .ld { color: #e6db74 }
+        .highlight .m { color: #ae81ff }
+        .highlight .s { color: #e6db74 }
+        .highlight .na { color: #a6e22e }
+        .highlight .nb { color: #f8f8f2 }
+        .highlight .nc { color: #a6e22e }
+        .highlight .no { color: #66d9ef }
+        .highlight .nd { color: #a6e22e }
+        .highlight .ni { color: #f8f8f2 }
+        .highlight .ne { color: #a6e22e }
+        .highlight .nf { color: #a6e22e }
+        .highlight .nl { color: #f8f8f2 }
+        .highlight .nn { color: #f8f8f2 }
+        .highlight .nx { color: #a6e22e }
+        .highlight .py { color: #f8f8f2 }
+        .highlight .nt { color: #f92672 }
+        .highlight .nv { color: #f8f8f2 }
+        .highlight .ow { color: #f92672 }
+        .highlight .w { color: #f8f8f2 }
+        .highlight .mf { color: #ae81ff }
+        .highlight .mh { color: #ae81ff }
+        .highlight .mi { color: #ae81ff }
+        .highlight .mo { color: #ae81ff }
+        .highlight .sb { color: #e6db74 }
+        .highlight .sc { color: #e6db74 }
+        .highlight .sd { color: #e6db74 }
+        .highlight .s2 { color: #e6db74 }
+        .highlight .se { color: #ae81ff }
+        .highlight .sh { color: #e6db74 }
+        .highlight .si { color: #e6db74 }
+        .highlight .sx { color: #e6db74 }
+        .highlight .sr { color: #e6db74 }
+        .highlight .s1 { color: #e6db74 }
+        .highlight .ss { color: #e6db74 }
+        .highlight .bp { color: #f8f8f2 }
+        .highlight .vc { color: #f8f8f2 }
+        .highlight .vg { color: #f8f8f2 }
+        .highlight .vi { color: #f8f8f2 }
+        .highlight .il { color: #ae81ff }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 32px 0;
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        .site-footer a {
+            color: var(--ink-muted);
+            text-decoration: none;
+        }
+        .site-footer a:hover { color: var(--accent); }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, color 0.2s, border-color 0.2s;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .page { padding: 0 16px 40px; }
+            .markdown-body h1 { font-size: 1.7rem; }
+            .markdown-body h2 { font-size: 1.35rem; }
+            .markdown-body { font-size: 0.95rem; }
+            .markdown-body pre { padding: 0.8em; }
+            .markdown-body pre code { font-size: 0.8rem; }
+            .back-to-top { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <nav class="breadcrumb">
+            <a href="index.html">floaritay</a>
+            <span class="sep">/</span>
+            <span>笔记</span>
+        </nav>
+        <article class="markdown-body">
+<h1 id="_1">目录</h1>
+<hr />
+<h1 id="_2">简介</h1>
+<p>一个用于构建 API 的现代、快速（高性能）的 web 框架，专为在 Python 中构建 RESTful API 而设计，支持前后端分离的Web应用。</p>
+<p>FastAPI 使用 Python 3.8+ 并基于标准的 Python 类型提示。</p>
+<p>FastAPI 建立在 Starlette 和 Pydantic 之上，利用类型提示进行数据处理，并自动生成API文档。</p>
+<p>FastAPI 支持异步编程，可在生产环境中运行。</p>
+<h1 id="_3">安装</h1>
+<p>需要Python 3.8 及更高版本</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>--version
+
+pip<span class="w"> </span>install<span class="w"> </span>fastapi
+</code></pre></div>
+
+<p>也可以使用以下命令直接安装 FastAPI 及所有可选依赖:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;fastapi[all]&quot;</span>
+</code></pre></div>
+
+<p>这会安装：</p>
+<ul>
+<li>fastapi - FastAPI 框架</li>
+<li>uvicorn[standard] - ASGI 服务器</li>
+<li>python-multipart - 表单和文件上传支持</li>
+<li>jinja2 - 模板引擎</li>
+<li>python-jose - JWT 令牌支持</li>
+<li>passlib - 密码哈希</li>
+<li>bcrypt - 密码加密</li>
+<li>python-dotenv - 环境变量支持</li>
+</ul>
+<p>另外我们还需要一个 ASGI 服务器，生产环境可以使用 Uvicorn 或者 Hypercorn：</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;uvicorn[standard]&quot;</span>
+</code></pre></div>
+
+<h2 id="_4">简单实例</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">uvicorn</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_root</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span> <span class="p">:</span> <span class="s1">&#39;Hello FastAPI&#39;</span><span class="p">}</span>
+</code></pre></div>
+
+<p>在命令行中运行以下命令以启动应用（文件名main.py）：</p>
+<div class="highlight"><pre><span></span><code>uvicorn<span class="w"> </span>main:app<span class="w"> </span>--reload
+</code></pre></div>
+
+<p>打开浏览器并访问 http://127.0.0.1:8000，你应该能够看到 FastAPI 自动生成的交互式文档，并在根路径 ("/") 返回的 JSON 响应。</p>
+<p>如果默认端口已经被占用：</p>
+<ul>
+<li>停止调试器</li>
+<li>打开命令面板（⇧⌘P），搜索并选择 Debug: Add Configuration</li>
+<li>选择 Python Debugger，然后选择 FastAPI</li>
+<li>这将会在 .vscode/launch.json 中创建一个自定义配置文件</li>
+<li>在 "args":[] 中添加如下内容以设置自定义端口："args": ["--port=5000"]</li>
+</ul>
+<h2 id="_5">项目结构建议</h2>
+<div class="highlight"><pre><span></span><code>my_fastapi_project/
+├── app/
+│   ├── __init__.py
+│   ├── main.py         # 应用入口
+│   ├── api/            # API路由
+│   │   ├── __init__.py
+│   │   ├── items.py
+│   │   └── users.py
+│   ├── models/         # 数据模型
+│   │   ├── __init__.py
+│   │   └── user.py
+│   ├── schemas/        # Pydantic模型
+│   │   ├── __init__.py
+│   │   └── user.py
+│   └── db/             # 数据库相关
+│       ├── __init__.py
+│       └── session.py
+├── tests/              # 测试代码
+│   ├── __init__.py
+│   └── test_api.py
+├── requirements.txt    # 依赖列表
+└── .env                # 环境变量
+</code></pre></div>
+
+<h2 id="fastapi">调试 FastAPI</h2>
+<p>在 VS Code 中：</p>
+<ol>
+<li>设置断点</li>
+<li>按 F5 启动调试</li>
+<li>在浏览器中访问 API 端点</li>
+</ol>
+<p>单元测试
+使用 pytest：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># test_main.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.testclient</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">main</span><span class="w"> </span><span class="kn">import</span> <span class="n">app</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TestClient</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_read_root</span><span class="p">():</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span> <span class="p">:</span> <span class="s1">&#39;Hello FastAPI&#39;</span><span class="p">}</span>
+</code></pre></div>
+
+<p>运行测试：</p>
+<div class="highlight"><pre><span></span><code>pytest
+</code></pre></div>
+
+<h2 id="_6">部署准备</h2>
+<p>生产服务器推荐使用：</p>
+<ul>
+<li>Uvicorn + Gunicorn</li>
+<li>Hypercorn</li>
+<li>Daphne</li>
+</ul>
+<p>Docker 部署</p>
+<p>创建 Dockerfile：</p>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9</span>
+
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+
+<span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uvicorn&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.main:app&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--host&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--port&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;80&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>构建并运行：</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>fastapi-app<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:80<span class="w"> </span>fastapi-app
+</code></pre></div>
+
+<h1 id="fast-api">Fast API应用</h1>
+<p>以下的 FastAPI 应用，在简单实例的基础上加入了一个新的路由操作（/items/{item_id}）</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span> <span class="c1"># 用于支持多种数据类型的参数注解</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span> <span class="c1"># 创建 FastAPI 实例</span>
+
+<span class="c1"># 使用了 @app.get(&quot;/&quot;) 装饰器，定义一个 GET 请求的路由，路径为根路径 &quot;/&quot;</span>
+<span class="c1"># 表示当用户通过 HTTP GET 请求访问根路径时，将执行 read_root 函数</span>
+<span class="c1"># 函数返回一个包含 {&quot;Hello&quot;: &quot;World&quot;} 的字典，这个字典会被 FastAPI 自动转换为 JSON 格式并返回给用户。    </span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> 
+<span class="k">def</span><span class="w"> </span><span class="nf">read_root</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span> <span class="p">:</span> <span class="s1">&#39;Hello FastAPI&#39;</span><span class="p">}</span>
+
+<span class="c1"># 函数接受两个参数：</span>
+<span class="c1"># item_id  是路径参数，指定为整数类型。</span>
+<span class="c1"># q        是查询参数，指定为字符串类型或空（None）。允许在请求中不提供 q 参数。</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/items/</span><span class="si">{item_id}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;item_id&#39;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="n">q</span><span class="p">}</span>
+</code></pre></div>
+
+<h1 id="fastapi-api">FastAPI 交互式 API 文档</h1>
+<p>FastAPI 提供了内置的交互式 API 文档。</p>
+<p>这个文档是自动生成的，基于 OpenAPI 规范，支持 Swagger UI 和 ReDoc 两种交互式界面。</p>
+<p>在运行 FastAPI 应用时，Uvicorn 同时启动了交互式 API 文档服务。</p>
+<ol>
+<li>
+<p>默认情况下，你可以通过访问 http://127.0.0.1:8000/docs 来打开 Swagger UI 风格的文档（注意是http）：</p>
+<div class="highlight"><pre><span></span><code>Swagger UI 提供了一个直观的用户界面，用于浏览 API 的各个端点、查看请求和响应的结构，并支持直接在文档中进行 API 请求测试。
+
+通过 Swagger UI，你可以轻松理解每个路由操作的输入参数、输出格式和请求示例。
+</code></pre></div>
+
+</li>
+<li>
+<p>或者通过 http://127.0.0.1:8000/redoc 来打开 ReDoc 风格的文档。</p>
+<div class="highlight"><pre><span></span><code>ReDoc 是另一种交互式文档界面，具有清晰简洁的外观。它使得开发者能够以可读性强的方式查看 API 的描述、请求和响应。
+
+与 Swagger UI 不同，ReDoc 的设计强调文档的可视化和用户体验。
+</code></pre></div>
+
+</li>
+<li>
+<p>实时更新： 交互式文档会实时更新，反映出应用代码的最新更改。</p>
+</li>
+<li>自动验证： 输入参数的类型和格式会得到自动验证，降低了错误的可能性。</li>
+<li>便于测试： 可以直接在文档中进行 API 请求测试，避免使用其他工具。</li>
+</ol>
+<p>接下来我们修改 main.py 文件来从 PUT 请求中接收请求体。</p>
+<p>我们借助 Pydantic 来使用标准的 Python 类型声明请求体。</p>
+<p>修改完代码后，我们不需要重启服务器，因为服务器将会自动重载，因为在前面的章节中 uvicorn 命令添加了 --reload 选项。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">is_offer</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_root</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;Hello&quot;</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span><span class="p">}</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/</span><span class="si">{item_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">q</span><span class="p">}</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s2">&quot;/items/</span><span class="si">{item_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;item_name&quot;</span><span class="p">:</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
+</code></pre></div>
+
+<p>访问 http://127.0.0.1:8000/docs</p>
+<p>点击「Try it out」按钮，之后你可以填写参数并直接调用 API</p>
+<p>然后点击「Execute」按钮，用户界面将会和 API 进行通信，发送参数，获取结果并在屏幕上展示</p>
+<p>访问 http://127.0.0.1:8000/redoc 同理</p>
+<h1 id="fastapi_1">FastAPI 基本路由</h1>
+<p>? 和 &amp; 是 查询字符串（Query String） 的分隔符，用于传递 GET 请求的参数。</p>
+<p><code>?</code> 标记查询字符串的开始  </p>
+<ul>
+<li>格式：路径?参数1=值1&amp;参数2=值2...</li>
+</ul>
+<p><code>&amp;</code> 用于分隔多个参数</p>
+<p><code>=</code> 键值对分隔</p>
+<ul>
+<li>例如：?q=foo&amp;q=bar</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>http://</td>
+<td>协议（HTTP）</td>
+</tr>
+<tr>
+<td>127.0.0.1</td>
+<td>服务器地址（本地）</td>
+</tr>
+<tr>
+<td>:8000</td>
+<td>端口号（FastAPI 默认端口）</td>
+</tr>
+<tr>
+<td>/items/</td>
+<td>路径（路由）</td>
+</tr>
+<tr>
+<td>?</td>
+<td>查询字符串开始</td>
+</tr>
+<tr>
+<td>skip=1</td>
+<td>参数1（跳过1条数据）</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>参数分隔符</td>
+</tr>
+<tr>
+<td>limit=5</td>
+<td>参数2（限制返回5条数据）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>参数顺序不重要</li>
+<li>如果未指定类型（如 skip: int），则参数值会被解析为字符串</li>
+<li>如果参数有默认值（如 skip: int = 0），则该参数是可选的</li>
+<li>参数可以是列表或复杂类型</li>
+</ul>
+<h2 id="_7">查询参数路由</h2>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+   <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="n">skip</span><span class="p">,</span> <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">}</span>
+</code></pre></div>
+
+<p>URL 结构：http://127.0.0.1:8000/items/?skip=1&amp;limit=5<br />
+参数位置：在 ? 之后，以 key=value 形式传递。</p>
+<h2 id="_8">路径参数路由</h2>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/</span><span class="si">{item_id}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># 注意{item_id}</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+   <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">q</span><span class="p">}</span>
+</code></pre></div>
+
+<p>URL 结构：http://127.0.0.1:8000/items/123?q=search<br />
+参数位置：<br />
+item_id：在路径中（/items/123）。<br />
+q：在查询字符串中（?q=search）。 </p>
+<h1 id="fastapi_2">FastAPI 请求和响应</h1>
+<h2 id="_9">请求体</h2>
+<p>接下来创建一个 /items/ 路由，使用 @app.post 装饰器表示这是一个处理 POST 请求的路由。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">is_offer</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span> 
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/items/&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_item</span><span class="p">(</span><span class="n">item</span><span class="p">:</span><span class="n">Item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">item</span>
+</code></pre></div>
+
+<h2 id="_10">响应体</h2>
+<p>返回 JSON 数据<br />
+路由处理函数返回一个字典，该字典将被 FastAPI 自动转换为 JSON 格式，并作为响应发送给客户端：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 例如之前的</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/items/</span><span class="si">{item_id}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;item_id&#39;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="n">q</span><span class="p">}</span>
+</code></pre></div>
+
+<p>返回 Pydantic 模型<br />
+路由处理函数返回一个 Pydantic 模型实例，FastAPI 将自动将其转换为 JSON 格式，并作为响应发送给客户端：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 例如之前的</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">is_offer</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span> 
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/items/&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_item</span><span class="p">(</span><span class="n">item</span><span class="p">:</span><span class="n">Item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">item</span>
+</code></pre></div>
+
+<h2 id="cookie">请求头和 Cookie</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Header</span><span class="p">,</span><span class="n">Cookie</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span> 
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/items/&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_items</span><span class="p">(</span><span class="n">user_agent</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="n">Header</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span><span class="n">session_token</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="n">Cookie</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;user_agent&#39;</span><span class="p">:</span> <span class="n">user_agent</span><span class="p">,</span> <span class="s1">&#39;session_token&#39;</span><span class="p">:</span> <span class="n">session_token</span><span class="p">}</span>
+</code></pre></div>
+
+<h2 id="_11">重定向和状态码</h2>
+<p>以下代码在浏览器访问 http://127.0.0.1:8000/redirect/ 会自动跳转到 http://127.0.0.1:8000/items/ 页面：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Header</span><span class="p">,</span><span class="n">Cookie</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.responses</span><span class="w"> </span><span class="kn">import</span> <span class="n">RedirectResponse</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span> 
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/items/&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_items</span><span class="p">(</span><span class="n">user_agent</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="n">Header</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span><span class="n">session_token</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="n">Cookie</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;user_agent&#39;</span><span class="p">:</span> <span class="n">user_agent</span><span class="p">,</span> <span class="s1">&#39;session_token&#39;</span><span class="p">:</span> <span class="n">session_token</span><span class="p">}</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/redirect/&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">redirect</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">RedirectResponse</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;/items/&#39;</span><span class="p">)</span>    
+</code></pre></div>
+
+<p>使用 HTTPException 抛出异常，返回自定义的状态码和详细信息。</p>
+<p>以下实例在 item_id 为 42 会返回 404 状态码：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPException</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/items/</span><span class="si">{item_id}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">item_id</span> <span class="o">==</span> <span class="mi">42</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span><span class="n">detail</span><span class="o">=</span><span class="s1">&#39;item not found&#39;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;item_id&#39;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
+</code></pre></div>
+
+<h2 id="_12">自定义响应头</h2>
+<p>使用 JSONResponse 自定义响应头:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.reponses</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONResponse</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/items/</span><span class="si">{item_id}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;X-Custom-Header&#39;</span><span class="p">:</span><span class="s1">&#39;custom-header-value&#39;</span><span class="p">}</span>
+    <span class="n">content</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;item_id&#39;</span><span class="p">:</span><span class="n">item_id</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">JSONResponse</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span><span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div>
+
+<h1 id="fastapi-pydantic">FastAPI Pydantic 模型</h1>
+<p>Pydantic 是一个用于数据验证和序列化的 Python 模型库。</p>
+<p>它在 FastAPI 中广泛使用，用于定义请求体、响应体和其他数据模型，提供了强大的类型检查和自动文档生成功能。</p>
+<p>使用 Pydantic 定义一个模型非常简单，只需创建一个继承自 pydantic.BaseModel 的类，并在其中定义字段。</p>
+<p>字段的类型可以是任何有效的 Python 类型，也可以是 Pydantic 内置的类型。</p>
+<h2 id="_13">请求体验证</h2>
+<p>在 FastAPI 中，可以将 Pydantic 模型用作请求体（Request Body），以自动验证和解析客户端发送的数据。</p>
+<p>create_item 路由处理函数接受一个名为 item 的参数，其类型是 Item 模型。FastAPI 将自动验证传入的 JSON 数据是否符合模型的定义，并将其转换为 Item 类型的实例。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span><span class="nb">str</span>
+    <span class="n">price</span><span class="p">:</span><span class="nb">float</span>
+    <span class="n">description</span><span class="p">:</span><span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">tax</span><span class="p">:</span><span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span> 
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/items/&#39;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_item</span><span class="p">(</span><span class="n">item</span><span class="p">:</span><span class="n">Item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">item</span>
+
+<span class="c1"># 请求连接示例：</span>
+<span class="c1"># curl -X POST &quot;http://127.0.0.1:8000/items/&quot; -H &quot;accept: application/json&quot; -H &quot;Content-Type: application/json&quot; -d &#39;{&quot;name&quot;:&quot;Foo&quot;,&quot;price&quot;:35.5,&quot;description&quot;:&quot;A very nice Item&quot;,&quot;tax&quot;:3.5}&#39;</span>
+</code></pre></div>
+
+<h2 id="_14">查询参数验证</h2>
+<p>read_item 路由处理函数接受一个 Item 模型的实例作为查询参数，以及一个名为 q 的字符串查询参数。通过使用 Query 函数，我们还可以为查询参数指定更多的验证规则，如最大长度限制。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Query</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/items/&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item</span><span class="p">:</span><span class="n">Item</span><span class="p">,</span><span class="n">q</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="n">Query</span><span class="p">(</span><span class="o">...</span><span class="p">,</span><span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;item&#39;</span><span class="p">:</span><span class="n">item</span><span class="p">,</span><span class="s1">&#39;q&#39;</span><span class="p">:</span><span class="n">q</span><span class="p">}</span>
+</code></pre></div>
+
+<h1 id="fastapi_3">FastAPI 路径操作依赖项</h1>
+<p>允许你在路由处理函数执行之前或之后运行一些额外的逻辑。</p>
+<p>依赖项就是一个函数，且可以使用与路径操作函数相同的参数。</p>
+<p>路径操作依赖项提供了一种灵活的方式来组织代码、验证输入、进行身份验证等。</p>
+<h2 id="_15">依赖项</h2>
+<p>路由操作函数执行前或后运行的可复用的函数或对象。</p>
+<ul>
+<li>预处理（Before）依赖项： 在路由操作函数执行前运行，用于预处理输入数据，验证请求等。</li>
+<li>后处理（After）依赖项： 在路由操作函数执行后运行，用于执行一些后处理逻辑，如日志记录、清理等。</li>
+</ul>
+<p>依赖注入是将依赖项注入到路由操作函数中的过程。</p>
+<p>在 FastAPI 中，通过在路由操作函数参数中声明依赖项来实现依赖注入。</p>
+<p>FastAPI 将负责解析依赖项的参数，并确保在执行路由操作函数之前将其传递给函数。</p>
+<h2 id="_16">预处理</h2>
+<p>common_parameters 是一个依赖项函数，它接受查询参数 q、skip 和 limit，并返回一个包含这些参数的字典。</p>
+<p>在路由操作函数 read_items 中，通过传入 Depends(common_parameters)，我们使用了这个依赖项函数，实现了在路由执行前预处理输入数据的功能。</p>
+<p>FastAPI 将在执行路由操作函数之前运行 common_parameters 函数，并将其返回的结果传递给 read_items 函数。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span><span class="n">Depends</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">common_parameters</span><span class="p">(</span><span class="n">q</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">skip</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">limit</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span><span class="n">q</span><span class="p">,</span><span class="s1">&#39;skip&#39;</span><span class="p">:</span><span class="n">skip</span><span class="p">,</span><span class="s1">&#39;limit&#39;</span><span class="p">:</span><span class="n">limit</span><span class="p">}</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/items/&#39;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">commons</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">common_parameters</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="n">commons</span>
+</code></pre></div>
+
+<h2 id="_17">后处理</h2>
+<p>以下例子中，after_request 是一个后处理函数，用于在路由执行后执行一些逻辑。</p>
+<p>在路由操作函数 read_items_after 中，通过传入 Depends(after_request)，我们使用了这个后处理依赖项，实现了在路由执行后进行额外操作的功能。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># -----同上------</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span><span class="n">Depends</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">common_parameters</span><span class="p">(</span><span class="n">q</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">skip</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">limit</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span><span class="n">q</span><span class="p">,</span><span class="s1">&#39;skip&#39;</span><span class="p">:</span><span class="n">skip</span><span class="p">,</span><span class="s1">&#39;limit&#39;</span><span class="p">:</span><span class="n">limit</span><span class="p">}</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/items/&#39;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">commons</span><span class="p">:</span><span class="nb">dict</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">common_parameters</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="n">commons</span>
+
+<span class="c1"># -----后处理-----</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">after_request</span><span class="p">():</span>
+    <span class="c1"># 这里可以执行一些后处理逻辑，比如记录日志</span>
+    <span class="k">pass</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span> <span class="c1"># esponse_model=dict 用于指定路由返回的响应数据的模型</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_items_after</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">after_request</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Items returned successfully&quot;</span><span class="p">}</span>
+</code></pre></div>
+
+<h2 id="_18">多个依赖项的组合</h2>
+<p>common_parameters 和 verify_token 是两个不同的依赖项函数，verify_token 依赖于 common_parameters，</p>
+<p>这种组合依赖项的方式允许我们在路由执行前先验证一些参数，然后在进行身份验证。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">HTTPException</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="c1"># 依赖项函数1</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">common_parameters</span><span class="p">(</span><span class="n">q</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">q</span><span class="p">,</span> <span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="n">skip</span><span class="p">,</span> <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">}</span>
+
+<span class="c1"># 依赖项函数2</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">verify_token</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">common_parameters</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Token required&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">token</span>
+
+<span class="c1"># 路由操作函数</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_items</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">verify_token</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="n">token</span>
+</code></pre></div>
+
+<h2 id="_19">异步依赖项</h2>
+<p>依赖项函数和后处理函数可以是异步的，允许在它们内部执行异步操作。</p>
+<p>以下例子中，get_token 是一个异步的依赖项函数，模拟了一个异步操作。</p>
+<p>在路由操作函数 read_items 中，我们使用了这个异步依赖项函数。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">HTTPException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="c1"># 异步依赖项函数</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_token</span><span class="p">():</span>
+    <span class="c1"># 模拟异步操作</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;fake-token&quot;</span>
+
+<span class="c1"># 异步路由操作函数</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_items</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_token</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">}</span>
+</code></pre></div>
+
+<h1 id="fastapi_4">FastAPI 表单数据</h1>
+<p>在 FastAPI 中，接收表单数据是一种常见的操作，通常用于处理用户通过 HTML 表单提交的数据。</p>
+<p>FastAPI 提供了 Form 类型，可以用于声明和验证表单数据。</p>
+<p>接下来我们设计一个接收一个登陆的表单数据，要使用表单，需预先安装 python-multipart：</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>python-multipart。
+</code></pre></div>
+
+<h2 id="_20">声明表单数据模型</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">Form</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/login/&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Form</span><span class="p">(),</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Form</span><span class="p">()):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">username</span><span class="p">}</span>
+</code></pre></div>
+
+<p>使用 Pydantic 模型来声明表单数据模型。</p>
+<p>在模型中，使用 Field 类型声明每个表单字段，并添加必要的验证规则。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Item Name&quot;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Item Description&quot;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Item Price&quot;</span><span class="p">,</span> <span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="_21">在路由中接收表单数据</h2>
+<p>在路由操作函数中，可以使用 Form 类型来接收表单数据。</p>
+<p>Form 类型的参数可以与 Pydantic 模型的字段一一对应，以实现表单数据的验证和转换。</p>
+<p>create_item 路由操作函数接收了三个表单字段：name、description 和 price，这些字段与 Item 模型的相应字段一致，FastAPI 将自动根据验证规则验证表单数据。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">Form</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="c1"># 路由操作函数</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/items/&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Form</span><span class="p">(</span><span class="o">...</span><span class="p">),</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Form</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Form</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="n">price</span><span class="p">}</span>
+</code></pre></div>
+
+<h2 id="_22">处理文件上传</h2>
+<p>如果表单包含文件上传，可以使用 UploadFile 类型处理。</p>
+<p>create_file 路由操作函数接收了一个 UploadFile 类型的文件参数。</p>
+<p>FastAPI 将负责处理文件上传，并将文件的相关信息包装在 UploadFile 对象中，可以轻松地获取文件名、内容类型等信息。</p>
+<p>通过上述方式，FastAPI 提供了一种简单而强大的方法来接收和处理表单数据，同时保持了代码的清晰性和可维护性。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">UploadFile</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="c1"># 路由操作函数</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/files/&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_file</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="n">UploadFile</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="n">file</span><span class="o">.</span><span class="n">filename</span><span class="p">}</span>
+</code></pre></div>
+
+<h1 id="fastapi_5">FastAPI 核心概念</h1>
+<h1 id="http">HTTP 相关</h1>
+<p>HTTP（超文本传输协议）是一种用于从网络传输超文本到本地浏览器的传输协议。它定义了客户端与服务器之间请求和响应的格式。HTTP 工作在 TCP/IP 模型之上，通常使用端口 80。</p>
+<p>HTTPS（超文本传输安全协议）是 HTTP 的安全版本，它在 HTTP 下增加了 SSL/TLS 协议，提供了数据加密、完整性校验和身份验证。HTTPS 通常使用端口 443。</p>
+<p>主要的HTTP方法有：</p>
+<ul>
+<li>GET：请求从服务器获取指定资源。这是最常用的方法，用于访问页面。</li>
+<li>POST：请求服务器接受并处理请求体中的数据，通常用于表单提交。</li>
+<li>PUT：请求服务器存储一个资源，并用请求体中的内容替换目标资源的所有内容。</li>
+<li>DELETE：请求服务器删除指定的资源。</li>
+<li>HEAD：与 GET 类似，但不获取资源的内容，只获取响应头信息。</li>
+</ul>
+<p>状态码分为五类：</p>
+<ul>
+<li>1xx（信息性状态码）：表示接收的请求正在处理。</li>
+<li>2xx（成功状态码）：表示请求正常处理完毕。</li>
+<li>3xx（重定向状态码）：需要后续操作才能完成这一请求。</li>
+<li>4xx（客户端错误状态码）：表示请求包含语法错误或无法完成。</li>
+<li>5xx（服务器错误状态码）：服务器在处理请求的过程中发生了错误。</li>
+</ul>
+<p>版本</p>
+<ul>
+<li>HTTP/1.1：支持持久连接，允许多个请求/响应通过同一个 TCP 连接传输，减少了建立和关闭连接的消耗。</li>
+<li>HTTP/2：基于二进制分帧，支持多路复用，允许同时通过单一的 HTTP/2 连接发起多重的、独立的、双向的交流。</li>
+<li>HTTP/3：基于 QUIC 协议，旨在减少网络延迟，提高传输速度和安全性。</li>
+</ul>
+<p>Web 服务器有：Nginx 服务器，Apache 服务器，IIS 服务器（Internet Information Services）等。</p>
+<h2 id="_23">消息结构</h2>
+<p>请求消息结构</p>
+<ul>
+<li>
+<p>请求行（Request Line）：</p>
+<ul>
+<li>方法：如 GET、POST、PUT、DELETE等，指定要执行的操作。</li>
+<li>请求 URI（统一资源标识符）：请求的资源路径，通常包括主机名、端口号（如果非默认）、路径和查询字符串。</li>
+<li>HTTP 版本：如 HTTP/1.1 或 HTTP/2。</li>
+<li>请求行的格式示例：GET /index.html HTTP/1.1</li>
+</ul>
+</li>
+<li>
+<p>请求头（Request Headers）：</p>
+<ul>
+<li>包含了客户端环境信息、请求体的大小（如果有）、客户端支持的压缩类型等。</li>
+<li>常见的请求头包括Host、User-Agent、Accept、Accept-Encoding、Content-Length等。</li>
+</ul>
+</li>
+<li>
+<p>空行：</p>
+<ul>
+<li>请求头和请求体之间的分隔符，表示请求头的结束。</li>
+</ul>
+</li>
+<li>
+<p>请求体（可选）：</p>
+<ul>
+<li>在某些类型的HTTP请求（如 POST 和 PUT）中，请求体包含要发送给服务器的数据。</li>
+</ul>
+</li>
+</ul>
+<p>响应消息结构</p>
+<ul>
+<li>
+<p>状态行（Status Line）：</p>
+<ul>
+<li>HTTP 版本：与请求消息中的版本相匹配。</li>
+<li>状态码：三位数，表示请求的处理结果，如 200 表示成功，404 表示未找到资源。</li>
+<li>状态信息：状态码的简短描述。</li>
+<li>状态行的格式示例：HTTP/1.1 200 OK</li>
+</ul>
+</li>
+<li>
+<p>响应头（Response Headers）：</p>
+<ul>
+<li>包含了服务器环境信息、响应体的大小、服务器支持的压缩类型等。</li>
+<li>常见的响应头包括Content-Type、Content-Length、Server、Set-Cookie等。</li>
+</ul>
+</li>
+<li>
+<p>空行：</p>
+<ul>
+<li>响应头和响应体之间的分隔符，表示响应头的结束。</li>
+</ul>
+</li>
+<li>
+<p>响应体（可选）：</p>
+<ul>
+<li>包含服务器返回的数据，如请求的网页内容、图片、JSON数据等。</li>
+</ul>
+</li>
+</ul>
+<h2 id="_24">响应头</h2>
+<table>
+<thead>
+<tr>
+<th>响应头信息（英文）</th>
+<th>响应头信息（中文）</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Date</td>
+<td>日期</td>
+<td>响应生成的日期和时间。例如：Wed, 18 Apr 2024 12:00:00 GMT</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>服务器</td>
+<td>服务器软件的名称和版本。例如：Apache/2.4.1 (Unix)</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>内容类型</td>
+<td>响应体的媒体类型（MIME类型），如text/html; charset=UTF-8, application/json等。</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>内容长度</td>
+<td>响应体的大小，单位是字节。例如：3145</td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td>内容编码</td>
+<td>响应体的压缩编码，如 gzip, deflate等。</td>
+</tr>
+<tr>
+<td>Content-Language</td>
+<td>内容语言</td>
+<td>响应体的语言。例如：zh-CN</td>
+</tr>
+<tr>
+<td>Content-Location</td>
+<td>内容位置</td>
+<td>响应体的 URI。例如：/index.html</td>
+</tr>
+<tr>
+<td>Content-Range</td>
+<td>内容范围</td>
+<td>响应体的字节范围，用于分块传输。例如：bytes 0-999/8000</td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>缓存控制</td>
+<td>控制响应的缓存行为, 如 no-cache 表示必须重新请求。</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>连接</td>
+<td>管理连接的选项，如keep-alive或close，keep-alive 表示连接不会在传输后关闭。</td>
+</tr>
+<tr>
+<td>Set-Cookie</td>
+<td>设置 Cookie</td>
+<td>设置客户端的 cookie。例如：sessionId=abc123; Path=/; Secure</td>
+</tr>
+<tr>
+<td>Expires</td>
+<td>过期时间</td>
+<td>响应体的过期日期和时间。例如：Thu, 18 Apr 2024 12:00:00 GMT</td>
+</tr>
+<tr>
+<td>Last-Modified</td>
+<td>最后修改时间</td>
+<td>资源最后被修改的日期和时间。例如：Wed, 18 Apr 2024 11:00:00 GMT</td>
+</tr>
+<tr>
+<td>ETag</td>
+<td>实体标签</td>
+<td>资源的特定版本的标识符。例如："33a64df551425fcc55e6"</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>位置</td>
+<td>用于重定向的 URI。例如：/newresource</td>
+</tr>
+<tr>
+<td>Pragma</td>
+<td>实现特定的指令</td>
+<td>包含实现特定的指令，如 no-cache。</td>
+</tr>
+<tr>
+<td>WWW-Authenticate</td>
+<td>认证信息</td>
+<td>认证信息，通常用于HTTP认证。例如：Basic realm="Access to the site"</td>
+</tr>
+<tr>
+<td>Accept-Ranges</td>
+<td>接受范围</td>
+<td>指定可接受的请求范围类型。例如：bytes</td>
+</tr>
+<tr>
+<td>Age</td>
+<td>经过时间</td>
+<td>响应生成后经过的秒数，从原始服务器生成到代理服务器。例如：24</td>
+</tr>
+<tr>
+<td>Allow</td>
+<td>允许方法</td>
+<td>列出资源允许的 HTTP 方法 。例如：GET, POST，HEAD等</td>
+</tr>
+<tr>
+<td>Vary</td>
+<td>变化</td>
+<td>告诉下游代理如何使用响应头信息来确定响应是否可以从缓存中获取。例如：Accept</td>
+</tr>
+<tr>
+<td>Strict-Transport-Security</td>
+<td>严格传输安全</td>
+<td>指示浏览器仅通过 HTTPS 与服务器通信。例如：max-age=31536000; includeSubDomains</td>
+</tr>
+<tr>
+<td>X-Frame-Options</td>
+<td>框架选项</td>
+<td>控制页面是否允许在框架中显示，防止点击劫持攻击。例如：SAMEORIGIN</td>
+</tr>
+<tr>
+<td>X-Content-Type-Options</td>
+<td>内容类型选项</td>
+<td>指示浏览器不要尝试猜测资源的 MIME 类型。例如：nosniff</td>
+</tr>
+<tr>
+<td>X-XSS-Protection</td>
+<td>XSS保护</td>
+<td>控制浏览器的 XSS 过滤和阻断。例如：1; mode=block</td>
+</tr>
+<tr>
+<td>Public-Key-Pins</td>
+<td>公钥固定</td>
+<td>HTTP 头信息，用于HTTP公共密钥固定（HPKP），一种安全机制，用于防止中间人攻击。例如：pin-sha256="base64+primarykey"; pin-sha256="base64+backupkey"; max-age=expireTime</td>
+</tr>
+</tbody>
+</table>
+        </article>
+        <footer class="site-footer">
+            <a href="index.html">&larr; 返回首页</a>
+        </footer>
+    </div>
+    <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <script>
+        const btn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+        });
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

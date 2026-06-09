@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>目录 - floaritay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ]
+        });"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
+        onload="mermaid.initialize({startOnLoad:true, theme:'base', themeVariables:{primaryColor:'#f5f0e8', primaryTextColor:'#1a1814', primaryBorderColor:'rgba(26,24,20,0.12)', lineColor:'#8a8278', secondaryColor:'#faf7f0', tertiaryColor:'#faf7f0'}});"></script>
+    <style>
+        :root {
+            --paper: #f5f0e8;
+            --ink: #1a1814;
+            --ink-soft: #3d3830;
+            --ink-muted: #8a8278;
+            --ink-faint: #b5ae9f;
+            --accent: #b45309;
+            --accent-warm: #d97706;
+            --accent-soft: rgba(180, 83, 9, 0.08);
+            --teal: #0f766e;
+            --card-opaque: rgba(250, 247, 240, 0.88);
+            --border: rgba(26, 24, 20, 0.08);
+            --border-strong: rgba(26, 24, 20, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.35);
+            --shadow-sm: 0 1px 2px rgba(26, 24, 20, 0.03);
+            --shadow: 0 2px 12px rgba(26, 24, 20, 0.05), 0 1px 3px rgba(26, 24, 20, 0.03);
+            --shadow-lg: 0 8px 32px rgba(26, 24, 20, 0.07), 0 2px 8px rgba(26, 24, 20, 0.03);
+            --font-display: 'Instrument Serif', Georgia, serif;
+            --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Space Mono', 'Cascadia Code', monospace;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--ink);
+            background: var(--paper);
+            background-image:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(180, 83, 9, 0.04), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(15, 118, 110, 0.03), transparent);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.2;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(26, 24, 20, 0.12); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(26, 24, 20, 0.2); }
+
+        .page {
+            position: relative;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
+        }
+
+        .page::before {
+            content: '';
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 48px;
+            background: var(--card-opaque);
+            border-right: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        @media (max-width: 1100px) {
+            .page::before { display: none; }
+            .page { padding: 0 20px 60px; }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 32px 0 16px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            letter-spacing: 0.02em;
+        }
+        .breadcrumb a {
+            color: var(--ink-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb .sep { margin: 0 8px; color: var(--ink-faint); }
+
+        /* Article */
+        .markdown-body {
+            font-family: var(--font-body);
+            color: var(--ink-soft);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .markdown-body h1, .markdown-body h2, .markdown-body h3,
+        .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+            font-family: var(--font-display);
+            color: var(--ink);
+            font-weight: 400;
+            margin-top: 2em;
+            margin-bottom: 0.6em;
+            line-height: 1.3;
+        }
+
+        .markdown-body h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+            padding-bottom: 0.4em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h2 {
+            font-size: 1.65rem;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h3 { font-size: 1.35rem; }
+        .markdown-body h4 { font-size: 1.15rem; }
+        .markdown-body h5 { font-size: 1rem; }
+        .markdown-body h6 { font-size: 0.95rem; color: var(--ink-muted); }
+
+        .markdown-body p {
+            margin-bottom: 1em;
+        }
+
+        .markdown-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-soft);
+            transition: border-color 0.2s;
+        }
+        .markdown-body a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .markdown-body strong { color: var(--ink); font-weight: 600; }
+
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5em auto;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .markdown-body blockquote {
+            margin: 1.2em 0;
+            padding: 0.8em 1.2em;
+            border-left: 3px solid var(--accent);
+            background: var(--accent-soft);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            color: var(--ink-soft);
+        }
+        .markdown-body blockquote p:last-child { margin-bottom: 0; }
+
+        .markdown-body ul, .markdown-body ol {
+            margin: 0.8em 0;
+            padding-left: 1.8em;
+        }
+        .markdown-body li { margin-bottom: 0.3em; }
+        .markdown-body li > ul, .markdown-body li > ol { margin-top: 0.3em; }
+
+        .markdown-body code {
+            font-family: var(--font-mono);
+            font-size: 0.88em;
+            background: rgba(26, 24, 20, 0.05);
+            padding: 0.15em 0.4em;
+            border-radius: var(--radius-sm);
+            color: var(--accent);
+        }
+
+        .markdown-body pre {
+            margin: 1.2em 0;
+            padding: 1em 1.2em;
+            background: #2d2a24;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            box-shadow: var(--shadow);
+        }
+        .markdown-body pre code {
+            background: none;
+            padding: 0;
+            color: #e8e0d4;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2em 0;
+            font-size: 0.95rem;
+        }
+        .markdown-body th {
+            background: rgba(26, 24, 20, 0.04);
+            font-weight: 600;
+            text-align: left;
+            padding: 0.6em 1em;
+            border-bottom: 2px solid var(--border-strong);
+        }
+        .markdown-body td {
+            padding: 0.5em 1em;
+            border-bottom: 1px solid var(--border);
+        }
+        .markdown-body tr:hover td {
+            background: var(--accent-soft);
+        }
+
+        .markdown-body hr {
+            border: none;
+            border-top: 1px solid var(--border-strong);
+            margin: 2em 0;
+        }
+
+        /* Math blocks */
+        .math-block {
+            margin: 1.2em 0;
+            padding: 0.8em;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        /* Mermaid diagrams */
+        .mermaid {
+            margin: 1.5em 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        .mermaid svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Pygments code highlighting (dark theme matching warm palette) */
+        .highlight .hll { background-color: #49483e }
+        .highlight .c { color: #75715e }
+        .highlight .err { color: #f92672 }
+        .highlight .k { color: #66d9ef }
+        .highlight .l { color: #ae81ff }
+        .highlight .n { color: #f8f8f2 }
+        .highlight .o { color: #f92672 }
+        .highlight .p { color: #f8f8f2 }
+        .highlight .cm { color: #75715e }
+        .highlight .c1 { color: #75715e }
+        .highlight .cp { color: #75715e }
+        .highlight .kc { color: #66d9ef }
+        .highlight .kd { color: #66d9ef }
+        .highlight .kn { color: #f92672 }
+        .highlight .kp { color: #66d9ef }
+        .highlight .kr { color: #66d9ef }
+        .highlight .kt { color: #66d9ef }
+        .highlight .ld { color: #e6db74 }
+        .highlight .m { color: #ae81ff }
+        .highlight .s { color: #e6db74 }
+        .highlight .na { color: #a6e22e }
+        .highlight .nb { color: #f8f8f2 }
+        .highlight .nc { color: #a6e22e }
+        .highlight .no { color: #66d9ef }
+        .highlight .nd { color: #a6e22e }
+        .highlight .ni { color: #f8f8f2 }
+        .highlight .ne { color: #a6e22e }
+        .highlight .nf { color: #a6e22e }
+        .highlight .nl { color: #f8f8f2 }
+        .highlight .nn { color: #f8f8f2 }
+        .highlight .nx { color: #a6e22e }
+        .highlight .py { color: #f8f8f2 }
+        .highlight .nt { color: #f92672 }
+        .highlight .nv { color: #f8f8f2 }
+        .highlight .ow { color: #f92672 }
+        .highlight .w { color: #f8f8f2 }
+        .highlight .mf { color: #ae81ff }
+        .highlight .mh { color: #ae81ff }
+        .highlight .mi { color: #ae81ff }
+        .highlight .mo { color: #ae81ff }
+        .highlight .sb { color: #e6db74 }
+        .highlight .sc { color: #e6db74 }
+        .highlight .sd { color: #e6db74 }
+        .highlight .s2 { color: #e6db74 }
+        .highlight .se { color: #ae81ff }
+        .highlight .sh { color: #e6db74 }
+        .highlight .si { color: #e6db74 }
+        .highlight .sx { color: #e6db74 }
+        .highlight .sr { color: #e6db74 }
+        .highlight .s1 { color: #e6db74 }
+        .highlight .ss { color: #e6db74 }
+        .highlight .bp { color: #f8f8f2 }
+        .highlight .vc { color: #f8f8f2 }
+        .highlight .vg { color: #f8f8f2 }
+        .highlight .vi { color: #f8f8f2 }
+        .highlight .il { color: #ae81ff }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 32px 0;
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        .site-footer a {
+            color: var(--ink-muted);
+            text-decoration: none;
+        }
+        .site-footer a:hover { color: var(--accent); }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, color 0.2s, border-color 0.2s;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .page { padding: 0 16px 40px; }
+            .markdown-body h1 { font-size: 1.7rem; }
+            .markdown-body h2 { font-size: 1.35rem; }
+            .markdown-body { font-size: 0.95rem; }
+            .markdown-body pre { padding: 0.8em; }
+            .markdown-body pre code { font-size: 0.8rem; }
+            .back-to-top { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <nav class="breadcrumb">
+            <a href="../index.html">floaritay</a>
+            <span class="sep">/</span>
+            <span>CV</span>
+        </nav>
+        <article class="markdown-body">
+<h1 id="_1">目录</h1>
+<hr />
+<h1 id="_2">基础模块</h1>
+<p>以下是 OpenCV 中最常用的一些模块：</p>
+<ul>
+<li>
+<p>cv2.core: 核心模块，包含了图像处理的基础功能（如图像数组的表示和操作）</p>
+</li>
+<li>
+<p>cv2.imgproc: 图像处理模块，提供图像的各种操作，如滤波、图像变换、形态学操作等</p>
+</li>
+<li>
+<p>cv2.highgui: 图形用户界面模块，提供显示图像和视频的功能</p>
+</li>
+<li>
+<p>cv2.video: 提供视频处理的功能，如视频捕捉、视频流的处理等</p>
+</li>
+<li>
+<p>cv2.features2d: 特征检测与匹配模块，包含了角点、边缘、关键点检测等</p>
+</li>
+<li>
+<p>cv2.ml: 机器学习模块，提供了多种机器学习算法，可以进行图像分类、回归、聚类等</p>
+</li>
+<li>
+<p>cv2.calib3d : 相机校准和 3D 重建模块</p>
+</li>
+<li>
+<p>cv2.objdetect : 目标检测模块</p>
+</li>
+<li>
+<p>cv2.dnn : 深度学习模块</p>
+</li>
+<li>
+<p>Core 模块<br />
+功能: 提供 OpenCV 的核心功能，包括基本数据结构、矩阵操作、绘图函数等。  </p>
+</li>
+</ul>
+<p>主要类和函数:  </p>
+<ul>
+<li>
+<p>Mat: OpenCV 中用于存储图像和矩阵的基本数据结构。</p>
+</li>
+<li>
+<p>Scalar: 用于表示颜色或像素值。</p>
+</li>
+<li>
+<p>Point、Size、Rect: 用于表示点、尺寸和矩形。</p>
+</li>
+</ul>
+<p>基本绘图函数: cv.line()、cv.circle()、cv.rectangle()、cv.putText() 等。   </p>
+<p>应用场景:  图像的基本操作（如创建、复制、裁剪）。绘制几何图形和文本。  </p>
+<ol>
+<li>Imgproc 模块<br />
+功能: 提供图像处理功能，包括图像滤波、几何变换、颜色空间转换等。   </li>
+</ol>
+<p>主要类和函数:  </p>
+<ul>
+<li>
+<p>图像滤波: cv.blur()、cv.GaussianBlur()、cv.medianBlur() 等。</p>
+</li>
+<li>
+<p>几何变换: cv.resize()、cv.warpAffine()、cv.warpPerspective() 等。</p>
+</li>
+<li>
+<p>颜色空间转换: cv.cvtColor()（如 BGR 转灰度、BGR 转 HSV）。</p>
+</li>
+<li>
+<p>阈值处理: cv.threshold()、cv.adaptiveThreshold()。</p>
+</li>
+<li>
+<p>边缘检测: cv.Canny()、cv.Sobel()、cv.Laplacian()。</p>
+</li>
+</ul>
+<p>应用场景:图像平滑、锐化、边缘检测。图像缩放、旋转、仿射变换。图像二值化、颜色空间转换。  </p>
+<ol>
+<li>HighGUI 模块<br />
+功能: 提供高层 GUI 和媒体 I/O 功能，用于图像的显示和交互。  </li>
+</ol>
+<p>主要类和函数:  </p>
+<ul>
+<li>
+<p>图像显示: cv.imshow()、cv.waitKey()、cv.destroyAllWindows()。</p>
+</li>
+<li>
+<p>视频捕获: cv.VideoCapture()、cv.VideoWriter()。</p>
+</li>
+<li>
+<p>鼠标和键盘事件: cv.setMouseCallback()。</p>
+</li>
+</ul>
+<p>应用场景:显示图像和视频。捕获摄像头或视频文件。处理用户交互（如鼠标点击、键盘输入）。  </p>
+<ol>
+<li>Video 模块<br />
+功能: 提供视频分析功能，包括运动检测、目标跟踪等。  </li>
+</ol>
+<p>主要类和函数:  </p>
+<ul>
+<li>
+<p>背景减除: cv.createBackgroundSubtractorMOG2()、cv.createBackgroundSubtractorKNN()。</p>
+</li>
+<li>
+<p>光流法: cv.calcOpticalFlowPyrLK()。</p>
+</li>
+<li>
+<p>目标跟踪: cv.TrackerKCF_create()、cv.TrackerMOSSE_create()。</p>
+</li>
+</ul>
+<p>应用场景:视频中的运动检测。目标跟踪（如行人、车辆跟踪）。</p>
+<ol>
+<li>Calib3d 模块<br />
+功能: 提供相机校准和 3D 重建功能。  </li>
+</ol>
+<p>主要类和函数:</p>
+<ul>
+<li>
+<p>相机校准: cv.calibrateCamera()、cv.findChessboardCorners()。</p>
+</li>
+<li>
+<p>3D 重建: cv.solvePnP()、cv.reprojectImageTo3D()。</p>
+</li>
+</ul>
+<p>应用场景:相机标定（用于去除镜头畸变）。3D 重建（如从 2D 图像恢复 3D 信息）。  </p>
+<ol>
+<li>Features2d 模块
+功能: 提供特征检测和描述功能。   </li>
+</ol>
+<p>主要类和函数:  </p>
+<ul>
+<li>
+<p>特征检测: cv.SIFT_create()、cv.ORB_create()、cv.SURF_create()。</p>
+</li>
+<li>
+<p>特征匹配: cv.BFMatcher()、cv.FlannBasedMatcher()。</p>
+</li>
+<li>
+<p>关键点绘制: cv.drawKeypoints()。</p>
+</li>
+</ul>
+<p>应用场景:图像特征提取和匹配。图像拼接、物体识别。  </p>
+<ol>
+<li>Objdetect 模块
+功能: 提供目标检测功能。  </li>
+</ol>
+<p>主要类和函数:  </p>
+<ul>
+<li>
+<p>Haar 特征分类器: cv.CascadeClassifier()（用于人脸检测）。</p>
+</li>
+<li>
+<p>HOG 特征分类器: 用于行人检测。</p>
+</li>
+</ul>
+<p>应用场景:人脸检测、行人检测。  </p>
+<ol>
+<li>ML 模块<br />
+功能: 提供机器学习算法。  </li>
+</ol>
+<p>主要类和函数:  </p>
+<ul>
+<li>
+<p>支持向量机 (SVM): cv.ml.SVM_create()。</p>
+</li>
+<li>
+<p>K 均值聚类 (K-Means): cv.kmeans()。</p>
+</li>
+<li>
+<p>神经网络 (ANN): cv.ml.ANN_MLP_create()。</p>
+</li>
+</ul>
+<p>应用场景:图像分类、聚类分析。</p>
+<ol>
+<li>DNN 模块<br />
+功能: 提供深度学习功能，支持加载和运行预训练的深度学习模型。  </li>
+</ol>
+<p>主要类和函数:</p>
+<ul>
+<li>
+<p>模型加载: cv.dnn.readNetFromCaffe()、cv.dnn.readNetFromTensorflow()。</p>
+</li>
+<li>
+<p>前向传播: net.forward()。</p>
+</li>
+</ul>
+<p>应用场景:图像分类、目标检测、语义分割。</p>
+<ol>
+<li>其他模块<br />
+Flann: 快速近似最近邻搜索。  </li>
+</ol>
+<p>Photo: 图像修复和去噪。  </p>
+<p>Stitching: 图像拼接。  </p>
+<p>Shape: 形状匹配和距离计算。  </p>
+<h1 id="_3">图像处理基础</h1>
+<p>图像的基本属性：  </p>
+<ul>
+<li>图像的尺寸（Width, Height）：可以通过 img.shape 获取</li>
+<li>颜色通道（Channels）：通常为 RGB（三个通道），也可以是灰度图（单通道）</li>
+<li>数据类型（Data type）：常见的有 uint8（0-255 范围），也可以是 float32 或其他</li>
+</ul>
+<h2 id="_4">基本操作</h2>
+<h3 id="imread">imread()</h3>
+<h3 id="imshow">imshow()</h3>
+<h3 id="imwrite">imwrite()</h3>
+<h3 id="destroyallwindows">destroyAllWindows()</h3>
+<h3 id="split">split()</h3>
+<h3 id="merge">merge()</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;./bird.png&#39;</span><span class="p">)</span> <span class="c1"># 当前目录下的 &quot;bird.jpg&quot;，返回一个 NumPy 数组</span>
+<span class="c1"># 读取图像并转为灰度图</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;./bird.png&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;./bird.png&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Image&#39;</span><span class="p">,</span><span class="n">image</span><span class="p">)</span>
+
+<span class="n">key</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>    <span class="c1"># 参数 0 表示无限等待，直到用户按下任意键</span>
+
+<span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">):</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span><span class="n">image</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;图像已保存为 &#39;output_path&#39; &quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;图像未保存，程序已退出。&quot;</span><span class="p">)</span>
+
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>    
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1">## 访问和修改像素值</span>
+<span class="c1"># 获取像素值 (BGR 格式)</span>
+<span class="n">pixel_value</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>  <span class="c1"># 获取 (100, 100) 处的像素值</span>
+
+<span class="c1"># 修改像素值</span>
+<span class="n">image</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">]</span>  <span class="c1"># 将 (100, 100) 处的像素设置为白色</span>
+
+<span class="c1">## 图像 ROI（Region of Interest）</span>
+<span class="c1"># 获取 ROI</span>
+<span class="n">roi</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="mi">150</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="mi">150</span><span class="p">]</span>  <span class="c1"># 获取 (50,50) 到 (150,150) 的区域</span>
+
+<span class="c1"># 修改 ROI</span>
+<span class="n">image</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="mi">150</span><span class="p">,</span> <span class="mi">50</span><span class="p">:</span><span class="mi">150</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># 将 ROI 区域设置为绿色</span>
+
+<span class="c1">## 图像通道分离与合并</span>
+<span class="c1"># 分离通道</span>
+<span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+<span class="c1"># 合并通道</span>
+<span class="n">merged_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span><span class="p">])</span>
+</code></pre></div>
+
+<h2 id="_5">图像缩放、旋转、平移、翻转</h2>
+<h3 id="resize">resize()</h3>
+<p><code>resized_img = cv2.resize(img, (width, height))</code></p>
+<h3 id="getrotationmatrix2d">getRotationMatrix2D()</h3>
+<p><code>cv2.getRotationMatrix2D((center_x, center_y), angle, scale)</code></p>
+<h3 id="warpaffine">warpAffine()</h3>
+<p><code>cv2.warpAffine(src, M, dsize[, dst[, flags[, borderMode[, borderValue]]]])</code><br />
+M：仿射变换矩阵，通常由cv2.getRotationMatrix2D获得<br />
+dsize：输出图像的尺寸。需根据变换后的内容合理设置，避免裁剪<br />
+flags（可选）：插值方法，影响变换后像素值的计算方式，默认值：cv2.INTER_LINEAR，常用选项：  </p>
+<ul>
+<li>cv2.INTER_NEAREST：最近邻插值（速度快，质量低）</li>
+<li>cv2.INTER_LINEAR：双线性插值（平衡速度与质量）</li>
+<li>cv2.INTER_CUBIC：三次样条插值（质量高，速度慢）</li>
+<li>cv2.INTER_LANCZOS4：Lanczos 插值（高质量，适合缩小图像）</li>
+</ul>
+<p>borderMode（可选）：处理超出原图边界的像素的方式，默认值：cv2.BORDER_CONSTANT，常用选项：  </p>
+<ul>
+<li>cv2.BORDER_CONSTANT：用 borderValue 指定的值填充</li>
+<li>cv2.BORDER_REPLICATE：复制边界像素</li>
+<li>cv2.BORDER_REFLECT：反射边界像素</li>
+</ul>
+<p>borderValue（可选）：默认值：(0, 0, 0)，当 borderMode=cv2.BORDER_CONSTANT 时，填充边界的像素值</p>
+<h3 id="flip">flip()</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 缩放</span>
+<span class="n">resized_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">new_width</span><span class="p">,</span> <span class="n">new_height</span><span class="p">))</span>
+
+<span class="c1"># 旋转</span>
+<span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">getRotationMatrix2D</span><span class="p">((</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">),</span> <span class="n">angle</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span> 
+<span class="c1"># 旋转的中心点坐标（以图像像素坐标系为参考，原点 (0, 0) 在左上角）（中心点center = (img.shape[1] // 2, img.shape[0] // 2)）</span>
+<span class="c1"># 旋转角度，正值表示逆时针旋转</span>
+<span class="c1"># 缩放倍数</span>
+<span class="n">rotated_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+
+<span class="c1"># 平移</span>
+<span class="n">translation_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tx</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ty</span><span class="p">]])</span>  <span class="c1"># 向右平移 tx 像素，向下平移 ty 像素</span>
+<span class="n">translated_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">translation_matrix</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+
+<span class="c1"># 翻转</span>
+<span class="n">flipped_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">flip_code</span><span class="p">)</span>  <span class="c1"># flip_code: 0 (垂直翻转), 1 (水平翻转), -1 (双向翻转)</span>
+</code></pre></div>
+
+<h2 id="_6">图像算术运算</h2>
+<h3 id="add">add()</h3>
+<p>如果像素值相加后超过 255，OpenCV 会自动将其截断为 255  </p>
+<h3 id="subtract">subtract()</h3>
+<p>如果像素值相减后小于 0，OpenCV 会自动将其截断为 0  </p>
+<h3 id="multiply">multiply()</h3>
+<p>如果像素值相乘后超过 255，OpenCV 会自动将其截断为 255</p>
+<h3 id="devide">devide()</h3>
+<p>如果除数为 0，OpenCV 会自动将结果设置为 0</p>
+<h3 id="addweighted">addWeighted()</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1、图像加法</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">image2</span><span class="p">)</span>
+
+<span class="c1"># 2、图像减法</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">image2</span><span class="p">)</span>
+
+<span class="c1"># 3、图像混合</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">addWeighted</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">image2</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+<span class="c1"># alpha 和 beta 是权重，gamma 是标量值。</span>
+</code></pre></div>
+
+<h2 id="_7">图像位运算</h2>
+<h3 id="cv2bitwise_and">cv2.bitwise_and()</h3>
+<p>掩码操作、图像分割</p>
+<h3 id="cv2bitwise_or">cv2.bitwise_or()</h3>
+<p>图像叠加</p>
+<h3 id="cv2bitwise_not">cv2.bitwise_not()</h3>
+<p>图像反色</p>
+<h3 id="cv2bitwise_xor">cv2.bitwise_xor() 按位异或</h3>
+<p>图像差异检测</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 位与运算</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_and</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">)</span>
+
+<span class="c1"># 位或运算</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_or</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">)</span>
+
+<span class="c1"># 位非运算</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_not</span><span class="p">(</span><span class="n">img1</span><span class="p">)</span>
+
+<span class="c1"># 位异或运算</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_xor</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="_8">图像阈值处理</h2>
+<h3 id="threshold">threshold()</h3>
+<p><code>cv2.threshold(src, thresh, maxval, type[, dst]) → retval, dst</code><br />
+type：阈值化类型</p>
+<ul>
+<li>cv2.THRESH_BINARY：超过阈值设为 maxval，否则为 0</li>
+<li>cv2.THRESH_BINARY_INV：超过阈值设为 0，否则为 maxval</li>
+<li>cv2.THRESH_TRUNC：超过阈值截断为阈值，否则保留原值</li>
+<li>cv2.THRESH_TOZERO：超过阈值保留原值，否则设为 0</li>
+<li>cv2.THRESH_TOZERO_INV：超过阈值设为 0，否则保留原值  </li>
+</ul>
+<p>retval：实际使用的阈值（对 cv2.THRESH_OTSU 或 cv2.THRESH_TRIANGLE 等自适应阈值类型有效）<br />
+输入图像类型：必须为灰度图</p>
+<h3 id="adaptivethreshold">adaptiveThreshold()</h3>
+<p><code>cv2.adaptiveThreshold(src, maxValue, adaptiveMethod, thresholdType, blockSize, C[, dst]) → dst</code><br />
+adaptiveMethod：局部阈值的计算方式  </p>
+<ul>
+<li>cv2.ADAPTIVE_THRESH_MEAN_C：阈值为局部邻域像素的均值减去常数 C  </li>
+<li>cv2.ADAPTIVE_THRESH_GAUSSIAN_C：阈值为局部邻域像素的高斯加权和减去常数 C  </li>
+</ul>
+<p>thresholdType：与 cv2.threshold 中的类型一致 <br />
+blockSize：局部邻域的大小（奇数，如 3、5、11 等）。值越大，阈值计算受更大范围像素影响<br />
+C：</p>
+<div class="highlight"><pre><span></span><code><span class="mi">1</span><span class="err">、</span><span class="n">简单阈值处理</span>
+<span class="n">ret</span><span class="p">,</span> <span class="n">thresholded_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">maxval</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
+<span class="c1"># thresh 是阈值，maxval 是最大值</span>
+
+<span class="mi">2</span><span class="err">、</span><span class="n">自适应阈值处理</span>
+<span class="n">thresholded_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">maxval</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ADAPTIVE_THRESH_MEAN_C</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">,</span> <span class="n">block_size</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+
+<span class="mi">3</span><span class="err">、</span><span class="n">Otsu</span> <span class="n">二值化</span>
+<span class="n">ret</span><span class="p">,</span> <span class="n">thresholded_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_OTSU</span><span class="p">)</span><span class="c1"># 自动计算最佳全局阈值（适用于双峰直方图图像）</span>
+</code></pre></div>
+
+<h2 id="_9">图像平滑处理</h2>
+<p>线性滤波函数（基于卷积核的加权平均）</p>
+<h3 id="blur-boxfilter">blur() 或 boxFilter()</h3>
+<p>ksize：卷积核大小（如 (5,5)），必须为正奇数<br />
+normalize（仅 boxFilter）：是否归一化核（默认 True，即均值计算；设为 False 可用于加权求和）</p>
+<h3 id="gaussianblur">GaussianBlur()</h3>
+<p><code>cv2.GaussianBlur(src, ksize, sigmaX)</code><br />
+sigmaX（可选）：X方向标准差（控制权重分布，值越大越模糊；设为 0 时根据 ksize 自动计算）  </p>
+<p>非线性滤波函数（基于像素排序或邻域关系）  </p>
+<h3 id="medianblur">medianBlur()</h3>
+<p><code>median_blurred = cv2.medianBlur(img, ksize)</code><br />
+ksize：卷积核大小（必须为正奇数，如 3、5）  </p>
+<h3 id="bilateralfilter">bilateralFilter()</h3>
+<p><code>bilateral_filtered = cv2.bilateralFilter(img, d=9, sigmaColor=75, sigmaSpace=75)</code>
+d：滤波邻域直径<br />
+sigmaColor：颜色空间标准差（值越大，颜色混合范围越广）<br />
+sigmaSpace：坐标空间标准差（值越大，空间影响范围越广）  </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1、均值滤波</span>
+<span class="n">blurred_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">blur</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">))</span>
+
+<span class="c1"># 2、高斯滤波</span>
+<span class="n">blurred_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">),</span> <span class="n">sigmaX</span><span class="p">)</span>
+
+<span class="c1"># 3、中值滤波</span>
+<span class="n">blurred_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">medianBlur</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">)</span>
+
+<span class="c1"># 4、双边滤波</span>
+<span class="n">blurred_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bilateralFilter</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">sigmaColor</span><span class="p">,</span> <span class="n">sigmaSpace</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="_10">图像的颜色空间与转换</h2>
+<h3 id="cvtcolor">cvtColor()</h3>
+<p><code>cv2.cvtColor(src, code[, dstCn[, dst]])</code><br />
+code：颜色空间转换代码<br />
+dstCn（可选）：输出图像的通道数。若未指定，则根据 code 自动推导</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 从 RGB 转换为灰度图：</span>
+<span class="n">gray_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+<span class="c1"># 从 BGR 转换为 HSV：</span>
+<span class="n">hsv_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+
+<span class="c1"># 从 RGB 转换为 YUV：</span>
+<span class="n">yuv_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2YUV</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="_11">图像文本</h2>
+<h3 id="puttext">putText()</h3>
+<p><code>cv2.putText(image, text, org, fontFace, fontScale, color, thickness)</code>
+text: 要绘制的文本  </p>
+<p>org: 文本左下角坐标  </p>
+<p>fontFace: 字体类型（如 cv2.FONT_HERSHEY_SIMPLEX）  </p>
+<p>fontScale: 字体缩放比例  </p>
+<p>color: 文本颜色  </p>
+<p>thickness: 文本线宽  </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;image.jpg&#39;</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="s1">&#39;Hello, OpenCV!&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Text&#39;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="_12">图像边缘检测</h2>
+<h3 id="canny">Canny()</h3>
+<p>Canny 算法原理：<br />
+使用高斯滤波平滑图像以去除噪声。<br />
+通过 Sobel 算子计算水平和垂直方向的梯度，进而得到梯度幅值和方向。<br />
+通过非极大值抑制（NMS）保留梯度方向上的局部最大值，消除杂散响应，细化边缘。<br />
+经过双阈值检测强边缘（梯度值 ≥ threshold2 的像素），弱边缘（threshold1 ≤ 梯度值 &lt; threshold2 的像素），抑制孤立边缘（未与强边缘连接的弱边缘）    </p>
+<p><code>edges = cv2.Canny(image, threshold1, threshold2[, apertureSize[, L2sobelient]])</code><br />
+image：输入图像，必须为单通道灰度图（数据类型为 uint8）<br />
+threshold1：低阈值，用于边缘连接。梯度值低于此值的像素被抑制<br />
+threshold2：高阈值，用于边缘检测。梯度值高于此值的像素被视为强边缘<br />
+apertureSize（可选）：Sobel 算子的大小，默认为 3（可选值为 3、5、7）<br />
+L2sobelient（可选）：布尔值，默认为 False，使用 L1 范数计算梯度幅值（计算更快）。若为 True，则使用 L2 范数（更精确但计算量更大）  </p>
+<h3 id="sobel">Sobel()</h3>
+<p><code>edges = cv2.Sobel(src, ddepth, dx, dy[, ksize[, scale[, delta[, borderType]]]])</code>
+src：输入图像，必须为单通道灰度图<br />
+ddepth（输出图像深度）：</p>
+<ul>
+<li>cv2.CV_8U：8 位无符号整数（0~255），但会截断负值，可能导致梯度信息丢失</li>
+<li>cv2.CV_16S：16 位有符号整数（-32768~32767），推荐使用，可保留完整梯度值</li>
+<li>cv2.CV_32F/cv2.CV_64F：32/64 位浮点数，适用于高精度计算</li>
+</ul>
+<p>dx 和 dy（导数阶数）:指定求导方向：</p>
+<ul>
+<li>dx=1, dy=0：计算 x 方向梯度（检测垂直边缘）。</li>
+<li>dx=0, dy=1：计算 y 方向梯度（检测水平边缘）。</li>
+</ul>
+<p>避免同时设为 1（如 dx=1, dy=1），否则结果可能不符合预期。若需合并方向梯度，可分别计算后通过 cv2.addWeighted() 合并</p>
+<p>ksize（Sobel 核大小）:卷积核尺寸，必须为奇数（如 1、3、5、7）。默认值为 3<br />
+scale（缩放因子）:默认值为 1。若需放大梯度值（如增强边缘亮度），可设置 scale &gt; 1<br />
+delta（偏移量）:默认值为 0。计算结果会加上此值，常用于调试或调整亮度<br />
+borderType（边界处理方式）:默认值为 cv2.BORDER_DEFAULT</p>
+<ul>
+<li>cv2.BORDER_DEFAULT：镜像填充</li>
+<li>cv2.BORDER_CONSTANT：填充固定值（如黑色）。</li>
+<li>cv2.BORDER_REPLICATE：复制边缘像素。</li>
+</ul>
+<h3 id="laplacian">Laplacian()</h3>
+<p><code>dst = cv2.Laplacian(src, ddepth[, ksize[, scale[, delta[, borderType]]]])</code><br />
+src：输入图像，必须为单通道灰度图（数据类型为 uint8 或 float32）<br />
+ksize：近似核尺寸，必须为正奇数（如 1、3、5）。默认值为 1<br />
+其他参数参考Sobel()  </p>
+<h3 id="scharr">Scharr()</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Canny 边缘检测：</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="c1"># Canny 算法通过对图像进行梯度计算来找出边缘，返回一个二值图像，边缘处为白色，其他区域为黑色</span>
+<span class="c1"># 低阈值过低：导致噪声被误检为边缘</span>
+<span class="c1"># 高阈值过高：导致真实边缘丢失</span>
+
+<span class="c1"># Sobel 算子：</span>
+<span class="n">sobel_x</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sobel_y</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ksize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sobel_y_abs</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">sobel_y</span><span class="p">)</span>
+<span class="n">sobel_x_abs</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">sobel_x</span><span class="p">)</span>
+<span class="c1"># 合并梯度（加权平均）</span>
+<span class="n">grad_combined</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">addWeighted</span><span class="p">(</span><span class="n">grad_x_abs</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">grad_y_abs</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Laplacian 算子：</span>
+<span class="n">laplacian</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Laplacian</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">)</span>
+<span class="n">laplacian_abs</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">laplacian</span><span class="p">)</span>
+<span class="c1"># 显示结果</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Laplacian Edges&#39;</span><span class="p">,</span> <span class="n">laplacian_abs</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># 滑动条交互式调整阈值，观察边缘检测效果</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">nothing</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\LENOVO\Pictures\Saved Pictures\1679907039016722.jpg&quot;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">namedWindow</span><span class="p">(</span><span class="s1">&#39;Canny Demo&#39;</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">createTrackbar</span><span class="p">(</span><span class="s1">&#39;Threshold1&#39;</span><span class="p">,</span> <span class="s1">&#39;Canny Demo&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">nothing</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">createTrackbar</span><span class="p">(</span><span class="s1">&#39;Threshold2&#39;</span><span class="p">,</span> <span class="s1">&#39;Canny Demo&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">nothing</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">getTrackbarPos</span><span class="p">(</span><span class="s1">&#39;Threshold1&#39;</span><span class="p">,</span> <span class="s1">&#39;Canny Demo&#39;</span><span class="p">)</span>
+    <span class="n">t2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">getTrackbarPos</span><span class="p">(</span><span class="s1">&#39;Threshold2&#39;</span><span class="p">,</span> <span class="s1">&#39;Canny Demo&#39;</span><span class="p">)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Canny Demo&#39;</span><span class="p">,</span> <span class="n">edges</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="_13">形态学操作</h2>
+<p>形态学操作常用于二值图像的处理，常见的操作有腐蚀、膨胀、开运算、闭运算等。   </p>
+<h3 id="getstructuringelement">getStructuringElement()</h3>
+<p><code>kernel = cv2.getStructuringElement(shape, ksize[, anchor])</code><br />
+shape：指定结构元素的几何类型   </p>
+<ul>
+<li>cv2.MORPH_RECT：矩形核（所有像素值为 1）</li>
+<li>cv2.MORPH_ELLIPSE：椭圆形核</li>
+<li>cv2.MORPH_CROSS：交叉形核</li>
+</ul>
+<p>ksize：指定核的尺寸，格式为 (width, height)，必须为正奇数 如 (3, 3)、(5, 5) <br />
+若需动态调整核大小，可通过循环实现 for i in range(1, 5): kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * i + 1, 2 * i + 1))    </p>
+<p>anchor（锚点位置）：指定核的中心点坐标，默认值为 (-1, -1)，表示自动计算中心  </p>
+<p>kernel：返回一个 numpy.ndarray 类型的二值矩阵（0 和 1），表示结构元素的形状  </p>
+<h3 id="erode">erode()</h3>
+<p><code>dst = cv2.erode(src, kernel[, dst[, anchor[, iterations[, borderType[, borderValue]]]]])</code>  </p>
+<p>src：输入图像，通常是二值化（黑白）或灰度图像  </p>
+<p>kernel：结构元素（Structuring Element），用于定义腐蚀操作的邻域形状  </p>
+<p>anchor（可选）：结构元素的锚点位置，默认为中心 (-1, -1)  </p>
+<p>iterations（可选）：腐蚀操作的次数，默认为 1。次数越多，腐蚀效果越强  </p>
+<h3 id="dilate">dilate()</h3>
+<p><code>dst = cv2.dilate(src, kernel[, dst[, anchor[, iterations[, borderType[, borderValue]]]]])</code>  </p>
+<h3 id="morphologyex">morphologyEx()</h3>
+<p><code>dst = cv2.morphologyEx(src, op, kernel[, dst[, anchor[, iterations[, borderType[, borderValue]]]]])</code>  </p>
+<p>src：输入图像，支持二值图像（黑白）或灰度图像</p>
+<p>op：形态学操作类型</p>
+<ul>
+<li>
+<p>cv2.MORPH_ERODE：腐蚀（等同于 cv2.erode()）</p>
+</li>
+<li>
+<p>cv2.MORPH_DILATE：膨胀（等同于 cv2.dilate()）</p>
+</li>
+<li>
+<p>cv2.MORPH_OPEN：开运算（先腐蚀后膨胀，用于去除小噪点）</p>
+</li>
+<li>
+<p>cv2.MORPH_CLOSE：闭运算（先膨胀后腐蚀，用于填补空洞）</p>
+</li>
+<li>
+<p>cv2.MORPH_GRADIENT：形态学梯度（膨胀图减去腐蚀图，突出边缘）</p>
+</li>
+<li>
+<p>cv2.MORPH_TOPHAT：礼帽（原图减去开运算结果，提取亮细节）</p>
+</li>
+<li>
+<p>cv2.MORPH_BLACKHAT：黑帽（闭运算结果减去原图，提取暗细节）</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">kernel</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">getStructuringElement</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">MORPH_RECT</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="c1"># 腐蚀（Erosion）：将图像中的白色区域收缩</span>
+<span class="n">eroded_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">erode</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 膨胀（Dilation）：将图像中的白色区域扩展</span>
+<span class="n">dilated_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dilate</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 开运算与闭运算：</span>
+<span class="c1"># 开运算（先腐蚀再膨胀）：用于去除小物体</span>
+<span class="c1"># 闭运算（先膨胀再腐蚀）：用于填补图像中的小孔洞</span>
+<span class="n">opening_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">morphologyEx</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">MORPH_OPEN</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span>
+<span class="n">closing_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">morphologyEx</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">MORPH_CLOSE</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="_14">图像轮廓检测</h2>
+<p>OpenCV 提供了强大的轮廓检测功能，可以用于对象识别、图像分割等应用</p>
+<h3 id="findcontours">findContours()</h3>
+<p><code>contours, hierarchy = cv2.findContours(image, mode, method, offset=None)</code>  </p>
+<p>image：必须是黑白图像，通常通过阈值处理 或 边缘检测生成  </p>
+<p>mode（轮廓检索模式）：定义如何检索轮廓的层级关系（适用于嵌套轮廓，如环形物体）  </p>
+<ul>
+<li>
+<p>cv2.RETR_EXTERNAL：只检测最外层轮廓，忽略内部嵌套轮廓。适用于简单物体计数或外边界提取</p>
+</li>
+<li>
+<p>cv2.RETR_LIST：检测所有轮廓，不建立层级关系（所有轮廓是平级的）。适用于无需分析轮廓嵌套关系的场景</p>
+</li>
+<li>
+<p>cv2.RETR_CCOMP：检测所有轮廓，但只建立两层层级（外层和内层）。适用于有简单嵌套结构的物体（如文字中的字母和标点）</p>
+</li>
+<li>
+<p>cv2.RETR_TREE：检测所有轮廓，并建立完整的层级树（父子关系）。适用于复杂嵌套结构（如俄罗斯套娃、细胞团）  </p>
+</li>
+</ul>
+<p>method（轮廓近似方法）：定义如何存储轮廓点（平衡精度与效率）   </p>
+<ul>
+<li>
+<p>cv2.CHAIN_APPROX_NONE：存储轮廓的所有点（可能包含冗余点）。适用于需要精确轮廓的场景（如测量边缘长度）</p>
+</li>
+<li>
+<p>cv2.CHAIN_APPROX_SIMPLE：压缩水平、垂直和对角方向的冗余点，仅保留端点（如矩形轮廓仅存储4个角点）。适用于大多数场景（减少内存占用，提高处理速度）</p>
+</li>
+<li>
+<p>cv2.CHAIN_APPROX_TC89_L1 / cv2.CHAIN_APPROX_TC89_KCOS：基于 Teh-Chin 链逼近算法，更精确地逼近曲线轮廓。适用于需要高精度轮廓的场景（如医学图像分析）  </p>
+</li>
+</ul>
+<p>offset（可选偏移量）：如果轮廓是从图像的某个子区域提取的，可通过 offset=(dx, dy) 调整轮廓坐标，使其匹配原图位置。默认值为 (0, 0)（无偏移）   </p>
+<p>contours：检测到的轮廓列表，每个轮廓是一个 NumPy 数组，形状为 (N, 1, 2)，其中 N 是轮廓点数  </p>
+<p>hierarchy：轮廓的层级关系矩阵，形状为 (1, N, 4)，其中 N 是轮廓数量。<br />
+每个轮廓的层级信息包含 [Next, Previous, First_Child, Parent]：  </p>
+<ul>
+<li>
+<p>Next：同层级的下一个轮廓索引（-1 表示无）</p>
+</li>
+<li>
+<p>Previous：同层级的上一个轮廓索引（-1 表示无）</p>
+</li>
+<li>
+<p>First_Child：第一个子轮廓索引（-1 表示无）</p>
+</li>
+<li>
+<p>Parent：父轮廓索引（-1 表示无）</p>
+</li>
+</ul>
+<h3 id="drawcontours">drawContours()</h3>
+<p><code>cv2.drawContours(image, contours, contourIdx, color, thickness=-1)</code> <br />
+image：指定在哪张图像上绘制轮廓（可以是原图、副本或空白图像） <br />
+注意：函数会直接修改此图像，若需保留原图，请先复制一份 如 img_copy = img.copy()   </p>
+<p>contours（轮廓列表）：通常由 cv2.findContours() 返回   </p>
+<p>contourIdx（轮廓索引）：指定绘制哪个轮廓：    </p>
+<ul>
+<li>
+<p>-1：绘制所有轮廓（常用）</p>
+</li>
+<li>
+<p>0, 1, 2...：绘制指定索引的轮廓 </p>
+</li>
+</ul>
+<p>color（轮廓颜色）：BGR 格式，如 (255, 0, 0) 表示蓝色<br />
+注意：若在灰度图上绘制，颜色需为单通道值（如 255 表示白色）  </p>
+<p>thickness（线条宽度）：  </p>
+<ul>
+<li>
+<p>大于0：绘制轮廓线（值越大线越粗）  </p>
+</li>
+<li>
+<p>-1（或 cv2.FILLED）：填充轮廓内部区域  </p>
+</li>
+</ul>
+<h3 id="contourarea">contourArea()</h3>
+<p><code>`area = cv2.contourArea(contour[, oriented])</code></p>
+<h3 id="arclength">arcLength()</h3>
+<p><code>length = cv2.arcLength(curve, closed)</code>计算轮廓的周长或弧长<br />
+closed: 布尔值，表示轮廓是否闭合  </p>
+<h3 id="boundingrect">boundingRect()</h3>
+<p><code>x, y, w, h = cv2.boundingRect(points)</code>计算轮廓的边界矩形<br />
+返回边界矩形的左上角坐标 (x, y) 和宽度 w、高度 h  </p>
+<h3 id="minarearect">minAreaRect()</h3>
+<p><code>rect = cv2.minAreaRect(points)</code>计算轮廓的最小外接矩形<br />
+返回一个旋转矩形，包含中心点 (x, y)、宽度、高度和旋转角度  </p>
+<h3 id="minenclosingcircle">minEnclosingCircle()</h3>
+<p><code>(center, radius) = cv2.minEnclosingCircle(points)</code>计算轮廓的最小外接圆<br />
+返回圆心 (x, y) 和半径 radius  </p>
+<h3 id="approxpolydp">approxPolyDP()</h3>
+<p><code>approx = cv2.approxPolyDP(curve, epsilon, closed)</code>对轮廓进行多边形近似<br />
+epsilon: 近似精度，值越小，近似越精确<br />
+closed: 布尔值，表示轮廓是否闭合<br />
+返回近似后的多边形点集  </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 检测轮廓：</span>
+<span class="n">gray_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+<span class="n">_</span> <span class="p">,</span> <span class="n">threshold_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">gray_img</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
+<span class="n">_</span> <span class="p">,</span> <span class="n">contours</span><span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span><span class="n">threshold_img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CHAIN_APPROX_SIMPLE</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">contour</span> <span class="ow">in</span> <span class="n">contours</span><span class="p">:</span>
+   <span class="c1">#面积</span>
+   <span class="n">area</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Contour area: </span><span class="si">{</span><span class="n">area</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+   <span class="c1"># 周长或弧长</span>
+   <span class="n">perimeter</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">arcLength</span><span class="p">(</span><span class="n">contour</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Contour perimeter: </span><span class="si">{</span><span class="n">perimeter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+   <span class="c1"># 边界矩形</span>
+   <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boundingRect</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+   <span class="c1"># 最小外接矩</span>
+   <span class="n">rect</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">minAreaRect</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+   <span class="n">box</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boxPoints</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+   <span class="n">box</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+   <span class="n">cv2</span><span class="o">.</span><span class="n">drawContours</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">[</span><span class="n">box</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+   <span class="c1"># 最小外接圆</span>
+   <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">minEnclosingCircle</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+   <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+   <span class="n">radius</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+   <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+   <span class="c1"># 多边形近似轮廓</span>
+   <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="n">cv2</span><span class="o">.</span><span class="n">arcLength</span><span class="p">(</span><span class="n">contour</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+   <span class="n">approx</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">approxPolyDP</span><span class="p">(</span><span class="n">contour</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+   <span class="n">cv2</span><span class="o">.</span><span class="n">drawContours</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">[</span><span class="n">approx</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># 绘制轮廓：</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">drawContours</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">contours</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Contours&#39;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 读取图像并二值化</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;shapes.png&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">binary</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
+
+<span class="c1"># 检测所有轮廓并建立层级关系</span>
+<span class="n">contours</span><span class="p">,</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span>
+    <span class="n">binary</span><span class="p">,</span> 
+    <span class="n">cv2</span><span class="o">.</span><span class="n">RETR_TREE</span><span class="p">,</span> 
+    <span class="n">cv2</span><span class="o">.</span><span class="n">CHAIN_APPROX_SIMPLE</span>
+<span class="p">)</span>
+
+<span class="c1"># 绘制轮廓（不同颜色区分层级）</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_GRAY2BGR</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">contour</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">contours</span><span class="p">):</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">))</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">drawContours</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">contours</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># 打印层级信息</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">hierarchy</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Contour </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: Parent=</span><span class="si">{</span><span class="n">h</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">, Children=</span><span class="si">{</span><span class="n">h</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Hierarchical Contours&#39;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="_15">图像直方图</h2>
+<p>OpenCV 提供了丰富的直方图计算和操作函数：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>计算直方图</td>
+<td>cv2.calcHist()</td>
+<td>计算图像的直方图</td>
+</tr>
+<tr>
+<td>直方图均衡化</td>
+<td>cv2.equalizeHist()</td>
+<td>增强图像的对比度</td>
+</tr>
+<tr>
+<td>直方图比较</td>
+<td>cv2.compareHist()</td>
+<td>比较两个直方图的相似度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="calchist">calcHist()</h3>
+<p><code>hist = cv2.calcHist(images, channels, mask, histSize, ranges[, hist[, accumulate]])</code><br />
+images: 输入的图像列表，通常是一个包含单通道或多通道图像的列表。例如 [img]  </p>
+<p>channels: 需要计算直方图的通道索引。对于灰度图像，使用 [0]；对于彩色图像，可以使用 [0]、[1]、[2] 分别计算蓝色、绿色和红色通道的直方图  </p>
+<p>mask: 掩码图像。如果指定了掩码，则只计算掩码区域内的像素。如果不需要掩码，可以传入 None  </p>
+<p>histSize: 直方图的 bin 数量。对于灰度图像，通常设置为 [256]，表示将灰度级分为 256 个 bin  </p>
+<p>ranges: 像素值的范围。对于灰度图像，通常设置为 [0, 256]，表示像素值的范围是 0 到 255  </p>
+<p>hist: 输出的直方图数组  </p>
+<p>accumulate: 是否累积直方图。如果设置为 True，则直方图不会被清零，而是在每次调用时累积  </p>
+<h3 id="equalizehist">equalizeHist()</h3>
+<p><code>equalized_image = cv2.equalizeHist(image)</code></p>
+<h3 id="normalize">normalize()</h3>
+<p><code>dst = cv2.normalize(src, dst=None, alpha=0, beta=1, norm_type=cv2.NORM_L2, dtype=-1)</code>
+norm_type：归一化类型。</p>
+<ul>
+<li>
+<p>cv2.NORM_MINMAX 线性归一化到 [alpha, beta] 区间。</p>
+</li>
+<li>
+<p>cv2.NORM_INF  按无穷范数（最大绝对值）缩放，使最大值为 alpha。</p>
+</li>
+<li>
+<p>cv2.NORM_L1 按 L1 范数（绝对值之和）缩放，使 L1 范数为 alpha。</p>
+</li>
+<li>
+<p>cv2.NORM_L2 按 L2 范数（欧几里得距离）缩放，使 L2 范数为 alpha。</p>
+</li>
+<li>
+<p>cv2.NORM_RELATIVE 相对归一化（较少使用，需结合其他范数）。</p>
+</li>
+<li>
+<p>cv2.NORM_MINMAX + cv2.NORM_RELATIVE 相对线性归一化（需结合具体场景）。</p>
+</li>
+</ul>
+<p>dtype（可选）：整数（如 cv2.CV_32F、cv2.CV_8U）。若为负数（默认），则与输入类型相同</p>
+<h3 id="comparehist">compareHist()</h3>
+<p><code>similarity = cv2.compareHist(hist1, hist2, method)</code><br />
+method: 比较方法，例如 cv2.HISTCMP_CORREL（相关性比较）  </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># 读取图像</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\LENOVO\Pictures\Saved Pictures\1679907039016722.jpg&quot;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_GRAYSCALE</span><span class="p">)</span>
+
+<span class="c1"># 计算直方图</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">img</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">256</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">])</span>
+
+<span class="c1"># 绘制直方图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Grayscale Histogram&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Pixel Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 直方图均衡化</span>
+<span class="n">equalized_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">equalizeHist</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="c1"># 显示结果</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Equalized Image&quot;</span><span class="p">,</span> <span class="n">equalized_image</span><span class="p">)</span>
+
+<span class="c1"># 读取彩色图像</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\LENOVO\Pictures\Saved Pictures\1679907039016722.jpg&quot;</span><span class="p">)</span>
+
+<span class="c1"># 计算 BGR 各通道的直方图</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">colors</span><span class="p">):</span>
+    <span class="n">hist</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">image</span><span class="p">],</span> <span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">256</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+
+<span class="c1"># 绘制直方图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Color Histogram&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Pixel Intensity&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Pixel Count&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 分离通道</span>
+<span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+<span class="c1"># 对每个通道进行直方图均衡化</span>
+<span class="n">b_eq</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">equalizeHist</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">g_eq</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">equalizeHist</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="n">r_eq</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">equalizeHist</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+<span class="c1"># 合并通道</span>
+<span class="n">equalized_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="n">b_eq</span><span class="p">,</span> <span class="n">g_eq</span><span class="p">,</span> <span class="n">r_eq</span><span class="p">])</span>
+
+<span class="c1"># 显示结果</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Equalized Color Image&quot;</span><span class="p">,</span> <span class="n">equalized_image</span><span class="p">)</span>
+
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="_16">视频处理</h2>
+<p>OpenCV 也支持视频的处理，可以读取视频文件、捕捉视频流并进行实时处理  </p>
+<h3 id="videocapture">VideoCapture()</h3>
+<p><code>cv2.VideoCapture(source)</code></p>
+<h3 id="videowriter">VideoWriter()</h3>
+<p><code>cv2.VideoWriter(filename, fourcc, fps, frameSize)</code>  </p>
+<p>fourcc: 视频编码器  如 cv2.VideoWriter_fourcc(*'XVID')  </p>
+<p>fps: 帧率  </p>
+<p>frameSize: 帧大小（宽度, 高度）  </p>
+<h3 id="capisopened">cap.isOpened()</h3>
+<h3 id="capread">cap.read()</h3>
+<p>逐帧读取视频</p>
+<h3 id="capgetpropid">cap.get(propId)</h3>
+<p>获取视频的属性（如宽度、高度、帧率等）</p>
+<h3 id="trackerkcf_create">TrackerKCF_create()</h3>
+<p>使用目标跟踪算法跟踪视频中的物体</p>
+<h3 id="createbackgroundsubtractormog2">createBackgroundSubtractorMOG2()</h3>
+<p>使用背景减除算法检测视频中的运动物体</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 读取并播放一个视频文件，同时允许用户通过按键（q）提前终止播放   waitKey 的延迟时间（毫秒）影响播放速度（1 表示尽可能快，25 约 40 FPS）</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;video.mp4&#39;</span><span class="p">)</span> <span class="c1"># 将 &#39;video.mp4&#39; 替换为 0 即可调用摄像头</span>
+
+<span class="c1"># 检查视频是否成功打开</span>
+<span class="k">while</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># ret：布尔值，表示是否成功读取帧。frame：当前帧的图像数据</span>
+    <span class="c1"># 如果读取到最后一帧，退出循环</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="c1"># 处理每一帧,将帧转换为灰度图像</span>
+    <span class="n">gray_frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Gray Video&#39;</span><span class="p">,</span> <span class="n">gray_frame</span><span class="p">)</span>
+    <span class="c1"># 等待 1 毫秒，返回按键的 ASCII 码（若无按键则返回 -1）。&amp; 0xFF：确保兼容 64 位系统（屏蔽高位字节）</span>
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span> 
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span> <span class="c1"># 释放视频捕获对象，关闭文件或摄像头连接，防止资源泄漏</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;example.mp4&#39;</span><span class="p">)</span>
+
+<span class="c1"># 获取视频的帧率和尺寸</span>
+<span class="n">fps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FPS</span><span class="p">))</span>
+<span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_WIDTH</span><span class="p">))</span>
+<span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_FRAME_HEIGHT</span><span class="p">))</span>
+
+<span class="c1"># 创建 VideoWriter 对象，保存处理后的视频</span>
+<span class="n">fourcc</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter_fourcc</span><span class="p">(</span><span class="o">*</span><span class="s1">&#39;XVID&#39;</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter</span><span class="p">(</span><span class="s1">&#39;output.avi&#39;</span><span class="p">,</span> <span class="n">fourcc</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="c1"># 将帧转换为灰度图像</span>
+    <span class="n">gray_frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+    <span class="c1"># 将灰度帧写入输出视频</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">gray_frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_GRAY2BGR</span><span class="p">))</span>
+
+    <span class="c1"># 显示灰度帧</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Gray Video&#39;</span><span class="p">,</span> <span class="n">gray_frame</span><span class="p">)</span>
+
+    <span class="n">delay</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1000</span> <span class="o">/</span> <span class="n">fps</span><span class="p">)</span>         <span class="c1"># 计算每帧延迟（毫秒）</span>
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="n">out</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h1 id="_17">运动检测</h1>
+<p>运动检测是视频处理中的一个重要应用。可以通过计算帧之间的差异来检测运动物体  </p>
+<p>以下是一个简单的运动检测示例：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;example.mp4&#39;</span><span class="p">)</span>
+
+<span class="c1"># 读取第一帧</span>
+<span class="n">ret</span><span class="p">,</span> <span class="n">prev_frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">prev_gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">prev_frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="c1"># 将当前帧转换为灰度图像</span>
+    <span class="n">gray_frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+    <span class="c1"># 计算当前帧与前一帧的差异</span>
+    <span class="n">frame_diff</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">absdiff</span><span class="p">(</span><span class="n">prev_gray</span><span class="p">,</span> <span class="n">gray_frame</span><span class="p">)</span>
+
+    <span class="c1"># 对差异图像进行二值化处理</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">frame_diff</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
+
+    <span class="c1"># 显示运动检测结果</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Motion Detection&#39;</span><span class="p">,</span> <span class="n">thresh</span><span class="p">)</span>
+
+    <span class="c1"># 更新前一帧</span>
+    <span class="n">prev_gray</span> <span class="o">=</span> <span class="n">gray_frame</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h1 id="_18">视频目标跟踪</h1>
+<p>MeanShift（均值漂移）算法是一种基于密度的非参数化聚类算法，最初用于图像分割，后来被引入到目标跟踪领域。<br />
+其核心思想是通过迭代计算目标区域的质心，并将窗口中心移动到质心位置，从而实现目标的跟踪。  </p>
+<p>MeanShift 算法的基本步骤如下：
+1. 初始化窗口：在视频的第一帧中，手动或自动选择一个目标区域，作为初始窗口。</p>
+<ol>
+<li>
+<p>计算质心：在当前窗口中，计算目标区域的质心（即像素点的均值）。</p>
+</li>
+<li>
+<p>移动窗口：将窗口中心移动到质心位置。</p>
+</li>
+<li>
+<p>迭代：重复步骤 2 和 3，直到窗口中心不再变化或达到最大迭代次数。</p>
+</li>
+</ol>
+<p>优点：</p>
+<ul>
+<li>
+<p>简单易实现，计算效率高。</p>
+</li>
+<li>
+<p>对目标的形状和大小变化不敏感。</p>
+</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>
+<p>对目标的快速运动或遮挡处理能力较差。</p>
+</li>
+<li>
+<p>窗口大小固定，无法自适应目标大小的变化。</p>
+</li>
+</ul>
+<p>CamShift（Continuously Adaptive MeanShift）算法是 MeanShift 的改进版本，它通过自适应调整窗口大小来更好地跟踪目标。<br />
+CamShift 算法在 MeanShift 的基础上增加了窗口大小和方向的调整，使其能够适应目标在视频中的尺寸和旋转变化。  </p>
+<p>CamShift 算法的基本步骤如下：<br />
+1. 初始化窗口：与 MeanShift 相同，在视频的第一帧中选择初始窗口。</p>
+<ol>
+<li>
+<p>计算质心：在当前窗口中，计算目标区域的质心。</p>
+</li>
+<li>
+<p>移动窗口：将窗口中心移动到质心位置。</p>
+</li>
+<li>
+<p>调整窗口大小和方向：根据目标的尺寸和方向调整窗口。</p>
+</li>
+<li>
+<p>迭代：重复步骤 2 到 4，直到窗口中心不再变化或达到最大迭代次数。</p>
+</li>
+</ol>
+<p>优点：</p>
+<ul>
+<li>
+<p>能够自适应目标的大小和方向变化。</p>
+</li>
+<li>
+<p>对目标的形状变化和旋转具有较好的鲁棒性。</p>
+</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>
+<p>对目标的快速运动或遮挡处理能力仍然有限。</p>
+</li>
+<li>
+<p>计算复杂度略高于 MeanShift。</p>
+</li>
+</ul>
+<h2 id="meanshift">meanShift()</h2>
+<p><code>retval, window = cv2.meanShift(probImage, window, criteria)</code>  </p>
+<p>probImage：输入图像（单通道，8位或32位浮点）表示目标概率分布的图像（通常通过反向投影生成）。例如，使用 cv2.calcBackProject() 计算目标颜色的直方图反向投影</p>
+<p>window：元组 (x, y, w, h)。初始搜索窗口，指定跟踪区域的矩形，左上角坐标 (x,y) 和宽高 (w,h)</p>
+<p>criteria：终止条件（cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT）</p>
+<p>retval：达到终止条件前的迭代次数</p>
+<p>window：跟踪结束后目标所在的矩形窗口位置和大小</p>
+<p>反向投影：将目标颜色直方图映射到当前帧，生成概率图像 probImage</p>
+<p><code>backProject = cv2.calcBackProject(images, channels, hist, ranges, scale[, dst])</code>  </p>
+<p>images：输入图像或图像列表（单通道或多通道，如 BGR 图像需拆分通道）。</p>
+<p>channels：整数列表。指定参与计算的图像通道索引。例如，HSV 颜色空间的 [0] 表示色调（Hue），[1] 表示饱和度（Saturation）。</p>
+<p>hist：直方图（numpy.ndarray 或 cv2.Mat）。目标特征的直方图模型（需预先计算并归一化）。例如，通过 cv2.calcHist() 计算目标区域的颜色直方图，再用 cv2.normalize() 归一化。</p>
+<p>ranges：浮点数列表（如 [0, 180, 0, 256]）。每个通道的取值范围。例如，HSV 空间的色调范围为 [0, 180]，饱和度范围为 [0, 256]。</p>
+<p>scale：浮点数（默认 1.0）。输出概率图的缩放因子。若需将概率值映射到 [0, 255]，可设为 255</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 读取视频</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;video.mp4&#39;</span><span class="p">)</span>
+
+<span class="c1"># 读取第一帧</span>
+<span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1"># 设置初始窗口 (x, y, width, height)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span>
+<span class="n">track_window</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+
+<span class="c1"># 设置 ROI (Region of Interest)</span>
+<span class="n">roi</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="n">y</span><span class="p">:</span><span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">]</span>
+
+<span class="c1"># 转换为 HSV 颜色空间</span>
+<span class="n">hsv_roi</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+
+<span class="c1"># 创建掩膜并计算直方图</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">hsv_roi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">32.</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">180.</span><span class="p">,</span> <span class="mf">255.</span><span class="p">,</span> <span class="mf">255.</span><span class="p">)))</span>
+<span class="n">roi_hist</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">hsv_roi</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="p">,</span> <span class="p">[</span><span class="mi">180</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">180</span><span class="p">])</span>
+<span class="n">roi_hist</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">roi_hist</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">NORM_MINMAX</span><span class="p">)</span>
+
+<span class="c1"># 设置终止条件</span>
+<span class="n">term_crit</span> <span class="o">=</span> <span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_EPS</span> <span class="o">|</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_COUNT</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># 最大迭代次数 10。窗口中心移动的最小阈值 1 像素</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="c1"># 转换为 HSV 颜色空间</span>
+    <span class="n">hsv</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+
+    <span class="c1"># 计算反向投影</span>
+    <span class="n">dst</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calcBackProject</span><span class="p">([</span><span class="n">hsv</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">roi_hist</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">180</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># 应用 MeanShift 算法</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">track_window</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">meanShift</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">track_window</span><span class="p">,</span> <span class="n">term_crit</span><span class="p">)</span>
+
+    <span class="c1"># 绘制跟踪结果</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">track_window</span>
+    <span class="n">img2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">),</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;MeanShift Tracking&#39;</span><span class="p">,</span> <span class="n">img2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="mi">27</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="camshift">CamShift()</h2>
+<p><code>retval, rotated_rect = cv2.CamShift(probImage, window, criteria)</code></p>
+<p>probImage：单通道输入图像，通常是反向投影图，由 cv2.calcBackProject() 生成。表示目标颜色分布的概率图，像素值越高，属于目标的概率越大。</p>
+<p>window：初始搜索窗口（第一帧由用户手动指定）。</p>
+<p>criteria：终止条件（TermCriteria），通常设置为 (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 1)，表示迭代最多 10 次或当窗口移动小于 1 像素时停止。</p>
+<p>retval：一个旋转矩形，包含：中心点坐标（x, y）。自适应调整后的窗口尺寸大小（width, height）。旋转角度（angle）。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 读取视频</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;video.mp4&#39;</span><span class="p">)</span>
+
+<span class="c1"># 读取第一帧</span>
+<span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1"># 设置初始窗口 (x, y, width, height)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span>
+<span class="n">track_window</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+
+<span class="c1"># 设置 ROI (Region of Interest)</span>
+<span class="n">roi</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="n">y</span><span class="p">:</span><span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">]</span>
+
+<span class="c1"># 转换为 HSV 颜色空间</span>
+<span class="n">hsv_roi</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+
+<span class="c1"># 创建掩膜并计算直方图</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">hsv_roi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">32.</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">180.</span><span class="p">,</span> <span class="mf">255.</span><span class="p">,</span> <span class="mf">255.</span><span class="p">)))</span>
+<span class="n">roi_hist</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calcHist</span><span class="p">([</span><span class="n">hsv_roi</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="p">,</span> <span class="p">[</span><span class="mi">180</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">180</span><span class="p">])</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">roi_hist</span><span class="p">,</span> <span class="n">roi_hist</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">NORM_MINMAX</span><span class="p">)</span>
+
+<span class="c1"># 设置终止条件</span>
+<span class="n">term_crit</span> <span class="o">=</span> <span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_EPS</span> <span class="o">|</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_COUNT</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="c1"># 转换为 HSV 颜色空间</span>
+    <span class="n">hsv</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+
+    <span class="c1"># 计算反向投影</span>
+    <span class="n">dst</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calcBackProject</span><span class="p">([</span><span class="n">hsv</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">roi_hist</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">180</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># 应用 CamShift 算法</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">track_window</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CamShift</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">track_window</span><span class="p">,</span> <span class="n">term_crit</span><span class="p">)</span>
+
+    <span class="c1"># 绘制跟踪结果</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boxPoints</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int0</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+    <span class="n">img2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">polylines</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">[</span><span class="n">pts</span><span class="p">],</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;CamShift Tracking&#39;</span><span class="p">,</span> <span class="n">img2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="mi">27</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h1 id="_19">视频背景减除</h1>
+<p>背景减除的核心思想是通过建模背景，然后将当前帧与背景模型进行比较，从而分离出前景对象。</p>
+<p>OpenCV 提供了多种背景减除算法，其中 MOG（Mixture of Gaussians）和 MOG2 是最常用的两种方法。</p>
+<p>MOG（Mixture of Gaussians）算法</p>
+<p>MOG 算法是一种基于高斯混合模型（Gaussian Mixture Model, GMM）的背景减除方法。其核心思想是使用多个高斯分布来建模背景中的像素值。<br />
+每个像素的值被看作是一个随机变量，其分布由多个高斯分布组成。通过这种方式，MOG 能够处理背景中的复杂变化，如光照变化、阴影等。</p>
+<p>算法步骤
+1. 初始化：为每个像素初始化多个高斯分布。</p>
+<ol>
+<li>
+<p>模型更新：对于每一帧图像，更新每个像素的高斯分布参数（均值、方差、权重）。</p>
+</li>
+<li>
+<p>前景检测：将当前帧的像素值与背景模型中的高斯分布进行比较，如果像素值不在任何高斯分布的范围内，则将其标记为前景。</p>
+</li>
+</ol>
+<p>MOG2（Mixture of Gaussians Version 2）算法</p>
+<p>MOG2 是 MOG 的改进版本，主要区别在于它能够自动选择高斯分布的数量，并且能够更好地适应背景的变化。<br />
+MOG2 通过动态调整高斯分布的数量和参数，能够更准确地建模背景，从而提高前景检测的准确性。</p>
+<p>算法步骤
+1. 初始化：为每个像素初始化多个高斯分布。</p>
+<ol>
+<li>
+<p>模型更新：对于每一帧图像，更新每个像素的高斯分布参数，并根据需要增加或减少高斯分布的数量。</p>
+</li>
+<li>
+<p>前景检测：将当前帧的像素值与背景模型中的高斯分布进行比较，如果像素值不在任何高斯分布的范围内，则将其标记为前景。</p>
+</li>
+</ol>
+<p>MOG 算法通过固定数量的高斯分布来建模背景，适用于背景变化较少的场景，<br />
+而 MOG2 算法通过动态调整高斯分布的数量和参数，能够更好地适应背景的变化，适用于背景变化较多的场景。</p>
+<h2 id="bgsegmcreatebackgroundsubtractormog">bgsegm.createBackgroundSubtractorMOG()</h2>
+<p><code>mog = cv2.bgsegm.createBackgroundSubtractorMOG()</code><br />
+<code>mog.apply()</code></p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="c1"># 创建 MOG 背景减除器</span>
+<span class="n">mog</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bgsegm</span><span class="o">.</span><span class="n">createBackgroundSubtractorMOG</span><span class="p">()</span>
+
+<span class="c1"># 读取视频</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;video.mp4&#39;</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="c1"># 应用背景减除</span>
+    <span class="n">fg_mask</span> <span class="o">=</span> <span class="n">mog</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+
+    <span class="c1"># 显示结果</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Frame&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;FG Mask&#39;</span><span class="p">,</span> <span class="n">fg_mask</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="createbackgroundsubtractormog2_1">createBackgroundSubtractorMOG2()</h2>
+<p><code>mog2 = cv2.createBackgroundSubtractorMOG2()</code>
+<code>mog2.apply()</code></p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="c1"># 创建 MOG2 背景减除器</span>
+<span class="n">mog2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">createBackgroundSubtractorMOG2</span><span class="p">()</span>
+
+<span class="c1"># 读取视频</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;video.mp4&#39;</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="c1"># 应用背景减除</span>
+    <span class="n">fg_mask</span> <span class="o">=</span> <span class="n">mog2</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+
+    <span class="c1"># 显示结果</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Frame&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;FG Mask&#39;</span><span class="p">,</span> <span class="n">fg_mask</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h1 id="_20">物体检测</h1>
+<p>OpenCV 提供了多种物体检测算法，如 Haar 特征分类器、HOG + SVM 等 <br />
+OpenCV 提供了基于 Haar 特征分类器的人脸检测方法，简单易用且效果显著   </p>
+<p>Haar 特征分类器是一种基于 Haar-like 特征的机器学习方法。<br />
+它通过提取图像中的 Haar-like 特征，并使用 AdaBoost 算法进行训练，最终生成一个分类器，用于检测图像中的目标（如人脸）。</p>
+<p>Haar-like 特征是一种简单的矩形特征，通过计算图像中不同区域的像素值差异来提取特征。<br />
+例如，一个 Haar-like 特征可以是两个相邻矩形的像素值之和的差值。这些特征能够捕捉到图像中的边缘、线条等结构信息。</p>
+<p>OpenCV 中的 Haar 特征分类器<br />
+OpenCV 提供了预训练的 Haar 特征分类器，可以直接用于人脸检测。这些分类器以 XML 文件的形式存储，包含了训练好的模型参数。</p>
+<p>OpenCV 中的 cv2.CascadeClassifier() 类用于加载和使用这些分类器。</p>
+<p>人脸检测的实现步骤<br />
+1. 加载 Haar 特征分类器模型: 使用 cv2.CascadeClassifier() 加载预训练的人脸检测模型。</p>
+<ol>
+<li>
+<p>读取图像: 使用 cv2.imread() 读取待检测的图像。</p>
+</li>
+<li>
+<p>转换为灰度图: 将图像转换为灰度图，因为 Haar 特征分类器在灰度图上运行更快。</p>
+</li>
+<li>
+<p>检测人脸: 使用 detectMultiScale() 方法检测图像中的人脸。</p>
+</li>
+<li>
+<p>绘制检测结果: 在图像中绘制检测到的人脸矩形框。</p>
+</li>
+<li>
+<p>显示结果: 显示检测结果。</p>
+</li>
+</ol>
+<h2 id="cascadeclassifier">CascadeClassifier()</h2>
+<p><code>classifier = cv2.CascadeClassifier(xml_path)</code>    </p>
+<div class="highlight"><pre><span></span><code><span class="n">objects</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">detectMultiScale</span><span class="p">(</span>
+   <span class="n">image</span><span class="p">,</span>              <span class="c1"># 输入图像  必须是灰度图   </span>
+   <span class="n">scaleFactor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>   <span class="c1"># （可选）：图像缩放比例（默认 1.1）。值越小，检测越精细（但计算量更大）</span>
+   <span class="n">minNeighbors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># （可选）：控制检测质量的参数（默认 3）。值越大，假阳性越少，但可能漏检 </span>
+   <span class="n">minSize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>       <span class="c1"># （可选）：对象的最小尺寸  如 (30, 30)</span>
+   <span class="n">maxSize</span><span class="o">=</span><span class="kc">None</span>        <span class="c1"># （可选）：对象的最大尺寸</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="c1"># 加载 Haar 特征分类器</span>
+<span class="n">face_cascade</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CascadeClassifier</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">haarcascades</span> <span class="o">+</span> <span class="s1">&#39;haarcascade_frontalface_default.xml&#39;</span><span class="p">)</span>
+
+<span class="c1"># 读取图像</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;image.jpg&#39;</span><span class="p">)</span>
+
+<span class="c1"># 转换为灰度图像</span>
+<span class="n">gray_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+<span class="c1"># 进行人脸检测</span>
+<span class="n">faces</span> <span class="o">=</span> <span class="n">face_cascade</span><span class="o">.</span><span class="n">detectMultiScale</span><span class="p">(</span><span class="n">gray_image</span><span class="p">,</span> <span class="n">scaleFactor</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">minNeighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">minSize</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+
+<span class="c1"># 绘制检测结果</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="ow">in</span> <span class="n">faces</span><span class="p">:</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># 显示结果</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Detected Faces&#39;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+
+<span class="c1"># 加载 Haar 特征分类器</span>
+<span class="n">face_cascade</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CascadeClassifier</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">haarcascades</span> <span class="o">+</span> <span class="s1">&#39;haarcascade_frontalface_default.xml&#39;</span><span class="p">)</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;example.mp4&#39;</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ret</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="c1"># 将帧转换为灰度图像</span>
+    <span class="n">gray_frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+    <span class="c1"># 检测人脸</span>
+    <span class="n">faces</span> <span class="o">=</span> <span class="n">face_cascade</span><span class="o">.</span><span class="n">detectMultiScale</span><span class="p">(</span><span class="n">gray_frame</span><span class="p">,</span> <span class="n">scaleFactor</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">minNeighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">minSize</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+
+    <span class="c1"># 在帧上绘制矩形框标记人脸</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="ow">in</span> <span class="n">faces</span><span class="p">:</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">w</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># 显示带有人脸标记的帧</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Face Detection&#39;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h1 id="_21">物体识别</h1>
+<p>什么是模板匹配？
+模板匹配是一种在图像中寻找与给定模板图像最相似区域的技术。</p>
+<p>简单来说，模板匹配就是在一幅大图像中寻找与模板图像（即我们想要识别的物体）最匹配的部分，这种方法适用于物体在图像中的大小、方向和形状基本不变的情况。</p>
+<ul>
+<li>模板图像: 目标物体的图像片段。</li>
+</ul>
+<p>模板匹配的基本原理<br />
+模板匹配的基本原理是通过滑动模板图像在目标图像上移动，计算每个位置的相似度，并找到相似度最高的位置。<br />
+OpenCV 提供了多种相似度计算方法，如</p>
+<table>
+<thead>
+<tr>
+<th>计算方法</th>
+<th>说明</th>
+<th>匹配度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cv2.TM_SQDIFF</td>
+<td>平方差匹配</td>
+<td>值越小匹配度越高</td>
+</tr>
+<tr>
+<td>cv2.TM_SQDIFF_NORMED</td>
+<td>归一化平方差匹配，对光照变化更鲁棒</td>
+<td></td>
+</tr>
+<tr>
+<td>cv2.TM_CCORR</td>
+<td>相关匹配，计算模板与图像的乘积和</td>
+<td>值越大匹配度越高</td>
+</tr>
+<tr>
+<td>cv2.TM_CCORR_NORMED</td>
+<td>归一化相关匹配，消除亮度影响</td>
+<td></td>
+</tr>
+<tr>
+<td>cv2.TM_CCOEFF</td>
+<td>相关系数匹配</td>
+<td>值越大匹配度越高</td>
+</tr>
+<tr>
+<td>cv2.TM_CCOEFF_NORMED</td>
+<td>归一化相关系数匹配，对光照和对比度变化更鲁棒（推荐）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>应用场景</p>
+<ul>
+<li>物体识别: 用于在图像中定位特定物体，如标志、图标等。</li>
+<li>目标跟踪: 用于在视频中跟踪目标物体。</li>
+<li>图像配准: 用于将两幅图像对齐。</li>
+</ul>
+<p>模板匹配的实现步骤
+1. 加载图像: 读取搜索图像和模板图像。</p>
+<ol>
+<li>
+<p>模板匹配: 使用 cv2.matchTemplate() 在搜索图像中查找模板图像。</p>
+</li>
+<li>
+<p>获取匹配结果: 使用 cv2.minMaxLoc() 获取最佳匹配位置。</p>
+</li>
+<li>
+<p>绘制匹配结果: 在搜索图像中绘制匹配区域。</p>
+</li>
+<li>
+<p>显示结果: 显示匹配结果。</p>
+</li>
+</ol>
+<h2 id="matchtemplate">matchTemplate()</h2>
+<p><code>result = cv2.matchTemplate(image, templ, method, result=None, mask=None)</code><br />
+模板越小，计算量越小，但可能漏检；模板过大则易误匹配<br />
+对光照敏感，建议预处理（如直方图均衡化）或使用归一化方法（如 TM_CCOEFF_NORMED）<br />
+模板匹配对旋转和缩放不鲁棒，需结合其他算法（如 SIFT、ORB）或金字塔多尺度匹配<br />
+多目标匹配：通过阈值化（np.where(result &gt; threshold)）可检测多个匹配位置<br />
+限制匹配区域（如 ROI）可以减少无效计算</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 加载目标图像和模板图像</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;target_image.jpg&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">template</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;template_image.jpg&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 获取模板图像的尺寸</span>
+<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">shape</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># 进行模板匹配</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">matchTemplate</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TM_CCOEFF_NORMED</span><span class="p">)</span>
+
+<span class="c1"># 获取最佳匹配位置</span>
+<span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">min_loc</span><span class="p">,</span> <span class="n">max_loc</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">minMaxLoc</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+<span class="n">top_left</span> <span class="o">=</span> <span class="n">max_loc</span>  <span class="c1"># 使用TM_CCOEFF_NORMED时取最大值位置，若使用 TM_SQDIFF 或 TM_SQDIFF_NORMED，最小值位置（min_loc）为最佳匹配</span>
+
+<span class="c1"># 绘制矩形框标注匹配区域</span>
+<span class="n">bottom_right</span> <span class="o">=</span> <span class="p">(</span><span class="n">top_left</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="n">top_left</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">top_left</span><span class="p">,</span> <span class="n">bottom_right</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># 显示结果图像</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Matched Image&#39;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 加载目标图像和模板图像</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;target_image.jpg&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">template</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;template_image.jpg&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 获取模板图像的尺寸</span>
+<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">shape</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># 进行模板匹配</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">matchTemplate</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TM_CCOEFF_NORMED</span><span class="p">)</span>
+
+<span class="c1"># 设置匹配阈值</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.8</span>
+
+<span class="c1"># 找到匹配位置</span>
+<span class="n">loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">res</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">)</span>
+
+<span class="c1"># 在目标图像中标记匹配位置</span>
+<span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">loc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># 显示结果图像</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Matched Image&#39;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h1 id="_22">图像拼接</h1>
+<p>图像拼接是计算机视觉中的一个重要应用，它可以将多张有重叠区域的图像拼接成一张更大的图像。  </p>
+<p>应用场景<br />
+全景图生成: 将多幅图像拼接成一幅全景图。<br />
+地图拼接: 将多幅地图图像拼接成一幅更大的地图。<br />
+医学图像处理: 将多幅医学图像拼接成一幅完整的图像。  </p>
+<p>图像拼接的基本流程<br />
+1. 图像读取：读取需要拼接的图像。</p>
+<ol>
+<li>
+<p>特征点检测：在每张图像中检测出特征）。OpenCV 提供了多种特征点检测算法，如 SIFT、SURF、ORB 等</p>
+</li>
+<li>
+<p>特征点匹配：在不同图像之间匹配这些特征点。OpenCV 提供了 BFMatcher 或 FlannBasedMatcher 来进行特征点匹配</p>
+</li>
+<li>
+<p>计算变换矩阵：根据匹配的特征点计算图像之间的变换矩阵。</p>
+</li>
+<li>
+<p>图像融合：将图像按照变换矩阵进行拼接，并进行融合处理以消除拼接痕迹。</p>
+</li>
+</ol>
+<h2 id="sift_creat">SIFT_creat()</h2>
+<p><code>sift = cv2.SIFT_create(nfeatures=0, nOctaveLayers=3, contrastThreshold=0.04, edgeThreshold=10, sigma=1.6)</code>  </p>
+<p>nfeatures (可选)：保留的最佳特征数量（按对比度排序）。默认值 0 表示不限制数量，返回所有检测到的特征。</p>
+<p>nOctaveLayers (可选)：每个金字塔组（Octave）中的层数。</p>
+<p>contrastThreshold (可选)：过滤弱特征的对比度阈值。值越小，检测到的特征越多（包括低对比度区域）。</p>
+<p>edgeThreshold (可选)：过滤边缘特征的阈值（避免检测到边缘响应而非角点）。值越大，保留的边缘特征越少。</p>
+<p>sigma (可选)：高斯模糊的初始sigma值，用于构建尺度空间。</p>
+<p>返回一个 cv2.SIFT 对象，可用于以下操作：</p>
+<ul>
+<li>
+<p>检测关键点：sift.detect(image)</p>
+</li>
+<li>
+<p>计算描述符：sift.compute(image, keypoints)</p>
+</li>
+<li>
+<p>同时检测和计算：sift.detectAndCompute(image, mask)</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 1. 加载图像</span>
+<span class="n">image1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\LENOVO\Pictures\Saved Pictures\1679907039016722.jpg&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. 转换为灰度图</span>
+<span class="n">gray1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+<span class="c1"># 3. 特征点检测</span>
+<span class="n">sift</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">SIFT_create</span><span class="p">()</span>
+<span class="n">keypoints1</span><span class="p">,</span> <span class="n">descriptors1</span> <span class="o">=</span> <span class="n">sift</span><span class="o">.</span><span class="n">detectAndCompute</span><span class="p">(</span><span class="n">gray1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="c1"># detectAndCompute() 函数会返回两个值：关键点（keypoints）和描述符（descriptors）。</span>
+<span class="c1"># 关键点是图像中的显著点，描述符是对这些关键点的描述，用于后续的匹配。</span>
+
+<span class="c1"># 绘制关键点</span>
+<span class="n">output_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">keypoints1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS</span><span class="p">)</span>
+
+<span class="c1"># 显示结果</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;SIFT Features&#39;</span><span class="p">,</span> <span class="n">output_image</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="xfeatures2dsurf_create">xfeatures2d.SURF_create()</h2>
+<p>SURF 是 SIFT 的加速版本，对尺度、旋转和光照变化具有较好的不变性，但受专利保护，需通过 opencv-contrib-python 安装  </p>
+<div class="highlight"><pre><span></span><code><span class="n">surf</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">xfeatures2d</span><span class="o">.</span><span class="n">SURF_create</span><span class="p">(</span>
+   <span class="n">hessianThreshold</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>  <span class="c1"># Hessian阈值，控制关键点数量（值越高，关键点越少）</span>
+   <span class="n">nOctaves</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>           <span class="c1"># 金字塔组数（默认4）</span>
+   <span class="n">nOctaveLayers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>      <span class="c1"># 每组金字塔的层数（默认3）</span>
+   <span class="n">extended</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>       <span class="c1"># 是否使用扩展描述符（128维，默认64维）</span>
+   <span class="n">upright</span><span class="o">=</span><span class="kc">False</span>         <span class="c1"># 是否禁用旋转不变性（True=更快，False=更准确）</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h2 id="orb_create">ORB_create()</h2>
+<p>ORB 是一种快速、无专利限制的特征检测算法，适合实时应用（如 SLAM、AR），但对尺度变化敏感</p>
+<div class="highlight"><pre><span></span><code><span class="n">orb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ORB_create</span><span class="p">(</span>
+   <span class="n">nfeatures</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>        <span class="c1"># 保留的最佳特征数量（默认500）值越小速度越快但可能丢失重要特征</span>
+   <span class="n">scaleFactor</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>      <span class="c1"># 金字塔缩放因子（默认1.2）值越大金字塔层数越少，速度越快但对尺度变化更敏感</span>
+   <span class="n">nlevels</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>            <span class="c1"># 金字塔层数（默认8）</span>
+   <span class="n">edgeThreshold</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span>     <span class="c1"># 边缘阈值（默认31）</span>
+   <span class="n">firstLevel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>         <span class="c1"># 金字塔起始层（默认0）</span>
+   <span class="n">WTA_K</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>             <span class="c1"># BRIEF描述符的采样点数（2或3）</span>
+   <span class="n">scoreType</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">ORB_HARRIS_SCORE</span><span class="p">,</span>  <span class="c1"># 关键点评分方式（HARRIS_SCORE或FAST_SCORE）</span>
+   <span class="n">patchSize</span><span class="o">=</span><span class="mi">31</span>          <span class="c1"># BRIEF描述符的补丁大小（默认31）</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h2 id="cv2bfmatcher">cv2.BFMatcher()</h2>
+<p><code>matcher = cv2.BFMatcher(normType=cv2.NORM_L2,crossCheck=False)</code></p>
+<p>normType（距离度量方式）</p>
+<ul>
+<li>
+<p>cv2.NORM_L1：曼哈顿距离（适用于 SIFT、SURF 的浮点型描述符）</p>
+</li>
+<li>
+<p>cv2.NORM_L2（默认）：欧氏距离（适用于 SIFT、SURF 的浮点型描述符）</p>
+</li>
+<li>
+<p>cv2.NORM_HAMMING：汉明距离（适用于 ORB、BRIEF、BRISK 的二进制描述符）</p>
+</li>
+<li>
+<p>cv2.NORM_HAMMING2：改进的汉明距离（适用于 ORB 的 WTA_K=3 或 4 的情况）</p>
+</li>
+</ul>
+<p>crossCheck（交叉验证）</p>
+<ul>
+<li>
+<p>False（默认）：返回每个查询描述符的最近邻匹配（可能存在错误匹配）</p>
+</li>
+<li>
+<p>True：仅保留双向匹配一致的点对（更准确，但匹配数量减少）</p>
+</li>
+</ul>
+<p><code>matcher.match(descriptors1, descriptors2)</code><br />
+功能：返回两组描述符之间的最佳匹配（每个查询描述符的最近邻）。<br />
+返回值：DMatch 对象列表，每个 DMatch 包含：queryIdx：查询描述符的索引。trainIdx：训练描述符的索引。distance：匹配距离（值越小越匹配）。  </p>
+<p><code>matcher.knnMatch(descriptors1, descriptors2, k)</code><br />
+功能：返回每个查询描述符的前 k 个最近邻匹配（用于 RANSAC 等过滤错误匹配的算法）。<br />
+返回值：列表的列表，每个子列表包含 k 个 DMatch 对象  </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 1. 加载图像</span>
+<span class="n">image1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;path/to/image1.jpg&quot;</span><span class="p">)</span>
+<span class="n">image2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;path/to/image2.jpg&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. 转换为灰度图</span>
+<span class="n">gray1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+<span class="n">gray2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image2</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+<span class="c1"># 3. 特征点检测</span>
+<span class="n">sift</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">SIFT_create</span><span class="p">()</span>
+<span class="n">keypoints1</span><span class="p">,</span> <span class="n">descriptors1</span> <span class="o">=</span> <span class="n">sift</span><span class="o">.</span><span class="n">detectAndCompute</span><span class="p">(</span><span class="n">gray1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">keypoints2</span><span class="p">,</span> <span class="n">descriptors2</span> <span class="o">=</span> <span class="n">sift</span><span class="o">.</span><span class="n">detectAndCompute</span><span class="p">(</span><span class="n">gray2</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># 4. 特征点匹配</span>
+<span class="n">matcher</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">BFMatcher</span><span class="p">()</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="n">knnMatch</span><span class="p">(</span><span class="n">descriptors1</span><span class="p">,</span> <span class="n">descriptors2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># 5. 应用比率测试，筛选匹配点</span>
+<span class="n">good_matches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">distance</span> <span class="o">&lt;</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">n</span><span class="o">.</span><span class="n">distance</span><span class="p">:</span>
+        <span class="n">good_matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="c1"># 6. 计算单应性矩阵</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">good_matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="n">src_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([</span><span class="n">keypoints1</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">queryIdx</span><span class="p">]</span><span class="o">.</span><span class="n">pt</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">good_matches</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">dst_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([</span><span class="n">keypoints2</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">trainIdx</span><span class="p">]</span><span class="o">.</span><span class="n">pt</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">good_matches</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">H</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findHomography</span><span class="p">(</span><span class="n">src_pts</span><span class="p">,</span> <span class="n">dst_pts</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">RANSAC</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span> <span class="c1"># findHomography() 函数会返回一个 3x3 的单应性矩阵 H，它可以将 image1 中的点映射到 image2 中</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Not enough matches found.&quot;</span><span class="p">)</span>
+    <span class="n">exit</span><span class="p">()</span>
+
+<span class="c1"># 7. 图像变换</span>
+<span class="n">height1</span><span class="p">,</span> <span class="n">width1</span> <span class="o">=</span> <span class="n">image1</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">height2</span><span class="p">,</span> <span class="n">width2</span> <span class="o">=</span> <span class="n">image2</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">warped_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpPerspective</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="p">(</span><span class="n">width1</span> <span class="o">+</span> <span class="n">width2</span><span class="p">,</span> <span class="n">height1</span><span class="p">))</span>
+
+<span class="c1"># 8. 图像拼接</span>
+<span class="n">warped_image</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">height2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">width2</span><span class="p">]</span> <span class="o">=</span> <span class="n">image2</span>
+
+<span class="c1"># 9. 显示结果</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Stitched Image&quot;</span><span class="p">,</span> <span class="n">warped_image</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h1 id="_23">简单滤镜</h1>
+<div class="highlight"><pre><span></span><code><span class="c1">## 怀旧滤镜</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 读取图像</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;input.jpg&#39;</span><span class="p">)</span>
+
+<span class="c1"># 分离 BGR 通道</span>
+<span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+<span class="c1"># 调整通道强度  增加红色和绿色通道的强度，同时减少蓝色通道的强度</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="mf">0.393</span> <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="mf">0.769</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="mf">0.189</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="mf">0.349</span> <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="mf">0.686</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="mf">0.168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="mf">0.272</span> <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="mf">0.534</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="mf">0.131</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+<span class="c1"># 合并通道</span>
+<span class="n">vintage_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">merge</span><span class="p">((</span><span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+
+<span class="c1"># 保存怀旧图像</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;vintage_output.jpg&#39;</span><span class="p">,</span> <span class="n">vintage_image</span><span class="p">)</span>
+
+<span class="c1"># 显示怀旧图像</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Vintage Image&#39;</span><span class="p">,</span> <span class="n">vintage_image</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1">## 浮雕滤镜</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 读取图像</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;input.jpg&#39;</span><span class="p">)</span>
+
+<span class="c1"># 转换为灰度图像</span>
+<span class="n">gray_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+<span class="c1"># 定义卷积核</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                   <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                   <span class="p">[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+
+<span class="c1"># 应用卷积核</span>
+<span class="n">emboss_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">filter2D</span><span class="p">(</span><span class="n">gray_image</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span>
+
+<span class="c1"># 保存浮雕图像</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;emboss_output.jpg&#39;</span><span class="p">,</span> <span class="n">emboss_image</span><span class="p">)</span>
+
+<span class="c1"># 显示浮雕图像</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Emboss Image&#39;</span><span class="p">,</span> <span class="n">emboss_image</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1">## 锐化滤镜</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 读取图像</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;path/to/image.jpg&quot;</span><span class="p">)</span>
+
+<span class="c1"># 锐化滤镜</span>
+<span class="n">sharpen_kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                           <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                           <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="n">sharpened_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">filter2D</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharpen_kernel</span><span class="p">)</span>
+
+<span class="c1"># 显示结果</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Sharpen Filter&quot;</span><span class="p">,</span> <span class="n">sharpened_image</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+<h1 id="cv2tracker">cv2.Tracker</h1>
+        </article>
+        <footer class="site-footer">
+            <a href="../index.html">&larr; 返回首页</a>
+        </footer>
+    </div>
+    <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <script>
+        const btn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+        });
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

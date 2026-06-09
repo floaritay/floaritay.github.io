@@ -57,7 +57,7 @@ Token (词元) = AI 能理解的最小文本单位
 ## 1.3 上下文窗口
 在一次对话中能处理的最大 Token 数量。超过这个上限，模型就会"忘记"最早的内容。
 
-![image.png](../images/Agent.png)
+![image.png](../docs/images/Agent.png)
 
 ## 1.4 XML 标签分离数据与指令
 
@@ -557,4 +557,4 @@ LangChain 的案例尤其有说服力：底层模型一个参数都没动，仅�
 | 反馈循环 Feedback | Agent 不知道自己做错了 | Agent-to-Agent Review、自动测试套件 |
 | 熵管理 Entropy | 技术债务和文档腐烂 | Doc-gardening Agent、持续垃圾回收 |
 
-![image.png](../images/Agent1.png)
+![image.png](../docs/images/Agent1.png)

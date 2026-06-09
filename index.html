@@ -6,11 +6,10 @@
     <title>floaritay - 学习与项目笔记</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         :root {
             --paper: #f5f0e8;
-            --paper-warm: #ede8dd;
             --ink: #1a1814;
             --ink-soft: #3d3830;
             --ink-muted: #8a8278;
@@ -18,24 +17,24 @@
             --accent: #b45309;
             --accent-warm: #d97706;
             --accent-soft: rgba(180, 83, 9, 0.08);
-            --accent-glow: rgba(180, 83, 9, 0.15);
             --teal: #0f766e;
-            --teal-soft: rgba(15, 118, 110, 0.08);
             --slate: #475569;
-            --slate-soft: rgba(71, 85, 105, 0.06);
-            --card: #faf7f0;
-            --card-hover: #fffdf6;
+            --card-opaque: rgba(250, 247, 240, 0.88);
             --border: rgba(26, 24, 20, 0.08);
-            --border-strong: rgba(26, 24, 20, 0.15);
-            --shadow-sm: 0 1px 2px rgba(26, 24, 20, 0.04);
-            --shadow: 0 2px 8px rgba(26, 24, 20, 0.06), 0 1px 2px rgba(26, 24, 20, 0.04);
-            --shadow-lg: 0 8px 30px rgba(26, 24, 20, 0.08), 0 2px 8px rgba(26, 24, 20, 0.04);
+            --border-strong: rgba(26, 24, 20, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.35);
+            --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            --shadow-sm: 0 1px 2px rgba(26, 24, 20, 0.03);
+            --shadow: 0 2px 12px rgba(26, 24, 20, 0.05), 0 1px 3px rgba(26, 24, 20, 0.03);
+            --shadow-lg: 0 8px 32px rgba(26, 24, 20, 0.07), 0 2px 8px rgba(26, 24, 20, 0.03);
+            --shadow-glass: 0 8px 32px rgba(26, 24, 20, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5);
             --font-display: 'Instrument Serif', Georgia, serif;
             --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'Space Mono', 'Cascadia Code', monospace;
-            --radius: 10px;
-            --radius-sm: 6px;
-            --radius-lg: 14px;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+            --blur: 16px;
+            --blur-strong: 24px;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,10 +45,15 @@
             font-family: var(--font-body);
             color: var(--ink);
             background: var(--paper);
+            background-image:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(180, 83, 9, 0.04), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(15, 118, 110, 0.03), transparent),
+                radial-gradient(ellipse 40% 40% at 50% 50%, rgba(250, 247, 240, 0.3), transparent);
             line-height: 1.65;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         /* Paper grain texture */
@@ -59,15 +63,15 @@
             inset: 0;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.3;
+            opacity: 0.2;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
             mix-blend-mode: multiply;
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--paper-warm); }
-        ::-webkit-scrollbar-thumb { background: var(--ink-faint); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--ink-muted); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(26, 24, 20, 0.12); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(26, 24, 20, 0.2); }
 
         /* ========== LAYOUT ========== */
         .page {
@@ -85,7 +89,7 @@
             top: 0;
             bottom: 0;
             width: 48px;
-            background: var(--paper-warm);
+            background: var(--card-opaque);
             border-right: 1px solid var(--border);
             z-index: 100;
         }
@@ -102,10 +106,11 @@
         }
 
         .header-marker {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 400;
             color: var(--ink-faint);
-            letter-spacing: 0.15em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             margin-bottom: 20px;
             display: flex;
@@ -122,9 +127,9 @@
 
         .site-title {
             font-family: var(--font-display);
-            font-size: clamp(2.8rem, 5vw, 4rem);
+            font-size: clamp(2.6rem, 5vw, 3.8rem);
             font-weight: 400;
-            line-height: 1.05;
+            line-height: 1.08;
             color: var(--ink);
             letter-spacing: -0.02em;
             margin-bottom: 16px;
@@ -136,7 +141,7 @@
         }
 
         .site-subtitle {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 300;
             color: var(--ink-muted);
             max-width: 540px;
@@ -147,7 +152,7 @@
             margin: 32px 0 0;
             border: none;
             height: 1px;
-            background: linear-gradient(90deg, var(--ink-faint), transparent 70%);
+            background: linear-gradient(90deg, rgba(26, 24, 20, 0.1), transparent 70%);
         }
 
         /* ========== NAV ========== */
@@ -155,13 +160,13 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            background: rgba(245, 240, 232, 0.95);
-            backdrop-filter: blur(16px) saturate(1.3);
-            -webkit-backdrop-filter: blur(16px) saturate(1.3);
+            background: rgba(245, 240, 232, 0.6);
+            backdrop-filter: blur(var(--blur-strong)) saturate(1.4);
+            -webkit-backdrop-filter: blur(var(--blur-strong)) saturate(1.4);
             margin: 0 -32px;
             padding: 0 32px;
-            border-bottom: 1px solid var(--border-strong);
-            box-shadow: var(--shadow);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 1px 16px rgba(26, 24, 20, 0.04);
         }
 
         @media (max-width: 1100px) {
@@ -185,15 +190,15 @@
             bottom: -1px;
             height: 1px;
             background: linear-gradient(90deg, var(--accent) 0%, var(--teal) 100%);
-            opacity: 0.3;
+            opacity: 0.15;
         }
 
         .nav-brand {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 700;
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            font-weight: 600;
             color: var(--ink-muted);
-            letter-spacing: 0.08em;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             text-decoration: none;
             white-space: nowrap;
@@ -202,8 +207,8 @@
         .nav-links {
             display: flex;
             gap: 3px;
-            background: var(--paper-warm);
-            border: 1px solid var(--border);
+            background: var(--card-opaque);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius);
             padding: 3px;
         }
@@ -213,7 +218,7 @@
             border: none;
             background: transparent;
             font-family: var(--font-body);
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             font-weight: 500;
             color: var(--ink-muted);
             cursor: pointer;
@@ -225,13 +230,13 @@
 
         .nav-link:hover {
             color: var(--ink-soft);
-            background: rgba(26, 24, 20, 0.04);
+            background: rgba(26, 24, 20, 0.03);
         }
 
         .nav-link.active {
             color: var(--ink);
-            background: var(--card);
-            box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--border-strong);
+            background: var(--card-opaque);
+            box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--glass-border);
             font-weight: 600;
         }
 
@@ -242,6 +247,11 @@
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glassShimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
 
         /* Scroll reveal */
@@ -285,9 +295,10 @@
         .profile-main {}
 
         .profile-eyebrow {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            letter-spacing: 0.12em;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
             color: var(--accent);
             margin-bottom: 12px;
@@ -309,15 +320,15 @@
         }
 
         .profile-name {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            font-weight: 400;
+            font-family: var(--font-body);
+            font-size: 1.8rem;
+            font-weight: 600;
             color: var(--ink);
             margin-bottom: 12px;
         }
 
         .profile-desc {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 300;
             color: var(--ink-muted);
             line-height: 1.8;
@@ -337,7 +348,7 @@
             padding: 8px 18px;
             border-radius: var(--radius-sm);
             font-family: var(--font-body);
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             font-weight: 500;
             text-decoration: none;
             transition: all 0.2s;
@@ -356,49 +367,79 @@
         }
 
         .btn-ghost {
-            background: transparent;
+            background: var(--card-opaque);
             color: var(--ink-soft);
-            border-color: var(--border-strong);
+            border-color: var(--glass-border);
         }
 
         .btn-ghost:hover {
-            background: var(--card);
-            border-color: var(--ink-faint);
+            background: rgba(255, 253, 246, 0.95);
+            border-color: var(--border-strong);
         }
 
         /* Stats sidebar */
         .profile-stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
+            gap: 8px;
+            background: transparent;
+            border: none;
             border-radius: var(--radius);
-            overflow: hidden;
+            overflow: visible;
         }
 
         .stat-cell {
-            background: var(--card);
+            background: var(--card-opaque);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
             padding: 20px;
             text-align: center;
-            transition: background 0.2s;
+            transition: all 0.25s;
+            box-shadow: var(--glass-highlight);
+            position: relative;
+            overflow: hidden;
         }
 
-        .stat-cell:hover { background: var(--card-hover); }
+        .stat-cell:hover {
+            background: rgba(255, 253, 246, 0.95);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-glass);
+        }
+
+        .stat-cell::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+            background-size: 200% 100%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            border-radius: var(--radius);
+        }
+
+        .stat-cell:hover::after {
+            opacity: 1;
+            animation: glassShimmer 1.5s ease-in-out;
+        }
 
         .stat-value {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            font-weight: 400;
+            font-family: var(--font-body);
+            font-size: 1.8rem;
+            font-weight: 600;
             color: var(--ink);
             line-height: 1;
             font-variant-numeric: tabular-nums;
         }
 
         .stat-label {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            letter-spacing: 0.1em;
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 400;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             color: var(--ink-muted);
             margin-top: 6px;
@@ -415,13 +456,14 @@
         .divider-line {
             flex: 1;
             height: 1px;
-            background: var(--border-strong);
+            background: rgba(26, 24, 20, 0.08);
         }
 
         .divider-label {
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
-            letter-spacing: 0.15em;
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--ink-faint);
             white-space: nowrap;
@@ -440,17 +482,41 @@
         }
 
         .info-card {
-            background: var(--card);
-            border: 1px solid var(--border);
+            background: var(--card-opaque);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius);
             padding: 24px;
-            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: var(--glass-highlight);
+            position: relative;
+            overflow: hidden;
         }
 
         .info-card:hover {
-            border-color: var(--border-strong);
-            box-shadow: var(--shadow);
-            transform: translateY(-1px);
+            background: rgba(255, 253, 246, 0.95);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: var(--shadow-glass);
+            transform: translateY(-2px);
+        }
+
+        .info-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+            background-size: 200% 100%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            border-radius: var(--radius);
+        }
+
+        .info-card:hover::after {
+            opacity: 1;
+            animation: glassShimmer 1.5s ease-in-out;
         }
 
         .info-card-head {
@@ -471,20 +537,20 @@
             flex-shrink: 0;
         }
 
-        .info-card-icon.accent { background: var(--accent-soft); }
-        .info-card-icon.teal { background: var(--teal-soft); }
-        .info-card-icon.slate { background: var(--slate-soft); }
-        .info-card-icon.amber { background: rgba(217, 119, 6, 0.08); }
+        .info-card-icon.accent { background: rgba(180, 83, 9, 0.08); }
+        .info-card-icon.teal { background: rgba(15, 118, 110, 0.08); }
+        .info-card-icon.slate { background: rgba(71, 85, 105, 0.06); }
+        .info-card-icon.amber { background: rgba(217, 119, 6, 0.07); }
 
         .info-card-title {
-            font-family: var(--font-display);
-            font-size: 1.05rem;
-            font-weight: 400;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
             color: var(--ink);
         }
 
         .info-card p {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             font-weight: 300;
             color: var(--ink-muted);
             line-height: 1.75;
@@ -497,7 +563,7 @@
         }
 
         .info-card li {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             font-weight: 300;
             color: var(--ink-muted);
             padding-left: 16px;
@@ -517,10 +583,35 @@
 
         /* Timeline / Learning path */
         .path-section {
-            background: var(--card);
-            border: 1px solid var(--border);
+            background: rgba(250, 247, 240, 0.45);
+            backdrop-filter: blur(var(--blur-strong));
+            -webkit-backdrop-filter: blur(var(--blur-strong));
+            border: 1px solid rgba(255, 255, 255, 0.35);
             border-radius: var(--radius-lg);
             padding: 32px;
+            box-shadow: var(--shadow-glass);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .path-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%);
+            background-size: 200% 100%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            border-radius: var(--radius-lg);
+        }
+
+        .path-section:hover::after {
+            opacity: 1;
+            animation: glassShimmer 2s ease-in-out;
         }
 
         .path-header {
@@ -531,17 +622,18 @@
         }
 
         .path-title {
-            font-family: var(--font-display);
-            font-size: 1.15rem;
-            font-weight: 400;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            font-weight: 600;
             color: var(--ink);
         }
 
         .path-count {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 400;
             color: var(--ink-faint);
-            letter-spacing: 0.08em;
+            letter-spacing: 0.04em;
             text-transform: uppercase;
         }
 
@@ -556,16 +648,22 @@
             top: 24px;
             bottom: 24px;
             width: 1px;
-            background: repeating-linear-gradient(to bottom, var(--border-strong) 0, var(--border-strong) 4px, transparent 4px, transparent 8px);
+            background: repeating-linear-gradient(to bottom, rgba(26, 24, 20, 0.1) 0, rgba(26, 24, 20, 0.1) 4px, transparent 4px, transparent 8px);
         }
 
         .path-item {
             display: grid;
             grid-template-columns: 30px 1fr auto;
             gap: 16px;
-            padding: 14px 0;
+            padding: 14px 8px;
             align-items: start;
             border-bottom: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            transition: background 0.2s;
+        }
+
+        .path-item:hover {
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .path-item:last-child { border-bottom: none; }
@@ -584,30 +682,30 @@
 
         .path-item:hover .path-node {
             background: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-soft);
+            box-shadow: 0 0 0 4px rgba(180, 83, 9, 0.12);
         }
 
         .path-content h4 {
             font-size: 0.9rem;
             font-weight: 600;
             color: var(--ink);
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
 
         .path-content p {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             font-weight: 300;
             color: var(--ink-muted);
             line-height: 1.6;
         }
 
         .path-tag {
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
-            letter-spacing: 0.05em;
-            padding: 3px 8px;
-            border-radius: 3px;
-            background: var(--paper-warm);
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            letter-spacing: 0.02em;
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            background: var(--card-opaque);
             color: var(--ink-muted);
             border: 1px solid var(--border);
             white-space: nowrap;
@@ -631,8 +729,8 @@
         }
 
         .project-card {
-            background: var(--card);
-            border: 1px solid var(--border);
+            background: var(--card-opaque);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius);
             padding: 28px;
             display: flex;
@@ -641,6 +739,7 @@
             transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: var(--glass-highlight);
         }
 
         .project-card::before {
@@ -656,22 +755,43 @@
         }
 
         .project-card:hover {
-            border-color: var(--border-strong);
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-2px);
+            background: rgba(255, 253, 246, 0.95);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: var(--shadow-glass);
+            transform: translateY(-3px);
         }
 
         .project-card:hover::before { opacity: 1; }
 
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+            background-size: 200% 100%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            border-radius: var(--radius);
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
+            animation: glassShimmer 1.5s ease-in-out;
+        }
+
         .project-card h3 {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            font-weight: 400;
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            font-weight: 600;
             color: var(--ink);
         }
 
         .project-card p {
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             font-weight: 300;
             color: var(--ink-muted);
             line-height: 1.7;
@@ -682,10 +802,10 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.04em;
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
             color: var(--accent);
             text-decoration: none;
             padding: 5px 0;
@@ -699,11 +819,11 @@
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
+            gap: 8px;
+            background: transparent;
+            border: none;
             border-radius: var(--radius);
-            overflow: hidden;
+            overflow: visible;
         }
 
         @media (max-width: 768px) {
@@ -715,18 +835,47 @@
         }
 
         .skill-cell {
-            background: var(--card);
+            background: var(--card-opaque);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
             padding: 20px;
-            transition: background 0.2s;
+            transition: all 0.25s;
+            box-shadow: var(--glass-highlight);
+            position: relative;
+            overflow: hidden;
         }
 
-        .skill-cell:hover { background: var(--card-hover); }
+        .skill-cell:hover {
+            background: rgba(255, 253, 246, 0.95);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-glass);
+        }
+
+        .skill-cell::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+            background-size: 200% 100%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            border-radius: var(--radius);
+        }
+
+        .skill-cell:hover::after {
+            opacity: 1;
+            animation: glassShimmer 1.5s ease-in-out;
+        }
 
         .skill-cell-title {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             color: var(--ink-muted);
             margin-bottom: 12px;
@@ -739,17 +888,18 @@
         }
 
         .skill-tag {
-            font-size: 0.78rem;
+            font-size: 0.82rem;
             font-weight: 400;
             color: var(--ink-soft);
-            padding: 3px 10px;
-            border-radius: 3px;
-            background: var(--paper-warm);
+            padding: 4px 12px;
+            border-radius: var(--radius-sm);
+            background: var(--card-opaque);
             border: 1px solid var(--border);
-            transition: all 0.15s;
+            transition: all 0.2s;
         }
 
         .skill-tag:hover {
+            background: rgba(255, 253, 246, 0.95);
             border-color: var(--border-strong);
             color: var(--ink);
         }
@@ -774,22 +924,24 @@
         .search-field input {
             width: 100%;
             padding: 10px 14px 10px 36px;
-            border: 1px solid var(--border-strong);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius-sm);
-            background: var(--card);
+            background: var(--card-opaque);
             color: var(--ink);
             font-family: var(--font-body);
-            font-size: 0.875rem;
+            font-size: 0.88rem;
             font-weight: 400;
             outline: none;
             transition: all 0.2s;
+            box-shadow: var(--glass-highlight);
         }
 
         .search-field input::placeholder { color: var(--ink-faint); }
 
         .search-field input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-soft);
+            border-color: rgba(180, 83, 9, 0.3);
+            box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.06);
+            background: rgba(255, 253, 246, 0.95);
         }
 
         .search-field .search-icon {
@@ -802,10 +954,11 @@
         }
 
         .result-count {
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 400;
             color: var(--ink-faint);
-            letter-spacing: 0.05em;
+            letter-spacing: 0.02em;
             white-space: nowrap;
         }
 
@@ -817,22 +970,22 @@
         }
 
         .filter-btn {
-            padding: 4px 12px;
-            border: 1px solid transparent;
-            border-radius: 3px;
-            background: none;
+            padding: 5px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--card-opaque);
             color: var(--ink-muted);
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
             font-weight: 400;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.02em;
             cursor: pointer;
-            transition: all 0.15s;
+            transition: all 0.2s;
         }
 
         .filter-btn:hover {
             color: var(--ink-soft);
-            background: var(--card);
+            background: rgba(255, 253, 246, 0.95);
         }
 
         .filter-btn.active {
@@ -845,7 +998,7 @@
             display: none;
             padding: 16px 20px;
             border-radius: var(--radius-sm);
-            background: rgba(217, 119, 6, 0.06);
+            background: rgba(217, 119, 6, 0.08);
             border: 1px solid rgba(217, 119, 6, 0.15);
             color: var(--accent-warm);
             font-size: 0.85rem;
@@ -859,10 +1012,10 @@
         }
 
         .note-group-title {
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
             color: var(--ink-muted);
             margin-bottom: 12px;
@@ -891,7 +1044,7 @@
             gap: 12px;
             padding: 10px 14px;
             border-radius: var(--radius-sm);
-            transition: all 0.15s;
+            transition: all 0.2s;
             border: 1px solid transparent;
             text-decoration: none;
             color: inherit;
@@ -900,15 +1053,16 @@
         }
 
         .note-item:hover {
-            background: var(--card);
+            background: var(--card-opaque);
             border-color: var(--border);
+            box-shadow: var(--glass-highlight);
         }
 
         .note-item .note-title {
-            font-size: 0.875rem;
+            font-size: 0.88rem;
             font-weight: 500;
             color: var(--ink-soft);
-            transition: color 0.15s;
+            transition: color 0.2s;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -917,8 +1071,9 @@
         .note-item:hover .note-title { color: var(--accent); }
 
         .note-item .note-path {
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 300;
             color: var(--ink-faint);
             white-space: nowrap;
             flex-shrink: 0;
@@ -930,10 +1085,13 @@
             z-index: 200;
             max-width: 320px;
             padding: 14px 18px;
-            background: var(--ink);
+            background: rgba(26, 24, 20, 0.85);
+            backdrop-filter: blur(var(--blur-strong)) saturate(1.2);
+            -webkit-backdrop-filter: blur(var(--blur-strong)) saturate(1.2);
             color: var(--paper);
             border-radius: var(--radius);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06);
             pointer-events: none;
             opacity: 0;
             transform: translateY(6px);
@@ -949,9 +1107,9 @@
         }
 
         .note-tooltip .tip-title {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            font-weight: 400;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
             margin-bottom: 6px;
             color: #fff;
         }
@@ -965,11 +1123,12 @@
         }
 
         .note-tooltip .tip-path {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 300;
             color: var(--ink-faint);
             margin-top: 8px;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.02em;
         }
 
         .hidden { display: none !important; }
@@ -983,8 +1142,8 @@
             width: 38px;
             height: 38px;
             border-radius: var(--radius-sm);
-            border: 1px solid var(--border-strong);
-            background: var(--card);
+            border: 1px solid var(--glass-border);
+            background: var(--card-opaque);
             color: var(--ink-muted);
             cursor: pointer;
             display: none;
@@ -992,14 +1151,15 @@
             justify-content: center;
             font-size: 1rem;
             transition: all 0.2s;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-glass);
         }
 
         .back-top:hover {
             background: var(--ink);
             color: var(--paper);
             border-color: var(--ink);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         /* Kbd hint */
@@ -1008,8 +1168,9 @@
             bottom: 24px;
             left: 68px;
             z-index: 100;
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 300;
             color: var(--ink-faint);
             display: flex;
             align-items: center;
@@ -1027,29 +1188,31 @@
 
         kbd {
             display: inline-block;
-            padding: 1px 5px;
-            border-radius: 3px;
-            border: 1px solid var(--border-strong);
-            background: var(--card);
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: var(--card-opaque);
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            font-weight: 500;
         }
 
         /* ========== PAGE FOOTER ========== */
         .site-footer {
             margin-top: 60px;
             padding: 24px 0;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid rgba(26, 24, 20, 0.06);
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
         .footer-text {
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 300;
             color: var(--ink-faint);
-            letter-spacing: 0.06em;
+            letter-spacing: 0.02em;
         }
 
         /* ========== COVER FLOW ========== */
@@ -1083,12 +1246,12 @@
 
         .coverflow-container::before {
             left: 0;
-            background: linear-gradient(90deg, var(--paper) 0%, transparent 100%);
+            background: linear-gradient(90deg, rgba(245, 240, 232, 0.8) 0%, transparent 100%);
         }
 
         .coverflow-container::after {
             right: 0;
-            background: linear-gradient(-90deg, var(--paper) 0%, transparent 100%);
+            background: linear-gradient(-90deg, rgba(245, 240, 232, 0.8) 0%, transparent 100%);
         }
 
         .coverflow-track {
@@ -1107,9 +1270,9 @@
             top: 30px;
             border-radius: var(--radius-lg);
             overflow: hidden;
-            background: var(--card);
-            border: 2px solid var(--border);
-            box-shadow: var(--shadow-lg);
+            background: var(--card-opaque);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-glass);
             transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
                         opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
                         box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1119,8 +1282,29 @@
         }
 
         .coverflow-card.active {
-            border-color: var(--accent);
-            box-shadow: var(--shadow-lg), 0 0 0 3px var(--accent-soft), 0 8px 40px rgba(180, 83, 9, 0.12);
+            border-color: rgba(180, 83, 9, 0.3);
+            box-shadow: var(--shadow-glass), 0 0 0 3px var(--accent-soft), 0 8px 40px rgba(180, 83, 9, 0.1);
+        }
+
+        .coverflow-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+            background-size: 200% 100%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            border-radius: var(--radius-lg);
+            z-index: 1;
+        }
+
+        .coverflow-card.active::after {
+            opacity: 1;
+            animation: glassShimmer 2s ease-in-out;
         }
 
         .coverflow-card img {
@@ -1136,13 +1320,14 @@
             left: 0;
             right: 0;
             padding: 24px 16px 12px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.65));
+            background: linear-gradient(transparent, rgba(0,0,0,0.55));
             color: #fff;
             font-family: var(--font-body);
             font-size: 0.85rem;
             font-weight: 500;
             text-align: center;
             pointer-events: none;
+            z-index: 2;
         }
 
         /* Reflection */
@@ -1154,9 +1339,9 @@
             height: 80px;
             overflow: hidden;
             pointer-events: none;
-            opacity: 0.25;
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+            opacity: 0.15;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
         }
 
         .coverflow-reflection-inner {
@@ -1185,8 +1370,8 @@
             width: 36px;
             height: 36px;
             border-radius: var(--radius-sm);
-            border: 1px solid var(--border-strong);
-            background: var(--card);
+            border: 1px solid var(--glass-border);
+            background: var(--card-opaque);
             color: var(--ink-muted);
             font-size: 1rem;
             cursor: pointer;
@@ -1194,6 +1379,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            box-shadow: var(--glass-highlight);
         }
 
         .coverflow-nav button:hover {
@@ -1203,17 +1389,18 @@
         }
 
         .coverflow-counter {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            font-weight: 400;
             color: var(--ink-faint);
-            letter-spacing: 0.08em;
+            letter-spacing: 0.04em;
             min-width: 60px;
             text-align: center;
         }
 
         .coverflow-desc {
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 300;
             color: var(--ink-muted);
             line-height: 1.7;
@@ -1591,7 +1778,7 @@
                 <div class="note-group" data-category="root">
                     <h2 class="note-group-title">Root</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="FastAPI" data-file="FastAPI.md" data-category="root" data-desc="FastAPI框架基础与路由配置" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/FastAPI.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="FastAPI" data-file="FastAPI.md" data-category="root" data-desc="FastAPI框架基础与路由配置" href="FastAPI.html">
                             <span class="note-title">FastAPI</span>
                             <span class="note-path">FastAPI.md</span>
                         </a>
@@ -1601,19 +1788,19 @@
                 <div class="note-group" data-category="Agent">
                     <h2 class="note-group-title">Agent</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="Agent" data-file="Agent.md" data-category="Agent" data-desc="AI Agent概念与核心组件" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/Agent/Agent.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Agent" data-file="Agent.md" data-category="Agent" data-desc="AI Agent概念与核心组件" href="Agent/Agent.html">
                             <span class="note-title">Agent</span>
                             <span class="note-path">Agent/Agent.md</span>
                         </a>
-                        <a class="note-item" data-title="LangChain" data-file="LangChain.md" data-category="Agent" data-desc="LangChain大模型应用开发框架" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/Agent/LangChain.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="LangChain" data-file="LangChain.md" data-category="Agent" data-desc="LangChain大模型应用开发框架" href="Agent/LangChain.html">
                             <span class="note-title">LangChain</span>
                             <span class="note-path">Agent/LangChain.md</span>
                         </a>
-                        <a class="note-item" data-title="prompt" data-file="prompt.md" data-category="Agent" data-desc="提示词工程与Token机制" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/Agent/prompt.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="prompt" data-file="prompt.md" data-category="Agent" data-desc="提示词工程与Token机制" href="Agent/prompt.html">
                             <span class="note-title">prompt</span>
                             <span class="note-path">Agent/prompt.md</span>
                         </a>
-                        <a class="note-item" data-title="OpenAI" data-file="OpenAI.md" data-category="Agent" data-desc="OpenAI API与Agent开发实践" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/Agent/OpenAI.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="OpenAI" data-file="OpenAI.md" data-category="Agent" data-desc="OpenAI API与Agent开发实践" href="Agent/OpenAI.html">
                             <span class="note-title">OpenAI</span>
                             <span class="note-path">Agent/OpenAI.md</span>
                         </a>
@@ -1623,15 +1810,15 @@
                 <div class="note-group" data-category="CV">
                     <h2 class="note-group-title">CV</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="dip" data-file="dip.md" data-category="CV" data-desc="图像数字处理运算与PSNR/SSIM" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/CV/dip.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="dip" data-file="dip.md" data-category="CV" data-desc="图像数字处理运算与PSNR/SSIM" href="CV/dip.html">
                             <span class="note-title">dip</span>
                             <span class="note-path">CV/dip.md</span>
                         </a>
-                        <a class="note-item" data-title="exam" data-file="exam.md" data-category="CV" data-desc="数字图像处理复习笔记" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/CV/exam.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="exam" data-file="exam.md" data-category="CV" data-desc="数字图像处理复习笔记" href="CV/exam.html">
                             <span class="note-title">exam</span>
                             <span class="note-path">CV/exam.md</span>
                         </a>
-                        <a class="note-item" data-title="OpenCV" data-file="OpenCV.md" data-category="CV" data-desc="OpenCV基础模块与图像操作" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/CV/OpenCV.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="OpenCV" data-file="OpenCV.md" data-category="CV" data-desc="OpenCV基础模块与图像操作" href="CV/OpenCV.html">
                             <span class="note-title">OpenCV</span>
                             <span class="note-path">CV/OpenCV.md</span>
                         </a>
@@ -1641,19 +1828,19 @@
                 <div class="note-group" data-category="DeepLearing">
                     <h2 class="note-group-title">DeepLearning</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="DeepLearning" data-file="DeepLearning.md" data-category="DeepLearing" data-desc="深度学习基础概念与术语" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/DeepLearing/DeepLearning.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="DeepLearning" data-file="DeepLearning.md" data-category="DeepLearing" data-desc="深度学习基础概念与术语" href="DeepLearing/DeepLearning.html">
                             <span class="note-title">DeepLearning</span>
                             <span class="note-path">DeepLearing/DeepLearning.md</span>
                         </a>
-                        <a class="note-item" data-title="PyTorch" data-file="PyTorch.md" data-category="DeepLearing" data-desc="PyTorch深度学习框架入门" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/DeepLearing/PyTorch.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="PyTorch" data-file="PyTorch.md" data-category="DeepLearing" data-desc="PyTorch深度学习框架入门" href="DeepLearing/PyTorch.html">
                             <span class="note-title">PyTorch</span>
                             <span class="note-path">DeepLearing/PyTorch.md</span>
                         </a>
-                        <a class="note-item" data-title="TensorFlow" data-file="TensorFlow.md" data-category="DeepLearing" data-desc="TensorFlow基础与张量概念" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/DeepLearing/TensorFlow.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="TensorFlow" data-file="TensorFlow.md" data-category="DeepLearing" data-desc="TensorFlow基础与张量概念" href="DeepLearing/TensorFlow.html">
                             <span class="note-title">TensorFlow</span>
                             <span class="note-path">DeepLearing/TensorFlow.md</span>
                         </a>
-                        <a class="note-item" data-title="TensorFlow2" data-file="TensorFlow2.md" data-category="DeepLearing" data-desc="TensorFlow模块与线性回归" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/DeepLearing/TensorFlow2.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="TensorFlow2" data-file="TensorFlow2.md" data-category="DeepLearing" data-desc="TensorFlow模块与线性回归" href="DeepLearing/TensorFlow2.html">
                             <span class="note-title">TensorFlow2</span>
                             <span class="note-path">DeepLearing/TensorFlow2.md</span>
                         </a>
@@ -1663,11 +1850,11 @@
                 <div class="note-group" data-category="MatLab">
                     <h2 class="note-group-title">MatLab</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="basic" data-file="basic.md" data-category="MatLab" data-desc="MATLAB快捷键与操作指南" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/MatLab/basic.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="basic" data-file="basic.md" data-category="MatLab" data-desc="MATLAB快捷键与操作指南" href="MatLab/basic.html">
                             <span class="note-title">basic</span>
                             <span class="note-path">MatLab/basic.md</span>
                         </a>
-                        <a class="note-item" data-title="mathematical_modeling" data-file="mathematical_modeling.md" data-category="MatLab" data-desc="数学建模方法与层次分析法" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/MatLab/mathematical_modeling.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="mathematical_modeling" data-file="mathematical_modeling.md" data-category="MatLab" data-desc="数学建模方法与层次分析法" href="MatLab/mathematical_modeling.html">
                             <span class="note-title">mathematical_modeling</span>
                             <span class="note-path">MatLab/mathematical_modeling.md</span>
                         </a>
@@ -1677,7 +1864,7 @@
                 <div class="note-group" data-category="NLP">
                     <h2 class="note-group-title">NLP</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="NLP" data-file="NLP.md" data-category="NLP" data-desc="自然语言模型与统计原理" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/NLP/NLP.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="NLP" data-file="NLP.md" data-category="NLP" data-desc="自然语言模型与统计原理" href="NLP/NLP.html">
                             <span class="note-title">NLP</span>
                             <span class="note-path">NLP/NLP.md</span>
                         </a>
@@ -1687,19 +1874,19 @@
                 <div class="note-group" data-category="ROS">
                     <h2 class="note-group-title">ROS</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="ROS2_Introduction" data-file="ROS2_Introduction.md" data-category="ROS" data-desc="ROS2安装与Ubuntu终端指令" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/ROS/ROS2_Introduction.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="ROS2_Introduction" data-file="ROS2_Introduction.md" data-category="ROS" data-desc="ROS2安装与Ubuntu终端指令" href="ROS/ROS2_Introduction.html">
                             <span class="note-title">ROS2_Introduction</span>
                             <span class="note-path">ROS/ROS2_Introduction.md</span>
                         </a>
-                        <a class="note-item" data-title="ROS2_guyue" data-file="ROS2_guyue.md" data-category="ROS" data-desc="ROS2架构与命令行操作" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/ROS/ROS2_guyue.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="ROS2_guyue" data-file="ROS2_guyue.md" data-category="ROS" data-desc="ROS2架构与命令行操作" href="ROS/ROS2_guyue.html">
                             <span class="note-title">ROS2_guyue</span>
                             <span class="note-path">ROS/ROS2_guyue.md</span>
                         </a>
-                        <a class="note-item" data-title="ROS2_modeling_simulation" data-file="ROS2_modeling_simulation.md" data-category="ROS" data-desc="ROS2机器人URDF建模与描述" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/ROS/ROS2_modeling_simulation.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="ROS2_modeling_simulation" data-file="ROS2_modeling_simulation.md" data-category="ROS" data-desc="ROS2机器人URDF建模与描述" href="ROS/ROS2_modeling_simulation.html">
                             <span class="note-title">ROS2_modeling_simulation</span>
                             <span class="note-path">ROS/ROS2_modeling_simulation.md</span>
                         </a>
-                        <a class="note-item" data-title="ROS2_robotics" data-file="ROS2_robotics.md" data-category="ROS" data-desc="ROS2空间坐标与TF2变换" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/ROS/ROS2_robotics.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="ROS2_robotics" data-file="ROS2_robotics.md" data-category="ROS" data-desc="ROS2空间坐标与TF2变换" href="ROS/ROS2_robotics.html">
                             <span class="note-title">ROS2_robotics</span>
                             <span class="note-path">ROS/ROS2_robotics.md</span>
                         </a>
@@ -1709,11 +1896,11 @@
                 <div class="note-group" data-category="SQL">
                     <h2 class="note-group-title">SQL</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="data_base" data-file="data_base.md" data-category="SQL" data-desc="MySQL数据库与SQL语法基础" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/SQL/data_base.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="data_base" data-file="data_base.md" data-category="SQL" data-desc="MySQL数据库与SQL语法基础" href="SQL/data_base.html">
                             <span class="note-title">data_base</span>
                             <span class="note-path">SQL/data_base.md</span>
                         </a>
-                        <a class="note-item" data-title="exam" data-file="exam.md" data-category="SQL" data-desc="数据库设计与多表查询练习" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/SQL/exam.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="exam" data-file="exam.md" data-category="SQL" data-desc="数据库设计与多表查询练习" href="SQL/exam.html">
                             <span class="note-title">exam</span>
                             <span class="note-path">SQL/exam.md</span>
                         </a>
@@ -1723,23 +1910,23 @@
                 <div class="note-group" data-category="Vibe_Coding">
                     <h2 class="note-group-title">Vibe_Coding</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="CC_Switch" data-file="CC_Switch.md" data-category="Vibe_Coding" data-desc="CC Switch多工具API配置管理" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/Vibe_Coding/CC_Switch.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="CC_Switch" data-file="CC_Switch.md" data-category="Vibe_Coding" data-desc="CC Switch多工具API配置管理" href="Vibe_Coding/CC_Switch.html">
                             <span class="note-title">CC_Switch</span>
                             <span class="note-path">Vibe_Coding/CC_Switch.md</span>
                         </a>
-                        <a class="note-item" data-title="Claude" data-file="Claude.md" data-category="Vibe_Coding" data-desc="Claude Code安装与使用指南" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/Vibe_Coding/Claude.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Claude" data-file="Claude.md" data-category="Vibe_Coding" data-desc="Claude Code安装与使用指南" href="Vibe_Coding/Claude.html">
                             <span class="note-title">Claude</span>
                             <span class="note-path">Vibe_Coding/Claude.md</span>
                         </a>
-                        <a class="note-item" data-title="OpenClaw" data-file="OpenClaw.md" data-category="Vibe_Coding" data-desc="OpenClaw安装与功能介绍" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/Vibe_Coding/OpenClaw.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="OpenClaw" data-file="OpenClaw.md" data-category="Vibe_Coding" data-desc="OpenClaw安装与功能介绍" href="Vibe_Coding/OpenClaw.html">
                             <span class="note-title">OpenClaw</span>
                             <span class="note-path">Vibe_Coding/OpenClaw.md</span>
                         </a>
-                        <a class="note-item" data-title="OpenCode" data-file="OpenCode.md" data-category="Vibe_Coding" data-desc="OpenCode安装与Coding Plan配置" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/Vibe_Coding/OpenCode.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="OpenCode" data-file="OpenCode.md" data-category="Vibe_Coding" data-desc="OpenCode安装与Coding Plan配置" href="Vibe_Coding/OpenCode.html">
                             <span class="note-title">OpenCode</span>
                             <span class="note-path">Vibe_Coding/OpenCode.md</span>
                         </a>
-                        <a class="note-item" data-title="Hermes Agent" data-file="Hermes_Agent.md" data-category="Vibe_Coding" data-desc="Hermes Agent - Nous Research AI Agent" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/Vibe_Coding/Hermes_Agent.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Hermes Agent" data-file="Hermes_Agent.md" data-category="Vibe_Coding" data-desc="Hermes Agent - Nous Research AI Agent" href="Vibe_Coding/Hermes_Agent.html">
                             <span class="note-title">Hermes Agent</span>
                             <span class="note-path">Vibe_Coding/Hermes_Agent.md</span>
                         </a>
@@ -1749,39 +1936,39 @@
                 <div class="note-group" data-category="basic">
                     <h2 class="note-group-title">Basic</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="Conda" data-file="Conda.md" data-category="basic" data-desc="Conda环境与包管理命令" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/basic/Conda.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Conda" data-file="Conda.md" data-category="basic" data-desc="Conda环境与包管理命令" href="basic/Conda.html">
                             <span class="note-title">Conda</span>
                             <span class="note-path">basic/Conda.md</span>
                         </a>
-                        <a class="note-item" data-title="CUDA" data-file="CUDA.md" data-category="basic" data-desc="CUDA并行计算与GPU加速入门" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/basic/CUDA.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="CUDA" data-file="CUDA.md" data-category="basic" data-desc="CUDA并行计算与GPU加速入门" href="basic/CUDA.html">
                             <span class="note-title">CUDA</span>
                             <span class="note-path">basic/CUDA.md</span>
                         </a>
-                        <a class="note-item" data-title="Docker" data-file="Docker.md" data-category="basic" data-desc="Docker容器技术基础概念" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/basic/Docker.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Docker" data-file="Docker.md" data-category="basic" data-desc="Docker容器技术基础概念" href="basic/Docker.html">
                             <span class="note-title">Docker</span>
                             <span class="note-path">basic/Docker.md</span>
                         </a>
-                        <a class="note-item" data-title="Git" data-file="Git.md" data-category="basic" data-desc="Git版本控制与工作流程" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/basic/Git.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Git" data-file="Git.md" data-category="basic" data-desc="Git版本控制与工作流程" href="basic/Git.html">
                             <span class="note-title">Git</span>
                             <span class="note-path">basic/Git.md</span>
                         </a>
-                        <a class="note-item" data-title="jupyter" data-file="jupyter.md" data-category="basic" data-desc="Jupyter Book安装与配置" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/basic/jupyter.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="jupyter" data-file="jupyter.md" data-category="basic" data-desc="Jupyter Book安装与配置" href="basic/jupyter.html">
                             <span class="note-title">jupyter</span>
                             <span class="note-path">basic/jupyter.md</span>
                         </a>
-                        <a class="note-item" data-title="Linux" data-file="Linux.md" data-category="basic" data-desc="Linux常用命令行操作" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/basic/Linux.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Linux" data-file="Linux.md" data-category="basic" data-desc="Linux常用命令行操作" href="basic/Linux.html">
                             <span class="note-title">Linux</span>
                             <span class="note-path">basic/Linux.md</span>
                         </a>
-                        <a class="note-item" data-title="Markdown" data-file="Markdown.md" data-category="basic" data-desc="Markdown语法与编辑器推荐" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/basic/Markdown.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Markdown" data-file="Markdown.md" data-category="basic" data-desc="Markdown语法与编辑器推荐" href="basic/Markdown.html">
                             <span class="note-title">Markdown</span>
                             <span class="note-path">basic/Markdown.md</span>
                         </a>
-                        <a class="note-item" data-title="Ollama" data-file="Ollama.md" data-category="basic" data-desc="Ollama本地大模型运行平台" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/basic/Ollama.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Ollama" data-file="Ollama.md" data-category="basic" data-desc="Ollama本地大模型运行平台" href="basic/Ollama.html">
                             <span class="note-title">Ollama</span>
                             <span class="note-path">basic/Ollama.md</span>
                         </a>
-                        <a class="note-item" data-title="VsCode" data-file="VsCode.md" data-category="basic" data-desc="VS Code安装与界面功能说明" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/basic/VsCode.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="VsCode" data-file="VsCode.md" data-category="basic" data-desc="VS Code安装与界面功能说明" href="basic/VsCode.html">
                             <span class="note-title">VsCode</span>
                             <span class="note-path">basic/VsCode.md</span>
                         </a>
@@ -1791,15 +1978,15 @@
                 <div class="note-group" data-category="data_analysis">
                     <h2 class="note-group-title">Data Analysis</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="Matplotlib" data-file="Matplotlib.md" data-category="data_analysis" data-desc="Matplotlib数据可视化绑图示例" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/data_analysis/Matplotlib.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Matplotlib" data-file="Matplotlib.md" data-category="data_analysis" data-desc="Matplotlib数据可视化绑图示例" href="data_analysis/Matplotlib.html">
                             <span class="note-title">Matplotlib</span>
                             <span class="note-path">data_analysis/Matplotlib.md</span>
                         </a>
-                        <a class="note-item" data-title="Numpy" data-file="Numpy.md" data-category="data_analysis" data-desc="NumPy常用操作与空值处理" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/data_analysis/Numpy.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Numpy" data-file="Numpy.md" data-category="data_analysis" data-desc="NumPy常用操作与空值处理" href="data_analysis/Numpy.html">
                             <span class="note-title">Numpy</span>
                             <span class="note-path">data_analysis/Numpy.md</span>
                         </a>
-                        <a class="note-item" data-title="Pandas" data-file="Pandas.md" data-category="data_analysis" data-desc="Pandas数据结构与DataFrame" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/data_analysis/Pandas.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Pandas" data-file="Pandas.md" data-category="data_analysis" data-desc="Pandas数据结构与DataFrame" href="data_analysis/Pandas.html">
                             <span class="note-title">Pandas</span>
                             <span class="note-path">data_analysis/Pandas.md</span>
                         </a>
@@ -1809,15 +1996,15 @@
                 <div class="note-group" data-category="machine_learning">
                     <h2 class="note-group-title">Machine Learning</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="ML-lesson3-Scikit-learn" data-file="ML-lesson3-Scikit-learn.md" data-category="machine_learning" data-desc="Scikit-learn机器学习工具包介绍" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/machine_learning/ML-lesson3-Scikit-learn.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="ML-lesson3-Scikit-learn" data-file="ML-lesson3-Scikit-learn.md" data-category="machine_learning" data-desc="Scikit-learn机器学习工具包介绍" href="machine_learning/ML-lesson3-Scikit-learn.html">
                             <span class="note-title">ML-lesson3-Scikit-learn</span>
                             <span class="note-path">machine_learning/ML-lesson3-Scikit-learn.md</span>
                         </a>
-                        <a class="note-item" data-title="ml" data-file="ml.md" data-category="machine_learning" data-desc="Sklearn数据集划分与训练测试" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/machine_learning/ml.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="ml" data-file="ml.md" data-category="machine_learning" data-desc="Sklearn数据集划分与训练测试" href="machine_learning/ml.html">
                             <span class="note-title">ml</span>
                             <span class="note-path">machine_learning/ml.md</span>
                         </a>
-                        <a class="note-item" data-title="Sklearn" data-file="Sklearn.md" data-category="machine_learning" data-desc="Sklearn机器学习流程与算法库" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/machine_learning/Sklearn.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Sklearn" data-file="Sklearn.md" data-category="machine_learning" data-desc="Sklearn机器学习流程与算法库" href="machine_learning/Sklearn.html">
                             <span class="note-title">Sklearn</span>
                             <span class="note-path">machine_learning/Sklearn.md</span>
                         </a>
@@ -1827,31 +2014,31 @@
                 <div class="note-group" data-category="python">
                     <h2 class="note-group-title">Python</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="GUI" data-file="GUI.md" data-category="python" data-desc="Python GUI编程基础与布局" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/python/GUI.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="GUI" data-file="GUI.md" data-category="python" data-desc="Python GUI编程基础与布局" href="python/GUI.html">
                             <span class="note-title">GUI</span>
                             <span class="note-path">python/GUI.md</span>
                         </a>
-                        <a class="note-item" data-title="learner" data-file="learner.md" data-category="python" data-desc="Python基础语法与数据结构" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/python/learner.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="learner" data-file="learner.md" data-category="python" data-desc="Python基础语法与数据结构" href="python/learner.html">
                             <span class="note-title">learner</span>
                             <span class="note-path">python/learner.md</span>
                         </a>
-                        <a class="note-item" data-title="others" data-file="others.md" data-category="python" data-desc="Python常用技巧与代码示例" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/python/others.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="others" data-file="others.md" data-category="python" data-desc="Python常用技巧与代码示例" href="python/others.html">
                             <span class="note-title">others</span>
                             <span class="note-path">python/others.md</span>
                         </a>
-                        <a class="note-item" data-title="question" data-file="question.md" data-category="python" data-desc="Python输入输出与字符串处理" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/python/question.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="question" data-file="question.md" data-category="python" data-desc="Python输入输出与字符串处理" href="python/question.html">
                             <span class="note-title">question</span>
                             <span class="note-path">python/question.md</span>
                         </a>
-                        <a class="note-item" data-title="regular_expression" data-file="regular_expression.md" data-category="python" data-desc="Python正则表达式匹配实践" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/python/regular_expression.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="regular_expression" data-file="regular_expression.md" data-category="python" data-desc="Python正则表达式匹配实践" href="python/regular_expression.html">
                             <span class="note-title">regular_expression</span>
                             <span class="note-path">python/regular_expression.md</span>
                         </a>
-                        <a class="note-item" data-title="Senior_Topic" data-file="Senior_Topic.md" data-category="python" data-desc="Python进阶话题与调试工具" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/python/Senior_Topic.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="Senior_Topic" data-file="Senior_Topic.md" data-category="python" data-desc="Python进阶话题与调试工具" href="python/Senior_Topic.html">
                             <span class="note-title">Senior_Topic</span>
                             <span class="note-path">python/Senior_Topic.md</span>
                         </a>
-                        <a class="note-item" data-title="tkinter" data-file="tkinter.md" data-category="python" data-desc="tkinter实现贪吃蛇小游戏" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/python/tkinter.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="tkinter" data-file="tkinter.md" data-category="python" data-desc="tkinter实现贪吃蛇小游戏" href="python/tkinter.html">
                             <span class="note-title">tkinter</span>
                             <span class="note-path">python/tkinter.md</span>
                         </a>
@@ -1861,7 +2048,7 @@
                 <div class="note-group" data-category="reptile">
                     <h2 class="note-group-title">Reptile</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="pachong" data-file="pachong.md" data-category="reptile" data-desc="HTTP协议与爬虫基础入门" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/reptile/pachong.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="pachong" data-file="pachong.md" data-category="reptile" data-desc="HTTP协议与爬虫基础入门" href="reptile/pachong.html">
                             <span class="note-title">pachong</span>
                             <span class="note-path">reptile/pachong.md</span>
                         </a>
@@ -1871,7 +2058,7 @@
                 <div class="note-group" data-category="scrapy">
                     <h2 class="note-group-title">Scrapy</h2>
                     <div class="note-grid">
-                        <a class="note-item" data-title="scrapy" data-file="scrapy.md" data-category="scrapy" data-desc="Scrapy爬虫框架架构与数据流" href="https://github.com/floaritay/floaritay.github.io/blob/main/docs/scrapy/scrapy.md" target="_blank" rel="noreferrer">
+                        <a class="note-item" data-title="scrapy" data-file="scrapy.md" data-category="scrapy" data-desc="Scrapy爬虫框架架构与数据流" href="scrapy/scrapy.html">
                             <span class="note-title">scrapy</span>
                             <span class="note-path">scrapy/scrapy.md</span>
                         </a>
@@ -1882,7 +2069,7 @@
 
         <!-- ========== FOOTER ========== -->
         <footer class="site-footer">
-            <span class="footer-text">floaritay &copy; 2025 &mdash; Built with Jupyter Notebook &amp; GitHub Pages</span>
+            <span class="footer-text">floaritay &copy; 2026 &mdash; Built with Jupyter Notebook &amp; GitHub Pages</span>
         </footer>
     </main>
 
@@ -1940,7 +2127,7 @@
         // Tab hint
         const tabHint = document.createElement('div');
         tabHint.textContent = '点击切换模块';
-        tabHint.style.cssText = 'position:fixed;top:110px;right:24px;font-family:var(--font-mono);font-size:0.62rem;color:var(--ink-faint);opacity:0;transition:opacity 0.4s;pointer-events:none;z-index:40;';
+        tabHint.style.cssText = 'position:fixed;top:110px;right:24px;font-family:var(--font-body);font-size:0.72rem;font-weight:300;color:var(--ink-faint);opacity:0;transition:opacity 0.4s;pointer-events:none;z-index:40;';
         if (window.innerWidth > 768) document.body.appendChild(tabHint);
         setTimeout(() => tabHint.style.opacity = '1', 1000);
         setTimeout(() => tabHint.style.opacity = '0', 5000);
@@ -2052,7 +2239,7 @@
             const glow = document.createElement('div');
             Object.assign(glow.style, {
                 position: 'absolute', width: '300px', height: '300px', borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(180,83,9,0.06) 0%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(180,83,9,0.05) 0%, transparent 70%)',
                 pointerEvents: 'none', transform: 'translate(-50%,-50%)', transition: 'opacity 0.3s',
                 opacity: '0', zIndex: '0'
             });
