@@ -3,7 +3,10 @@ open_webui.env
 model/15_model.h5
 .env
 DeepLearing/data
-.claude/
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/md2html/
 
 # Generated HTML from md2html.py (built by CI, not tracked)
 docs/**/*.html
