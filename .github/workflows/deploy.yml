@@ -14,6 +14,17 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install markdown==3.10 pygments==2.19.2
+
+    - name: Convert Markdown to HTML
+      run: python .claude/skills/md2html/md2html.py
+
     - name: Deploy to GitHub Pages
       if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v4

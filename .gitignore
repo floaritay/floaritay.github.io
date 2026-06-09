@@ -4,3 +4,7 @@ model/15_model.h5
 .env
 DeepLearing/data
 .claude/
+
+# Generated HTML from md2html.py (built by CI, not tracked)
+docs/**/*.html
+!docs/index.html

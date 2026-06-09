@@ -1,10 +1,11 @@
 # 目录
+
+- [1 基础](#1-基础)
   - [1.1 对话](#11-对话)
-  - [1.2 记忆](#12-记忆)
+  - [1.2 短期记忆](#12-短期记忆)
   - [1.3 工具调用](#13-工具调用)
     - [1.3.1 Function Calling](#131-function-calling)
     - [1.3.2 联网搜索](#132-联网搜索)
-    - [1.3.3网页抓取](#133网页抓取)
     - [1.3.4 代码解释器](#134-代码解释器)
     - [1.3.5 知识库检索](#135-知识库检索)
     - [1.3.6 MCP](#136-mcp)
@@ -13,37 +14,73 @@
   - [2.2 CoT（Chain of Thought）](#22-cotchain-of-thought)
   - [2.3 ToT（Tree of Thoughts）](#23-tottree-of-thoughts)
   - [2.4 任务规划与 MCTS](#24-任务规划与-mcts)
-  - [2.5 Reflexion（自我反思）](#25-reflexion自我反思)
+  - [2.5 Reflection（自我反思）](#25-reflection自我反思)
   - [2.6 任务分解](#26-任务分解)
     - [2.6.1 递归任务分解](#261-递归任务分解)
     - [2.6.2 平行任务分解](#262-平行任务分解)
     - [2.6.3 层次任务分解](#263-层次任务分解)
   - [2.7 Plan-and-Execute](#27-plan-and-execute)
-- [3. RAG](#3-rag)
+- [3 RAG](#3-rag)
   - [3.1 基础 RAG](#31-基础-rag)
   - [3.2 Advanced RAG](#32-advanced-rag)
-  - [3.3 混合检索](#33-混合检索)
-  - [3.4 GraphRAG](#34-graphrag)
+  - [3.3 GraphRAG](#33-graphrag)
+- [4 多智能体](#4-多智能体)
+  - [4.1 架构](#41-架构)
+  - [4.2 AutoGen 框架](#42-autogen-框架)
+  - [4.3 A2A 与 MCP 协议](#43-a2a-与-mcp-协议)
+- [5 多模态Agent](#5-多模态agent)
+  - [5.1 多模态模型实现](#51-多模态模型实现)
+  - [5.2 多个不同模态模型实现](#52-多个不同模态模型实现)
+  - [5.3 不同模态模型](#53-不同模态模型)
+    - [5.3.1 视觉模型](#531-视觉模型)
+    - [5.3.2 语音模型](#532-语音模型)
+- [6 评估与安全](#6-评估与安全)
+- [7 其他](#7-其他)
+  - [7.1 部署](#71-部署)
+  - [7.2 缓存](#72-缓存)
+- [8 框架开发](#8-框架开发)
+- [9 低代码平台](#9-低代码平台)
+- [10 自建框架](#10-自建框架)
+- [11 智能体通信协议](#11-智能体通信协议)
+  - [11.1 MCP](#111-mcp)
+    - [11.1.1 Function Calling 示例](#1111-function-calling-示例)
+    - [11.1.2 MCP 示例](#1112-mcp-示例)
+  - [11.2 A2A](#112-a2a)
+  - [11.3 ANP](#113-anp)
 
 ---
-
-
-
 # 1 基础
 参考[Agent](../Agent/Agent.md)章节，了解Agent的基本概念和使用方法。  
 参考[NLP](../NLP/NLP.md)章节，了解LLM的原理。
 
-OpenAI的reponse：
+OpenAI 的消息系统
+
+| Role | 说明 |
+|------|------|
+| `system` | 系统指令，设定助手行为 |
+| `user` | 用户输入 |
+| `assistant` | 模型回复 |
+| `tool` | 工具调用结果返回 |
+
+请求
+```json
+{
+  "model": "gpt-4o",
+  "messages": [
+    {"role": "system","content": "你是一个有帮助的助手。"},
+    {"role": "user","content": "今天天气怎么样？"}
+  ]
+}
+```
+
+响应
 ```json
 {
   "id": "chatcmpl-abc123",
   "choices": [
     {
       "index": 0,
-      "message": {
-        "role": "assistant",
-        "content": "Hello! How can I help?"
-      },
+      "message": {"role": "assistant","content": "Hello! How can I help?"},
       "finish_reason": "stop"
     }
   ],
@@ -57,20 +94,135 @@ OpenAI的reponse：
 }
 ```
 
+定义工具 + 用户提问
+```json
+{
+  "model": "gpt-4o",
+  "messages": [
+    {"role": "user","content": "北京今天的天气怎么样？"}
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "获取指定城市的天气信息",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "城市名称"
+            },
+            "unit": {
+              "type": "string",
+              "enum": ["celsius", "fahrenheit"],
+              "description": "温度单位"
+            }
+          },
+          "required": ["city"]
+        }
+      }
+    }
+  ]
+}
+```
+
+模型调用工具（响应）
+```json
+{
+  "id": "chatcmpl-abc123",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "id": "call_abc123",
+            "type": "function",
+            "function": {
+              "name": "get_weather",
+              "arguments": "{\"city\": \"北京\", \"unit\": \"celsius\"}"
+            }
+          }
+        ]
+      },
+      "finish_reason": "tool_calls"
+    }
+  ]
+}
+```
+
+工具调用结果返回模型
+```json
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": "北京今天的天气怎么样？"
+    },
+    {
+      "role": "assistant",
+      "content": null,
+      "tool_calls": [
+        {
+          "id": "call_abc123",
+          "type": "function",
+          "function": {
+            "name": "get_weather",
+            "arguments": "{\"city\": \"北京\", \"unit\": \"celsius\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_abc123",
+      "content": "{\"temperature\": 25, \"condition\": \"晴天\", \"humidity\": 45}"
+    }
+  ],
+  "tools": [
+    {
+      ...
+    }
+  ]
+}
+```
+
+模型最终回复
+```json
+{
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "北京今天天气晴朗，气温25°C，湿度45%。"
+      },
+      "finish_reason": "stop"
+    }
+  ]
+}
+```
+
 ## 1.1 对话
 
 
 ```python
+# 快速调用
 from openai import OpenAI
 import os
 
 client = OpenAI(
-    api_key =  os.getenv('DASHSCOPE_API_KEY'),
+    api_key = os.getenv('DASHSCOPE_API_KEY'),
     base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1",
 )
 
 reponse = client.chat.completions.create(
-    model = 'qwen3.5-plus-2026-04-20',
+    model = 'qwen3.6-flash-2026-04-16',
     messages = [
         {'role':'system','content':'You are a helpful assistant'},
         {'role':'user','content':'你好'}
@@ -78,10 +230,62 @@ reponse = client.chat.completions.create(
 )
 
 print(reponse.choices[0].message.content)
-
 ```
 
-    你好！有什么我可以帮你的吗？
+    你好！很高兴见到你！我是DeepSeek，一个乐于助人的AI助手。有什么我可以帮你的吗？无论是回答问题、提供建议，还是聊聊感兴趣的话题，我都很乐意陪你聊聊！😊
+    
+
+
+```python
+# 封装基础聊天Agent 与 流式响应
+import os
+from openai import OpenAI
+from typing import List,Dict
+
+class Agent:
+    def __init__(self,model='qwen3.6-flash-2026-04-16',api_key:str=None,base_url:str=None):
+        '''
+
+        '''
+        self.model = model
+        api_key = api_key or os.getenv('DASHSCOPE_API_KEY')
+        base_url = base_url or "https://dashscope.aliyuncs.com/compatible-mode/v1"
+
+        if not all([api_key,base_url]):
+            raise ValueError("模型ID、API密钥和服务地址必须被提供或在.env文件中定义。")
+        self.client = OpenAI(api_key=api_key,base_url=base_url)
+
+    def chat(self,input:str=None):
+        try: # 流式传输过程中遇到网络波动
+            response = self.client.chat.completions.create(
+                model = self.model,
+                messages = [
+                    {'role':'system','content':'You are a helpful assistant'},
+                    {'role':'user','content':f'{input}'}
+                ],
+                stream = True # 流式响应
+            )
+            # 处理流式响应
+            # 每个数据块chunk的 chunk.choices[0].delta.content 中提取当前生成的文本片段。
+            # 对提取出的内容进行实时打印（实现打字机效果）或存入变量（获取完整回答）。
+            full_response = ''
+            for chunk in response:
+                # if not chunk.choices:
+                #     continue
+                content = chunk.choices[0].delta.content or "" # 提取增量文本。 or "" 是为了防止 content 为 None。
+                print(content, end="", flush=True) # 实时打印
+                full_response += content
+            print(f'\n{full_response}')# 存入变量，一次打印
+        except Exception as e:
+            print(f"调用LLM API时发生错误: {e}")
+            return None
+
+ChatAgent = Agent()
+ChatAgent.chat('你是谁')
+```
+
+    我是 Qwen（通义千问），由阿里巴巴集团旗下通义实验室自主研发的大语言模型。有什么我可以帮你的吗？
+    我是 Qwen（通义千问），由阿里巴巴集团旗下通义实验室自主研发的大语言模型。有什么我可以帮你的吗？
     
 
 ## 1.2 短期记忆
@@ -95,24 +299,21 @@ from openai import OpenAI
 class MemoryAgent:
     def __init__(self,model:str='qwen3.5-plus-2026-04-20'):
         api_key = os.getenv('DASHSCOPE_API_KEY')
-        base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
         if not api_key :
             raise ValueError('请设置 DASHSCOPE_API_KEY 环境变量')
         
         self.client = OpenAI(
             api_key=api_key,
-            base_url=base_url
+            base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
         )
         self.model=model
         self.conversation_history:List[Dict[str,str]] = []
-        self.system_prompt = '你是一个有用的助手，能够好的回答用户的问题'
 
     def add_history(self,role:str,content:str):
         """添加消息到对话历史"""
-        self.conversation_history.append({
-            'role':role,
-            'content':content
-        })
+        self.conversation_history.append(
+            {'role':role,'content':content}
+        )
 
         if len(self.conversation_history)>10: # 保留最后10个
             self.conversation_history = self.conversation_history[-10:]
@@ -121,7 +322,7 @@ class MemoryAgent:
         self.add_history('user',question)
 
         messages = [
-            {'role':'system','content':self.system_prompt},
+            {'role':'system','content':'你是一个有用的助手，能够好的回答用户的问题'},
         ]
         messages.extend(self.conversation_history)
 
@@ -152,7 +353,7 @@ def test_MemoryAgent():
     questions = [
         '你好',
         '我最喜欢的动物是小狗',
-        '介绍一下你自己',
+        '你是谁',
         '我喜欢什么动物'
     ] # 能记住我们喜欢的动物
 
@@ -168,28 +369,20 @@ if __name__ == "__main__":
 ```
 
     === 开始测试 ===
-    'user':你好
-    assistant:你好！有什么我可以帮你的吗？
-    'user':我最喜欢的动物是小狗
-    assistant:小狗确实非常可爱又忠诚！它们不仅能给人带来很多快乐，还能成为特别贴心的陪伴。你养过小狗吗？或者有没有特别偏好的犬种？比如温顺的金毛、活泼的柯基、聪明的边境牧羊犬，还是憨萌的柴犬之类的？
+    user:你好
+    assistant:你好！很高兴为你服务。请问有什么我可以帮你的吗？无论是回答问题、提供建议，还是协助处理具体任务，我都很乐意帮忙。
+    user:我最喜欢的动物是小狗
+    assistant:小狗确实特别讨人喜欢！它们忠诚、热情，而且总能敏锐地察觉到主人的情绪，给人带来满满的陪伴感和治愈力。🐾
     
-    如果你愿意的话，也可以和我分享你和狗狗之间的小故事，或者你最喜欢狗狗的哪个特点～ 😊🐶
-    'user':介绍一下你自己
-    assistant:你好！我是通义千问（英文名 Qwen），由阿里巴巴集团旗下通义实验室自主研发的大语言模型。你可以把我当成一个随时在线的思考伙伴和多功能助手。
+    你最喜欢哪种狗狗呢？比如温柔的大金毛、古灵精怪的柯基、自带“微笑脸”的柴犬，还是聪明机灵的中华田园犬？如果你已经有养狗，或者正打算养，也可以告诉我～我可以跟你分享一些狗狗护理的小贴士、训练技巧，或者推荐适合不同生活方式的犬种。聊聊你家（或你心中的）小狗吧！ 😊
+    user:你是谁
+    assistant:我是 Qwen（通义千问），由阿里巴巴集团旗下通义实验室自主研发的大语言模型。你可以把我当作一个随时在线的助手，无论是聊天、解答问题、提供建议，还是帮你处理文字、学习或工作相关的任务，我都很乐意为你效劳！
     
-    我主要擅长这些方面：
-    🔹 **知识解答与学习辅导**：覆盖科学、人文、技术、生活等各个领域，能帮你理清概念、梳理重点。  
-    🔹 **逻辑推理与问题解决**：处理数学计算、推理题、复杂任务拆解等，尽力给出清晰、可追溯的思路。  
-    🔹 **创作与写作辅助**：无论是文章、邮件、报告、故事还是策划案，我都可以帮你起草、润色或提供灵感。  
-    🔹 **代码与开发支持**：支持多种编程语言的编写、调试、解释和架构建议，也能帮你理解技术文档。  
-    🔹 **多语言与长文本处理**：流畅支持全球一百多种语言，同时能一次性理解超长上下文（最多约 256K token），适合处理长文档或连续对话。  
-    🔹 **视觉与内容解析**：可以识别图片中的文字、图表、数学公式，并提取关键信息或进行深度分析。
+    刚才聊到小狗，如果你有关于狗狗的疑问（比如品种选择、日常护理、训练技巧等），或者想换个话题，随时告诉我～ 😊
+    user:我喜欢什么动物
+    assistant:你刚才提到过，你最喜欢的动物是**小狗**呀！🐶 
     
-    我的风格是**专业、耐心、务实**，会尽量根据你的使用场景调整回答的深度和表达方式。不追求“说很多”，而是力求“说得准、用得上”。
-    
-    如果你有任何具体问题、想探讨的话题，或者需要我帮你完成某项任务，随时告诉我就好。今天有什么我可以帮你的吗？😊
-    'user':我喜欢什么动物
-    assistant:根据你刚才告诉我的，你最喜欢的动物是**小狗**🐶！狗狗忠诚、活泼又充满陪伴感，确实是很多人的心头好。你养过狗狗吗？或者有没有特别偏好的犬种呢？
+    是有什么关于狗狗的问题想问，还是想继续聊聊它们呢？随时告诉我哦～
     
     测试完成
     
@@ -427,15 +620,12 @@ ReAct 模式的优势在于它的灵活性，能够根据每一步的执行结�
 import os
 import json
 import datetime
-from dotenv import load_dotenv
 from openai import OpenAI
-
-load_dotenv()
 
 class ReActAgent:
     def __init__(self,model:str="qwen-plus",max_loops:int= 5):  # 设置多轮循环最大循环次数，防止死循环
         self.client = OpenAI(
-            api_key=os.environ["DASHSCOPE_API_KEY"],
+            api_key=os.getenv("DASHSCOPE_API_KEY"),
             base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
         )
         self.model=model
@@ -803,7 +993,7 @@ MCTS 通过模拟随机来评估每个决策节点的潜在价值。它不需要
 
 MCTS 的计算成本较高，适合需要深度规划但有明确终止条件的场景。对于实时性要求高的任务，可能需要限制模拟次数或使用其他方法。
 
-## 2.5 Reflexion（自我反思）
+## 2.5 Reflection（自我反思）
 适合
 - 需要持续改进的任务，如对话系统、代码生成等。
 - 错误代价高但重试成本低的场景。
@@ -1138,7 +1328,7 @@ import os
 from openai import OpenAI
 
 class Plan_Execute_Agent:
-    def __init__(self,model:str="qwen3.5-flash-2026-02-23"):
+    def __init__(self,model:str="qwen3.6-flash-2026-04-16"):
         self.client = OpenAI(
             api_key=os.getenv("DASHSCOPE_API_KEY"),
             base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
@@ -1150,7 +1340,8 @@ class Plan_Execute_Agent:
             model=self.model,
             messages=[
                 {'role':'user','content':prompt}
-            ]
+            ],
+            max_tokens=100
         )
         return response.choices[0].message.content.strip()
     
@@ -1171,7 +1362,8 @@ class Plan_Execute_Agent:
         result = []
         for step in steps:
             step_result = self.ask(f'''
-            总任务背景：{plan}
+            总问题：{task}
+            总规划：{plan}
             请完成当前这一个步骤，直接给出简要结果：
             步骤：{step}
             ''')
@@ -1192,286 +1384,8 @@ class Plan_Execute_Agent:
 
 ```python
 agent = Plan_Execute_Agent()
-print(agent.run("写一份南京两日旅游攻略，包含每日行程、必吃美食、住宿推荐"))
+print(agent.run("写一份南京一日游攻略，包含每日行程、必吃美食、住宿推荐"))
 ```
-
-    Plan如下：1. 搜集南京各景点的开放时间与门票信息
-    2. 筛选并安排第一天景点的游览顺序
-    3. 筛选并安排第二天景点的游览顺序
-    4. 汇总南京地道特色美食及推荐店铺
-    5. 对比并推荐适合的住宿区域或酒店
-    6. 将行程与食宿信息整合生成攻略文稿
-    7. 复核内容并优化排版格式输出
-    
-    当前步骤完成如下：### 步骤 1 结果：南京主要景点开放时间与门票信息汇总
-    
-    | 景点名称 | 开放时间 | 门票价格 | 备注/预约要求 |
-    | :--- | :--- | :--- | :--- |
-    | **侵华日军南京大屠杀遇难同胞纪念馆** | 周二至周日 9:00-16:30<br>(16:00 停止入馆) | **免费** | 需微信公众号提前 7 天预约；**周一闭馆** |
-    | **中山陵景区** | 8:30-17:00<br>(2月除外另有规定) | 陵寝 **免费**<br>音乐台 20 元 | 需“钟山风景区”小程序预约；**周一闭馆** |
-    | **明孝陵景区** | 6:30-18:00<br>(旺季延长至 18:30) | **70 元** | 含梅花山、石象路；与中山陵联票更优 |
-    | **南京博物院** | 9:00-17:00<br>(16:00 停止入馆) | **免费** | **极难预约**，需提前 7 天在官微抢票；**周一闭馆** |
-    | **总统府** | 8:30-18:00<br>(17:00 停止入园) | **35 元** | 建议下午游览，避免上午人流高峰 |
-    | **夫子庙秦淮风光带** | 全天开放 (建筑 8:30-17:00) | 街区 **免费**<br>大成殿 15 元 | 夜游秦淮河画舫约 120 元/人 |
-    | **鸡鸣寺** | 08:00-17:30 | **10 元** (赠香) | 适合傍晚去，可看日落和夜景 |
-    | **中华门城堡** | 08:00-17:00 | **30 元** | 保存最完整的古代瓮城，适合历史爱好者 |
-    | **玄武湖公园** | 06:00-22:00 | **免费** | 进出无需检票，内部游船单独收费 |
-    | **牛首山文化旅游区** | 09:00-17:30 | **160 元** | 较远，设施新，拍照出片，需预留半天 |
-    | **美龄宫** | 8:30-17:30 | **30 元** | 位于中山陵景区内，可一并游玩 |
-    
-    **重要提示：**
-    1. 以上时间均为常规运营时间，法定节假日或特殊天气可能调整，出发前务必关注官方公众号。
-    2. 博物馆及热门景点均需实名预约，建议至少提前 3-5 天规划。
-    
-    当前步骤完成如下：**步骤 2 结果：第一天景点筛选与游览顺序安排**
-    
-    **【主题】**：民国风云与古城夜韵（市中心历史核心区）
-    **【路线逻辑】**：由东向西，由昼至夜，顺路且劳逸结合。
-    
-    | 时间段 | 景点名称 | 活动重点 | 备注/提示 |
-    | :--- | :--- | :--- | :--- |
-    | **09:00 - 12:00** | **南京总统府** | 参观太平天国天王府及国民政府旧址 | ⚠️**需提前预约**，门票较紧俏；建议开馆即入。 |
-    | **12:00 - 13:30** | **午餐 & 转场** | 品尝附近新街/常府街风味小吃 | 距下一景点约 6km，建议打车前往。 |
-    | **14:30 - 16:30** | **中华门瓮城 & 明城墙** | 登城俯瞰市区，感受防御工程 | 位于城南，紧邻夫子庙，体力消耗适中。 |
-    | **18:30 - 21:00** | **夫子庙 & 秦淮河** | 晚餐（鸭血粉丝汤等）、游船或漫步灯景 | 🌙核心亮点：**夜游秦淮**，避开白天人流高峰。 |
-    
-    **【筛选理由】**：
-    1.  **地理位置连贯**：三条线路沿南北轴线分布，减少往返折返时间。
-    2.  **体验层次丰富**：涵盖室内博物馆（总统府）、户外徒步（城墙）、休闲景观（秦淮），避免单一疲劳。
-    3.  **时间管理合理**：上午精力充沛看展馆，下午适应步行，晚上享受夜景。
-    
-    **【特别提醒】**：南京各热门景点周一多闭馆，若行程遇周一请将“总统府”调整为“南京博物院”（需极早抢票）或“美龄宫”。
-    
-    当前步骤完成如下：### 步骤 3：筛选并安排第二天景点的游览顺序
-    
-    **推荐主题：民国风情与古都夜色**
-    
-    1.  **上午 (09:00 - 12:00)：南京总统府**
-        *   *理由*：核心近代历史建筑群，需预留充足时间深度参观，建议尽早入园避开人流高峰。
-    2.  **中午 (12:00 - 13:30)：午餐休憩**
-        *   *安排*：在总统府周边品尝当地面点，随后打车前往老门东区域（约 15 分钟车程）。
-    3.  **下午 (14:00 - 17:00)：老门东历史文化街区**
-        *   *理由*：保留明代格局的老城南片区，适合悠闲漫步，打卡特色小吃与传统手作。
-    4.  **晚上 (17:30 - 20:30)：夫子庙步行街 & 秦淮河夜游**
-        *   *理由*：紧邻老门东，晚间乘画舫夜游秦淮河是南京精华体验，灯火璀璨，适合行程收尾。
-    
-    **路线逻辑**：由市中心严肃的历史场馆过渡至南城的民俗生活气息，最后以秦淮河畔的夜景结束全天，地理位置顺路，交通成本最低。
-    
-    当前步骤完成如下：### 步骤 4：汇总南京地道特色美食及推荐店铺
-    
-    #### 🥢 四大经典必吃
-    1. **盐水鸭/金陵烤鸭**
-       - *特点*：皮白肉嫩，咸香适口。
-       - *推荐*：**韩复兴**、**章云板鸭**、**项记全家福**（切配现吃）。
-    2. **鸭血粉丝汤**
-       - *特点*：酸辣鲜香，配料丰富。
-       - *推荐*：**小潘记**、**鸭得堡**、**小郑家**。
-    3. **牛肉锅贴**
-       - *特点*：底脆肉嫩，汁水丰盈。
-       - *推荐*：**李记清真馆**（水西门老店）、**安乐园**、**奇芳阁**。
-    4. **皮肚面**
-       - *特点*：面条劲道，浇头大碗豪爽。
-       - *推荐*：**易记干挑面**、**七仙居**、**同来轩**。
-    
-    #### 🍰 特色风味小吃
-    - **点心类**：鸡鸣汤包（**鸡鸣汤包店**）、梅花糕（**陆氏梅花糕**）、糖芋苗（**莲湖甜食店**）。
-    - **素食类**：素什锦、开洋干拌面（**尹氏鸡汁汤包**）。
-    
-    #### 🗺️ 美食地图推荐
-    - **科巷**：本地居民食堂，早餐与平价小吃极多，性价比高。
-    - **老门东**：历史街区，环境好，汇聚正宗老字号及网红打卡店。
-    - **夫子庙/秦淮河**：游客首选，夜宵氛围浓，但建议慎选景区核心区大排档。
-    
-    当前步骤完成如下：**步骤 5. 住宿区域对比与推荐**
-    
-    ### 📍 核心住宿区域对比
-    
-    | 区域 | 优势 | 劣势 | 推荐指数 |
-    | :--- | :--- | :--- | :--- |
-    | **新街口商圈** | 地铁枢纽（1/2 号线），交通最便，吃喝玩乐集中，通勤效率高 | 物价较高，人流密集 | ⭐⭐⭐⭐⭐ |
-    | **夫子庙/老门东** | 紧邻秦淮河，夜景绝美，文化氛围浓郁，部分酒店带景观房 | 节假日拥堵严重，夜间嘈杂，旺季房价高 | ⭐⭐⭐⭐ |
-    | **大行宫/鸡鸣寺** | 靠近总统府/博馆，环境清幽，文艺气息，性价比高 | 餐饮娱乐不如新街口丰富 | ⭐⭐⭐⭐ |
-    
-    ### 🏨 酒店具体推荐
-    
-    1.  **高性价比首选**
-        *   **全季酒店 / 亚朵酒店（新街口地铁站店）**：服务标准化，隔音较好，位置居中。
-    2.  **体验式住宿**
-        *   **颐和公馆（颐和路片区）**：别墅风格建筑，民国风情，适合预算充足的游客。
-        *   **夫子庙精品民宿**：入住老建筑改造的客栈，感受江南水乡风情（需注意甄别卫生状况）。
-    3.  **高端舒适型**
-        *   **南京威斯汀大酒店**：位于珠江路，交通便利，设施完善。
-        *   **金鹰国际酒店**：新街口地标，俯瞰城市夜景。
-    
-    ### 💡 选住建议
-    *   **第一天+第二天均在此地**：建议锁定**新街口地铁站 1000 米范围内**，减少路途奔波。
-    *   **看重夜景**：可安排第一晚住夫子庙，次日换至新街口退房继续游玩。
-    
-    当前步骤完成如下：# 南京两日深度游全攻略
-    
-    ## 一、住宿推荐
-    - **首选区域：新街口**
-      - **理由**：地铁枢纽（1/2号线），交通极便利，商场餐饮丰富。
-      - **推荐类型**：亚朵酒店、全季酒店或如家商旅（性价比高）。
-    - **备选区域：夫子庙/三山街**
-      - **理由**：夜景观赏方便，靠近秦淮河夜景，但周末可能较喧闹。
-      - **推荐类型**：南京颐和公馆（高端）、金陵客栈（特色民宿）。
-    
-    ---
-    
-    ## 二、行程安排
-    
-    ### 📅 第一天：历史与近代风云
-    - **09:00 | 中山陵**
-      - **门票**：免费（需提前预约）。
-      - **提示**：建议早去避开人流，乘坐观光车上山。
-    - **11:00 | 音乐台 & 美龄宫**
-      - **门票**：音乐台 10 元；美龄宫 30 元。
-      - **亮点**：喂鸽群、拍摄“项链”航拍视角。
-    - **14:30 | 总统府**
-      - **门票**：35 元（必约）。
-      - **耗时**：约 2-3 小时，民国建筑核心代表。
-    - **18:30 | 夫子庙 & 老门东**
-      - **活动**：逛明清建筑群，体验秦淮灯会氛围（若夜晚开放）。
-      - **晚餐**：老门东内解决。
-    
-    ### 📅 第二天：古都风韵与现代活力
-    - **09:00 | 南京博物院**
-      - **门票**：免费（需提前 7 天小程序预约）。
-      - **重点**：历史馆、民国馆（拍照出片）。
-    - **13:00 | 玄武湖公园**
-      - **门票**：5 元/人。
-      - **路线**：从解放门进入，环湖散步，远眺紫峰大厦与明城墙。
-    - **16:30 | 鸡鸣寺**
-      - **门票**：10 元。
-      - **亮点**：求签祈福，登上药师佛塔俯瞰南京城。
-    - **19:00 | 科巷夜市**
-      - **活动**：结束行程前的最后觅食。
-    
-    ---
-    
-    ## 三、地道美食推荐
-    | 品类 | 推荐店铺 | 必点菜品 |
-    | :--- | :--- | :--- |
-    | **鸭血粉丝汤** | 叶新小吃（科巷店） | 鸭血粉丝汤、牛肉锅贴 |
-    | **盐水鸭** | 章云板鸭 | 片皮盐水鸭 |
-    | **小笼包** | 鸡鸣汤包 | 赤豆元宵、蟹黄汤包 |
-    | **面食** | 狮王府（狮子桥） | 皮肚面、如意三宝 |
-    | **小吃街** | 科巷/夫子庙 | 梅花糕、赤豆酒酿圆子 |
-    
-    ---
-    
-    ## 四、重要贴士
-    1. **预约提醒**：南京博物院、中山陵、总统府均需实名预约，旺季务必提前抢票。
-    2. **交通**：主要景点间地铁可直达，避开早晚高峰打车更优。
-    3. **防坑**：夫子庙景区内餐饮选择慎选“游客专供”，推荐去周边居民区就餐。
-    4. **气候**：南京夏季炎热，冬季湿冷，春秋最佳；随身备伞以防阵雨。
-    
-    当前步骤完成如下：# 🇨🇳 南京两日深度游攻略（最终定稿）
-    
-    ## 📅 行程总览
-    *   **路线设计逻辑**：第一天聚焦市中心人文与秦淮风情；第二天深入紫金山历史遗址。
-    *   **适用人群**：文化爱好者、家庭出游、自由行游客。
-    *   **预算预估**：人均 800-1500 元（含食宿）。
-    
-    ---
-    
-    ## 🚩 第一日：民国记忆 & 秦淮灯火
-    | 时间段 | 景点/活动 | 开放时间 | 门票参考 | 备注 |
-    | :--- | :--- | :--- | :--- | :--- |
-    | **09:00-11:30** | **总统府** | 周二至周日 08:30-18:00 | 35 元 | 周一闭馆，需提前预约 |
-    | **12:00-13:30** | **午餐·新街口** | - | - | 推荐“李记清真馆”牛杂汤 |
-    | **14:00-16:00** | **江宁织造博物馆** | 周二至周日 09:00-17:00 | 免费 | 需预约，红楼梦主题 |
-    | **16:30-18:30** | **夫子庙景区** | 全天开放 | 免费 | 核心街区逛古建 |
-    | **19:00-20:30** | **秦淮河夜游船** | 18:30-21:30 | 约 100 元 | 必体验夜景 |
-    | **21:00** | **返程住宿** | - | - | 夫子庙周边或新街口 |
-    
-    ## 🚩 第二日：钟山风雨 & 古都怀古
-    | 时间段 | 景点/活动 | 开放时间 | 门票参考 | 备注 |
-    | :--- | :--- | :--- | :--- | :--- |
-    | **08:30-11:00** | **中山陵** | 周二至周日 08:30-17:00 | 免费 | 周一闭馆，需预约登阶 |
-    | **11:30-12:30** | **美龄宫** | 周二至周日 08:30-17:30 | 30 元 | 最美项链景观 |
-    | **13:00-14:30** | **午餐·明孝陵周边** | - | - | 尝试金陵菜馆 |
-    | **15:00-17:00** | **明孝陵/石象路** | 周二至周日 06:30-18:30 | 70 元 | 秋景最佳，漫步神道 |
-    | **17:30-18:30** | **鸡鸣寺** | 全天开放 | 10 元 | 祈福求姻缘，看日落 |
-    | **19:00** | **晚餐·玄武门** | - | - | 附近湘云小馆等 |
-    
-    ---
-    
-    ## 🍜 地道美食及店铺推荐
-    | 类别 | 推荐菜品 | 推荐店铺 | 区域 |
-    | :--- | :--- | :--- | :--- |
-    | **早餐** | 皮肚面、牛肉锅贴 | 鸭血粉丝汤老店、莲湖糕团 | 评事街 |
-    | **正餐** | 盐水鸭、红烧狮子头 | 南京大牌档、江南灶 | 新街口/科巷 |
-    | **小吃** | 梅花糕、赤豆元宵 | 芳婆糕点、什锦豆腐涝 | 夫子庙 |
-    | **饮品** | 状元豆、雨花茶 | 随遇而安茶馆 | 颐和路 |
-    
-    > **注意**：节假日期间热门餐厅建议提前排队或预订。
-    
-    ---
-    
-    ## 🏨 住宿区域建议
-    | 区域 | 推荐理由 | 适合人群 | 参考价位 |
-    | :--- | :--- | :--- | :--- |
-    | **新街口** | 地铁枢纽，购物方便，美食集中 | 第一次来，追求交通便利 | 300-600 元 |
-    | **夫子庙** | 风景绝佳，夜生活丰富 | 喜欢热闹，想体验秦淮夜景 | 400-800 元 |
-    | **玄武湖/珠江路** | 环境清幽，近图书馆 | 文艺青年，喜安静 | 300-500 元 |
-    
-    ---
-    
-    ## ⚠️ 复核与出行贴士
-    1.  **证件准备**：身份证必带，学生证可优惠部分景点。
-    2.  **预约机制**：钟山风景区、总统府、博物院均为**实名制分时段预约**，建议提前 1-3 天在官方公众号预订。
-    3.  **交通建议**：首选地铁（支付宝领电子卡），避开周末早晚高峰拥堵路段。
-    4.  **天气预警**：关注近期降水，雨天建议调整户外行程为室内博物馆。
-    5.  **防坑指南**：夫子庙路边低价导游团慎入；买特产去正规超市而非景区路边摊。
-    
-    ---
-    *版本更新：2023-10-V2 (已根据最新开园政策及用户反馈优化)*
-    
-    # 🇨🇳 南京两日深度游全攻略
-    
-    ## 📍 一、住宿推荐
-    | 区域 | 推荐理由 | 适合人群 | 参考价位 |
-    | :--- | :--- | :--- | :--- |
-    | **新街口商圈** | 地铁枢纽（1/2 号线），餐饮购物最集中，往返景点便利。 | 首次游客，追求效率 | 300-600 元 |
-    | **夫子庙/老门东** | 紧邻秦淮河，夜景绝佳，文化氛围浓。 | 喜欢热闹，赏夜景 | 400-800 元 |
-    
-    ## 🗺️ 二、两日行程安排
-    > **⚠️ 重要提示：** 周一多数景点闭馆（总统府、中山陵、南博等），预约请提前 3-7 天关注官方公众号。
-    
-    ### 📅 第一天：民国风云与秦淮夜韵（市中心线）
-    | 时间 | 行程 | 备注/门票 |
-    | :--- | :--- | :--- |
-    | **09:00** | **总统府** | 需预约（35 元），参观近代历史建筑核心。 |
-    | **12:00** | **午餐·新街口/科巷** | 附近品尝地道小吃（见美食篇）。 |
-    | **14:30** | **江宁织造博物馆** | 免费（需预约），红楼梦主题，环境清幽。 |
-    | **17:30** | **夫子庙 & 老门东** | 逛明清建筑群，晚餐在老门东解决。 |
-    | **19:30** | **秦淮河夜游** | 乘画舫赏灯景（约 100-120 元），行程高潮。 |
-    
-    ### 📅 第二天：钟山风雨与古都怀古（城东线）
-    | 时间 | 行程 | 备注/门票 |
-    | :--- | :--- | :--- |
-    | **09:00** | **中山陵景区** | 免费（需预约），登台阶俯瞰全城。 |
-    | **11:30** | **美龄宫 & 明孝陵** | 美龄宫 30 元；明孝陵 70 元（联票更优），看神道石象。 |
-    | **14:30** | **鸡鸣寺** | 10 元，祈福求姻缘，登顶可远眺紫峰大厦。 |
-    | **16:30** | **玄武湖公园** | 免费，环湖散步，从解放门进入最佳。 |
-    | **18:30** | **返程/结束** | 周边享用晚餐后返程。 |
-    
-    ## 🥢 三、必吃美食清单
-    | 类别 | 必点菜品 | 推荐店铺 | 推荐区域 |
-    | :--- | :--- | :--- | :--- |
-    | **鸭子类** | 盐水鸭、金陵烤鸭 | 章云板鸭、韩复兴 | 随处可见老字号 |
-    | **汤面类** | 鸭血粉丝汤、皮肚面 | 小潘记、同来轩 | 科巷、评事街 |
-    | **面点类** | 牛肉锅贴、梅花糕 | 李记清真馆、陆氏梅花糕 | 水西门、夫子庙旁 |
-    | **特色菜** | 红烧狮子头、活珠子 | 南京大牌档 | 新街口/夫子庙 |
-    
-    ## ⚠️ 四、出行贴士
-    1.  **预约第一**：南京博物院极难抢票（建议提前 7 天），若约不到可用“侵华日军南京大屠杀遇难同胞纪念馆”替代或调整行程。
-    2.  **交通方式**：首选地铁（支付宝领卡），避开早晚高峰打车，景区间步行可达。
-    3.  **避坑指南**：夫子庙核心区用餐慎选大排档，去周边居民区更实惠；路边低价导游团勿信。
-    4.  **气候准备**：春秋最佳，夏季炎热多雨，带好雨具及防晒用品。
-    
 
 # 3 RAG
 RAG 系统包含三个主要组件：
@@ -1853,6 +1767,8 @@ MCP 是工具接入的标准协议，使得 AI 模型能够安全地与外部工
 
 # 5 多模态Agent
 
+## 5.1 多模态模型实现
+
 
 ```python
 import os
@@ -1894,6 +1810,340 @@ print(vl.chat())
     向日葵因其总是朝向太阳转动（尤其在生长阶段）而得名，象征着阳光、希望、忠诚与活力。它不仅是观赏植物，也是重要的油料作物（葵花籽油来源），其种子也常被食用。
     
     🌼 你拍得真美！这是大自然充满生命力的象征之一。
+    
+
+## 5.2 多个不同模态模型实现
+
+在实际多模态系统应用与实现中，不是像示例那样先用多个单模态模型分别提取再拼接，而是在模型内部做特征融合，而且大多数是中间层融合（Mid Fusion），靠交叉注意力、门控、MoE 等机制让不同模态在语义层深度交互。示例这种“先用多个单模态模型分别提取文本描述，再让纯文本模型综合”的做法，是工程上的后期融合管道，不是现代多模态模型的主流架构，但现实里仍然常用。
+
+| 类型 | 融合位置 | 典型做法 | 特点 |
+|------|----------|----------|------|
+| 早期融合（Early Fusion） | 输入/浅层特征 | 拼接/相加原始特征，一起送进共享网络 | 简单直接，但维度灾难、忽略模态特异性 |
+| 中期融合（Mid / Hybrid Fusion） | 中间层 | 多层跨模态注意力、门控、共享 Transformer | 主流，能建模细粒度交互，平衡效果与效率 |
+| 晚期融合（Late Fusion） | 接近输出/决策层 | 各模态独立出结果，再平均/加权/投票 | 鲁棒，但缺乏跨模态交互，信息利用不充分 |
+
+
+Qwen-VL：视觉编码器 + 适配器 + LLM（中期融合）
+- 视觉编码器（ViT）：把图像切成 patch，编码成视觉 token 序列。
+- 视觉-语言适配器（Adapter/Resampler）：
+  - 用一组可学习的 Query（比如 256 个）通过 Cross-Attention 从视觉 token 里“抽取”信息；
+  - 同时注入 2D 位置编码，保留空间信息；
+  - 输出一组固定长度的视觉 token，再投影到 LLM 的嵌入空间。
+- 大语言模型（Qwen-7B）：
+  - 把视觉 token 和文本 token 拼成一个长序列；
+  - 在 LLM 的多层 Transformer 里，视觉和文本 token 通过自注意力相互交互——这是真正的中期融合。
+- 关键点：
+  - 融合不是“简单拼接向量”，而是在 Transformer 的注意力里让图文 token 互相看，可以做到“文字中的词去关注图像中的区域，图像区域去关注相关的词”。
+  - Qwen2-VL / Qwen2.5-VL / Qwen3-VL 的演进，也是在不断优化这个“适配器+融合”的方式（从 Cross-Attention 到 MLP，再到 MLP+DeepStack/MoE），但本质都是在中层做深度交互。
+
+LIP：双编码器 + 对比学习（偏晚期对齐）
+- 图像编码器（ViT）和文本编码器（Transformer）完全独立；
+- 最后分别得到图像向量、文本向量，在共享的嵌入空间里做 对比学习（contrastive loss）。这是一种典型的晚期对齐/晚期融合：
+- 编码过程没有交互，只在最终空间拉近匹配图文、推远不匹配图文。
+- 适合检索、零样本分类，但不适合复杂的跨模态推理
+
+GPT-4V / Gemini / Qwen3-Omni 等原生多模态：统一 Transformer + 早期/中期融合
+- 把图像、音频、文本都 token 化，放进同一个 Transformer 里；
+- 从第一层开始，不同模态的 token 就一起做自注意力——这是早期融合+中期融合；
+- 训练时就是多模态混合数据，原生跨模态，而不是后期拼接。
+- 这类模型强调的是“原生多模态”，而不是“视觉编码器 + LLM 后期拼接”。
+
+## 5.3 不同模态模型
+
+### 5.3.1 视觉模型
+包括图片与视频，例如
+- `happyhorse-1.0-video-edit` 视频编辑
+- `wan2.7-t2v`：text-to-video 文字转视频
+- `wan2.7-r2v`：reference-to-video 参考转视频
+- `wan2.7-image`：图片生成
+
+
+```python
+# 图片生成
+import requests
+import os
+import json
+
+# 配置参数
+API_KEY = os.getenv("DASHSCOPE_API_KEY")
+URL = "https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation"
+
+# 请求头
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {API_KEY}"
+}
+
+# 请求体
+data = {
+    "model": "qwen-image-2.0-pro-2026-04-22", # wan2.7-image
+    "input": {
+        "messages": [
+            {
+                "role": "user",
+                "content": [{"text":'''一个女孩与小狗玩耍''' }]
+            }
+        ]
+    },
+    "parameters": {
+        "negative_prompt": "低分辨率，模糊，肢体畸形，文字扭曲，AI感重，水印，杂色",
+        "prompt_extend": True,
+        "watermark": False,
+        "size": "1024*1024",
+        "n": 1
+    }
+}
+
+# 发送请求
+response = requests.post(URL, headers=headers, data=json.dumps(data))
+
+# 解析响应
+if response.status_code == 200:
+    result = response.json()
+    image_url = result["output"]["choices"][0]["message"]["content"][0]["image"]
+    print("生成的图片URL（24小时有效）：", image_url)
+else:
+    print(f"调用失败：{response.status_code} - {response.text}")
+```
+
+    生成的图片URL（24小时有效）： https://dashscope-7c2c.oss-accelerate.aliyuncs.com/1d/82/20260606/6e8aa136/cefa388a-9dd4-408f-90ad-c4353ca36baa_0.png?Expires=1780826168&OSSAccessKeyId=LTAI5tPxpiCM2hjmWrFXrym1&Signature=qU1RGEXdvSfr3K%2Fo4TzYm7wfyqo%3D
+    
+
+image 支持 3 种格式：
+
+公网 URL：https://xxx/xxx.png
+
+OSS 临时 URL：oss://dashscope-instant/xxx/xxx.png
+
+Base64 编码：data:image/jpeg;base64,GDU7MtCZz...
+
+
+```python
+# 图片编辑
+import requests
+import json
+
+# 配置（接口地址和文生图完全一样！）
+API_KEY = os.getenv("DASHSCOPE_API_KEY")
+URL = "https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation"
+
+# 请求头（和文生图完全一样）
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {API_KEY}"
+}
+
+# ========== 图像编辑核心：content 必须有 image + text ==========
+data = {
+    "model": "qwen-image-2.0-pro-2026-04-22",
+    "input": {
+        "messages": [
+            {
+                "role": "user",
+                "content": [
+                    # 第一步：传入1-3张参考图（URL/Base64）
+                    {"image": "https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/3279833771/p1058430.webp"},
+                    # 第二步：传入编辑指令（仅一个text对象）
+                    {"text": "在画面右下角添加一行手写体文字：青石桥畔柳风轻，字体为行楷，浅灰色"}
+                ]
+            }
+        ]
+    },
+    "parameters": {
+        "size": "2048*2048",  # 按需求指定，默认跟随最后一张输入图的比例
+        "n": 1,
+        "watermark": False
+    }
+}
+
+# 发送请求（和文生图调用方式完全一样）
+response = requests.post(URL, headers=headers, data=json.dumps(data))
+print(response.json())
+```
+
+    {'output': {'choices': [{'finish_reason': 'stop', 'message': {'content': [{'image': 'https://dashscope-7c2c.oss-accelerate.aliyuncs.com/7d/0c/20260606/888c8bb7/30697210-1867-4c56-8e07-225e6aa30313.png?Expires=1781346043&OSSAccessKeyId=LTAI5tPxpiCM2hjmWrFXrym1&Signature=or4823yHH0Rdj8TGdJtpQlrVQSU%3D'}], 'role': 'assistant'}}]}, 'usage': {'height': 2048, 'image_count': 1, 'width': 2048}, 'request_id': 'd5dbcbf9-909e-94a7-a87b-26754c804ac0'}
+    
+
+
+```python
+# 视频生成
+import os
+import time
+import requests
+
+# ========== 1. 配置 ==========
+api_url = "https://dashscope.aliyuncs.com/api/v1/services/aigc/video-generation/video-synthesis"
+task_url_template = "https://dashscope.aliyuncs.com/api/v1/tasks/{task_id}"
+api_key = os.getenv("DASHSCOPE_API_KEY")  # 或直接写 "sk-xxxx"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {api_key}",
+    "X-DashScope-Async": "enable",
+}
+
+payload = {
+    "model": "wan2.7-t2v",
+    "input": {
+        "prompt": '''一段紧张刺激的侦探追查故事，展现电影级叙事能力。
+        第1个镜头[0-3秒] 全景：雨夜的纽约街头，霓虹灯闪烁，一位身穿黑色风衣的侦探快步行走。 
+        第2个镜头[3-6秒] 中景：侦探进入一栋老旧建筑，雨水打湿了他的外套，门在他身后缓缓关闭。 
+        第3个镜头[6-9秒] 特写：侦探的眼神坚毅专注，远处传来警笛声，他微微皱眉思考。 
+        第4个镜头[9-12秒] 中景：侦探在昏暗走廊中小心前行，手电筒照亮前方。 
+        第5个镜头[12-15秒] 特写：侦探发现关键线索，脸上露出恍然大悟的表情。
+        '''
+    },
+    "parameters": {
+        "resolution": "720P",
+        "ratio": "16:9",
+        "prompt_extend": True,
+        "watermark": False,
+        "duration": 15,
+    },
+}
+
+# ========== 2. 提交任务 ==========
+resp = requests.post(api_url, headers=headers, json=payload)
+result = resp.json()
+
+print("状态码:", resp.status_code)
+print("完整响应:", result)
+
+task_id = result.get("output", {}).get("task_id")
+if not task_id:
+    raise SystemExit("任务提交失败，未获取到 task_id")
+
+print("任务提交成功，task_id:", task_id)
+
+# ========== 3. 轮询任务状态 ==========
+query_headers = {
+    "Authorization": f"Bearer {api_key}",
+}
+
+MAX_RETRY = 10      # 最多轮询次数
+INTERVAL = 60       # 每次间隔（秒）
+
+for i in range(MAX_RETRY):
+    query_url = task_url_template.format(task_id=task_id)
+    r = requests.get(query_url, headers=query_headers)
+    data = r.json()
+
+    status = data.get("output", {}).get("task_status")
+    print(f"[{i+1}/{MAX_RETRY}] task_status={status}, request_id={data.get('request_id')}")
+
+    if status in ("SUCCEEDED", "FAILED", "CANCELED"):
+        break
+    time.sleep(INTERVAL)
+else:
+    print("超过最大轮询次数，任务仍未结束")
+    # 可以根据业务决定是否抛异常
+
+# ========== 4. 成功时下载视频 ==========
+if status == "SUCCEEDED":
+    video_url = data.get("output", {}).get("video_url")
+    if not video_url:
+        raise SystemExit("task_status=SUCCEEDED 但未获取到 video_url")
+
+    print("视频 URL（24 小时内有效）:", video_url)
+
+    # 下载到本地
+#     video_resp = requests.get(video_url)
+#     with open("detective_story.mp4", "wb") as f:
+#         f.write(video_resp.content)
+#     print("视频已保存为 detective_story.mp4")
+# else:
+#     print("任务未成功，状态:", status)
+#     print("完整返回:", data)
+
+```
+
+    状态码: 200
+    完整响应: {'request_id': 'df0f794b-f281-9c8b-b992-3188ce292355', 'output': {'task_id': '0a9108df-043b-4b05-bbc4-6708e7943ea9', 'task_status': 'PENDING'}}
+    任务提交成功，task_id: 0a9108df-043b-4b05-bbc4-6708e7943ea9
+    [1/40] task_status=RUNNING, request_id=64eb9fb9-32f8-9191-bfa2-d68c023e582c
+    [2/40] task_status=RUNNING, request_id=649320c7-66e3-96d7-9663-2d295c0fa1fc
+    [3/40] task_status=RUNNING, request_id=91c63394-4402-9f17-a020-f0ebb1dc7e44
+    [4/40] task_status=RUNNING, request_id=aa8c465b-0bab-96dd-8eba-9bb5a1e279c1
+    [5/40] task_status=RUNNING, request_id=140c5a1f-3651-9307-a4dd-48deec4411dd
+    [6/40] task_status=RUNNING, request_id=f5e5fda6-613c-9866-95c3-542053858536
+    [7/40] task_status=RUNNING, request_id=c4300f3e-b0a6-9528-8ce0-b84dcd4e8371
+    [8/40] task_status=RUNNING, request_id=de5fca14-b56d-9b71-ae6e-4436db138e38
+    [9/40] task_status=RUNNING, request_id=b9091bc6-601a-975d-ae55-c2d6fc464957
+    [10/40] task_status=RUNNING, request_id=257ff69e-6fb2-9aca-95fe-8653da74e665
+    [11/40] task_status=RUNNING, request_id=c81dfb9c-2fe8-9b3f-881a-97370e2d5f98
+    [12/40] task_status=RUNNING, request_id=140e5989-83a8-9145-a45d-129c30653912
+    [13/40] task_status=RUNNING, request_id=ccd352d1-d293-9525-88b2-f884e95e6bd8
+    [14/40] task_status=RUNNING, request_id=cb69b229-4a67-92ee-81e4-506c6594428f
+    [15/40] task_status=RUNNING, request_id=b27c1dba-8559-94a2-af9d-f563b1e78332
+    [16/40] task_status=RUNNING, request_id=6df1aee1-bf5c-90a0-9654-0f5074c964ff
+    [17/40] task_status=RUNNING, request_id=7820475f-b0d1-988c-b1d0-d473f1031e5e
+    [18/40] task_status=RUNNING, request_id=3b8bbd5f-c6fa-98f5-b5de-2adc65ea48bb
+    [19/40] task_status=RUNNING, request_id=576ec7be-ac82-994d-9375-6b34b588b4d0
+    [20/40] task_status=RUNNING, request_id=b5a00857-672e-946e-b650-ecb3a0a4b6b5
+    [21/40] task_status=RUNNING, request_id=5af39fc5-d506-9c62-a983-894260656c6c
+    [22/40] task_status=RUNNING, request_id=d8517f94-47b7-923b-9217-e3211e0bc2c3
+    [23/40] task_status=RUNNING, request_id=76cff473-e73b-9be3-86b3-3429a2cb5543
+    [24/40] task_status=RUNNING, request_id=d23283a5-015a-98c0-b40c-ffd00d87c157
+    [25/40] task_status=SUCCEEDED, request_id=4de49753-4187-9e8b-9a9a-32f2bdb8eaa6
+    视频 URL（24 小时内有效）: https://dashscope-a717.oss-accelerate.aliyuncs.com/1d/48/20260606/417fa27f/9885436-metadata_user_d59ab7cab591ff69_watermark.mp4?Expires=1780827471&OSSAccessKeyId=LTAI5tJjG6wsHad1Sf7iezX4&Signature=68jn3H1mHkn%2Fsa3AuQwNSRQu3cg%3D
+    
+
+### 5.3.2 语音模型
+
+
+```python
+from openai import OpenAI
+import os
+
+try:
+    client = OpenAI(
+        api_key=os.getenv("DASHSCOPE_API_KEY"),
+        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    )
+    
+
+    stream_enabled = False  # 是否开启流式输出
+    completion = client.chat.completions.create(
+        model="qwen3-asr-flash",
+        messages=[
+            {
+                "content": [
+                    {
+                        "type": "input_audio",
+                        "input_audio": {
+                            "data": "https://dashscope.oss-cn-beijing.aliyuncs.com/audios/welcome.mp3"
+                        }
+                    }
+                ],
+                "role": "user"
+            }
+        ],
+        stream=stream_enabled,
+        # stream设为False时，不能设置stream_options参数
+        # stream_options={"include_usage": True},
+        extra_body={
+            "asr_options": {
+                # "language": "zh",
+                "enable_itn": False
+            }
+        }
+    )
+    if stream_enabled:
+        full_content = ""
+        print("流式输出内容为：")
+        for chunk in completion:
+            # 如果stream_options.include_usage为True，则最后一个chunk的choices字段为空列表，需要跳过（可以通过chunk.usage获取 Token 使用量）
+            print(chunk)
+            if chunk.choices and chunk.choices[0].delta.content:
+                full_content += chunk.choices[0].delta.content
+        print(f"完整内容为：{full_content}")
+    else:
+        print(f"非流式输出内容为：{completion.choices[0].message.content}")
+except Exception as e:
+    print(f"错误信息：{e}")
+```
+
+    非流式输出内容为：欢迎使用阿里云。
     
 
 # 6 评估与安全
@@ -1941,3 +2191,432 @@ CMD ["python", "agent.py"]
 ```
 
 ## 7.2 缓存
+
+# 8 框架开发
+一个框架的本质，是提供一套经过验证的“规范”。它将所有智能体共有的、重复性的工作进行抽象和封装，让我们在构建新的智能体时，能够专注于其独特的业务逻辑，而非通用的底层实现。
+
+| 框架名称 | 核心思想 |
+|---------|----------|
+| AutoGen | 通过对话实现多智能体协作，抽象为可对话智能体的群聊，定义角色与交互规则，自动化消息传递迭代任务。 |
+| AgentScope | 易用性与工程化平台，提供友好编程接口定义智能体、构建通信网络、管理生命周期，支持分布式部署。 |
+| CAMEL    | 角色扮演协作法，仅需设定角色与任务目标，通过“初始提示”引导智能体自主多轮对话完成目标。 |
+| LangGraph | 将智能体执行流程建模为图，节点为操作，边定义跳转逻辑，天然支持循环实现迭代、修正与自我反思。 |
+
+# 9 低代码平台
+本章将聚焦于如何利用图形化、模块化的低代码平台，来快速、直观地搭建、调试和部署智能体应用，将我们的重心从“实现细节”转向“业务逻辑”。
+
+但当业务逻辑变得复杂时，纯代码的维护成本和开发周期会急剧上升。低代码平台的出现，正是为了解决这些痛点。
+
+- 降低技术门槛：低代码平台将复杂的技术细节（如 API 调用、状态管理、并发控制）封装成一个个易于理解的“节点”或“模块”。
+
+- 提升开发效率：在项目初期，快速验证一个想法或搭建一个原型 (Prototype) 。开发者可以将精力更多地投入到业务逻辑梳理和提示工程优化上。
+
+- 提供更优的可视化与可观测性：相比于在终端中打印日志，图形化的平台天然提供了对智能体运行轨迹的端到端可视化。
+
+- 标准化与最佳实践沉淀：优秀的低代码平台通常会内置许多行业内的最佳实践。
+
+| 平台 | 核心定位 | 特点 | 适用人群 |
+|------|----------|------|----------|
+| Coze | 零代码/低代码 Agent 构建 | 可视化拖拽搭建，丰富插件库，一键发布到抖音、飞书等 | AI入门用户、产品经理、运营、个人创作者 |
+| Dify | 开源 LLM 应用开发与运营平台 | 支持 Agent 工作流、RAG Pipeline、数据标注与微调，企业级 | 开发者、企业级团队 |
+| n8n | 开源工作流自动化工具（集成AI） | 数百个预置节点连接 SaaS/数据库/API，可嵌入LLM节点，通用自动化强 | 需深度整合AI到业务流程的开发者与企业 |
+
+# 10 自建框架
+
+
+
+```python
+# LLM类
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
+from typing import Dict,List
+load_dotenv()
+
+class AgentLLM:
+    def __init__(self,model:str=None,api_key:str=None,base_url:str=None):
+        self.model = model or os.getenv("LLM_MODEL")
+        self.api_key = api_key or os.getenv("LLM_API_KEY")
+        self.base_url = base_url or os.getenv("LLM_BASE_URL")
+
+        if not all([self.model,self.api_key,self.base_url]):
+            raise ValueError("模型ID、API密钥和服务地址必须被提供或在.env文件中定义。")
+        
+        self.client = OpenAI(
+            api_key=self.api_key,
+            base_url=self.base_url
+        )
+        
+    def run(self,messages:List[Dict[str,str]]) -> str:
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                stream=True
+            )
+            all_content=[]
+            for chunk in response:
+                if not chunk.choices:       # 跳过没有 choices 的 chunk，防止: list index out of range
+                    continue
+                content = chunk.choices[0].delta.content or ""
+                print(content,end="",flush=True)
+                all_content.append(content)
+            print()
+            return "".join(all_content)
+
+        except Exception as e:
+            print(f"调用LLM API时发生错误: {e}")
+            return None
+```
+
+
+```python
+llm = AgentLLM()
+messages = [
+    {'role':'system','content':'You are a helpful assistant'},
+    {'role':'user','content':'你好'}
+]
+llm.run(messages);
+```
+
+    你好！很高兴为你服务。有什么我可以帮你的吗？
+    
+
+
+```python
+# Agent类
+class Agent:
+    def __init__(self, llm: AgentLLM, system_prompt: str = "You are a helpful assistant."):
+        self.llm = llm
+        self.system_prompt = system_prompt
+        self.history = []   # 存储除 system 外的所有消息
+
+    def run(self, user_input: str) -> str:
+        self.history.append({"role": "user", "content": user_input})
+
+        messages = [{"role": "system", "content": self.system_prompt}] + self.history
+
+        response = self.llm.run(messages)
+
+        if response is not None:
+            self.history.append({"role": "assistant", "content": response})
+
+        return response
+
+    def clear(self):
+        """清空历史"""
+        self.history = []
+```
+
+
+```python
+llm = AgentLLM()
+agent = Agent(llm)
+agent.run('我喜欢小猫')
+agent.run('我喜欢什么');
+```
+
+    我也特别喜欢小猫！🐾 它们毛茸茸的、性格各异，有的粘人有的独立，真的特别治愈。你已经有自己的小猫了吗？还是单纯被它们的外形和性格吸引呀？如果正在考虑养猫，或者想了解怎么照顾、怎么挑选适合你的小猫，随时告诉我，我很乐意分享一些实用建议～
+    你刚才说你喜欢小猫呀～🐱 
+    
+    如果还有其他喜欢的事物，或者想聊聊关于小猫的趣事、挑选建议、日常养护，随时告诉我，我很乐意陪你聊！
+    
+
+
+```python
+# Message类
+from typing import Optional,Dict,Any,Literal # Optional[X] 表示一个变量可以是类型 X，也可以是 None。它等价于 Union[X, None]
+from datetime import datetime
+from pydantic import BaseModel
+
+MessageRole = Literal['user','system','assistant','tool']
+
+class Message(BaseModel):
+    content:str
+    role:MessageRole
+    # timestamp: datetime = None
+    # metadata: Optional[Dict[str, Any]] = None
+
+    def __init__(self,content:str,role:MessageRole,**kwargs): #重写init方法，调用父类BaseModel的init
+        super().__init__(content=content,role=role, 
+                        # timestamp=kwargs.get('timestamp', datetime.now()),
+                        # metadata=kwargs.get('metadata', {})
+                        )
+
+    def to_dict(self)->Dict[str,Any]:
+        return {
+            "role": self.role,
+            "content": self.content
+        }
+    def __str__(self) -> str:
+        return f"[{self.role}] {self.content}"
+```
+
+
+```python
+# Config类
+import os
+from typing import Optional, Dict, Any
+from pydantic import BaseModel, Field
+
+class Config(BaseModel):
+    model: Optional[str] = None
+    api_key: Optional[str] = None
+    base_url: Optional[str] = None
+    system_prompt: Optional[str] = None
+    # temperature: Optional[float] = None
+    # max_tokens: Optional[int] = None
+
+    # 额外的关键字参数（**extra）作为字典字段保存
+    extra: Dict[str, Any] = Field(default_factory=dict) # 默认通过 Field(default_factory=dict) 设置为空字典。
+
+    @classmethod # 类方法
+    def from_env(cls) -> "Config":
+        """从环境变量加载配置，未设置的字段保持 None"""
+        return cls(
+            model=os.getenv("LLM_MODEL", None),
+            api_key=os.getenv("LLM_API_KEY", None),
+            base_url=os.getenv("LLM_BASE_URL", None),
+            system_prompt=os.getenv("SYSTEM_PROMPT", None),
+            # temperature=float(os.getenv("TEMPERATURE")) if os.getenv("TEMPERATURE") else None,
+            # max_tokens=int(os.getenv("MAX_TOKENS")) if os.getenv("MAX_TOKENS") else None,
+            extra={}   # 环境变量不涉及 extra
+        )
+
+    def to_dict(self) -> Dict[str, Any]:
+            return self.model_dump()
+
+```
+
+
+```python
+# 新Agent类
+from typing import List, Optional, Dict, Any
+from datetime import datetime
+from pydantic import BaseModel, Field
+
+class Agent:
+    def __init__(self,config: Optional[Config] = None,llm: Optional[AgentLLM] = None,system_prompt: Optional[str] = None,):
+        self.llm = llm
+
+        # 初始化消息历史
+        self.messages: List[Message] = []
+        if system_prompt:
+            self.add_message(system_prompt, role="system")
+
+    def add_message(self, content: str, role: MessageRole = "user", **kwargs) -> None:
+        self.messages.append(Message(content=content, role=role, **kwargs))
+
+    def clear_history(self) -> None:
+        # 保留 role == "system" 的消息
+        self.messages = [m for m in self.messages if m.role == "system"]
+
+    def run(self, user_input: str, **kwargs) -> str:
+        self.add_message(user_input, role="user", **kwargs)
+
+        messages_dict = [m.to_dict() for m in self.messages]
+
+        reply = self.llm.run(messages_dict)
+        if reply is None:
+            raise RuntimeError("LLM 返回空或出错")
+
+        self.add_message(reply, role="assistant")
+
+        return reply
+```
+
+
+```python
+# 从环境变量加载配置
+config = Config.from_env()
+# print(config)
+# 创建 Agent 并指定系统提示
+llm = AgentLLM()
+agent = Agent(llm=llm,config=config, system_prompt="你是友好的助手。")
+agent.run("你好") 
+print(agent.messages)       # 查看历史消息
+```
+
+    你好！很高兴为你提供帮助。今天有什么我可以为你解答或协助的吗？😊
+    [Message(content='你是友好的助手。', role='system'), Message(content='你好', role='user'), Message(content='你好！很高兴为你提供帮助。今天有什么我可以为你解答或协助的吗？😊', role='assistant')]
+    
+
+
+```python
+
+```
+
+# 11 智能体通信协议
+**为什么需要智能体通信**
+
+首先是工具集成的困境：每当需要访问新的外部服务（如 API、数据库、文件系统），我们都必须编写专门的 Tool 类。这种方式存在明显的问题：代码重复（每个工具都要处理 HTTP 请求、错误处理、认证等），难以维护（API 变更需要修改所有相关工具），无法复用（其他开发者的工具无法直接使用），扩展性差（添加新服务需要大量编码工作）。不同 LLM 平台的 function call 实现差异巨大，切换模型时需要重写大量代码。
+
+其次是能力扩展的瓶颈：智能体的能力被限制在预先定义的工具集内，无法动态发现和使用新的服务。
+
+最后是协作的缺失：当任务复杂到需要多个专业智能体协作时（如研究员+撰写员+编辑），我们只能通过手动编排来协调它们的工作。
+
+通信协议的核心价值正是解决这些问题。它提供了一套标准化的接口规范，让智能体能够以统一的方式访问各种外部服务，而无需为每个服务编写专门的适配器。
+
+```py
+# 连接到MCP服务器，自动获得所有工具
+mcp_tool = MCPTool()  # 内置服务器提供基础工具
+
+# 或者连接到专业的MCP服务器
+github_mcp = MCPTool(server_command=["npx", "-y", "@modelcontextprotocol/server-github"])
+database_mcp = MCPTool(server_command=["python", "database_mcp_server.py"])
+
+# 智能体自动获得所有能力，无需手写适配器
+agent.add_tool(mcp_tool)
+agent.add_tool(github_mcp)
+agent.add_tool(database_mcp)
+```
+而不是
+```py
+class GitHubTool(BaseTool):
+    """需要手写GitHub API适配器"""
+    def run(self, repo_url):
+        # 大量的API调用代码...
+        pass
+
+class DatabaseTool(BaseTool):
+    """需要手写数据库适配器"""
+    def run(self, query):
+        # 数据库连接和查询代码...
+        pass
+
+class WeatherTool(BaseTool):
+    """需要手写天气API适配器"""
+    def run(self, location):
+        # 天气API调用代码...
+        pass
+
+# 每个新服务都需要重复这个过程
+agent.add_tool(GitHubTool())
+agent.add_tool(DatabaseTool())
+agent.add_tool(WeatherTool())
+```
+
+## 11.1 MCP
+核心设计理念是标准化智能体与外部工具/资源的通信方式。通过定义统一的协议规范，让所有服务都能以相同的方式被访问。
+
+Awesome MCP Servers (https://github.com/punkpeye/awesome-mcp-servers)
+- 社区维护的 MCP 服务器精选列表
+- 包含各种第三方服务器
+- 按功能分类，易于查找
+
+MCP Servers Website (https://mcpservers.org/)
+- 官方 MCP 服务器目录网站
+- 提供搜索和筛选功能
+- 包含使用说明和示例
+
+Official MCP Servers (https://github.com/modelcontextprotocol/servers)
+- Anthropic 官方维护的服务器
+- 质量最高、文档最完善
+- 包含常用服务的实现
+
+### 11.1.1 Function Calling 示例
+
+
+```python
+# 工具注册
+# OpenAI格式
+openai_tools = [
+    {
+        'type':'function',
+        'function':{
+            'name':'search_github',
+            'description':'搜索GitHub仓库',
+            'parameters':{
+                'type':'object',
+                'properties':{
+                    'query':{'type':'string','description':'搜索关键词'}
+                },
+                'required':['query']
+            }
+        }
+    }
+]
+# Claude格式
+claude_tools = [
+    {
+        'name':'search_github',
+        'description':'搜索GitHub仓库',
+        'input_schema':{
+            'type':'object',
+            "properties": {
+                "query": {"type": "string", "description": "搜索关键词"}
+            },
+            "required": ["query"]
+        }
+    }
+]
+
+# 实现工具函数
+def search_github(query):
+    import requests
+    response = requests.get(
+        "https://api.github.com/search/repositories",
+        params={'q':query} #  https://api.github.com/search/repositories?q=query
+    )
+    return response.json()
+
+# 处理模型响应
+# OpenAI的响应
+if response.choices[0].message.tool_calls:
+    tool_call = response.choices[0].message.tool_calls[0]
+    result = search_github(**json.load(tool_call.function.arguments))
+# Claude的响应
+if response.content[0].type == "tool_use":
+    tool_use = response.content[0]
+    result = search_github(**tool_use.input)
+```
+
+### 11.1.2 MCP 示例
+
+
+```python
+
+```
+
+## 11.2 A2A
+MCP 协议解决了智能体与工具的交互，而 A2A 协议则解决智能体之间的协作问题。
+
+传统的中央协调器（星型拓扑）方案存在三个主要问题：
+- 单点故障：协调器失效导致系统整体瘫痪。
+- 性能瓶颈：所有通信都经过中心节点，限制了并发。
+- 扩展困难：增加或修改智能体需要改动中心逻辑。
+
+A2A 协议采用点对点（P2P）架构（网状拓扑），允许智能体直接通信，从根本上解决了上述问题。
+
+它的核心是任务（Task）和工件（Artifact）这两个抽象概念，这是它与 MCP 最大的区别
+
+| 概念 | 说明 | 与MCP的区别 | 示例 |
+|------|------|------------|------|
+| Task (任务) | 智能体之间委托的单元 | 比Tool更高层次的抽象 | "撰写一篇关于AI的文章" |
+| Artifact (工件) | 任务执行产生的结果 | 比Resource更结构化 | 文章文本、分析报告 |
+| Message (消息) | 智能体间的通信载体 | 包含任务状态信息 | "任务已完成50%" |
+| Part (部分) | 消息的组成部分 | 支持多模态内容 | 文本、图片、文件 |
+| Agent Card | 智能体描述文档 | 类似MCP的工具描述 | JSON格式的能力声明 |
+
+![image.png](OpenAI_files/image.png)
+
+## 11.3 ANP
+ANP 协议则专注于解决大规模、开放网络环境下的智能体管理问题。
+
+| 概念           | 说明                                     | 示例                                                                 |
+|----------------|------------------------------------------|----------------------------------------------------------------------|
+| ANP Discovery  | 服务发现中心，用于注册和查询网络中的智能体服务。 | 一个中央服务器或一个P2P的DHT网络。                                     |
+| Service Info   | 描述智能体服务的信息，包括其能力、地址和元数据。 | {"agent_id": "nlp-agent-01", …}                                       |
+| ANP Network    | 对智能体网络的抽象，管理节点间的连接与通信。     | 整个智能体集群的拓扑视图。                                             |
+| Capability     | 描述智能体功能的能力标签，用于服务发现时的匹配。 | "text_analysis", "image_processing"                                   |
+| Metadata       | 服务的动态或静态元数据，用于路由决策。         | 负载情况、服务价格、软件版本等。                                       |
+
+1. 服务的发现与匹配：首先，智能体 A 通过一个公开的发现服务，基于语义或功能描述进行查询，以定位到符合其任务需求的智能体 B。该发现服务通过预先爬取各智能体对外暴露的标准端点（.well-known/agent-descriptions）来建立索引，从而实现服务需求方与提供方的动态匹配。
+
+2. 基于 DID 的身份验证：在交互开始时，智能体 A 使用其私钥对包含自身 DID 的请求进行签名。智能体 B 收到后，通过解析该 DID 获取对应的公钥，并以此验证签名的真实性与请求的完整性，从而建立起双方的可信通信。
+
+3. 标准化的服务执行：身份验证通过后，智能体 B 响应请求，双方依据预定义的标准接口和数据格式进行数据交换或服务调用（如预订、查询等）。标准化的交互流程是实现跨平台、跨系统互操作性的基础。
+
+该机制的核心是利用 DID 构建了一个去中心化的信任根基，并借助标准化的描述协议实现了服务的动态发现。这套方法使得智能体能够在无需中央协调的前提下，安全、高效地在互联网上形成协作网络。
+
+# 12
