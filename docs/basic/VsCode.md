@@ -1,17 +1,65 @@
-# VsCode 简介
+# 目录
 
-# VsCode 安装
+- [1 VsCode 简介](#1-vscode-简介)
+- [2 VsCode 安装](#2-vscode-安装)
+  - [2.1 安装汉化包扩展](#21-安装汉化包扩展)
+- [3 界面说明](#3-界面说明)
+- [4 活动栏](#4-活动栏)
+  - [4.1 自定义活动栏](#41-自定义活动栏)
+- [5 终端](#5-终端)
+  - [5.1 与命令输出交互：](#51-与命令输出交互)
+- [6 设置](#6-设置)
+  - [6.1 切换用户设置与工作区设置](#61-切换用户设置与工作区设置)
+- [7 代码](#7-代码)
+  - [7.1 Light Bulb:](#71-light-bulb)
+  - [7.2 语义化标识](#72-语义化标识)
+- [8 版本控制](#8-版本控制)
+- [9 扩展安装](#9-扩展安装)
+- [10 运行与调试](#10-运行与调试)
+- [11 code 命令](#11-code-命令)
+- [12 快捷键](#12-快捷键)
+  - [12.1 通用操作快捷键](#121-通用操作快捷键)
+  - [12.2 文件与编辑器操作](#122-文件与编辑器操作)
+  - [12.3 代码编辑快捷键](#123-代码编辑快捷键)
+  - [12.4 多光标操作](#124-多光标操作)
+  - [12.5 调试快捷键](#125-调试快捷键)
+  - [12.6 搜索和导航](#126-搜索和导航)
+  - [12.7 版本控制](#127-版本控制)
+  - [12.8 终端操作](#128-终端操作)
+  - [12.9 命令面板](#129-命令面板)
+  - [12.10 显示](#1210-显示)
+  - [12.11 扩展操作](#1211-扩展操作)
+  - [12.12 其他](#1212-其他)
+- [13 AI扩展](#13-ai扩展)
+- [14 GitHub Copilot](#14-github-copilot)
+  - [14.1 介绍与安装](#141-介绍与安装)
+  - [14.2 设置](#142-设置)
+  - [14.3 快捷键](#143-快捷键)
+  - [14.4 使用技巧](#144-使用技巧)
+  - [14.5 聊天模式](#145-聊天模式)
+- [15 接入DeepSeek](#15-接入deepseek)
+  - [15.1 安装 Roo Code 扩展](#151-安装-roo-code-扩展)
+  - [15.2 设置 API Key](#152-设置-api-key)
+- [16 数据库扩展](#16-数据库扩展)
+- [17 MCP](#17-mcp)
+  - [17.1 配置 MCP 服务器](#171-配置-mcp-服务器)
+  - [17.2 示例](#172-示例)
+
+---
+# 1 VsCode 简介
+
+# 2 VsCode 安装
 官网下载链接 https://code.visualstudio.com/Download  
 默认情况下访问 VS Code 官网 https://code.visualstudio.com/  页面会根据你的系统自动匹配安装包  
 
-## 安装汉化包扩展
+## 2.1 安装汉化包扩展
 
-# 界面说明
-![image.png](../images/Interface_Instructions.png)  
+# 3 界面说明
+![image.png](../docs/images/Interface_Instructions.png)  
 
-![image.png](../images/Edit_Page.png)
+![image.png](../docs/images/Edit_Page.png)
 
-# 活动栏
+# 4 活动栏
 1. 文件资源管理器（Explorer）
 2. 搜索（Search）  
 允许你在整个项目中查找特定的文本或代码片段,点击搜索图标（放大镜）后，你可以输入关键词，VS Code 会在项目中匹配并显示所有相关结果。
@@ -19,10 +67,10 @@
 4. 调试（Debug）
 5. 扩展（Extensions）
 
-## 自定义活动栏  
+## 4.1 自定义活动栏  
 可以右击状态栏，控制功能图标是否显示，打勾☑️的表示显示，反之，不显示：
 
-# 终端
+# 5 终端
 快捷键：
 
 显示集成终端 `` Ctrl + ` ``  
@@ -37,11 +85,11 @@
 
 可以选择和切换不同终端
 
-## 与命令输出交互：  
+## 5.1 与命令输出交互：  
 打开你之前运行过 ls 或 dir 命令的终端。  
 在终端中，按住 Ctrl/Cmd 键，将鼠标悬停在文件名上，然后可以直接打开。  
 
-# 设置
+# 6 设置
 配置 VS Code 的两种方式：  
 - 使用设置编辑器（Settings Editor） 修改设置。  
 - 直接编辑 settings.json 文件。  
@@ -52,13 +100,13 @@ Windows/Linux 快捷键: ``Ctrl + ,``
 
 要想快速找到所有已修改的设置，可以在搜索框中输入 @modified：
 
-## 切换用户设置与工作区设置  
+## 6.1 切换用户设置与工作区设置  
 - 用户设置（User settings）：对所有工作区生效。  
 - 工作区设置（Workspace settings）：仅适用于当前工作区，并会覆盖用户设置。  
 
-# 代码
+# 7 代码
 
-## Light Bulb:  
+## 7.1 Light Bulb:  
 
 在 VS Code 中编写代码时出现的「小灯泡」（Light Bulb）是快速修复 / 代码操作提示图标，核心作用是为当前代码位置的问题（语法错误、格式不规范、可优化点等）或可执行的代码操作（重构、补全、导入等）提供一键式解决方案，大幅提升编码效率。
 
@@ -67,7 +115,7 @@ Windows/Linux 快捷键: ``Ctrl + ,``
 操作流程：  
 点击小灯泡（或按快捷键）→ 弹出下拉菜单 → 选择对应的修复 / 操作选项 → VS Code 自动修改代码。
 
-## 语义化标识
+## 7.2 语义化标识
 VS Code 代码提示（补全 / 建议列表）前的各类图形（图标）是语义化标识，核心作用是快速区分提示项的「类型」
 
 | 图标样式       | 常见图形描述 | 代表类型                | 示例场景                                                                 |
@@ -95,12 +143,12 @@ VS Code 代码提示（补全 / 建议列表）前的各类图形（图标）是
 
 鼠标悬浮在提示项上，会弹出完整类型说明
 
-# 版本控制
+# 8 版本控制
 见'Git.ipynb'
 
-# 扩展安装
+# 9 扩展安装
 
-# 运行与调试
+# 10 运行与调试
 
 1. 设置断点  
 
@@ -128,7 +176,7 @@ VS Code 代码提示（补全 / 建议列表）前的各类图形（图标）是
 
 在调试工具栏中，点击 Continue（继续） 按钮，或再次按下 F5，以继续执行程序。
 
-# code 命令
+# 11 code 命令
 启用 VSCode 的 code 命令 非常简单，先打开命令面板：
 
 macOS 系统快捷键：`⇧⌘P`
@@ -152,10 +200,10 @@ Windows/Linux 快捷键: `Ctrl + Shift + P`
 - 命令中的 `<路径>` `<扩展名>` 为占位符，使用时需替换为实际内容（如 `code ~/projects/my-app`、`code --install-extension ms-python.python`）；
 - 部分命令支持组合使用，例如 `code --new-window --disable-extensions .` 表示「在新窗口以纯净模式打开当前目录」。
 
-# 快捷键
+# 12 快捷键
 快捷键的设置可以通过菜单栏的`` Code > 首选项 > 键盘快捷方式 ``查看
 
-## 1. 通用操作快捷键
+## 12.1 通用操作快捷键
 | 功能 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 打开命令面板 | Ctrl + Shift + P |
@@ -169,7 +217,7 @@ Windows/Linux 快捷键: `Ctrl + Shift + P`
 | 快速打开，转到文件 | Ctrl + P |
 | 键盘快捷键设置 | Ctrl + K, Ctrl + S |
 
-## 2. 文件与编辑器操作
+## 12.2 文件与编辑器操作
 | 功能 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 新建文件 | Ctrl + N |
@@ -185,7 +233,7 @@ Windows/Linux 快捷键: `Ctrl + Shift + P`
 | 切换编辑器布局 | Alt+Shift+数字 |
 | 全屏切换 | F11 |
 
-## 3. 代码编辑快捷键
+## 12.3 代码编辑快捷键
 | 功能 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 撤销 | Ctrl + Z |
@@ -215,7 +263,7 @@ Windows/Linux 快捷键: `Ctrl + Shift + P`
 | 切换块注释 | Shift + Alt + A |
 | 切换自动换行 | Alt + Z |
 
-## 4. 多光标操作
+## 12.4 多光标操作
 | 功能 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 插入光标 | Alt + 点击 |
@@ -227,7 +275,7 @@ Windows/Linux 快捷键: `Ctrl + Shift + P`
 | 选中所有匹配内容 | Ctrl + Shift + L |
 | 选中下一个匹配 | Ctrl + D |
 
-## 5. 调试快捷键
+## 12.5 调试快捷键
 | 功能 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 开始调试 | F5 |
@@ -237,7 +285,7 @@ Windows/Linux 快捷键: `Ctrl + Shift + P`
 | 步出 | Shift+F11 |
 | 切换断点 | F9 |
 
-## 6. 搜索和导航
+## 12.6 搜索和导航
 | 功能 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 全局搜索 | Ctrl+Shift+F |
@@ -248,14 +296,14 @@ Windows/Linux 快捷键: `Ctrl + Shift + P`
 | 跳转到上一个位置 | Ctrl+Alt+Left |
 | 跳转到下一个位置 | Ctrl+Alt+Right |
 
-## 7. 版本控制
+## 12.7 版本控制
 | 功能 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 打开版本控制视图 | Ctrl+Shift+G |
 | 提交代码 | Ctrl+Enter |
 | 查看变更 | Ctrl+Shift+D |
 
-## 8. 终端操作
+## 12.8 终端操作
 | 功能 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 显示集成终端 | Ctrl + ` |
@@ -263,13 +311,13 @@ Windows/Linux 快捷键: `Ctrl + Shift + P`
 | 切换终端 | Ctrl+PageUp/PageDown |
 | 关闭终端 | Ctrl+Shift+W |
 
-## 9. 命令面板
+## 12.9 命令面板
 | 操作 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 打开命令面板 | Ctrl + Shift + P |
 | 打开键盘快捷键参考 | Ctrl + K, Ctrl + S |
 
-## 10. 显示
+## 12.10 显示
 | 功能 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 切换全屏 | F11 |
@@ -281,19 +329,19 @@ Windows/Linux 快捷键: `Ctrl + Shift + P`
 | 显示调试 | Ctrl + Shift + D |
 | 显示扩展 | Ctrl + Shift + X |
 
-## 11. 扩展操作
+## 12.11 扩展操作
 | 操作 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 安装扩展 | Ctrl + Shift + X |
 | 扩展管理 | Ctrl + Shift + P → 输入 "Extensions" |
 
-## 12. 其他
+## 12.12 其他
 | 功能 | Windows/Linux 快捷键 |
 |------|----------------------|
 | 打开 Markdown 预览 | Ctrl + K, V |
 | 禅模式 | Ctrl + K, Z |
 
-# AI扩展
+# 13 AI扩展
 包括Cline、Roo Code、Continue、Codeium、通义灵码、GitHub Copilot等等  
 
 **Qoder**  
@@ -318,19 +366,19 @@ Cursor 操作界面类似 VSCode，是个付费开发工具，免费使用的有
 
 Cursor 教程：https://www.runoob.com/cursor/cursor-intro.html
 
-# GitHub Copilot
-## 介绍与安装
+# 14 GitHub Copilot
+## 14.1 介绍与安装
 ...
 
 启用 GitHub Copilot：在 VS Code 中按下 Ctrl + Shift + P，输入 Copilot: Enable。
 
-## 设置
+## 14.2 设置
 打开 VS Code 的设置，搜索 Copilot,在这里我们可以在 VS Code 设置中调整：
 - 建议触发方式（自动或手动）
 - 建议显示位置
 - 语言偏好设置
 
-## 快捷键
+## 14.3 快捷键
 |快捷键	            |功能描述|
 |---                |---|
 |Tab	            |接受建议
@@ -341,12 +389,12 @@ Cursor 教程：https://www.runoob.com/cursor/cursor-intro.html
 |Ctrl + I           |显示 Copilot 建议
 |Ctrl + Shift + P	|启用/禁用 Copilot
 
-## 使用技巧
+## 14.4 使用技巧
 直接写注释，Copilot 会帮你实现
 
 可以在编辑器中右击鼠标，选择 Copilot，调出需要的功能：
 
-## 聊天模式
+## 14.5 聊天模式
 根据你的具体需求，你可以选择不同的聊天模式：
 
 |模式	        |描述	                            |场景|
@@ -355,10 +403,10 @@ Cursor 教程：https://www.runoob.com/cursor/cursor-intro.html
 |编辑 (Edit)	|在代码库中进行多文件编辑。	          |直接在项目中应用代码编辑，用于实现新功能、修复错误或重构代码。|
 |代理 (Agent)	|启动代理式编码工作流。	              |在极少的指导下，自主实现新功能或项目的高级需求，调用工具执行专业任务，并在出现问题时迭代解决。|
 
-# 接入DeepSeek
+# 15 接入DeepSeek
 以 Roo Code 为例演示如何接入 DeepSeek。
 
-## 安装 Roo Code 扩展
+## 15.1 安装 Roo Code 扩展
 Roo Code（前身为 Roo Cline）是一款基于 VS Code 的 AI 编程助手插件，通过集成多种 AI 模型和强大的自动化功能，为开发者提供高效、智能的编程体验。
 
 Roo Code 可与 OpenAI、DeepSeek、Anthropic、Google Gemini 等主流 API 无缝对接，还支持通过 Ollama 使用本地模型，开发者能根据需求和预算灵活切换。
@@ -367,7 +415,7 @@ Roo Code 提供了多种预设模式，包括 Code（代码模式）、Architect
 
 扩展搜索关键词：``Roo Code``
 
-## 设置 API Key
+## 15.2 设置 API Key
 安装扩展后在左侧活动栏会有个小火箭的图标，打开就可以看到支持的大模型，我们可以选择 DeepSeek：
 
 填写我们申请的 API Key：
@@ -382,7 +430,7 @@ Roo Code 提供了多种预设模式，包括 Code（代码模式）、Architect
 
 
 
-# 数据库扩展
+# 16 数据库扩展
 1、SQLTools
 
 SQLTools 是一款开源的数据库管理扩展，支持多种常用数据库，包括MySQL、PostgreSQL、Microsoft SQL Server、SQLite 等。
@@ -393,7 +441,7 @@ SQLTools 以轻量和高效著称，提供数据库连接、查询执行和结�
 
 安装后需根据数据库类型安装对应的驱动扩展，搜索 @tag:sqltools-driver 将列出所有适用于 SQLTools 的驱动程序。  
 
-![SQLTools](../images/sqltools.png)
+![SQLTools](../docs/images/sqltools.png)
 
 2、MSSQL
 
@@ -413,7 +461,7 @@ Database Client 提供基本的数据库管理和备份功能，适合需要通�
 
 打开左侧数据库面板，点击添加按钮，在连接页面配置相应的数据库信息：  
 
-![Database Client](../images/databaseclient.png)
+![Database Client](../docs/images/databaseclient.png)
 
 4、DBCode
 
@@ -434,7 +482,7 @@ DevDb 适合轻量级项目或需要在开发过程中快速查看和编辑数�
 
 界面预览：
 
-![DevDb](../images//devdb.png)  
+![DevDb](../docs/images//devdb.png)  
 
 6、MongoDB for VS Code
 
@@ -446,14 +494,14 @@ MongoDB for VS Code 提供直观的数据浏览、查询原型设计和脚本执
 
 界面预览：  
 
-![MongoDB for VS Code](../images/mongoDB_for_vscode.png)
+![MongoDB for VS Code](../docs/images/mongoDB_for_vscode.png)
 
-# MCP
+# 17 MCP
 MCP（Model Context Protocol）是一种开放标准，提供统一接口，让 AI 模型能够发现和调用外部工具，实现读取文件、调用 API、执行任务等多种操作。
 
 在 VS Code 中，MCP 客户端（如Copilot）通过 MCP 服务器提供的工具完成任务，而服务器端可以部署在本地或远程。
 
-![MCP框架](../images/MCP.png)
+![MCP框架](../docs/images/MCP.png)
 
 - MCP 是核心，一边连 客户端（MCP clients），像用 client.py 写的程序；另一边通过服务器（MCP server），连远程服务（比如图里的彩色图标 App）和本地数据源（蓝色笑脸图标这类）。
 
@@ -465,7 +513,7 @@ MCP（Model Context Protocol）是一种开放标准，提供统一接口，让 
 
 从 VS Code 1.102 版本开始，VS Code 中的 MCP 支持已全面可用，可以在设置中看是否启用。
 
-## 配置 MCP 服务器
+## 17.1 配置 MCP 服务器
 在 VS Code 中添加 MCP 服务器有多种方式：
 
 - 直接安装：访问精选的 MCP 服务器列表 https://code.visualstudio.com/mcp，选择任意 MCP 服务器上的 "安装"，即可自动将其添加到你的 VS Code 实例中。
@@ -478,7 +526,7 @@ MCP（Model Context Protocol）是一种开放标准，提供统一接口，让 
 
 这里使用工作区设置的方法。
 
-## 示例
+## 17.2 示例
 我们先创建一个 python 文件 test.py，代码如下：
 >```python
 >import sys
@@ -507,22 +555,22 @@ MCP（Model Context Protocol）是一种开放标准，提供统一接口，让 
 >  }
 >}
 >```
-![mcp1](../images/mcp1.png)
+![mcp1](../docs/images/mcp1.png)
 
 保存文件后，打开 VS Code 命令面板（Ctrl+Shift+P）：运行 "MCP: Show Installed Servers" 命令:
 
-![mcp2](../images/mcp2.png)
+![mcp2](../docs/images/mcp2.png)
 
 你会看到配置的 "HelloWorldServer":
 
-![mcp3](../images/mcp3.png)
+![mcp3](../docs/images/mcp3.png)
 
 启动该服务器，它会立即返回 "Hello World from MCP!" 信息
 
 我们可以在 AI 的聊天窗口输入"执行 HelloWorldServer"，就可以看到输出结果了：
 
-![mcp4](../images/mcp4.png)
+![mcp4](../docs/images/mcp4.png)
 
 打开 .vscode/mcp.json 右下角有个"添加服务器..."的图标，我们可以通过它添加更多服务，包含执行的命令或者远程的 http 服务：
 
-![mcp5](../images/mcp5.png)
+![mcp5](../docs/images/mcp5.png)

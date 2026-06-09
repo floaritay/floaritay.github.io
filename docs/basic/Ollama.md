@@ -1,15 +1,39 @@
-# 简介
+# 目录
+
+- [1 简介](#1-简介)
+- [2 安装](#2-安装)
+  - [2.1 Windows 系统安装](#21-windows-系统安装)
+- [3 模型运行](#3-模型运行)
+  - [3.1 命令行运行](#31-命令行运行)
+  - [3.2 直接运行exe文件](#32-直接运行exe文件)
+- [4 相关命令](#4-相关命令)
+  - [4.1 完整示例](#41-完整示例)
+  - [4.2 自定义模型](#42-自定义模型)
+  - [4.3 服务管理](#43-服务管理)
+- [5 模型交互](#5-模型交互)
+- [6 API 交互](#6-api-交互)
+- [7 python 使用](#7-python-使用)
+  - [7.1 常用 API 方法](#71-常用-api-方法)
+- [8 接入Vibe_Coding](#8-接入vibe_coding)
+- [9 模型导入](#9-模型导入)
+  - [9.1 从魔搭社区导入模型](#91-从魔搭社区导入模型)
+- [10 Ollama Open WebUI](#10-ollama-open-webui)
+- [11 Ollama Page Assist](#11-ollama-page-assist)
+- [12 VLLM](#12-vllm)
+
+---
+# 1 简介
 Ollama 是一个开源的大型语言模型（LLM）平台，旨在让用户能够轻松地在本地运行、管理和与大型语言模型进行交互  
 Ollama 支持多种操作系统，包括 macOS、Windows、Linux 以及通过 Docker 容器运行
 
-# 安装
+# 2 安装
 - CPU：多核处理器（推荐 4 核或以上）。
 - GPU：如果你计划运行大型模型或进行微调，推荐使用具有较高计算能力的 GPU（如 NVIDIA 的 CUDA 支持）。
 - 内存：至少 8GB RAM，运行较大模型时推荐 16GB 或更高。
 - 存储：需要足够的硬盘空间来存储预训练模型，通常需要 10GB 至数百 GB 的空间，具体取决于模型的大小。
 - 软件要求：确保系统上安装了最新版本的 Python（如果打算使用 Python SDK）。
 
-## Windows 系统安装
+## 2.1 Windows 系统安装
 打开浏览器，访问 Ollama 官方网站：https://ollama.com/download 下载适用于 Windows 的安装程序  
 下载地址为：https://ollama.com/download/OllamaSetup.exe  
   
@@ -20,9 +44,9 @@ ollama --version
 >OllamaSetup.exe /DIR="d:\Ollama"  
 >```
 
-# 模型运行 
+# 3 模型运行 
 
-## 命令行运行
+## 3.1 命令行运行
 `ollama run <model>`或`ollama`启动后会让你选择模型
 
 例如我们要运行 Llama 3.2 并与该模型对话可以在终端使用以下命令：
@@ -49,11 +73,11 @@ ollama --version
   
 结束对话可以输入 /bye 或按 Ctrl+d 按键来结束。
 
-## 直接运行exe文件
+## 3.2 直接运行exe文件
 
 Ollama 支持的模型可以访问：https://ollama.com/library 并查看下载命令
 
-# 相关命令
+# 4 相关命令
 基本格式：`ollama <command> [args]`
 
 可以用 `ollama --help` 查看包含有哪些命令
@@ -80,7 +104,7 @@ Ollama 支持的模型可以访问：https://ollama.com/library 并查看下载�
 - -h, --help：显示 ollama 的帮助信息。
 - -v, --version：显示版本信息。
 
-## 完整示例
+## 4.1 完整示例
 >```bash
 ># 1. 拉取与删除模型
 ># pull
@@ -188,7 +212,7 @@ Ollama 支持的模型可以访问：https://ollama.com/library 并查看下载�
 ># 持久会话（保留上下文）：
 ># 会话由模型内部缓存自动管理，无需额外命令。
 
-## 自定义模型
+## 4.2 自定义模型
 基于现有模型创建自定义模型  
 ollama create < custom-model-name > -f < Modelfile >   
 复制模型  
@@ -196,7 +220,7 @@ ollama cp < source-model-name > < new-model-name >
 推送自定义模型到模型库  
 ollama push < model-name >
 
-## 服务管理
+## 4.3 服务管理
 启动 Ollama 服务以在后台运行：  
 ollama serve  
   
@@ -251,7 +275,7 @@ ollama history < model-name >
 检查指定模型的状态：  
 ollama status < model-name >    
 
-# 模型交互
+# 5 模型交互
 **命令行交互**  
 见“模型运行”
 
@@ -297,7 +321,7 @@ Ollama 会记录交互日志，方便调试和分析
 >ollama logs   
 >``` 
 
-# API 交互
+# 6 API 交互
 Ollama 提供了基于 HTTP 的 API，允许开发者通过编程方式与模型进行交互。  
 在使用 API 之前，需要确保 Ollama 服务正在运行。可以通过以下命令启动服务：
 >```bash  
@@ -474,7 +498,7 @@ Python 使用 requests 库与 Ollama API 交互：
 >```
 
 
-# python 使用
+# 7 python 使用
 首先，我们需要安装 Ollama 的 Python SDK  
 >```bash
 >pip install ollama
@@ -565,7 +589,7 @@ Python 使用 requests 库与 Ollama API 交互：
 >```
 
 
-## 常用 API 方法
+## 7.1 常用 API 方法
 >```py
 ># 1. chat 方法
 ># 与模型进行对话生成，发送用户消息并获取模型响应：
@@ -612,15 +636,15 @@ Python 使用 requests 库与 Ollama API 交互：
 >ollama.ps()
 >```
 
-# 接入Vibe_Coding
+# 8 接入Vibe_Coding
 >```bash
 >ollama
 ># 选择启动方式 或
 >ollama launch claude --model qwen3-coder
 >```
 
-# 模型导入
-## 从魔搭社区导入模型
+# 9 模型导入
+## 9.1 从魔搭社区导入模型
 1. 下载模型
 >```python
 ># 安装ModelScope库
@@ -687,7 +711,7 @@ Python 使用 requests 库与 Ollama API 交互：
 >```
 可直接在魔搭搜索 “GGUF 格式” 模型（部分作者已提前转换），下载后跳过步骤 2，直接从步骤 3 开始导入。
 
-# Ollama Open WebUI
+# 10 Ollama Open WebUI
 Open WebUI 用户友好的 AI 界面（支持 Ollama、OpenAI API 等）  
 Open WebUI 支持多种语言模型运行器，并内置了用于检索增强生成（RAG）的推理引擎，使其成为强大的 AI 部署解决方案  
 Open WebUI 可自定义 OpenAI API URL，连接 LMStudio、GroqCloud、Mistral、OpenRouter 等  
@@ -704,10 +728,10 @@ Docker一键部署或Python环境手动安装
 3. open-webui serve
 4. http://localhost:8080
 
-# Ollama Page Assist
+# 11 Ollama Page Assist
 Page Assist 是一款开源的浏览器扩展程序，主要为本地 AI 模型提供直观的交互界面，让用户可以在任何网页上与本地 AI 模型进行对话和交互。
 
-# VLLM
+# 12 VLLM
 Transformers 库在本地直接运行开源模型。该方法非常适合入门学习和功能验证，但其底层实现在处理高并发请求时性能有限，通常不作为生产环境的首选方案。
 
 为了在本地实现高性能、生产级的模型推理服务，社区涌现出了 VLLM 和 Ollama 等优秀工具。它们通过连续批处理、PagedAttention 等技术，显著提升了模型的吞吐量和运行效率，并将模型封装为兼容 OpenAI 标准的 API 服务。

@@ -10,7 +10,7 @@ This is a personal blog and learning notes repository (floaritay) containing tec
 
 - `docs/` - Main blog site with Markdown files; `docs/index.html` is the entry point
 - Topic directories (Agent, CV, DeepLearing, machine_learning, NLP, ROS, SQL, python, etc.) - Source Jupyter notebooks and Python scripts
-- `images/` - Shared image assets referenced by notebooks
+- `docs/images/` - Shared image assets referenced by notebooks via `../docs/images/`
 - `.github/workflows/deploy.yml` - GitHub Pages deployment
 
 ## Build and Deploy
@@ -32,5 +32,5 @@ The GitHub Actions workflow automatically deploys `docs/` to GitHub Pages on pus
 ## Key Files
 
 - `docs/index.html` - Custom blog homepage with module navigation (intro, projects, notes), skill cards, and note search/filter
-- `images/` - Shared images; notebooks reference them with relative paths
+- `docs/images/` - Shared images; notebooks reference them with `../docs/images/` paths
 - `.nojekyll` - Present to disable Jekyll processing on GitHub Pages

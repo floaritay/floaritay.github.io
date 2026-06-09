@@ -1,4 +1,66 @@
-# Docker 简介
+# 目录
+
+- [1 Docker 简介](#1-docker-简介)
+- [2 Docker 概念](#2-docker-概念)
+  - [2.1 核心概念](#21-核心概念)
+  - [2.2 Docker 与 虚拟机](#22-docker-与-虚拟机)
+- [3 Docker 架构](#3-docker-架构)
+- [4 Docker 安装](#4-docker-安装)
+  - [4.1 Linux Docker 安装](#41-linux-docker-安装)
+  - [4.2 Windows Docker 安装](#42-windows-docker-安装)
+    - [4.2.1 虚拟机 安装Linux](#421-虚拟机-安装linux)
+    - [4.2.2 WSL2 安装Linux](#422-wsl2-安装linux)
+    - [4.2.3 双系统 安装Linux](#423-双系统-安装linux)
+  - [4.3 云服务器 Docker 安装](#43-云服务器-docker-安装)
+  - [4.4 Docker 镜像源](#44-docker-镜像源)
+    - [4.4.1 Windows 10](#441-windows-10)
+- [5 Docker 客户端](#5-docker-客户端)
+  - [5.1 常用的 Docker 客户端命令:](#51-常用的-docker-客户端命令)
+- [6 Docker 容器](#6-docker-容器)
+  - [6.1 获取镜像 docker pull](#61-获取镜像-docker-pull)
+  - [6.2 启动容器 docker run](#62-启动容器-docker-run)
+  - [6.3 停止容器 docker stop](#63-停止容器-docker-stop)
+  - [6.4 启动已停止的容器 docker start](#64-启动已停止的容器-docker-start)
+  - [6.5 重启容器 docker restart](#65-重启容器-docker-restart)
+  - [6.6 进入容器 docker attach](#66-进入容器-docker-attach)
+  - [6.7 导出容器 docker export](#67-导出容器-docker-export)
+  - [6.8 导入容器快照 docker import](#68-导入容器快照-docker-import)
+  - [6.9 删除容器 docker rm](#69-删除容器-docker-rm)
+  - [6.10 WEB 应用容器](#610-web-应用容器)
+    - [6.10.2 查看 WEB 应用程序日志](#6102-查看-web-应用程序日志)
+    - [6.10.3 查看WEB应用程序容器的进程](#6103-查看web应用程序容器的进程)
+    - [6.10.4 检查 WEB 应用程序](#6104-检查-web-应用程序)
+    - [6.10.5 停止 WEB 容器](#6105-停止-web-容器)
+    - [6.10.6 启动/重启 WEB 容器](#6106-启动重启-web-容器)
+    - [6.10.7 删除 WEB 容器](#6107-删除-web-容器)
+- [7 Docker 镜像](#7-docker-镜像)
+  - [7.1 列出镜像列表 docker images](#71-列出镜像列表-docker-images)
+  - [7.2 拉取镜像 docker pull](#72-拉取镜像-docker-pull)
+  - [7.3 查找镜像 docker search](#73-查找镜像-docker-search)
+  - [7.4 删除镜像 docker rmi](#74-删除镜像-docker-rmi)
+  - [7.5 创建镜像 docker commmit](#75-创建镜像-docker-commmit)
+  - [7.6 创建镜像 docker build](#76-创建镜像-docker-build)
+  - [7.7 设置镜像标签 docker tag](#77-设置镜像标签-docker-tag)
+- [8 Docker 容器连接](#8-docker-容器连接)
+  - [8.1 查看端口 docker port](#81-查看端口-docker-port)
+  - [8.2 Docker 容器互联](#82-docker-容器互联)
+  - [8.3 配置 DNS](#83-配置-dns)
+  - [8.4 解决windows系统无法对docker容器进行端口映射的问题](#84-解决windows系统无法对docker容器进行端口映射的问题)
+- [9 Docker 仓库管理](#9-docker-仓库管理)
+- [10 Docker Dockerfile](#10-docker-dockerfile)
+  - [10.1 指令详解](#101-指令详解)
+- [11 Docker Compose](#11-docker-compose)
+  - [11.1 Compose 安装](#111-compose-安装)
+  - [10.2 Compose 使用](#102-compose-使用)
+  - [11.3 yml 配置指令参考](#113-yml-配置指令参考)
+- [12 Swarm 集群管理](#12-swarm-集群管理)
+  - [12.1 Swarm 使用](#121-swarm-使用)
+- [13 Docker 实例](#13-docker-实例)
+- [14 其他](#14-其他)
+  - [14.1 Docker run](#141-docker-run)
+
+---
+# 1 Docker 简介
 Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。
 
 Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。
@@ -7,9 +69,9 @@ Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级�
 
 Docker 从 17.03 版本之后分为 CE（Community Edition: 社区版） 和 EE（Enterprise Edition: 企业版），我们用社区版就可以了。
 
-# Docker 概念
+# 2 Docker 概念
 
-## 核心概念
+## 2.1 核心概念
 
 **容器（Container）**：基于镜像创建的轻量化的运行实例，包含应用代码、运行时环境和依赖库。
 - 隔离性：每个容器都有自己的文件系统、网络和进程空间，但共享主机操作系统内核（比虚拟机更高效）。
@@ -27,7 +89,8 @@ Docker 从 17.03 版本之后分为 CE（Community Edition: 社区版） 和 EE�
 
 **仓库（Registry）**：存储和分发镜像的平台，可以包含一个镜像的多个版本。如 Docker Hub（官方公共仓库）或私有仓库（如 Harbor）。
 
-### 什么是容器化技术？  
+**什么是容器化技术？**  
+
 容器共享主机内核，轻量、隔离且高效，不像虚拟机需要完整的操作系统。
 
 ![image.png](https://www.runoob.com/wp-content/uploads/2025/05/d7d5638a-d0fe-45a4-8a67-59a21f4318d6.png)
@@ -36,25 +99,28 @@ Docker 从 17.03 版本之后分为 CE（Community Edition: 社区版） 和 EE�
 - 中间层：Docker，负责管理这些容器。
 - 底层：主机操作系统（Host OS）和基础设施，为容器提供硬件和系统支持。
 
-### 传统应用部署的痛点
+**传统应用部署的痛点**
+
 1. 环境不一致：应用在开发环境运行正常，但在测试或生产环境出现问题
 2. 依赖管理复杂：不同应用需要不同版本的运行时、库文件等
 3. 资源利用率低：传统虚拟机需要完整的操作系统，占用大量资源
 4. 部署复杂：需要手动配置环境、安装依赖，容易出错
 
-### 容器化技术的解决方案
+**容器化技术的解决方案**
+
 1. 环境标准化：将应用及其依赖打包在一起，确保在任何环境中都能一致运行
 2. 轻量级：容器共享宿主机的操作系统内核，比虚拟机更轻量
 3. 快速部署：容器可以在几秒内启动，大大提高了部署效率
 4. 可移植性：一次构建，到处运行
 
-### 容器化的核心理念
+**容器化的核心理念**
+
 1. 应用和环境被打包成不可变的镜像
 2. 每次部署都使用相同的镜像
 3. 配置通过环境变量或配置文件注入
 4. 问题修复通过重新构建镜像而非修改运行中的容器
 
-## Docker 与 虚拟机
+## 2.2 Docker 与 虚拟机
 |特性	    |虚拟机	            |Docker容器|
 |-----------|--------------------|----------|
 |隔离级别	|硬件级别虚拟化	     |操作系统级别虚拟化|
@@ -70,7 +136,7 @@ Docker 从 17.03 版本之后分为 CE（Community Edition: 社区版） 和 EE�
 
 Docker容器适用场景：微服务架构、CI/CD流水线、应用快速部署和扩展、开发环境标准化
 
-# Docker 架构
+# 3 Docker 架构
 Docker 使用客户端-服务器 (C/S) 架构模式，使用远程 API 来管理和创建 Docker 容器。
 
 ![image.png](https://www.runoob.com/wp-content/uploads/2025/05/screenshot-2023-01-16-at-110130.png)  
@@ -148,25 +214,27 @@ Docker 的工作流程
 5. 管理容器：使用 Docker 客户端命令管理正在运行的容器（例如查看日志、停止容器、查看资源使用情况等）。
 6. 网络与存储：容器之间通过 Docker 网络连接，数据通过 Docker 卷或绑定挂载进行持久化。
 
-# Docker 安装
+# 4 Docker 安装
 
-## Linux Docker 安装
+## 4.1 Linux Docker 安装
+...
 
-## Windows Docker 安装
+## 4.2 Windows Docker 安装
 Docker 并非是一个通用的容器工具，它依赖于已存在并运行的 Linux 内核环境。
 
 Docker 实质上是在已经运行的 Linux 下制造了一个隔离的文件环境，因此它执行的效率几乎等同于所部署的 Linux 主机。
 
 因此，Docker 必须部署在 Linux 内核的系统上。如果其他系统想部署 Docker 就必须安装一个虚拟 Linux 环境。
 
-### 虚拟机 安装Linux
+### 4.2.1 虚拟机 安装Linux
+...
 
-### WSL2 安装Linux
+### 4.2.2 WSL2 安装Linux
 https://learn.microsoft.com/zh-cn/windows/wsl/install
 
-### 双系统 安装Linux
+### 4.2.3 双系统 安装Linux
 
-## 云服务器 Docker 安装
+## 4.3 云服务器 Docker 安装
 云服务器(Elastic Compute Service, ECS)是一种简单高效、安全可靠、处理能力可弹性伸缩的计算服务。
 
 云服务器管理方式比物理服务器更简单高效，我们无需提前购买昂贵的硬件，即可迅速创建或删除云服务器，云服务器费用一般在几十到几百不等，可以根据我们的需求配置。
@@ -180,7 +248,7 @@ https://learn.microsoft.com/zh-cn/windows/wsl/install
 
 注意：很多云服务器给新用户提供的优惠力度是最大，基本上都是 1～2 折，建议新注册的用户购买。
 
-## Docker 镜像源
+## 4.4 Docker 镜像源
 国内从 DockerHub 拉取镜像有时会遇到困难，此时可以配置镜像加速器。
 
 Docker 官方和国内很多云服务商都提供了国内加速器服务，例如：
@@ -199,7 +267,7 @@ Docker 官方和国内很多云服务商都提供了国内加速器服务，例�
 
 ![image.png](https://www.runoob.com/wp-content/uploads/2019/10/02F3AF04-8203-4E3B-A5AF-96973DBE515F.jpg)
 
-### Windows 10
+### 4.4.1 Windows 10
 在系统右下角托盘 Docker 图标内右键菜单选择 Settings，打开配置窗口后左侧导航菜单选择 Daemon。
 
 在 Registrymirrors 一栏中填写加速器地址 https://docker.mirrors.ustc.edu.cn/  ，之后点击 Apply 保存后 Docker 就会重启并应用配置的镜像地址了。
@@ -214,7 +282,7 @@ Docker 官方和国内很多云服务商都提供了国内加速器服务，例�
 >Registry Mirrors:
 >    https://reg-mirror.qiniu.com
 
-# Docker 客户端
+# 5 Docker 客户端
 
 Docker 客户端是与Docker Daemon交互的命令行工具。
 
@@ -230,7 +298,7 @@ Docker 客户端是与Docker Daemon交互的命令行工具。
 >$ docker stats --help
 >```
 
-## 常用的 Docker 客户端命令:
+## 5.1 常用的 Docker 客户端命令:
 
 | 命令 | 功能 | 示例 |
 | ---- | ---- | ---- |
@@ -267,16 +335,16 @@ Docker 客户端是与Docker Daemon交互的命令行工具。
 | -it | 以交互式终端运行容器 | docker exec -it container_name bash |
 | -t | 为镜像指定标签 | docker build -t my-image . |
 
-# Docker 容器
+# 6 Docker 容器
 ![image.png](https://www.runoob.com/wp-content/uploads/2016/05/0_Uw0RmvCbgHBkZfi1.png)
 
-## 1. 获取镜像 docker pull 
+## 6.1 获取镜像 docker pull 
 如果我们本地没有 ubuntu 镜像，我们可以使用 `docker pull` 命令来载入 ubuntu 镜像：  
 >```bash
 >$ docker pull ubuntu
 >```
 
-## 2. 启动容器 docker run
+## 6.2 启动容器 docker run
 以下命令使用 ubuntu 镜像启动一个容器，参数为以命令行模式进入该容器：  
 >```bash
 >$ docker run -it ubuntu /bin/bash
@@ -295,7 +363,7 @@ ubuntu: ubuntu 镜像。
 /bin/bash：放在镜像名后的是命令，这里我们希望有个交互式 Shell，因此用的是 /bin/bash。  
 要退出终端，直接输入 `exit`。  
 
-## 3. 停止容器 docker stop
+## 6.3 停止容器 docker stop
 查看所有的容器：
 >```bash
 >$ docker ps -a
@@ -305,19 +373,19 @@ ubuntu: ubuntu 镜像。
 >$ docker stop 容器id
 >```
 
-## 4. 启动已停止的容器 docker start
+## 6.4 启动已停止的容器 docker start
 容器之前通过 docker stop 或正常退出后，需要重新启动  
 >```bash
 >$ docker start 容器id
 >```
 
-## 5. 重启容器 docker restart    
+## 6.5 重启容器 docker restart    
 重启一个正在运行或已停止的容器  
 >```bash
 >$ docker restart 容器id 
 >```
 
-## 6. 进入容器 docker attach
+## 6.6 进入容器 docker attach
 在使用 -d 参数时启动容器时，容器会运行在后台，这时如果要进入容器，可以通过以下命令进入：  
 
 - `docker attach`：允许你与容器的标准输入（stdin）、输出（stdout）和标准错误（stderr）进行交互。  
@@ -331,14 +399,14 @@ ubuntu: ubuntu 镜像。
 ># 更多参数说明请使用 docker exec --help 命令查看。
 >```
 
-## 7. 导出容器 docker export
+## 6.7 导出容器 docker export
 如果要导出本地某个容器，可以使用 `docker export` 命令。
 >```bash
 >$ docker export 1e560fca3906 > ubuntu.tar
 ># 导出容器 1e560fca3906 快照到本地文件 ubuntu.tar
 >```
 
-## 8.导入容器快照 docker import
+## 6.8 导入容器快照 docker import
 可以使用 `docker import` 从容器快照文件中再导入为镜像，以下实例将快照文件 ubuntu.tar 导入到镜像 test/ubuntu:v1:
 >```bash
 >$ cat docker/ubuntu.tar | docker import - test/ubuntu:v1
@@ -348,7 +416,7 @@ ubuntu: ubuntu 镜像。
 >$ docker import http://example.com/exampleimage.tgz example/imagerepo
 >```
 
-## 9. 删除容器 docker rm
+## 6.9 删除容器 docker rm
 删除一个容器，可以使用 `docker rm` 命令。
 >```bash
 >$ docker rm 容器id
@@ -364,8 +432,8 @@ ubuntu: ubuntu 镜像。
 
 
 
-## WEB 应用容器
-### 创建一个web应用
+## 6.10 WEB 应用容器
+### 6.10.1创建一个web应用
 接下来让我们尝试使用 docker 构建一个 web 应用程序。
 
 我们将在docker容器中运行一个 Python Flask 应用来运行一个web应用。
@@ -406,7 +474,7 @@ Docker 开放了 5000 端口（默认 Python Flask 端口）映射到主机端�
 >5000/tcp -> 0.0.0.0:5000
 >```
 
-### 查看 WEB 应用程序日志
+### 6.10.2 查看 WEB 应用程序日志
 `docker logs [ID或者名字]`
 >```bash
 >$ docker logs -f bf08b7f2cd89
@@ -416,7 +484,7 @@ Docker 开放了 5000 端口（默认 Python Flask 端口）映射到主机端�
 >```
 从上面，我们可以看到应用程序使用的是 5000 端口并且能够查看到应用程序的访问日志。
 
-### 查看WEB应用程序容器的进程
+### 6.10.3 查看WEB应用程序容器的进程
 `docker top [ID或者名字]`
 >```bash
 >$ docker top bf08b7f2cd89
@@ -424,29 +492,30 @@ Docker 开放了 5000 端口（默认 Python Flask 端口）映射到主机端�
 >root                1580                1535                0                   08:30               ?                   00:00:00            python app.py
 >```
 
-### 检查 WEB 应用程序
+### 6.10.4 检查 WEB 应用程序
+
 `docker inspect [ID或者名字]`
 
-### 停止 WEB 容器
+### 6.10.5 停止 WEB 容器
+
 `docker stop [ID或者名字]`
 
-### 启动/重启 WEB 容器
+### 6.10.6 启动/重启 WEB 容器
+
 `docker start [ID或者名字]`  
 `docker restart [ID或者名字]`
 
-### 删除 WEB 容器
+### 6.10.7 删除 WEB 容器
+
 `docker rm [ID或者名字]`  
 删除容器时，容器必须是停止状态。  
 `docker rm -f [ID或者名字]`  
 强制删除容器时，容器可以运行。  
 
-
-
-
-# Docker 镜像
+# 7 Docker 镜像
 当运行容器时，使用的镜像如果在本地中不存在，docker 就会自动从 docker 镜像仓库中下载，默认是从 Docker Hub 公共镜像源下载。
 
-## 列出镜像列表 docker images
+## 7.1 列出镜像列表 docker images
 >```bash
 >$ docker images           
 >REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
@@ -469,9 +538,9 @@ REPOSITORY：表示镜像的仓库源
 ># 只使用 ubuntu，docker 将默认使用 ubuntu:latest 镜像。
 >```
 
-## 拉取镜像 docker pull
+## 7.2 拉取镜像 docker pull
 
-## 查找镜像 docker search
+## 7.3 查找镜像 docker search
 我们可以从 Docker Hub 网站来搜索镜像，Docker Hub 网址为： https://hub.docker.com/
 
 我们也可以使用 `docker search` 命令来搜索镜像。比如我们需要一个 httpd 的镜像来作为我们的 web 服务
@@ -486,9 +555,9 @@ REPOSITORY：表示镜像的仓库源
 - STARS:表示点赞、喜欢的意思。
 - AUTOMATED: 自动构建。
 
-## 删除镜像 docker rmi
+## 7.4 删除镜像 docker rmi
 
-## 创建镜像 docker commmit
+## 7.5 创建镜像 docker commmit
 `docker commit`从已经创建的容器中更新镜像，并且提交这个镜像
 >```bash
 >$ docker commit -m "update" -a "yourname" 5a0c7b4d5a0c myapp:v2
@@ -498,7 +567,7 @@ REPOSITORY：表示镜像的仓库源
 >```
 `-m`参数指定镜像的描述，`-a`参数指定镜像的作者。`5a0c7b4d5a0c`是容器的ID，`myapp:v2`是镜像名称和标签。
 
-## 创建镜像 docker build
+## 7.6 创建镜像 docker build
 `docker build` 命令用于创建镜像。为此，我们需要创建一个 Dockerfile 文件，其中包含一组指令来告诉 Docker 如何构建我们的镜像。
 - -t：指定镜像的名称和标签。
 - -f：指定 Dockerfile 文件的位置。
@@ -529,7 +598,7 @@ CMD，指定nginx的启动命令
 >```
 镜像构建完成后，我们可以使用 `docker images` 命令查看镜像。
 
-## 设置镜像标签 docker tag
+## 7.7 设置镜像标签 docker tag
 >```bash
 >$ docker tag mynginx mynginx:v1
 >$ docker images
@@ -538,7 +607,7 @@ CMD，指定nginx的启动命令
 >mynginx             latest              5a0c7b4d5a0c        7 minutes ago       348.8 MB
 >```
 
-# Docker 容器连接
+# 8 Docker 容器连接
 前面实现了通过网络端口来访问运行在 docker 容器内的服务。
 
 容器中可以运行一些网络应用，要让外部也可以访问这些应用，可以通过 -P 或 -p 参数来指定端口映射。
@@ -574,13 +643,13 @@ CMD，指定nginx的启动命令
 >CONTAINER ID        IMAGE               COMMAND           ...     PORTS                                NAMES
 >95c6ceef88ca        training/webapp     "python app.py"   ...  5000/tcp, 5000/udp, 127.0.0.1:5001->5000/tcp
 >```
-## 查看端口 docker port
+## 8.1 查看端口 docker port
 >```bash
 >$ docker port adoring_stonebraker 5000
 >127.0.0.1:5001
 >```
 
-## Docker 容器互联
+## 8.2 Docker 容器互联
 端口映射并不是唯一把 docker 连接到另一个容器的方法。
 
 docker 有一个连接系统允许将多个容器连接在一起，共享连接信息。
@@ -616,7 +685,7 @@ docker 连接会创建一个父子关系，其中父容器可以看到子容器�
 >```
 如果你有多个容器之间需要互相连接，推荐使用 Docker Compose，后面会介绍。
 
-## 配置 DNS
+## 8.3 配置 DNS
 在宿主机的 /etc/docker/daemon.json 文件中增加以下内容来设置全部容器的 DNS：
 >```json
 >{
@@ -646,7 +715,7 @@ docker 连接会创建一个父子关系，其中父容器可以看到子容器�
 >```
 如果在容器启动时没有指定 --dns 和 --dns-search，Docker 会默认用宿主主机上的 /etc/resolv.conf 来配置容器的 DNS。
 
-## 解决windows系统无法对docker容器进行端口映射的问题
+## 8.4 解决windows系统无法对docker容器进行端口映射的问题
 在Windows中运行docker，实际上还是在Windows下先安装了一个Linux环境，然后在这个系统中运行的docker。也就是说，服务中使用的localhost指的是这个Linux环境的地址，而不是我们的宿主环境Windows。
 
 通过命令:
@@ -666,7 +735,7 @@ docker 连接会创建一个父子关系，其中父容器可以看到子容器�
 >http://192.168.99.100:8888
 >```
 
-# Docker 仓库管理
+# 9 Docker 仓库管理
 Docker 官方维护了一个公共仓库 [Docker Hub](https://hub.docker.com/)。
 
 免费注册一个 Docker 账号登录就可以从 docker hub 上拉取自己账号下的全部镜像。
@@ -694,7 +763,7 @@ Docker 官方维护了一个公共仓库 [Docker Hub](https://hub.docker.com/)�
 >$ docker logout # 注销
 >```
 
-# Docker Dockerfile
+# 10 Docker Dockerfile
 Dockerfile 是一个文本文件，包含了构建 Docker 镜像的所有指令
 
 下面以定制一个 nginx 镜像为例（构建好的镜像内会有一个 /usr/share/nginx/html/index.html 文件）
@@ -761,7 +830,7 @@ Dockerfile 是一个文本文件，包含了构建 Docker 镜像的所有指令
 
 注意：上下文路径下不要放无用的文件，因为会一起打包发送给 docker 引擎，如果文件过多会造成过程缓慢。
 
-## 指令详解
+## 10.1 指令详解
 |指令|	描述|
 |---|---|
 |FROM|	指定基础镜像，用于后续的指令构建|
@@ -782,7 +851,7 @@ Dockerfile 是一个文本文件，包含了构建 Docker 镜像的所有指令
 |HEALTHCHECK|	指定容器健康检查的指令|
 |SHELL|	指定Shell
 
-# Docker Compose
+# 11 Docker Compose
 Compose 是用于定义和运行多容器 Docker 应用程序的工具。
 
 通过 Compose 可以使用 YML 文件来配置应用程序需要的所有服务。
@@ -814,15 +883,15 @@ docker-compose.yml
 >  logvolume01: {}
 >```
 
-## Compose 安装
+## 11.1 Compose 安装
 
-## Compose 使用
+## 10.2 Compose 使用
 ...
 
-## yml 配置指令参考
+## 11.3 yml 配置指令参考
 ...
 
-# Swarm 集群管理
+# 12 Swarm 集群管理
 Docker Swarm 是 Docker 的集群管理工具。它将 Docker 主机池转变为单个虚拟 Docker 主机。
 
 Docker Swarm 提供了标准的 Docker API，所有任何已经与 Docker 守护程序通信的工具都可以使用 Swarm 轻松地扩展到多个主机。
@@ -832,15 +901,15 @@ Docker Swarm 提供了标准的 Docker API，所有任何已经与 Docker 守护
 - work node：即图中的 available node，主要负责运行相应的服务来执行任务（task）。
 ![alt text](https://www.runoob.com/wp-content/uploads/2019/11/services-diagram.png)
 
-## Swarm 使用
+## 12.1 Swarm 使用
 ...
 
-# Docker 实例
+# 13 Docker 实例
 可参考 ROS/
 
-# ...
+# 14 其他
 
-## Docker run
+## 14.1 Docker run
 
 `docker run -d --name my-redis -p 6379:6379 redis`  
 参数解释：    

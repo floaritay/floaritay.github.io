@@ -1,4 +1,5 @@
 # 目录
+
 - [1 简介](#1-简介)
 - [2 安装](#2-安装)
   - [2.1 安装](#21-安装)
@@ -117,8 +118,6 @@
   - [21.3 Git Worktree](#213-git-worktree)
     - [21.3.1 使用 Git Worktree](#2131-使用-git-worktree)
     - [21.3.2 常用管理命令](#2132-常用管理命令)
-- [Claude Code GitHub Actions](#claude-code-github-actions)
-- [参考](#参考)
 
 ---
 # 1 简介

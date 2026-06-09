@@ -53,6 +53,7 @@
   - [11.1 MCP](#111-mcp)
   - [11.2 A2A](#112-a2a)
   - [11.3 ANP](#113-anp)
+- [12 AI Agent 简单实现](#12-ai-agent-简单实现)
 
 ---
 # 1 介绍
@@ -62,7 +63,7 @@ Agent = LLM (大脑) + Planning (规划) + Tool use (执行) + Memory (记忆)�
 
 # 2 核心组件与工作原理
 
-![image.png](../images/Agent3.png)
+![image.png](../docs/images/Agent3.png)
 
 # 3 大语言模型
 
@@ -238,7 +239,7 @@ LLM 被要求根据"历史动作"和"失败的反馈"写一段口语化的反思
 
 解决了 LLM 的两个核心痛点：知识截止日期（模型不知道训练后发生的事）和幻觉问题（模型在不确定时会编造答案）。
 
-![image.png](../images/Agent4.png)
+![image.png](../docs/images/Agent4.png)
 
 ## 6.1 文档切分
 **文档解析**
@@ -335,7 +336,7 @@ HNSW 是目前最主流的算法，它通过构建多层跳跃图网络，牺牲
 传统 RAG 将知识库当作独立的文本碎片，无法回答诸如"找到所有同时由现任 CEO 创办且市值超千亿的公司"这类需要跨文档、多跳推理的复杂问题。  
 GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建模。
 
-![image.png](../images/Agent5.png)
+![image.png](../docs/images/Agent5.png)
 
 核心步骤
 - 知识构建：离线阶段使用 LLM 从文档提取三元组（主体、关系、客体），写入 Neo4j 等图数据库。
@@ -366,7 +367,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 ## 7.1 单 Agent 循环（Single Agent Loop）
 单 Agent 循环直接体现了 ReAct 模式
 
-![image-2.png](../images/Agent6.png)
+![image-2.png](../docs/images/Agent6.png)
 
 每次工具调用的结果都会回写到上下文。因此随着任务推进，上下文会不断增长，直到触达 LLM 的上下文窗口限制——这是单 Agent 循环最主要的瓶颈。
 
@@ -417,7 +418,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 >```
 
 ## 7.2 规划 + 执行（Plan & Execute）
-![image.png](../images/Agent7.png)
+![image.png](../docs/images/Agent7.png)
 
 
 |规划|行为|典型场景|特点与代价|
@@ -476,7 +477,7 @@ Claude Code 的 Plan Mode 就是这个架构的体现
 >```
 
 ## 7.3 多 Agent 协作（Multi-Agent）
-![image.png](../images/Agent8.png)
+![image.png](../docs/images/Agent8.png)
 
 每个子 Agent 拥有独立的上下文窗口。
 
@@ -534,7 +535,7 @@ Claude Code 的 Plan Mode 就是这个架构的体现
 >```
 
 ## 7.4 反思与修正（Reflection）
-![image.png](../images/Agent9.png)
+![image.png](../docs/images/Agent9.png)
 
 | 方式       | 机制                                                         | 优点                          | 缺点                                      |
 |------------|--------------------------------------------------------------|-------------------------------|-------------------------------------------|
@@ -594,7 +595,7 @@ Claude Code 的 Plan Mode 就是这个架构的体现
 >```
 
 ## 7.5 RAG + Agent（检索增强型智能体）
-![image.png](../images/Agent10.png)
+![image.png](../docs/images/Agent10.png)
 
 与一般RAG不同：   
 一般 RAG 是用户提问时固定检索一次，将结果塞入 Prompt。  
@@ -664,7 +665,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
 
 这是最接近传统软件工程的一种 Agent 架构。与前面几种架构的最大区别在于：`Agent 的自主决策空间被限制在单个节点内部，节点之间的流转是预先定义好的，不可更改。`
 
-![image.png](../images/Agent11.png)
+![image.png](../docs/images/Agent11.png)
 
 - 可预测、可审计、可重试
 - 支持并行加速
@@ -2008,7 +2009,7 @@ ANP：智能体网络的基础设施
 ANP（Agent Network Protocol）是一个概念性的协议框架3，目前由开源社区维护，还没有成熟的生态，其核心设计理念是构建大规模智能体网络的基础设施。如果说 MCP 解决的是"如何访问工具"，A2A 解决的是"如何与其他智能体对话"，那么 ANP 解决的是"如何在大规模网络中发现和连接智能体"。  
 ANP 的设计哲学是"去中心化服务发现"。在一个包含成百上千个智能体的网络中，如何让智能体能够找到它需要的服务？ANP 提供了服务注册、发现和路由机制，让智能体能够动态地发现网络中的其他服务，而不需要预先配置所有的连接关系。
 
-# AI Agent 简单实现
+# 12 AI Agent 简单实现
 
 
 ```python

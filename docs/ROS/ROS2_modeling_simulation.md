@@ -1,3 +1,7 @@
+# 目录
+
+
+---
 # URDF
 URDF（Unified Robot Description Format）统一机器人描述格式，URDF使用XML格式描述机器人文件。  
 
@@ -1271,7 +1275,7 @@ gazebo的插件按照用途大致可以分为两种：
 
 >注意：发送给Gazebo是目标速度，反馈回来的是实际速度。目标!=实际，比如轮子卡住了，无论你发什么目标速度，实际速度都是0。
 
-![image.png](image\gazebo_ros_diff_drive.png)
+![image.png](../docs/images/gazebo_ros_diff_drive.png)
 
 上图是对gazebo_ros_diff_drive的输入和输出信息的总结，可以很直观的看到该插件主要输入控制指令，主要输出里程计信息。
 
