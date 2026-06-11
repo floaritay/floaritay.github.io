@@ -386,15 +386,518 @@
         </nav>
         <article class="markdown-body">
 <h1 id="_1">目录</h1>
+<ul>
+<li><a href="#1-scikit-learn-介绍">1 Scikit-learn 介绍</a><ul>
+<li><a href="#11-主要用法">1.1 主要用法</a></li>
+</ul>
+</li>
+<li><a href="#2-基本函数">2 基本函数</a></li>
+<li><a href="#3-数据集划分与基本信息">3 数据集划分与基本信息</a></li>
+</ul>
 <hr />
 <div class="highlight"><pre><span></span><code><span class="c1">#在 Jupyter Notebook 中，使用以下代码来打印当前工作目录：</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
 </code></pre></div>
 
-<h1 id="_2">基本函数</h1>
-<h1 id="_3">数据集划分与基本信息</h1>
-<h2 id="_4">留出法</h2>
+<div class="highlight"><pre><span></span><code>  d:\floaritay\machine_learning
+</code></pre></div>
+
+<h1 id="1-scikit-learn-介绍">1 Scikit-learn 介绍</h1>
+<p>Scikit-learn是基于NumPy、SciPy和Matplotlib的开源Python机器学习包，它封装了一系列数据预处理、机器学习算法、模型选择等工具。</p>
+<p>Scikit-learn简称sklearn，支持包括分类、回归、降维和聚类四大机器学习算法，还包括了特征提取、数据处理和模型评估三大模块。</p>
+<p>Scikit-Learn库的算法主要有四类：分类、回归、聚类、降维。其中：</p>
+<ol>
+<li>
+<p>常用的回归：线性回归、决策树回归、SVM回归、KNN回归；集成回归：随机森林、Adaboost、GradientBoosting、Bagging、ExtraTrees。</p>
+</li>
+<li>
+<p>常用的分类：线性分类、决策树、SVM、KNN，朴素贝叶斯；集成分类：随机森林、Adaboost、GradientBoosting、Bagging、ExtraTrees。</p>
+</li>
+<li>
+<p>常用聚类：K均值(K-means)、层次聚类(Hierarchical clustering)、DBSCAN。</p>
+</li>
+<li>
+<p>常用降维：LinearDiscriminantAnalysis、PCA。</p>
+</li>
+</ol>
+<p>参考 https://github.com/fengdu78/WZU-machine-learning-course</p>
+<p>[1] PEDREGOSA F, VAROQUAUX G, GRAMFORT A, et al. Scikit-learn: Machine Learning in Python[J]. Journal of Machine Learning Research, 2011, 12: 2825–2830.</p>
+<p>[2] Andrew Ng. Machine Learning[EB/OL]. StanfordUniversity,2014.https://www.coursera.org/course/ml</p>
+<h2 id="11-主要用法">1.1 主要用法</h2>
+<p><strong>建模流程</strong></p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>代表含义</th>
+<th>符号</th>
+<th>代表含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X_train</td>
+<td>训练数据</td>
+<td>y_train</td>
+<td>训练集标签</td>
+</tr>
+<tr>
+<td>X_test</td>
+<td>测试数据</td>
+<td>y_test</td>
+<td>测试集标签</td>
+</tr>
+<tr>
+<td>X</td>
+<td>完整数据</td>
+<td>y</td>
+<td>数据标签</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>y_pred</td>
+<td>预测标签</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p><strong>导入工具包</strong>
+    <code>py
+    from sklearn import datasets, preprocessing  
+    #导入数据集，数据预处理库  
+    from sklearn.model_selection import train_test_split    
+    #从模型选择库导入数据切分包  
+    from sklearn.linear_model import LinearRegression    
+    #从线性模型库导入线性回归包  
+    from sklearn.metrics import r2_score  
+    #从评价指标库导入R2评价指标</code></p>
+</li>
+<li>
+<p><strong>导入数据集</strong>
+    ```py
+    #导入内置的鸢尾花数据
+    from sklearn.datasets import load_iris</p>
+<div class="highlight"><pre><span></span><code><span class="n">iris</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">load_iris</span><span class="p">()</span>
+<span class="c1">#定义数据、标签</span>
+<span class="n">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+<span class="err">```</span>
+</code></pre></div>
+
+</li>
+</ol>
+<p><strong>自带数据集</strong></p>
+<table>
+<thead>
+<tr>
+<th>数据集名称</th>
+<th>描述</th>
+<th>类型</th>
+<th>维度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>load_boston</td>
+<td>Boston房屋价格</td>
+<td>回归</td>
+<td>506*13</td>
+</tr>
+<tr>
+<td>fetch_california_housing</td>
+<td>加州住房</td>
+<td>回归</td>
+<td>20640*9</td>
+</tr>
+<tr>
+<td>load_diabetes</td>
+<td>糖尿病</td>
+<td>回归</td>
+<td>442*10</td>
+</tr>
+<tr>
+<td>load_digits</td>
+<td>手写字</td>
+<td>分类</td>
+<td>1797*64</td>
+</tr>
+<tr>
+<td>load_breast_cancer</td>
+<td>乳腺癌</td>
+<td>分类、聚类</td>
+<td>(357+212)*30</td>
+</tr>
+<tr>
+<td>load_iris</td>
+<td>鸢尾花</td>
+<td>分类、聚类</td>
+<td>(50*3)*4</td>
+</tr>
+<tr>
+<td>load_wine</td>
+<td>葡萄酒</td>
+<td>分类</td>
+<td>(59+71+48)*13</td>
+</tr>
+<tr>
+<td>load_linnerud</td>
+<td>体能训练</td>
+<td>多分类</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p>数据划分</p>
+<div class="highlight"><pre><span></span><code><span class="n">机器学习的数据</span><span class="err">，</span><span class="n">可以划分为训练集</span><span class="err">、</span><span class="n">验证集和测试集</span><span class="err">，</span><span class="n">也可以划分为训练集和测试集</span><span class="err">。</span>
+
+<span class="err">```</span><span class="n">py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="c1">#将完整数据集的70%作为训练集，30%作为测试集，</span>
+<span class="c1">#并使得测试集和训练集中各类别数据的比例与原始数据集比例一致(stratify分层策略)，另外可通过设置shuffle=True 提前打乱数据。</span>
+<span class="err">```</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>数据变换
+    ```py
+    #使⽤Scikit-learn进⾏数据标准化
+    from sklearn.preprocessing import StandardScaler</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span>构建转换器实例
+scaler = StandardScaler( )
+
+<span class="gh">#</span>拟合及转换
+scaler.fit_transform(X_train)
+```
+</code></pre></div>
+
+<p>klearn.preprocessing模块包含了数据变换的主要操作，数据变换的方法如下：</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>预处理操作</th>
+<th>库名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标准化</td>
+<td>StandardScaler</td>
+</tr>
+<tr>
+<td>最小最大标准化</td>
+<td>MinMaxScaler</td>
+</tr>
+<tr>
+<td>One-Hot编码</td>
+<td>OneHotEncoder</td>
+</tr>
+<tr>
+<td>归一化</td>
+<td>Normalizer</td>
+</tr>
+<tr>
+<td>二值化(单个特征转换)</td>
+<td>Binarizer</td>
+</tr>
+<tr>
+<td>标签编码</td>
+<td>LabelEncoder</td>
+</tr>
+<tr>
+<td>缺失值填补</td>
+<td>Imputer</td>
+</tr>
+<tr>
+<td>多项式特征生成</td>
+<td>PolynomialFeatures</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p>特征选择
+    <code>py
+    #导入特征选择库
+    from sklearn import feature_selection as fs
+    #保留得分排名前k的特征(top k方式)
+    fs.SelectKBest(score_func, k)
+    #交叉验证特征选择
+    fs.RFECV(estimator, scoring=“r2”)
+    # 封装式(Wrapper)，结合交叉验证的递归特征消除法，自动选择最优特征个数：
+    fs.SelectFromModel(estimator)</code></p>
+</li>
+<li>
+<p>监督学习算法-回归
+    <code>py
+    #从线性模型库导入线性回归模型
+    from sklearn.linear_model import LinearRegression
+    # 构建模型实例
+    lr = LinearRegression(normalize=True)
+    # 训练模型
+    lr.fit(X_train, y_train)
+    # 作出预测
+    y_pred = lr.predict(X_test)</code>
+常见的回归模型</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>回归模型名称</th>
+<th>库名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>线性回归</td>
+<td>LinearRegression</td>
+</tr>
+<tr>
+<td>岭回归</td>
+<td>Ridge</td>
+</tr>
+<tr>
+<td>LASSO回归</td>
+<td>LASSO</td>
+</tr>
+<tr>
+<td>ElasticNet回归</td>
+<td>ElasticNet</td>
+</tr>
+<tr>
+<td>决策树回归</td>
+<td>tree.DecisionTreeRegressor</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>监督学习算法-分类
+    <code>py
+    #从树模型库导入决策树
+    from sklearn.tree import DecisionTreeClassifier
+    #定义模型
+    clf = DecisionTreeClassifier(max_depth=5)
+    #训练模型
+    clf.fit(X_train, y_train)
+    #使用决策树分类算法解决二分类问题，得到的是类别
+    y_pred = clf.predict(X_test)
+    #y_prob 为每个样本预测为“0”和“1”类的概率
+    y_prob = clf.predict_proba(X_test)</code>
+常见的分类模型</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>模型名称</th>
+<th>库名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>逻辑回归</td>
+<td>linear model.LogisticRearession</td>
+</tr>
+<tr>
+<td>支持向量机</td>
+<td>svm.SVC</td>
+</tr>
+<tr>
+<td>朴素贝叶斯</td>
+<td>naïve_bayes.GaussianNB</td>
+</tr>
+<tr>
+<td>KNN</td>
+<td>neighbors.NearestNeighbors</td>
+</tr>
+<tr>
+<td>随机森林</td>
+<td>ensemble.RandomForestClassifier</td>
+</tr>
+<tr>
+<td>GBDT</td>
+<td>ensemble.GradientBoostingClassifier</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>无监督学习算法-聚类算法
+    <code>py
+    #从聚类模型库导入kmeans  
+    from sklearn.cluster import KMeans  
+    #构建聚类实例  
+    kmeans = KMeans(n_clusters=3, random_state=0)  
+    #拟合  
+    kmeans.fit(X_train)  
+    #预测  
+    kmeans.predict(X_test)</code>
+常见的聚类模型</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>模型名称</th>
+<th>库名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K-means</td>
+<td>KMeans</td>
+</tr>
+<tr>
+<td>DBSCAN</td>
+<td>DBSCAN</td>
+</tr>
+<tr>
+<td>层次聚类</td>
+<td>AgglomerativeClustering</td>
+</tr>
+<tr>
+<td>谱聚类</td>
+<td>SpectralClustering</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p>降维算法<br />
+    Scikit-learn中降维算法都被包括在模块decomposition中，sklearn.decomposition模块本质是一个矩阵分解模块。最常见的降维方法是PCA(主成分分析)。
+    <code>py
+    #导入PCA库
+    from sklearn.decomposition import PCA
+    #设置主成分数量为3，n_components代表主成分数量
+    pca = PCA(n_components=3)
+    #训练模型
+    pca.fit(X)
+    #投影后各个特征维度的方差比例(这里是三个主成分)
+    print(pca.explained_variance_ratio_)
+    #投影后的特征维度的方差
+    print(pca.explained_variance_)</code></p>
+</li>
+<li>
+<p>评价指标
+    <code>py
+    #从评价指标库导入准确率
+    from sklearn.metrics import accuracy_score
+    #计算样本的准确率
+    accuracy_score(y_test, y_pred)
+    #对于测试集而言，大部分函数都必须包含真实值y_test和预测值y_pred</code></p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>评价指标</th>
+<th>库名称</th>
+<th>使用范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正确率</td>
+<td>accuracy_score</td>
+<td>分类</td>
+</tr>
+<tr>
+<td>精确率</td>
+<td>precision_score</td>
+<td>分类</td>
+</tr>
+<tr>
+<td>F1 值</td>
+<td>f1_score</td>
+<td>分类</td>
+</tr>
+<tr>
+<td>对数损失</td>
+<td>log_loss</td>
+<td>分类</td>
+</tr>
+<tr>
+<td>混淆矩阵</td>
+<td>confusion_matrix</td>
+<td>分类</td>
+</tr>
+<tr>
+<td>含多种评价的分类报告</td>
+<td>classification_report</td>
+<td>分类</td>
+</tr>
+<tr>
+<td>均方误差MSE</td>
+<td>mean_squared_error</td>
+<td>回归</td>
+</tr>
+<tr>
+<td>平均绝对误差MAE</td>
+<td>mean_absolute_error</td>
+<td>回归</td>
+</tr>
+<tr>
+<td>决定系数R2</td>
+<td>r2_score</td>
+<td>回归</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p>交叉验证
+    <code>py
+    #从模型选择库导入交叉验证分数  
+    from sklearn.model_selection import cross_val_score    
+    clf = DecisionTreeClassifier(max_depth=5)  
+    #使用5折交叉验证对决策树模型进行评估，使用的评分函数为F1值  
+    scores = cross_val_score(clf, X_train, y_train,cv=5, scoring='f1_weighted')</code></p>
+</li>
+<li>
+<p>超参数调优<br />
+目前主要有 3种最流行的超参数调整技术：网格搜索、随机搜索和贝叶斯搜索
+    ```py
+    #从模型选择库导入网格搜索
+    from sklearn.model_selection import GridSearchCV
+    from sklearn import svm</p>
+<div class="highlight"><pre><span></span><code><span class="n">svc</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">()</span>
+<span class="c1">#把超参数集合作为字典</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;rbf&#39;</span><span class="p">],</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]}</span>
+<span class="c1">#进行网格搜索，使用了支持向量机分类器，并进行五折交叉验证</span>
+<span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">svc</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1">#模型训练</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="c1">#获取模型最优超参数组合</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span>
+
+<span class="c1">#从模型选择库导入随机搜索</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomizedSearchCV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">randint</span>
+
+<span class="n">svc</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">()</span>
+<span class="c1">#把超参数组合作为字典</span>
+<span class="n">param_dist</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;rbf&#39;</span><span class="p">],</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)}</span>
+<span class="c1">#进行随机搜索</span>
+<span class="n">random_search</span> <span class="o">=</span> <span class="n">RandomizedSearchCV</span><span class="p">(</span><span class="n">svc</span><span class="p">,</span> <span class="n">param_dist</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1">#模型训练</span>
+<span class="n">random_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="c1">#获取最优超参数组合</span>
+<span class="n">random_search</span><span class="o">.</span><span class="n">best_params_</span>
+<span class="err">```</span>
+</code></pre></div>
+
+</li>
+</ol>
+<h1 id="2-基本函数">2 基本函数</h1>
+<h1 id="3-数据集划分与基本信息">3 数据集划分与基本信息</h1>
+<h2 id="_2">留出法</h2>
 <h3 id="sklearnmodel_selectiontrain_test_split">sklearn.model_selection.train_test_split</h3>
 <p>sklearn.model_selection.train_test_split(*arrays, test_size=None, train_size=None, random_state=None, shuffle=True, stratify=None)<br />
 参数说明：  </p>
@@ -578,7 +1081,7 @@ stratify：可以为类似数组或None  </p>
     <span class="k">return</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1_score</span>
 </code></pre></div>
 
-<h1 id="_5">线性回归</h1>
+<h1 id="_3">线性回归</h1>
 <h2 id="linearregression">LinearRegression()</h2>
 <p>LinearRegression的构造函数中有两个常用的参数可以设置：<br />
 fit_intercept：是否有截据，如果没有则直线过原点，默认为Ture。<br />
@@ -620,7 +1123,7 @@ predict = lr.predict(X_test)  </p>
 <span class="c1"># index=False 是一个参数，用于指定是否将DataFrame的索引（行标签）保存到CSV文件中。index=False，意味着不保存</span>
 </code></pre></div>
 
-<h1 id="_6">逻辑回归</h1>
+<h1 id="_4">逻辑回归</h1>
 <p>逻辑回归是通过回归的思想来解决二分类问题的算法。</p>
 <p>sigmoid函数的公式为：
 σ(t)=1/(1+e^−t)</p>
@@ -653,7 +1156,7 @@ X：大小为<code>样本数量*特征数量</code>的ndarray，存放预测样�
 logreg = LogisticRegression(solver='lbfgs',max_iter =10,C=10)<br />
 logreg.fit(X_train, Y_train)<br />
 result = logreg.predict(X_test)  </p>
-<h2 id="_7">参数选择</h2>
+<h2 id="_5">参数选择</h2>
 <p>Solver 选择：
 liblinear：适用于小数据集，特别是当特征是稀疏的（即大部分特征值为零）时。它也支持 L1 正则化。
 lbfgs、newton-cg 和 sag：这些求解器适用于大数据集，并且支持 L2 正则化。
@@ -670,7 +1173,7 @@ max_iter 是求解器的最大迭代次数。
 如果模型在达到最大迭代次数之前还没有收敛，可以尝试增加 max_iter 的值。
 一般来说，对于大数据集和复杂的模型，可能需要更多的迭代次数来确保收敛。
 但是，增加迭代次数会增加计算成本和时间。</p>
-<h2 id="_8">手写图像识别</h2>
+<h2 id="_6">手写图像识别</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">digit_predict</span><span class="p">(</span><span class="n">train_image</span><span class="p">,</span> <span class="n">train_label</span><span class="p">,</span> <span class="n">test_image</span><span class="p">):</span>
@@ -695,7 +1198,7 @@ max_iter 是求解器的最大迭代次数。
     <span class="c1">#************* End **************#</span>
 </code></pre></div>
 
-<h1 id="_9">决策树</h1>
+<h1 id="_7">决策树</h1>
 <h2 id="decisiontreeclassifier">DecisionTreeClassifier()</h2>
 <p>有两个常用的参数可以设置：<br />
 criterion:划分节点时用到的指标。有gini（基尼系数）,entropy(信息增益)。若不设置，默认为gini<br />
@@ -736,7 +1239,7 @@ result = clf.predict(X_test)   </p>
     <span class="c1"># ************* End **************#</span>
 </code></pre></div>
 
-<h2 id="_10">计算原理</h2>
+<h2 id="_8">计算原理</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
@@ -841,7 +1344,7 @@ PyTorch 文档中提到，如果 grad 属性不为空，新计算出来的梯度
 <p>为什么不直接覆盖旧的结果呢？这是因为有些 Tensor 可能有多个输出，那么就需要调用多个 backward<br />
 叠加的处理方式使得 backward 不需要考虑之前有没有被计算过导数，只需要加上去就行了，这使得设计变得更简单
 因此我们用户在反向传播之前，常常需要用 zero_grad 函数对导数手动清零，确保计算出来的是正确的结果</p>
-<h3 id="_11">示例</h3>
+<h3 id="_9">示例</h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="c1"># 导入了 PyTorch 库，并将 torch.Tensor 赋值给 Tensor</span>
 <span class="n">Tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
@@ -868,7 +1371,7 @@ PyTorch 文档中提到，如果 grad 属性不为空，新计算出来的梯度
    <span class="k">return</span> <span class="n">result</span>
 </code></pre></div>
 
-<h2 id="_12">静态图动态图设计</h2>
+<h2 id="_10">静态图动态图设计</h2>
 <p>目前神经网络框架分为静态图框架和动态图框架，PyTorch 和 TensorFlow、Caffe 等框架最大的区别就是他们拥有不同的计算图表现形式<br />
 TensorFlow 使用静态图，这意味着我们先定义计算图，然后不断使用它，而在 PyTorch 中，每次都会重新构建一个新的计算图  </p>
 <p>动态图比较方便 debug，使用者能够用任何他们喜欢的方式进行 debug，同时非常直观<br />
@@ -942,11 +1445,11 @@ print(w.grad_fn)
 None
 </code></pre></div>
 
-<h2 id="_13">正向反向传播</h2>
+<h2 id="_11">正向反向传播</h2>
 <p>正向传播（forward propagation）是指对神经网络沿着从输入层到输出层的顺序，依次计算并存储模型的中间变量（包括输出）<br />
 反向传播（back-propagation）指的是计算神经网络参数梯度的方法<br />
 总的来说，反向传播依据微积分中的链式法则，沿着从输出层到输入层的顺序，依次计算并存储目标函数有关神经网络各层的中间变量以及参数的梯度  </p>
-<h3 id="_14">示例</h3>
+<h3 id="_12">示例</h3>
 <p>使用神经网络拟合曲线：y=x^2−2x+3，给定 x 的范围为 (0,1)。为了简便起见，该神经网络不加入正则项。</p>
 <p>编程示例</p>
 <p>数据：</p>
@@ -1068,10 +1571,10 @@ for epoch in range(num_epochs):
    <span class="k">return</span> <span class="n">loss</span><span class="o">.</span><span class="n">data</span>
 </code></pre></div>
 
-<h2 id="_15">损失函数</h2>
+<h2 id="_13">损失函数</h2>
 <p>一般来说，我们在进行机器学习任务时，使用的每一个算法都有一个目标函数，算法便是对这个目标函数进行优化<br />
 特别是在分类或者回归任务中，便是使用损失函数(Loss Function)作为其目标函数，又称为代价函数(Cost Function)  </p>
-<h3 id="_16">常见的损失函数</h3>
+<h3 id="_14">常见的损失函数</h3>
 <p>损失函数是用来评价模型的预测值与真实值的不一致程度，它是一个非负实值函数。通常使用 L(Y,f(x)) 来表示，损失函数越小，模型的性能就越好</p>
 <ul>
 <li>
@@ -1095,7 +1598,7 @@ for epoch in range(num_epochs):
     常用于回归中，若加和再求平均即 MSE</p>
 </li>
 </ul>
-<h3 id="_17">示例</h3>
+<h3 id="_15">示例</h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="n">y1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">y2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
@@ -1107,7 +1610,7 @@ for epoch in range(num_epochs):
 <span class="n">MSELoss</span><span class="p">:</span>  <span class="n">tensor</span><span class="p">(</span><span class="mf">1.8335</span><span class="p">,</span> <span class="n">grad_fn</span><span class="o">=&lt;</span><span class="n">MseLossBackward</span><span class="o">&gt;</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_18">支持向量机</h1>
+<h1 id="_16">支持向量机</h1>
 <p>fit() 方法：用于训练 SVM，具体参数已经在定义 SVC对象的时候给出了，这时候只需要给出数据集X和X对应的标签y即可<br />
 predict() 方法: 基于以上的训练，对预测样本T进行类别预测，因此只需要接收一个测试集T，该函数返回一个数组表示个测试样本的类别  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">svm</span> <span class="c1"># 调用sklearn实现svm算法</span>
@@ -1207,7 +1710,7 @@ gamma越小：单个样本影响范围大，决策边界平滑（易欠拟合）
 <span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">)</span>  <span class="c1">#输出当前的支持向量</span>
 </code></pre></div>
 
-<h1 id="_19">朴素贝叶斯</h1>
+<h1 id="_17">朴素贝叶斯</h1>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
@@ -1290,7 +1793,7 @@ result = clf.predict(X_test)  </p>
     <span class="k">return</span> <span class="n">result</span>
 </code></pre></div>
 
-<h2 id="_20">算法流程</h2>
+<h2 id="_18">算法流程</h2>
 <table>
 <thead>
 <tr>
@@ -1505,8 +2008,8 @@ P(纹理模糊|不是好瓜)=1/2  </p>
         <span class="c1">#********* End *********#</span>
 </code></pre></div>
 
-<h1 id="_21">聚类</h1>
-<h2 id="_22">外部指标</h2>
+<h1 id="_19">聚类</h1>
+<h2 id="_20">外部指标</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 导入 numpy 科学计算库</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -1550,7 +2053,7 @@ P(纹理模糊|不是好瓜)=1/2  </p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jaccard 系数为</span><span class="si">{}</span><span class="s2">,FM 指数为</span><span class="si">{}</span><span class="s2">,Rand 指数为</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">JC</span><span class="p">,</span> <span class="n">FM</span><span class="p">,</span> <span class="n">RI</span><span class="p">))</span>
 </code></pre></div>
 
-<h2 id="_23">内部指标</h2>
+<h2 id="_21">内部指标</h2>
 <p>样本内平均距离，最远距离，
 样本间最近距离，中心点距离</p>
 <h2 id="k-means">K-Means算法</h2>
@@ -1581,7 +2084,7 @@ P(纹理模糊|不是好瓜)=1/2  </p>
 <span class="c1"># [0 1 1]</span>
 </code></pre></div>
 
-<h2 id="_24">应用示例</h2>
+<h2 id="_22">应用示例</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>

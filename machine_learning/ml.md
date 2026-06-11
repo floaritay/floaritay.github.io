@@ -1,5 +1,9 @@
 # 目录
 
+- [1 Scikit-learn 介绍](#1-scikit-learn-介绍)
+  - [1.1 主要用法](#11-主要用法)
+- [2 基本函数](#2-基本函数)
+- [3 数据集划分与基本信息](#3-数据集划分与基本信息)
 
 ---
 ```python
@@ -8,9 +12,271 @@ import os
 print(os.getcwd())
 ```
 
-# 基本函数
+    d:\floaritay\machine_learning
+    
 
-# 数据集划分与基本信息
+# 1 Scikit-learn 介绍
+Scikit-learn是基于NumPy、SciPy和Matplotlib的开源Python机器学习包，它封装了一系列数据预处理、机器学习算法、模型选择等工具。
+
+Scikit-learn简称sklearn，支持包括分类、回归、降维和聚类四大机器学习算法，还包括了特征提取、数据处理和模型评估三大模块。
+
+Scikit-Learn库的算法主要有四类：分类、回归、聚类、降维。其中：
+
+1.  常用的回归：线性回归、决策树回归、SVM回归、KNN回归；集成回归：随机森林、Adaboost、GradientBoosting、Bagging、ExtraTrees。
+
+2.  常用的分类：线性分类、决策树、SVM、KNN，朴素贝叶斯；集成分类：随机森林、Adaboost、GradientBoosting、Bagging、ExtraTrees。
+
+3.  常用聚类：K均值(K-means)、层次聚类(Hierarchical clustering)、DBSCAN。
+
+4.  常用降维：LinearDiscriminantAnalysis、PCA。
+
+参考 https://github.com/fengdu78/WZU-machine-learning-course
+
+[1] PEDREGOSA F, VAROQUAUX G, GRAMFORT A, et al. Scikit-learn: Machine Learning in Python[J]. Journal of Machine Learning Research, 2011, 12: 2825–2830.
+
+[2] Andrew Ng. Machine Learning[EB/OL]. StanfordUniversity,2014.https://www.coursera.org/course/ml
+
+## 1.1 主要用法
+
+**建模流程**
+
+| 符号    | 代表含义 | 符号    | 代表含义   |
+|---------|----------|---------|------------|
+| X_train | 训练数据 | y_train | 训练集标签 |
+| X_test  | 测试数据 | y_test  | 测试集标签 |
+| X       | 完整数据 | y       | 数据标签   |
+|         |          | y_pred  | 预测标签   |
+
+1. **导入工具包**
+    ```py
+    from sklearn import datasets, preprocessing  
+    #导入数据集，数据预处理库  
+    from sklearn.model_selection import train_test_split    
+    #从模型选择库导入数据切分包  
+    from sklearn.linear_model import LinearRegression    
+    #从线性模型库导入线性回归包  
+    from sklearn.metrics import r2_score  
+    #从评价指标库导入R2评价指标  
+    ```
+
+2. **导入数据集**
+    ```py
+    #导入内置的鸢尾花数据
+    from sklearn.datasets import load_iris
+
+    iris = load_iris()
+    #定义数据、标签
+    X = iris.data
+    y = iris.target
+    ```
+
+**自带数据集**
+| 数据集名称               | 描述           | 类型       | 维度           |
+|--------------------------|----------------|------------|----------------|
+| load_boston              | Boston房屋价格 | 回归       | 506\*13        |
+| fetch_california_housing | 加州住房       | 回归       | 20640\*9       |
+| load_diabetes            | 糖尿病         | 回归       | 442\*10        |
+| load_digits              | 手写字         | 分类       | 1797\*64       |
+| load_breast_cancer       | 乳腺癌         | 分类、聚类 | (357+212)\*30  |
+| load_iris                | 鸢尾花         | 分类、聚类 | (50\*3)\*4     |
+| load_wine                | 葡萄酒         | 分类       | (59+71+48)\*13 |
+| load_linnerud            | 体能训练       | 多分类     | 20             |
+
+3. 数据划分
+
+    机器学习的数据，可以划分为训练集、验证集和测试集，也可以划分为训练集和测试集。
+
+    ```py
+    from sklearn.model_selection import train_test_split
+
+    X_train, X_test, y_train, y_test = train_test_split(X,y,random_state=12,stratify=y,test_size=0.3)
+    #将完整数据集的70%作为训练集，30%作为测试集，
+    #并使得测试集和训练集中各类别数据的比例与原始数据集比例一致(stratify分层策略)，另外可通过设置shuffle=True 提前打乱数据。
+    ```
+
+4. 数据变换
+    ```py
+    #使⽤Scikit-learn进⾏数据标准化
+    from sklearn.preprocessing import StandardScaler
+
+    #构建转换器实例
+    scaler = StandardScaler( )
+
+    #拟合及转换
+    scaler.fit_transform(X_train)
+    ```
+klearn.preprocessing模块包含了数据变换的主要操作，数据变换的方法如下：
+
+| 预处理操作           | 库名称             |
+|----------------------|--------------------|
+| 标准化               | StandardScaler     |
+| 最小最大标准化       | MinMaxScaler       |
+| One-Hot编码          | OneHotEncoder      |
+| 归一化               | Normalizer         |
+| 二值化(单个特征转换) | Binarizer          |
+| 标签编码             | LabelEncoder       |
+| 缺失值填补           | Imputer            |
+| 多项式特征生成       | PolynomialFeatures |
+
+5. 特征选择
+    ```py
+    #导入特征选择库
+    from sklearn import feature_selection as fs
+    #保留得分排名前k的特征(top k方式)
+    fs.SelectKBest(score_func, k)
+    #交叉验证特征选择
+    fs.RFECV(estimator, scoring=“r2”)
+    # 封装式(Wrapper)，结合交叉验证的递归特征消除法，自动选择最优特征个数：
+    fs.SelectFromModel(estimator)
+    ```
+
+6. 监督学习算法-回归
+    ```py
+    #从线性模型库导入线性回归模型
+    from sklearn.linear_model import LinearRegression
+    # 构建模型实例
+    lr = LinearRegression(normalize=True)
+    # 训练模型
+    lr.fit(X_train, y_train)
+    # 作出预测
+    y_pred = lr.predict(X_test)
+    ```
+常见的回归模型
+
+| 回归模型名称   | 库名称                     |
+|----------------|----------------------------|
+| 线性回归       | LinearRegression           |
+| 岭回归         | Ridge                      |
+| LASSO回归      | LASSO                      |
+| ElasticNet回归 | ElasticNet                 |
+| 决策树回归     | tree.DecisionTreeRegressor |
+
+7. 监督学习算法-分类
+    ```py
+    #从树模型库导入决策树
+    from sklearn.tree import DecisionTreeClassifier
+    #定义模型
+    clf = DecisionTreeClassifier(max_depth=5)
+    #训练模型
+    clf.fit(X_train, y_train)
+    #使用决策树分类算法解决二分类问题，得到的是类别
+    y_pred = clf.predict(X_test)
+    #y_prob 为每个样本预测为“0”和“1”类的概率
+    y_prob = clf.predict_proba(X_test)
+    ```
+常见的分类模型
+
+| 模型名称   | 库名称                               |
+|------------|--------------------------------------|
+| 逻辑回归   | linear model.LogisticRearession      |
+| 支持向量机 | svm.SVC                              |
+| 朴素贝叶斯 | naïve_bayes.GaussianNB               |
+| KNN        | neighbors.NearestNeighbors           |
+| 随机森林   | ensemble.RandomForestClassifier      |
+| GBDT       | ensemble.GradientBoostingClassifier  |
+
+8. 无监督学习算法-聚类算法
+    ```py
+    #从聚类模型库导入kmeans  
+    from sklearn.cluster import KMeans  
+    #构建聚类实例  
+    kmeans = KMeans(n_clusters=3, random_state=0)  
+    #拟合  
+    kmeans.fit(X_train)  
+    #预测  
+    kmeans.predict(X_test) 
+    ```
+常见的聚类模型
+
+| 模型名称 | 库名称                   |
+|----------|--------------------------|
+| K-means  | KMeans                   |
+| DBSCAN   | DBSCAN                   |
+| 层次聚类 | AgglomerativeClustering  |
+| 谱聚类   | SpectralClustering       |
+
+9. 降维算法  
+    Scikit-learn中降维算法都被包括在模块decomposition中，sklearn.decomposition模块本质是一个矩阵分解模块。最常见的降维方法是PCA(主成分分析)。
+    ```py
+    #导入PCA库
+    from sklearn.decomposition import PCA
+    #设置主成分数量为3，n_components代表主成分数量
+    pca = PCA(n_components=3)
+    #训练模型
+    pca.fit(X)
+    #投影后各个特征维度的方差比例(这里是三个主成分)
+    print(pca.explained_variance_ratio_)
+    #投影后的特征维度的方差
+    print(pca.explained_variance_)
+    ```
+
+10. 评价指标
+    ```py
+    #从评价指标库导入准确率
+    from sklearn.metrics import accuracy_score
+    #计算样本的准确率
+    accuracy_score(y_test, y_pred)
+    #对于测试集而言，大部分函数都必须包含真实值y_test和预测值y_pred
+    ```
+
+| 评价指标             | 库名称                | 使用范围 |
+|----------------------|-----------------------|----------|
+| 正确率               | accuracy_score        | 分类     |
+| 精确率               | precision_score       | 分类     |
+| F1 值                | f1_score              | 分类     |
+| 对数损失             | log_loss              | 分类     |
+| 混淆矩阵             | confusion_matrix      | 分类     |
+| 含多种评价的分类报告 | classification_report | 分类     |
+| 均方误差MSE          | mean_squared_error    | 回归     |
+| 平均绝对误差MAE      | mean_absolute_error   | 回归     |
+| 决定系数R2           | r2_score              | 回归     |
+
+11. 交叉验证
+    ```py
+    #从模型选择库导入交叉验证分数  
+    from sklearn.model_selection import cross_val_score    
+    clf = DecisionTreeClassifier(max_depth=5)  
+    #使用5折交叉验证对决策树模型进行评估，使用的评分函数为F1值  
+    scores = cross_val_score(clf, X_train, y_train,cv=5, scoring='f1_weighted')
+    ```
+
+12. 超参数调优  
+目前主要有 3种最流行的超参数调整技术：网格搜索、随机搜索和贝叶斯搜索
+    ```py
+    #从模型选择库导入网格搜索
+    from sklearn.model_selection import GridSearchCV
+    from sklearn import svm
+
+    svc = svm.SVC()
+    #把超参数集合作为字典
+    params = {'kernel': ['linear', 'rbf'], 'C': [1, 10]}
+    #进行网格搜索，使用了支持向量机分类器，并进行五折交叉验证
+    grid_search = GridSearchCV(svc, params, cv=5)
+    #模型训练
+    grid_search.fit(X_train, y_train)
+    #获取模型最优超参数组合
+    grid_search.best_params_
+
+    #从模型选择库导入随机搜索
+    from sklearn.model_selection import RandomizedSearchCV
+    from scipy.stats import randint
+
+    svc = svm.SVC()
+    #把超参数组合作为字典
+    param_dist = {'kernel': ['linear', 'rbf'], 'C': randint(1, 20)}
+    #进行随机搜索
+    random_search = RandomizedSearchCV(svc, param_dist, n_iter=10)
+    #模型训练
+    random_search.fit(X_train, y_train)
+    #获取最优超参数组合
+    random_search.best_params_
+    ```
+
+
+
+# 2 基本函数
+
+# 3 数据集划分与基本信息
 
 ## 留出法
 

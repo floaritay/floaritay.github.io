@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>目录 - floaritay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ]
+        });"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
+        onload="mermaid.initialize({startOnLoad:true, theme:'base', themeVariables:{primaryColor:'#f5f0e8', primaryTextColor:'#1a1814', primaryBorderColor:'rgba(26,24,20,0.12)', lineColor:'#8a8278', secondaryColor:'#faf7f0', tertiaryColor:'#faf7f0'}});"></script>
+    <style>
+        :root {
+            --paper: #f5f0e8;
+            --ink: #1a1814;
+            --ink-soft: #3d3830;
+            --ink-muted: #8a8278;
+            --ink-faint: #b5ae9f;
+            --accent: #b45309;
+            --accent-warm: #d97706;
+            --accent-soft: rgba(180, 83, 9, 0.08);
+            --teal: #0f766e;
+            --card-opaque: rgba(250, 247, 240, 0.88);
+            --border: rgba(26, 24, 20, 0.08);
+            --border-strong: rgba(26, 24, 20, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.35);
+            --shadow-sm: 0 1px 2px rgba(26, 24, 20, 0.03);
+            --shadow: 0 2px 12px rgba(26, 24, 20, 0.05), 0 1px 3px rgba(26, 24, 20, 0.03);
+            --shadow-lg: 0 8px 32px rgba(26, 24, 20, 0.07), 0 2px 8px rgba(26, 24, 20, 0.03);
+            --font-display: 'Instrument Serif', Georgia, serif;
+            --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Space Mono', 'Cascadia Code', monospace;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--ink);
+            background: var(--paper);
+            background-image:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(180, 83, 9, 0.04), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(15, 118, 110, 0.03), transparent);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.2;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(26, 24, 20, 0.12); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(26, 24, 20, 0.2); }
+
+        .page {
+            position: relative;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
+        }
+
+        .page::before {
+            content: '';
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 48px;
+            background: var(--card-opaque);
+            border-right: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        @media (max-width: 1100px) {
+            .page::before { display: none; }
+            .page { padding: 0 20px 60px; }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 32px 0 16px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            letter-spacing: 0.02em;
+        }
+        .breadcrumb a {
+            color: var(--ink-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb .sep { margin: 0 8px; color: var(--ink-faint); }
+
+        /* Article */
+        .markdown-body {
+            font-family: var(--font-body);
+            color: var(--ink-soft);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .markdown-body h1, .markdown-body h2, .markdown-body h3,
+        .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+            font-family: var(--font-display);
+            color: var(--ink);
+            font-weight: 400;
+            margin-top: 2em;
+            margin-bottom: 0.6em;
+            line-height: 1.3;
+        }
+
+        .markdown-body h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+            padding-bottom: 0.4em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h2 {
+            font-size: 1.65rem;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h3 { font-size: 1.35rem; }
+        .markdown-body h4 { font-size: 1.15rem; }
+        .markdown-body h5 { font-size: 1rem; }
+        .markdown-body h6 { font-size: 0.95rem; color: var(--ink-muted); }
+
+        .markdown-body p {
+            margin-bottom: 1em;
+        }
+
+        .markdown-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-soft);
+            transition: border-color 0.2s;
+        }
+        .markdown-body a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .markdown-body strong { color: var(--ink); font-weight: 600; }
+
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5em auto;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .markdown-body blockquote {
+            margin: 1.2em 0;
+            padding: 0.8em 1.2em;
+            border-left: 3px solid var(--accent);
+            background: var(--accent-soft);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            color: var(--ink-soft);
+        }
+        .markdown-body blockquote p:last-child { margin-bottom: 0; }
+
+        .markdown-body ul, .markdown-body ol {
+            margin: 0.8em 0;
+            padding-left: 1.8em;
+        }
+        .markdown-body li { margin-bottom: 0.3em; }
+        .markdown-body li > ul, .markdown-body li > ol { margin-top: 0.3em; }
+
+        .markdown-body code {
+            font-family: var(--font-mono);
+            font-size: 0.88em;
+            background: rgba(26, 24, 20, 0.05);
+            padding: 0.15em 0.4em;
+            border-radius: var(--radius-sm);
+            color: var(--accent);
+        }
+
+        .markdown-body pre {
+            margin: 1.2em 0;
+            padding: 1em 1.2em;
+            background: #2d2a24;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            box-shadow: var(--shadow);
+        }
+        .markdown-body pre code {
+            background: none;
+            padding: 0;
+            color: #e8e0d4;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2em 0;
+            font-size: 0.95rem;
+        }
+        .markdown-body th {
+            background: rgba(26, 24, 20, 0.04);
+            font-weight: 600;
+            text-align: left;
+            padding: 0.6em 1em;
+            border-bottom: 2px solid var(--border-strong);
+        }
+        .markdown-body td {
+            padding: 0.5em 1em;
+            border-bottom: 1px solid var(--border);
+        }
+        .markdown-body tr:hover td {
+            background: var(--accent-soft);
+        }
+
+        .markdown-body hr {
+            border: none;
+            border-top: 1px solid var(--border-strong);
+            margin: 2em 0;
+        }
+
+        /* Math blocks */
+        .math-block {
+            margin: 1.2em 0;
+            padding: 0.8em;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        /* Mermaid diagrams */
+        .mermaid {
+            margin: 1.5em 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        .mermaid svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Pygments code highlighting (dark theme matching warm palette) */
+        .highlight .hll { background-color: #49483e }
+        .highlight .c { color: #75715e }
+        .highlight .err { color: #f92672 }
+        .highlight .k { color: #66d9ef }
+        .highlight .l { color: #ae81ff }
+        .highlight .n { color: #f8f8f2 }
+        .highlight .o { color: #f92672 }
+        .highlight .p { color: #f8f8f2 }
+        .highlight .cm { color: #75715e }
+        .highlight .c1 { color: #75715e }
+        .highlight .cp { color: #75715e }
+        .highlight .kc { color: #66d9ef }
+        .highlight .kd { color: #66d9ef }
+        .highlight .kn { color: #f92672 }
+        .highlight .kp { color: #66d9ef }
+        .highlight .kr { color: #66d9ef }
+        .highlight .kt { color: #66d9ef }
+        .highlight .ld { color: #e6db74 }
+        .highlight .m { color: #ae81ff }
+        .highlight .s { color: #e6db74 }
+        .highlight .na { color: #a6e22e }
+        .highlight .nb { color: #f8f8f2 }
+        .highlight .nc { color: #a6e22e }
+        .highlight .no { color: #66d9ef }
+        .highlight .nd { color: #a6e22e }
+        .highlight .ni { color: #f8f8f2 }
+        .highlight .ne { color: #a6e22e }
+        .highlight .nf { color: #a6e22e }
+        .highlight .nl { color: #f8f8f2 }
+        .highlight .nn { color: #f8f8f2 }
+        .highlight .nx { color: #a6e22e }
+        .highlight .py { color: #f8f8f2 }
+        .highlight .nt { color: #f92672 }
+        .highlight .nv { color: #f8f8f2 }
+        .highlight .ow { color: #f92672 }
+        .highlight .w { color: #f8f8f2 }
+        .highlight .mf { color: #ae81ff }
+        .highlight .mh { color: #ae81ff }
+        .highlight .mi { color: #ae81ff }
+        .highlight .mo { color: #ae81ff }
+        .highlight .sb { color: #e6db74 }
+        .highlight .sc { color: #e6db74 }
+        .highlight .sd { color: #e6db74 }
+        .highlight .s2 { color: #e6db74 }
+        .highlight .se { color: #ae81ff }
+        .highlight .sh { color: #e6db74 }
+        .highlight .si { color: #e6db74 }
+        .highlight .sx { color: #e6db74 }
+        .highlight .sr { color: #e6db74 }
+        .highlight .s1 { color: #e6db74 }
+        .highlight .ss { color: #e6db74 }
+        .highlight .bp { color: #f8f8f2 }
+        .highlight .vc { color: #f8f8f2 }
+        .highlight .vg { color: #f8f8f2 }
+        .highlight .vi { color: #f8f8f2 }
+        .highlight .il { color: #ae81ff }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 32px 0;
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        .site-footer a {
+            color: var(--ink-muted);
+            text-decoration: none;
+        }
+        .site-footer a:hover { color: var(--accent); }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, color 0.2s, border-color 0.2s;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .page { padding: 0 16px 40px; }
+            .markdown-body h1 { font-size: 1.7rem; }
+            .markdown-body h2 { font-size: 1.35rem; }
+            .markdown-body { font-size: 0.95rem; }
+            .markdown-body pre { padding: 0.8em; }
+            .markdown-body pre code { font-size: 0.8rem; }
+            .back-to-top { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <nav class="breadcrumb">
+            <a href="../index.html">floaritay</a>
+            <span class="sep">/</span>
+            <span>basic</span>
+        </nav>
+        <article class="markdown-body">
+<h1 id="_1">目录</h1>
+<ul>
+<li><a href="#1-介绍">1 介绍</a><ul>
+<li><a href="#11-核心概念">1.1 核心概念</a></li>
+</ul>
+</li>
+<li><a href="#2-安装">2 安装</a><ul>
+<li><a href="#21-常用快捷键">2.1 常用快捷键</a></li>
+</ul>
+</li>
+<li><a href="#3-仓库">3 仓库</a><ul>
+<li><a href="#31-目录结构">3.1 目录结构</a></li>
+<li><a href="#32-第一个笔记与链接">3.2 第一个笔记与链接</a></li>
+</ul>
+</li>
+<li><a href="#4-markdown基础">4 Markdown基础</a></li>
+<li><a href="#5-双链与知识图谱">5 双链与知识图谱</a><ul>
+<li><a href="#52-块引用与标题引用">5.2 块引用与标题引用</a></li>
+<li><a href="#53-反向链接面板">5.3 反向链接面板</a></li>
+<li><a href="#54-关系图谱">5.4 关系图谱</a></li>
+<li><a href="#55-标签系统">5.5 标签系统</a></li>
+</ul>
+</li>
+<li><a href="#6-组织与管理">6 组织与管理</a><ul>
+<li><a href="#61-aliases-别名">6.1 Aliases 别名</a></li>
+<li><a href="#62-templates-模板">6.2 Templates 模板</a></li>
+<li><a href="#63-搜索与快速跳转">6.3 搜索与快速跳转</a></li>
+<li><a href="#64-书签">6.4 书签</a></li>
+<li><a href="#65-文件管理">6.5 文件管理</a></li>
+</ul>
+</li>
+<li><a href="#7-插件">7 插件</a><ul>
+<li><a href="#71-安装和管理">7.1 安装和管理</a></li>
+<li><a href="#72-核心插件推荐与使用">7.2 核心插件推荐与使用</a><ul>
+<li><a href="#721-canvas">7.2.1 Canvas</a></li>
+<li><a href="#722-outline大纲面板">7.2.2 Outline：大纲面板</a></li>
+<li><a href="#723-backlinks-与-outgoing-links">7.2.3 Backlinks 与 Outgoing Links</a></li>
+<li><a href="#724-workspaces工作区布局">7.2.4 Workspaces：工作区布局</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#8-同步与导出">8 同步与导出</a><ul>
+<li><a href="#81-obsidian-sync">8.1 Obsidian Sync</a></li>
+<li><a href="#82-git-github-版本管理">8.2 Git + GitHub 版本管理</a></li>
+<li><a href="#83-云盘同步">8.3 云盘同步</a></li>
+<li><a href="#84-zip打包">8.4 zip打包</a></li>
+<li><a href="#85-导出">8.5 导出</a></li>
+</ul>
+</li>
+<li><a href="#9-结合-claude-code-使用">9 结合 Claude Code 使用</a><ul>
+<li><a href="#91-使用obsidian的插件">9.1 使用Obsidian的插件</a></li>
+<li><a href="#92-使用claude的mcp">9.2 使用Claude的MCP</a></li>
+</ul>
+</li>
+<li><a href="#10-obsidian-web-clipper">10 Obsidian Web Clipper</a></li>
+</ul>
+<hr />
+<h1 id="1-介绍">1 介绍</h1>
+<p>Obsidian 是一款基于 <strong>Markdown</strong> 文件的个人知识库与笔记管理工具，主要用于知识整理、笔记记录和构建个人知识体系。</p>
+<p>采用<strong>本地</strong>文件存储方式，所有笔记都以普通 Markdown 文档形式保存，便于迁移、备份和长期管理。</p>
+<p>和传统笔记软件最大的区别不是能记笔记，而是它把笔记变成一个<strong>可连接（笔记之间可相互引用，形成知识网络）</strong>、<strong>可扩展（丰富的社区插件）</strong>、可计算的知识网络。</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>知识关联</td>
+<td>通过双向链接自动建立知识之间的关系</td>
+</tr>
+<tr>
+<td>本地存储</td>
+<td>所有笔记都是普通 Markdown 文件，不依赖云数据库</td>
+</tr>
+<tr>
+<td>知识图谱</td>
+<td>自动生成知识关系网络图</td>
+</tr>
+<tr>
+<td>插件扩展</td>
+<td>支持日历、任务管理、<strong>AI</strong>、<strong>Git</strong>、思维导图等插件</td>
+</tr>
+<tr>
+<td>跨平台</td>
+<td>支持 Windows、macOS、Linux、Android 和 iOS</td>
+</tr>
+</tbody>
+</table>
+<p>与其他工具的差异</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Obsidian</th>
+<th>Notion</th>
+<th>Roam Research</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存储方式</td>
+<td>本地 Markdown 文件</td>
+<td>云端数据库</td>
+<td>云端数据库</td>
+</tr>
+<tr>
+<td>离线可用</td>
+<td>完全离线</td>
+<td>需预先加载</td>
+<td>需联网</td>
+</tr>
+<tr>
+<td>双链能力</td>
+<td>原生支持</td>
+<td>有限支持</td>
+<td>原生支持（大纲式）</td>
+</tr>
+<tr>
+<td>扩展性</td>
+<td>1000+ 社区插件</td>
+<td>少量集成</td>
+<td>较少插件</td>
+</tr>
+<tr>
+<td>价格</td>
+<td>个人免费</td>
+<td>免费增值</td>
+<td>付费订阅</td>
+</tr>
+<tr>
+<td>数据迁移</td>
+<td>复制文件夹即可</td>
+<td>需导出</td>
+<td>需导出</td>
+</tr>
+</tbody>
+</table>
+<h2 id="11-核心概念">1.1 核心概念</h2>
+<p>1、笔记即文件</p>
+<p>在 Obsidian 中创建一篇笔记，实际上就是在某个文件夹中创建了一个 Markdown 文件。每一篇笔记就是你硬盘上的一个 .md 文件。</p>
+<p>你可以在资源管理器中直接看到它，用 cat 命令读取它，用 Git 追踪它。</p>
+<p>2、双向链接</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># Docker 入门</span>
+
+Docker 是一种容器化技术，与 [[虚拟机]] 的关键区别在于...
+在部署时，通常配合 [[Kubernetes]] 使用...
+学习 Docker 之前建议先了解 [[Linux 基础]]...
+</code></pre></div>
+
+<p>当你打开「Docker 入门」这篇笔记时，你会看到它链接到了「虚拟机」「Kubernetes」「Linux 基础」三篇笔记。</p>
+<p>同时，「Linux 基础」这篇笔记也会显示「有一篇叫 Docker 入门的笔记引用了我」。这就是双向链接。</p>
+<p>3、知识图谱</p>
+<p>图谱是你记笔记、建立链接之后自然生长出来的副产品。</p>
+<h1 id="2-安装">2 安装</h1>
+<p>前往官网下载 <a href="https://obsidian.md/zh/">官网</a></p>
+<p>下载后就可以双击安装，选择语言等配置。</p>
+<p>首次打开 Obsidian 你会看到三个选项：</p>
+<div class="highlight"><pre><span></span><code>创建新库         在本地新建一个 Vault
+打开已有文件夹    将现有文件夹作为 Vault
+同步远程仓库
+</code></pre></div>
+
+<p><img alt="image.png" src="Obsidian_files/image.png" /></p>
+<ul>
+<li>左侧栏 (文件管理器)： 管理你的文件夹和笔记列表。</li>
+<li>中间区域 (编辑器)： 你主要写作的地方，支持"实时预览"模式，即你输入 Markdown 符号时，它会立刻渲染成格式。</li>
+<li>右侧栏 (面板)： 默认显示反向链接（即其他哪些笔记提到了你正在看的这篇笔记）和大纲。</li>
+<li>命令面板 (Ctrl/Cmd + P)： 按此快捷键，输入你想要做的操作（如"创建新笔记"），无需点击菜单。</li>
+</ul>
+<p>选择创建新库，为你的知识库起一个名字，选择一个存放位置。</p>
+<p>可以在设置里修改外观，字体，行宽等等。</p>
+<h2 id="21-常用快捷键">2.1 常用快捷键</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>macOS</th>
+<th>Windows / Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>打开设置</td>
+<td>Cmd + ,</td>
+<td>Ctrl + ,</td>
+</tr>
+<tr>
+<td>快速打开文件</td>
+<td>Cmd + O</td>
+<td>Ctrl + O</td>
+</tr>
+<tr>
+<td>新建笔记</td>
+<td>Cmd + N</td>
+<td>Ctrl + N</td>
+</tr>
+<tr>
+<td>打开命令面板</td>
+<td>Cmd + P</td>
+<td>Ctrl + P</td>
+</tr>
+<tr>
+<td>切换编辑/阅读模式</td>
+<td>Cmd + E</td>
+<td>Ctrl + E</td>
+</tr>
+<tr>
+<td>打开/关闭左侧边栏</td>
+<td>Cmd + [</td>
+<td>Ctrl + [</td>
+</tr>
+<tr>
+<td>打开/关闭右侧边栏</td>
+<td>Cmd + ]</td>
+<td>Ctrl + ]</td>
+</tr>
+</tbody>
+</table>
+<h1 id="3-仓库">3 仓库</h1>
+<p>Vault 是 Obsidian 中最重要的概念。</p>
+<p>Vault = 文件夹： 库其实就是你电脑上的一个普通文件夹，用来存放你所有的笔记文件。</p>
+<h2 id="31-目录结构">3.1 目录结构</h2>
+<p>当创建一个 Vault 后，文件夹里会出现一个隐藏目录 .obsidian：</p>
+<div class="highlight"><pre><span></span><code>MyVault/
+├── .obsidian/           ← Obsidian 的配置文件
+│   ├── plugins/         ← 安装的插件存放在这里
+│   ├── themes/          ← 主题文件
+│   ├── snippets/        ← 自定义 CSS 片段
+│   └── app.json         ← 主配置文件
+├── 你的第一篇笔记.md
+└── ...
+</code></pre></div>
+
+<p>也支持多 Vault</p>
+<p>注意：.obsidian 文件夹推荐纳入 Git 管理。这样你的插件配置、快捷键设置、主题偏好都会被版本控制。唯一的例外是 .obsidian/workspace.json，它记录了当前打开的标签页状态，可以加入 .gitignore。</p>
+<h2 id="32-第一个笔记与链接">3.2 第一个笔记与链接</h2>
+<ol>
+<li>
+<p>按 Cmd/Ctrl + N 新建笔记</p>
+</li>
+<li>
+<p>输入文件名</p>
+</li>
+<li>
+<p>编辑</p>
+</li>
+<li>
+<p>使用链接</p>
+<div class="highlight"><pre><span></span><code><span class="n">例如</span><span class="w"> </span><span class="o">[</span><span class="n">[Markdown</span><span class="o">]</span><span class="err">]</span><span class="w"> </span><span class="n">这个链接</span><span class="err">，</span><span class="n">悬停在上面时会出现预览弹窗</span><span class="err">，</span><span class="n">点击则会跳转到名为</span><span class="err">「</span><span class="n">Markdown</span><span class="err">」</span><span class="n">的笔记</span><span class="err">。</span>
+
+<span class="n">如果这篇笔记尚不存在</span><span class="err">，</span><span class="n">点击后会自动创建</span><span class="err">。</span>
+</code></pre></div>
+
+</li>
+</ol>
+<h1 id="4-markdown基础">4 Markdown基础</h1>
+<p>参考<a href="./Markdown.html">Markdown</a>文档。</p>
+<h1 id="5-双链与知识图谱">5 双链与知识图谱</h1>
+<h2 id="51">5.1 [[ ]] 语法</h2>
+<p>用 <code>[[笔记名]]</code> 即可创建指向另一篇笔记的链接。</p>
+<p>输入 <code>[[</code> 后，Obsidian 会自动弹出搜索框，支持模糊匹配笔记名称。</p>
+<p>如果链接指向的笔记尚不存在，Obsidian 会显示为灰色链接，点击后会自动创建对应的空白笔记。</p>
+<p><strong>别名链接</strong></p>
+<p>有时候笔记的文件名不够自然。使用 [[文件名|显示文字]] 语法，可以让链接文字更符合上下文。</p>
+<p>更好的做法是在目标笔记的 Front Matter 中设置 aliases，之后所有指向该笔记的链接都可以使用别名。</p>
+<p>参考<a href="#61-aliases-别名">6.1 Aliases别名</a>章节。</p>
+<h2 id="52-块引用与标题引用">5.2 块引用与标题引用</h2>
+<p><strong>标题引用</strong></p>
+<p>使用 [[笔记名#标题]] 直接链接到笔记中的某个标题位置。</p>
+<p>例如</p>
+<div class="highlight"><pre><span></span><code>详见 [[Python 基础#正则标定式]] 中的示例代码。
+</code></pre></div>
+
+<p><strong>块引用</strong></p>
+<p>在目标段落的末尾添加一个 ^块ID，然后在其他笔记中用 [[笔记名#^块ID]] 引用该段落。</p>
+<p>例如</p>
+<div class="highlight"><pre><span></span><code>&lt;!-- 在「Python 基础」笔记中定义一个块 --&gt;
+列表推导式是 Python 中创建列表的简洁语法，
+它可以将循环和条件判断写在一行内。 ^list-comp-def
+</code></pre></div>
+
+<p>在另一篇笔记中引用这个段落块</p>
+<div class="highlight"><pre><span></span><code>如 [[Python 基础#^list-comp-def]] 所述，列表推导式能大幅简化代码。
+</code></pre></div>
+
+<p>引用块在目标笔记中会以嵌入渲染的方式显示原文内容，而不仅仅是一个跳转链接。</p>
+<p><strong>嵌入整个笔记或段落</strong></p>
+<p>在链接前加一个感叹号 ![[笔记名]]，可以将目标笔记的完整内容嵌入当前笔记。</p>
+<p>例如</p>
+<div class="highlight"><pre><span></span><code><span class="gu">## 常用代码片段</span>
+
+![[Python 列表操作速查]]
+
+![[环境搭建#环境变量配置]]
+</code></pre></div>
+
+<h2 id="53-反向链接面板">5.3 反向链接面板</h2>
+<p>当打开一篇笔记，右侧面板的「反向链接」区域会列出所有引用了当前笔记的其他笔记。</p>
+<p>不需要你手动记、不需要维护索引。</p>
+<p>反向链接面板分为两个区域：</p>
+<ul>
+<li>
+<p>Linked Mentions：已经用 [[双链]] 语法显式链接到当前笔记的地方</p>
+</li>
+<li>
+<p>Unlinked Mentions：虽然提到了当前笔记的标题文字，但没有加上 [[ ]] 链接的地方</p>
+</li>
+</ul>
+<h2 id="54-关系图谱">5.4 关系图谱</h2>
+<p><strong>局部图谱</strong></p>
+<p>在任意笔记中点击右上角的「更多选项 → 打开局部图谱」，会显示以当前笔记为中心的链接网络。</p>
+<p>局部图谱的默认显示深度是 1 层（直接邻居），可以调整为 2-5 层来看到更广的关联。</p>
+<p><strong>全局图谱</strong></p>
+<p>点击左侧边栏的图谱图标，可以查看全库的链接关系图。</p>
+<p>图谱中的符号含义：</p>
+<ul>
+<li>节点大小：被链接次数越多，节点越大——自然突出了你知识体系中的核心概念</li>
+<li>连线密度：两个笔记互相链接则连线更粗</li>
+<li>节点颜色：可通过分组功能按路径、标签、文件名等条件分配颜色</li>
+</ul>
+<p><strong>图谱分组与过滤</strong></p>
+<p>在全局图谱的设置中，创建分组规则：</p>
+<div class="highlight"><pre><span></span><code>Group <span class="ni">#1:</span> 编程笔记
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>path: 编程/
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>颜色：蓝色
+
+Group <span class="ni">#2:</span> 读书笔记
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>path: 阅读/
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>颜色：绿色
+
+Group <span class="ni">#3:</span> 日记
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>path: 日记/
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>颜色：灰色
+</code></pre></div>
+
+<p>通过分组，图谱能一目了然地展示不同领域的规模大小和交叉关系。</p>
+<p>过滤器可以按关键词、标签或文件路径隐藏不需要显示的节点，避免图谱过于密集。</p>
+<h2 id="55-标签系统">5.5 标签系统</h2>
+<p>标签是跨文件夹组织内容的重要手段。</p>
+<p>标签写在正文或 Front Matter 中，用 # 标签名 的格式。</p>
+<p>基础写法</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#python #obsidian #笔记方法</span>
+</code></pre></div>
+
+<p>嵌套写法：使用<code>/</code>创建层级标签，在标签面板中会展示为树状结构。</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#编程/Python</span>
+<span class="gh">#编程/JavaScript</span>
+
+<span class="gh">#状态/草稿</span>
+<span class="gh">#状态/已完成</span>
+</code></pre></div>
+
+<p>标签表示「是什么属性」（语言、状态、类型），文件夹表示「在哪个项目或领域」。两者互补而非互斥。</p>
+<h1 id="6-组织与管理">6 组织与管理</h1>
+<h2 id="61-aliases-别名">6.1 Aliases 别名</h2>
+<p>同一篇笔记可以有多个名称入口，在 Front Matter 中设置 aliases 即可</p>
+<p>在文件的最顶部（必须是第一行）输入三条横线 ---，然后在中间写入 aliases 属性，最后再以三条横线 --- 结束：</p>
+<div class="highlight"><pre><span></span><code><span class="gu">单个别名</span>
+<span class="gu">---</span>
+<span class="gu">aliases: 笔记别名</span>
+<span class="gu">---</span>
+
+<span class="gu">多个别名，写成一行</span>
+<span class="gu">---</span>
+<span class="gu">aliases: [JS, JavaScript, 脚本语言]</span>
+<span class="gu">---</span>
+
+<span class="gu">包含特殊字符的别名，写成多行</span>
+<span class="gu">---</span>
+aliases:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>&quot;C++&quot;
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>&quot;问题: 根本原因&quot;
+<span class="gu">  - &quot;标点符号【】&quot;</span>
+<span class="gu">---</span>
+</code></pre></div>
+
+<p>在笔记 Front Matter 中定义标准别名，而不是每次用管道符 | 临时改写。这样别名统一管理，修改一次全库生效。</p>
+<h2 id="62-templates-模板">6.2 Templates 模板</h2>
+<p>Templates 是 Obsidian 的核心插件（内置但需手动启用），让你可以为常见类型的笔记定义模板。</p>
+<p><strong>启用和配置</strong></p>
+<p>在设置 → 核心插件中开启「模板」。</p>
+<p>然后指定一个模板文件夹，所有模板文件都放在这个文件夹中。</p>
+<p><strong>创建笔记模板</strong></p>
+<p>例如</p>
+<div class="highlight"><pre><span></span><code>---
+tags:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>概念
+<span class="gu">created: {{date}}</span>
+<span class="gu">---</span>
+
+<span class="gh"># {{title}}</span>
+
+<span class="gu">## 定义</span>
+
+一句话概括：是什么。
+
+<span class="gu">## 核心要点</span>
+
+<span class="k">-</span><span class="w"> </span>要点一
+<span class="k">-</span><span class="w"> </span>要点二
+<span class="k">-</span><span class="w"> </span>要点三
+
+<span class="gu">## 与其他概念的关系</span>
+
+<span class="k">-</span><span class="w"> </span>关联 [[概念A]]
+<span class="k">-</span><span class="w"> </span>区别于 [[概念B]]
+
+<span class="gu">## 参考资料</span>
+
+-
+</code></pre></div>
+
+<p><strong>插入模板</strong></p>
+<p>新建笔记后，点击左侧边栏的「插入模板」按钮（或使用 Ctrl+P 搜索「模板：插入模板」），选择对应模板。</p>
+<p>模板中的 {{title}} 会自动替换为笔记名称，{{date}} 替换为当前日期。</p>
+<h2 id="63-搜索与快速跳转">6.3 搜索与快速跳转</h2>
+<p><strong>快速切换（Ctrl+O）</strong></p>
+<p>最常用的跳转方式，输入关键词即可搜索所有笔记文件名和别名，回车直接打开。</p>
+<p><strong>全局搜索（Ctrl+Shift+F）</strong></p>
+<p>搜索笔记的全文内容，支持高级搜索语法：</p>
+<table>
+<thead>
+<tr>
+<th>搜索语法</th>
+<th>功能</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file:</code></td>
+<td>按文件名搜索</td>
+<td><code>file:Python</code></td>
+</tr>
+<tr>
+<td><code>path:</code></td>
+<td>按路径搜索</td>
+<td><code>path:编程/</code></td>
+</tr>
+<tr>
+<td><code>tag:</code></td>
+<td>按标签搜索</td>
+<td><code>tag:#编程/Python</code></td>
+</tr>
+<tr>
+<td><code>line:</code></td>
+<td>按行内容搜索</td>
+<td><code>line:(import os)</code></td>
+</tr>
+<tr>
+<td><code>section:</code></td>
+<td>按标题区块搜索</td>
+<td><code>section:安装</code></td>
+</tr>
+<tr>
+<td>组合搜索</td>
+<td>用空格连接多个条件（AND 逻辑）</td>
+<td><code>path:编程 tag:#Python 闭包</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>默认情况下，普通关键词搜索会同时匹配文件名和内容；使用运算符可以更精细地限定搜索范围。  </li>
+<li>空格表示“AND”，大写 <code>OR</code> 表示“或”， <code>-</code> 表示排除，如 <code>meeting -work</code>。</li>
+</ul>
+<h2 id="64-书签">6.4 书签</h2>
+<p>书签功能让你可以收藏常用笔记、搜索条件或文件夹。</p>
+<p>右键点击任何文件、文件夹或搜索结果，选择「添加到书签」。</p>
+<p>所有书签显示在左侧边栏的书签面板中，支持拖拽排序和分组。</p>
+<p>书签可以</p>
+<ul>
+<li>收藏搜索条件：比如「tag:#状态/进行中」作为一个动态书签，点击即执行该搜索</li>
+<li>收藏高频笔记：主页索引、项目仪表盘、每日日记入口</li>
+<li>按工作流分组：写作组、学习组、项目管理组各自独立</li>
+</ul>
+<h2 id="65-文件管理">6.5 文件管理</h2>
+<p>示例</p>
+<div class="highlight"><pre><span></span><code>Vault/
+├── 00-日记/              # Daily Notes 自动存放
+├── 10-项目/              # 活跃项目
+├── 20-领域/              # 持续关注的领域
+├── 30-资源/              # 参考资料和摘录
+├── 40-归档/              # 已完成或不再活跃
+├── Templates/            # 模板文件夹
+├── attachments/          # 图片和附件
+└── 主页.md               # 仪表盘笔记，链接到最重要的内容
+</code></pre></div>
+
+<p>文件夹名前的数字前缀确保在文件列表中按你想要的顺序排列，而不是按拼音排序。</p>
+<p>随着笔记积累，你对组织方式的偏好会变得更明确，届时再调整也不迟。</p>
+<h1 id="7-插件">7 插件</h1>
+<p>Obsidian 的强大之处，很大程度上来自于其插件市场。</p>
+<p>Obsidian 的插件分为两大类：<strong>核心插件</strong>和<strong>社区插件</strong>，可以在设置选择打开查看。</p>
+<p><strong>核心插件</strong></p>
+<p>Obsidian 自带的、官方维护的功能模块。可以根据需要选择开启或关闭。</p>
+<p>例如：</p>
+<ul>
+<li>画布 (Canvas)： 让你在一个无限大的白板上自由布局笔记、图片和网页，进行视觉化的思维组织。</li>
+</ul>
+<p><strong>社区插件</strong></p>
+<p>由用户（开发者）创建、维护和分享的第三方功能扩展。</p>
+<p>在安装第三方插件之前，Obsidian 默认开启安全模式。安装插件需要手动关闭安全模式，Obsidian 会提醒用户注意安全风险（建议只安装下载量大、评分高且功能明确的插件）。</p>
+<table>
+<thead>
+<tr>
+<th>插件名称</th>
+<th>主要功能</th>
+<th>典型应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dataview</td>
+<td>将笔记库视为数据库，用类 SQL 查询语言索引、过滤、展示 Markdown 中的元数据与任务</td>
+<td>自动生成任务列表、汇总带特定标签的项目或书籍清单、制作动态仪表盘</td>
+</tr>
+<tr>
+<td>Excalidraw</td>
+<td>在 Obsidian 中嵌入 Excalidraw，创建手绘风格图表与思维导图</td>
+<td>制作流程图、概念草图、手写注释与视觉笔记</td>
+</tr>
+<tr>
+<td>Calendar</td>
+<td>在右侧边栏添加月历视图，与每日笔记/周记深度集成</td>
+<td>快速查看和跳转到过去的每日笔记，形成日程回顾与时间管理</td>
+</tr>
+<tr>
+<td>Advanced Tables</td>
+<td>增强 Markdown 表格编辑：自动格式化、按列排序、公式计算、导出 CSV 等</td>
+<td>轻松对齐和编辑复杂表格，无需手动调整空格</td>
+</tr>
+<tr>
+<td>Kanban</td>
+<td>创建基于 Markdown 的看板视图，拖拽管理任务卡片</td>
+<td>任务管理、项目进度追踪、将想法从“待办”拖到“完成”</td>
+</tr>
+<tr>
+<td>Obsidian Git</td>
+<td>将 Vault 自动备份到 Git 仓库（如 GitHub），支持版本控制与历史回溯</td>
+<td>实现版本控制和多设备同步，提供额外的安全保障</td>
+</tr>
+</tbody>
+</table>
+<h2 id="71-安装和管理">7.1 安装和管理</h2>
+<ol>
+<li>
+<p>进入插件设置</p>
+<ul>
+<li>点击左下角的 "设置" (齿轮图标)</li>
+<li>在侧边栏找到 "核心插件" 和 "第三方插件"。</li>
+</ul>
+</li>
+<li>
+<p>安装第三方插件的步骤</p>
+<ul>
+<li>进入 "第三方创建" 选项卡。</li>
+<li>关闭安全模式： Obsidian 会提示你进行此操作。</li>
+<li>点击 "浏览"。</li>
+<li>在搜索框输入插件名称（如 Dataview）。</li>
+<li>点击插件，然后点击 "安装"。</li>
+<li>激活插件： 安装完成后，点击 "启用" 按钮。插件才会开始工作。</li>
+</ul>
+</li>
+</ol>
+<p>插件安装后，通常会在左侧栏、右侧栏或通过命令面板 (Ctrl + P) 来调用其功能。</p>
+<h2 id="72-核心插件推荐与使用">7.2 核心插件推荐与使用</h2>
+<h3 id="721-canvas">7.2.1 Canvas</h3>
+<p>Obsidian 内置的无限画布工具，用卡片和连线来组织思想、规划项目、绘制图表。</p>
+<p>在文件列表中右键选择「新建画布」，或在命令面板搜索「Canvas」。</p>
+<p>Canvas 文件以 .canvas 扩展名存储，本质上是一个 JSON 文件，可以用文本编辑器查看和编辑。</p>
+<p>在 Canvas 中双击空白处创建卡片，或拖入以下内容：</p>
+<ul>
+<li>Markdown 笔记文件（自动创建链接卡片）</li>
+<li>图片（拖入即显示）</li>
+<li>网页链接（自动创建嵌入卡片）</li>
+</ul>
+<p>鼠标悬停在卡片边缘会出现连接点，拖拽到另一张卡片即可创建连线。</p>
+<p>连线可以添加文字标签（如「依赖于」「导致」「参考」），并选择颜色和线型。</p>
+<p>框选多张卡片后右键选择「创建分组」，可以为它们添加背景色和标题。</p>
+<h3 id="722-outline大纲面板">7.2.2 Outline：大纲面板</h3>
+<p>大纲插件在右侧边栏显示当前文档的标题树。对于长文档的导航尤其有用</p>
+<ul>
+<li>自动解析文档中的 # ## ### 标题，生成层级树</li>
+<li>点击标题可快速跳转到文档对应位置</li>
+<li>当前正在阅读的标题会高亮显示</li>
+<li>拖拽标题可以在文档中重新排列章节顺序</li>
+</ul>
+<h3 id="723-backlinks-与-outgoing-links">7.2.3 Backlinks 与 Outgoing Links</h3>
+<p>双链功能的核心 UI 呈现。</p>
+<p><strong>Backlinks（反向链接）</strong></p>
+<p>显示哪些笔记链接到了当前笔记。</p>
+<p>每个反向链接会显示链接所在的上下文（前后几行文字），让你不用跳转就能判断关联的内容。</p>
+<p>展开每条反向链接，可以看到更多上下文，甚至直接展开该笔记的完整内容。</p>
+<p><strong>Outgoing Links（出链）</strong></p>
+<p>显示当前笔记链接到了哪些其他笔记。</p>
+<p>与 Backlinks 对应，它展示的是当前笔记指向的外部分笔记清单。</p>
+<p>两个面板结合使用，可以完整了解一篇笔记在知识网络中的位置——谁引用了它，它引用了谁。</p>
+<p>两个面板顶部都有搜索过滤框，输入关键词可以快速筛选：</p>
+<ul>
+<li>按路径过滤：只显示特定文件夹内的反向链接</li>
+<li>按关键词过滤：只显示包含特定文字的反向链接</li>
+</ul>
+<h3 id="724-workspaces工作区布局">7.2.4 Workspaces：工作区布局</h3>
+<p>不同任务需要不同的面板布局。</p>
+<p>写作时你可能希望收起所有侧边栏只留编辑区，整理笔记时你需要文件列表和标签面板同时可见。</p>
+<p>例如</p>
+<table>
+<thead>
+<tr>
+<th>工作区</th>
+<th>布局</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>写作模式</td>
+<td>关闭所有侧边栏，只留编辑区，专注内容输出</td>
+</tr>
+<tr>
+<td>整理模式</td>
+<td>左侧：文件列表 + 标签面板，右侧：大纲 + 反向链接</td>
+</tr>
+<tr>
+<td>研究模式</td>
+<td>左侧：搜索结果，中间：主笔记 + Canvas，右侧：反向链接 + 大纲</td>
+</tr>
+<tr>
+<td>回顾模式</td>
+<td>左侧：书签，中间：日记 + 全局图谱，右侧：反向链接</td>
+</tr>
+</tbody>
+</table>
+<p><strong>保存工作区</strong></p>
+<p>调整好面板布局后，在左侧边栏的「工作区」面板中点击「管理工作区」，输入名称保存当前布局。</p>
+<p><strong>切换工作区</strong></p>
+<p>在工作区面板中点击已保存的布局，一键切换。</p>
+<p>也可以通过 Ctrl+P 搜索「工作区：加载工作区」来切换。</p>
+<h1 id="8-同步与导出">8 同步与导出</h1>
+<h2 id="81-obsidian-sync">8.1 Obsidian Sync</h2>
+<p>Obsidian Sync 是官方提供的端对端加密云同步服务。是付费服务，按年订阅。</p>
+<p>在'设置'-'同步'中配置</p>
+<h2 id="82-git-github-版本管理">8.2 Git + GitHub 版本管理</h2>
+<p>将 Vault 初始化为 Git 仓库，推送到 GitHub 私有仓库。</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># 进入你的 Vault 目录</span>
+cd ~/Documents/我的知识库
+
+<span class="gh"># 初始化 Git 仓库</span>
+git init
+
+<span class="gh"># 创建 .gitignore 文件，忽略 Obsidian 的配置和缓存</span>
+echo &quot;.obsidian/workspace.json&quot; &gt;&gt; .gitignore
+echo &quot;.obsidian/workspace-mobile.json&quot; &gt;&gt; .gitignore
+echo &quot;.trash/&quot; &gt;&gt; .gitignore
+
+<span class="gh"># 首次提交</span>
+git add .
+git commit -m &quot;初始化知识库&quot;
+
+<span class="gh"># 关联 GitHub 私有仓库并推送</span>
+git remote add origin git@github.com:username/my-vault.git
+git push -u origin main
+
+<span class="gh"># 之后使用 commit + push + pull 同步</span>
+</code></pre></div>
+
+<p>更多参考<a href="./Git.html">Git</a>文档。</p>
+<h2 id="83-云盘同步">8.3 云盘同步</h2>
+<p>将 Vault 文件夹放在 iCloud Drive 或 OneDrive 中</p>
+<h2 id="84-zip打包">8.4 zip打包</h2>
+<p>同步不等于备份——同步会把你误删的文件也同步删除。</p>
+<p>可以定期将整个 Vault 打包为 .zip，存到外接硬盘或云盘</p>
+<h2 id="85-导出">8.5 导出</h2>
+<p>打开笔记，点击右上角「更多选项 → 导出 PDF」。</p>
+<p>导出的 PDF 会保留当前的 Obsidian 主题样式。</p>
+<p>安装 Pandoc 社区插件后，可以将笔记导出为 Word、HTML、LaTeX 等多种格式。</p>
+<p>Obsidian Publish 是官方付费服务，可以将选定的笔记发布为网站。</p>
+<p>发布的网站保留双链、图谱、搜索等 Obsidian 核心功能。</p>
+<h1 id="9-结合-claude-code-使用">9 结合 Claude Code 使用</h1>
+<h2 id="91-使用obsidian的插件">9.1 使用Obsidian的插件</h2>
+<p>参考<a href="./Vibe_Coding/Claude.html">Claude Code</a>文档安装使用Claude。</p>
+<p>从 GitHub Release https://github.com/YishenTu/claudian/releases/latest 下载 main.js、manifest.json 和 styles.css 这三个文件。</p>
+<p>在你的 Obsidian 库的插件文件夹 plugins 中（如果没有创建一个），新建一个名为 claudian 的文件夹。</p>
+<p>将下载好的三个文件复制到这个 claudian/plugins/ 文件夹中。</p>
+<div class="highlight"><pre><span></span><code>.obsidian/
+└── plugins/
+    └── claudian/
+        ├── main.js         # 插件的编译后 JavaScript 主文件（包含所有逻辑）
+        ├── manifest.json   # 插件元数据（ID、名称、版本、描述、最低 Obsidian 版本等）
+        └── styles.css      # 插件的 CSS 样式
+</code></pre></div>
+
+<p>在 Obsidian 中启用该插件：设置 → 社区插件 → 开启「Claudian」插件开关。通过设置，可以设置为中文语言。</p>
+<p>打开任意笔记，左侧边栏会出现一个 机器人图标（或用命令面板 Ctrl+P 输入 Claudian: Open Chat）即可使用。</p>
+<p>第一次打开会提示你选择 Claude 模型（可以设置国内的大模型），输入框打 / 会出现所有可用技能（skills）。</p>
+<h2 id="92-使用claude的mcp">9.2 使用Claude的MCP</h2>
+<p>在 claude 中对话让它安装</p>
+<p>需要启用 obsidian 第三方插件 Local REST API with MCP 。还需要它的key</p>
+<p>端口 https://127.0.0.1:27124/</p>
+<h1 id="10-obsidian-web-clipper">10 Obsidian Web Clipper</h1>
+<p>Obsidian 官方出品的浏览器扩展，它能将任何网页一键保存为本地的 Markdown 笔记。免费、开源、无广告。</p>
+<p><strong>安装</strong></p>
+<p>从浏览器扩展安装使用即可。在设置里面设置中文语言。</p>
+<p>首次使用时，它会自动检测正在运行的 Obsidian 仓库并完成关联，无需额外配置。</p>
+<p><strong>整页剪藏</strong></p>
+<p>将页面以 Markdown 格式保存到你的仓库。</p>
+<p>自动提取文章正文（去除广告和侧边栏）；标题、作者、发布日期、描述；页面 URL 和来源域名；代码块（保留语法高亮标记）、数学公式（LaTeX 格式）</p>
+<p><strong>高亮剪藏</strong></p>
+<p>选中你感兴趣的段落，点击高亮按钮，只保存划线部分。</p>
+<ul>
+<li>点击扩展图标</li>
+<li>选择「高亮选中内容」</li>
+<li>积累好所有高亮后，点击「添加到 Obsidian」一次性保存</li>
+</ul>
+<p>也可以右击鼠标选中 Obsidian Web Clipper 保存：</p>
+<p>高亮内容会以引用块（&gt;）的形式写入笔记。再次访问该页面时，你的高亮依然可见。</p>
+<p><strong>模板</strong></p>
+<p>默认情况下所有网页都以同一格式保存，而模板让你可以针对不同类型的网页定制保存结构。</p>
+<p>我们可以在设置页面中模板选项下的 Default 中查看</p>
+<p><strong>内置模板</strong></p>
+<table>
+<thead>
+<tr>
+<th>模板类型</th>
+<th>提取内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文章模板</td>
+<td>自动填入 author、published、description，正文以文章格式保存</td>
+</tr>
+<tr>
+<td>食谱模板</td>
+<td>提取食材列表（自动转为待办复选框 - [ ]）、步骤、营养信息</td>
+</tr>
+<tr>
+<td>电影/书籍模板</td>
+<td>提取导演、评分、时长、主演、简介等</td>
+</tr>
+<tr>
+<td>学术论文模板</td>
+<td>完整保留代码块和 LaTeX 公式</td>
+</tr>
+</tbody>
+</table>
+<p><strong>自定义模板</strong></p>
+<p>在扩展设置 → 模板 → 新建模板中，你可以自定义以下内容：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模板名称</td>
+<td>模板的标识名称</td>
+<td>「YouTube 视频」「GitHub 仓库」</td>
+</tr>
+<tr>
+<td>笔记名称</td>
+<td>支持变量</td>
+<td><code>{{title}}</code> 或 <code>{{date}}-{{title}}</code></td>
+</tr>
+<tr>
+<td>保存位置</td>
+<td>指定仓库中的文件夹</td>
+<td>Clippings/Articles</td>
+</tr>
+<tr>
+<td>Properties</td>
+<td>笔记顶部自动填入的结构化属性（YAML 前置元数据）</td>
+<td>author、published、tags 等</td>
+</tr>
+<tr>
+<td>笔记正文</td>
+<td>完全自定义的 Markdown 模板</td>
+<td>可嵌入变量和任意 Markdown 内容</td>
+</tr>
+</tbody>
+</table>
+<p>设置「模板触发条件」后，访问特定网站时会自动应用对应模板，无需手动选择。触发条件为 URL 包含 <code>xxx</code></p>
+<p><strong>变量速查</strong></p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{title}}</code></td>
+<td>页面标题</td>
+</tr>
+<tr>
+<td><code>{{url}}</code></td>
+<td>当前 URL</td>
+</tr>
+<tr>
+<td><code>{{author}}</code></td>
+<td>作者</td>
+</tr>
+<tr>
+<td><code>{{published}}</code></td>
+<td>发布日期</td>
+</tr>
+<tr>
+<td><code>{{description}}</code></td>
+<td>页面描述</td>
+</tr>
+<tr>
+<td><code>{{content}}</code></td>
+<td>正文内容（Markdown 格式）</td>
+</tr>
+<tr>
+<td><code>{{highlights}}</code></td>
+<td>所有高亮内容</td>
+</tr>
+<tr>
+<td><code>{{date}}</code></td>
+<td>当前日期</td>
+</tr>
+<tr>
+<td><code>{{site}}</code></td>
+<td>网站名称</td>
+</tr>
+<tr>
+<td><code>{{domain}}</code></td>
+<td>域名</td>
+</tr>
+<tr>
+<td><code>{{image}}</code></td>
+<td>社交分享图片 URL</td>
+</tr>
+<tr>
+<td><code>{{words}}</code></td>
+<td>字数统计</td>
+</tr>
+</tbody>
+</table>
+        </article>
+        <footer class="site-footer">
+            <a href="../index.html">&larr; 返回首页</a>
+        </footer>
+    </div>
+    <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <script>
+        const btn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+        });
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
