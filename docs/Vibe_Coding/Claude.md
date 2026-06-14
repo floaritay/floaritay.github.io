@@ -11,7 +11,7 @@
   - [3.3 操作说明](#33-操作说明)
   - [3.4 会话管理](#34-会话管理)
     - [3.4.1 恢复会话](#341-恢复会话)
-    - [3.3.2 删除会话](#332-删除会话)
+    - [3.4.2 删除会话](#332-删除会话)
   - [3.4 上下文窗口](#34-上下文窗口)
   - [3.5 安全机制](#35-安全机制)
 - [4 API 管理](#4-api-管理)
@@ -176,10 +176,10 @@ Windows: C:\Users\你的用户名\.claude.json
 >```
 
 方法 2 (使用cc-switch管理第三方API)  
-参考[cc-switch](../Vibe_Coding/CC_Switch.ipynb)
+参考[cc-switch](../Vibe_Coding/CC_Switch.md)
 
 方法 3 (使用本地部署的大模型)  
-参考[ollama](../basic/Ollama.ipynb)
+参考[ollama](../basic/Ollama.md)
 
 # 3 快速开始
 
@@ -279,7 +279,7 @@ Windows: C:\Users\你的用户名\.claude.json
   - 每个终端当时只能看到自己输入的消息，但后续恢复时会看到全部交错内容
 - 推荐做法：使用 --fork-session，给每个终端一个干净独立的新会话。
   
-### 3.3.2 删除会话
+### 3.4.2 删除会话
 对话记录保存在 `C:\Users\用户\.claude\projects\项目\`下，每个会话都是一个jsonl文件，直接删除即可。
 
 ## 3.4 上下文窗口
@@ -315,7 +315,7 @@ CC Switch 是一个 Claude Code / Codex / Gemini CLI 的全方位辅助工具,�
 
 各平台安装包下载地址：https://github.com/farion1231/cc-switch/releases。
 
-使用参考[cc-switch](../Vibe_Coding/CC_Switch.ipynb)
+使用参考[cc-switch](../Vibe_Coding/CC_Switch.md)
 
 # 5 Claude Code for VS Code
 在 VS Code 编辑器中安装 Claude Code

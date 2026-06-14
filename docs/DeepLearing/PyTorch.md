@@ -1872,7 +1872,7 @@ plt.show()
 
 Transformer 通过引入自注意力机制解决了这些问题，允许模型同时处理整个输入序列，并动态地为序列中的每个位置分配不同的权重。
 
-![image-2.png](../docs/images/Transformer.png)
+![image-2.png](../images/Transformer.png)
 
 >```mermaid
 >flowchart TD

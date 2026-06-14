@@ -125,7 +125,7 @@ REST（Representational State Transfer，表述性状态转移）一套设计 We
 
 # 3 HTTP
 
-参考[FastAPI.ipynb 中 HTTP 部分](FastAPI.ipynb#HTTP-相关)
+参考[FastAPI.md 中 HTTP 部分](FastAPI.md#http-相关)
 
 # 4 URL 设计规范
 

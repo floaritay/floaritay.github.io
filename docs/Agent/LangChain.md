@@ -22,7 +22,7 @@
 # 1 简介
 LangChain 是一个用于开发由大型语言模型 (LLMs) 驱动的应用程序的框架。
 
-![image.png](../docs/images/langchain1.png)
+![image.png](../images/langchain1.png)
 
 框架由以下开源库组成
 
@@ -40,7 +40,7 @@ LangChain 是一个用于开发由大型语言模型 (LLMs) 驱动的应用程�
 
 - LangSmith: 一个开发者平台，让您调试、测试、评估和监控LLM应用程序。
 
-![image.png](../docs/images/Agent2.png)
+![image.png](../images/Agent2.png)
 
 # 2 安装
 >```bash

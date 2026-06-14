@@ -99,7 +99,7 @@ Git 不仅仅是个版本控制系统，它也是个内容管理系统(CMS)，�
 
 5. **Git 的内容完整性要优于 SVN**：Git 的内容存储使用的是 SHA-1 哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。
 
-![image.png](../docs/images/Git_SVN.png)
+![image.png](../images/Git_SVN.png)
 
 ## 1.2 Git 与 Github
 Git是个版本控制的工具，用来管理本地的代码工程，它可以记录代码内容的变更；而Github是一个代码托管平台，我们可以使用Git将本地代码上传到Github。
@@ -287,7 +287,7 @@ Git 可以理解 kdiff3，tkdiff，meld，xxdiff，emerge，vimdiff，gvimdiff�
 
 
 
-![image.png](../docs/images/Git工作区.png)
+![image.png](../images/Git工作区.png)
 
 - 图中左侧为工作区，右侧为版本库。在版本库中标记为 "index" 的区域是暂存区（stage/index），标记为 "master" 的是 master 分支所代表的目录树。
 

@@ -55,9 +55,9 @@
 ## 2.1 安装汉化包扩展
 
 # 3 界面说明
-![image.png](../docs/images/Interface_Instructions.png)  
+![image.png](../images/Interface_Instructions.png)  
 
-![image.png](../docs/images/Edit_Page.png)
+![image.png](../images/Edit_Page.png)
 
 # 4 活动栏
 1. 文件资源管理器（Explorer）
@@ -144,7 +144,7 @@ VS Code 代码提示（补全 / 建议列表）前的各类图形（图标）是
 鼠标悬浮在提示项上，会弹出完整类型说明
 
 # 8 版本控制
-见'Git.ipynb'
+见'Git.md'
 
 # 9 扩展安装
 
@@ -441,7 +441,7 @@ SQLTools 以轻量和高效著称，提供数据库连接、查询执行和结�
 
 安装后需根据数据库类型安装对应的驱动扩展，搜索 @tag:sqltools-driver 将列出所有适用于 SQLTools 的驱动程序。  
 
-![SQLTools](../docs/images/sqltools.png)
+![SQLTools](../images/sqltools.png)
 
 2、MSSQL
 
@@ -461,7 +461,7 @@ Database Client 提供基本的数据库管理和备份功能，适合需要通�
 
 打开左侧数据库面板，点击添加按钮，在连接页面配置相应的数据库信息：  
 
-![Database Client](../docs/images/databaseclient.png)
+![Database Client](../images/databaseclient.png)
 
 4、DBCode
 
@@ -482,7 +482,7 @@ DevDb 适合轻量级项目或需要在开发过程中快速查看和编辑数�
 
 界面预览：
 
-![DevDb](../docs/images//devdb.png)  
+![DevDb](../images/devdb.png)  
 
 6、MongoDB for VS Code
 
@@ -494,14 +494,14 @@ MongoDB for VS Code 提供直观的数据浏览、查询原型设计和脚本执
 
 界面预览：  
 
-![MongoDB for VS Code](../docs/images/mongoDB_for_vscode.png)
+![MongoDB for VS Code](../images/mongoDB_for_vscode.png)
 
 # 17 MCP
 MCP（Model Context Protocol）是一种开放标准，提供统一接口，让 AI 模型能够发现和调用外部工具，实现读取文件、调用 API、执行任务等多种操作。
 
 在 VS Code 中，MCP 客户端（如Copilot）通过 MCP 服务器提供的工具完成任务，而服务器端可以部署在本地或远程。
 
-![MCP框架](../docs/images/MCP.png)
+![MCP框架](../images/MCP.png)
 
 - MCP 是核心，一边连 客户端（MCP clients），像用 client.py 写的程序；另一边通过服务器（MCP server），连远程服务（比如图里的彩色图标 App）和本地数据源（蓝色笑脸图标这类）。
 
@@ -555,22 +555,22 @@ MCP（Model Context Protocol）是一种开放标准，提供统一接口，让 
 >  }
 >}
 >```
-![mcp1](../docs/images/mcp1.png)
+![mcp1](../images/mcp1.png)
 
 保存文件后，打开 VS Code 命令面板（Ctrl+Shift+P）：运行 "MCP: Show Installed Servers" 命令:
 
-![mcp2](../docs/images/mcp2.png)
+![mcp2](../images/mcp2.png)
 
 你会看到配置的 "HelloWorldServer":
 
-![mcp3](../docs/images/mcp3.png)
+![mcp3](../images/mcp3.png)
 
 启动该服务器，它会立即返回 "Hello World from MCP!" 信息
 
 我们可以在 AI 的聊天窗口输入"执行 HelloWorldServer"，就可以看到输出结果了：
 
-![mcp4](../docs/images/mcp4.png)
+![mcp4](../images/mcp4.png)
 
 打开 .vscode/mcp.json 右下角有个"添加服务器..."的图标，我们可以通过它添加更多服务，包含执行的命令或者远程的 http 服务：
 
-![mcp5](../docs/images/mcp5.png)
+![mcp5](../images/mcp5.png)
