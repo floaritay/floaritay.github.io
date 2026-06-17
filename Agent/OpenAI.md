@@ -595,7 +595,7 @@ print(reponse.choices[0].message.content)
 ## 2.1 ReAct 框架
 ReAct = Reason（推理） + Act（行动）
 
-参考[点击跳转到1.3.1 Function-Calling](#131-Function-Calling)
+参考[点击跳转到1.3.1 Function-Calling](#131-function-calling)
 
 Reason 大模型推理(要不要调用工具、调用哪个、参数是什么) -> Act 行动(程序执行工具查询天气) -> 再次 Reason(把工具结果丢给大模型，整理成最终回答)
 

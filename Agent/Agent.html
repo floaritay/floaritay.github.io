@@ -465,7 +465,7 @@
 <p>智能体，本质是自动执行任务的程序，核心在于让模型不只回答问题，而是按步骤完成动作。  </p>
 <p>Agent = LLM (大脑) + Planning (规划) + Tool use (执行) + Memory (记忆)。</p>
 <h1 id="2-核心组件与工作原理">2 核心组件与工作原理</h1>
-<p><img alt="image.png" src="../docs/images/Agent3.png" /></p>
+<p><img alt="image.png" src="../images/Agent3.png" /></p>
 <h1 id="3-大语言模型">3 大语言模型</h1>
 <h2 id="31-transfomer-架构">3.1 Transfomer 架构</h2>
 <p>参考<a href="../NLP/NLP.html">NLP.md</a></p>
@@ -513,7 +513,7 @@
 </code></pre></div>
 
 <h1 id="4-提示词与token">4 提示词与token</h1>
-<p>参考<a href="../Agent/prompt.ipynb">prompt</a></p>
+<p>参考<a href="../Agent/prompt.html">prompt</a></p>
 <h1 id="5-推理与规划">5 推理与规划</h1>
 <h2 id="51-思维链-cotchain-of-thought">5.1 思维链 CoT（Chain of Thought）</h2>
 <p>传统 LLM 生成答案时往往是直觉式的一步到位。</p>
@@ -624,7 +624,7 @@ flowchart LR
 <h1 id="6-rag">6 RAG</h1>
 <p>检索增强生成:让 LLM 在回答问题时，先从外部知识库中检索相关内容，再基于检索结果生成回答</p>
 <p>解决了 LLM 的两个核心痛点：知识截止日期（模型不知道训练后发生的事）和幻觉问题（模型在不确定时会编造答案）。</p>
-<p><img alt="image.png" src="../docs/images/Agent4.png" /></p>
+<p><img alt="image.png" src="../images/Agent4.png" /></p>
 <h2 id="61-文档切分">6.1 文档切分</h2>
 <p><strong>文档解析</strong></p>
 <p>在切分时往往面临着格式解析的挑战。特别是 PDF、Word 或扫描件中的表格、图片和多栏排版，普通的文本提取极易造成语义错乱。</p>
@@ -727,7 +727,7 @@ flowchart LR
 <h2 id="65-graphrag知识图谱-检索融合">6.5 GraphRAG：知识图谱 + 检索融合</h2>
 <p>传统 RAG 将知识库当作独立的文本碎片，无法回答诸如"找到所有同时由现任 CEO 创办且市值超千亿的公司"这类需要跨文档、多跳推理的复杂问题。<br />
 GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建模。</p>
-<p><img alt="image.png" src="../docs/images/Agent5.png" /></p>
+<p><img alt="image.png" src="../images/Agent5.png" /></p>
 <p>核心步骤</p>
 <ul>
 <li>知识构建：离线阶段使用 LLM 从文档提取三元组（主体、关系、客体），写入 Neo4j 等图数据库。</li>
@@ -782,7 +782,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 <h1 id="7-agent架构">7 Agent架构</h1>
 <h2 id="71-单-agent-循环single-agent-loop">7.1 单 Agent 循环（Single Agent Loop）</h2>
 <p>单 Agent 循环直接体现了 ReAct 模式</p>
-<p><img alt="image-2.png" src="../docs/images/Agent6.png" /></p>
+<p><img alt="image-2.png" src="../images/Agent6.png" /></p>
 <p>每次工具调用的结果都会回写到上下文。因此随着任务推进，上下文会不断增长，直到触达 LLM 的上下文窗口限制——这是单 Agent 循环最主要的瓶颈。</p>
 <ul>
 <li>实现简单</li>
@@ -831,7 +831,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 </code></pre></div>
 
 <h2 id="72-规划-执行plan-execute">7.2 规划 + 执行（Plan &amp; Execute）</h2>
-<p><img alt="image.png" src="../docs/images/Agent7.png" /></p>
+<p><img alt="image.png" src="../images/Agent7.png" /></p>
 <table>
 <thead>
 <tr>
@@ -906,7 +906,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 </code></pre></div>
 
 <h2 id="73-多-agent-协作multi-agent">7.3 多 Agent 协作（Multi-Agent）</h2>
-<p><img alt="image.png" src="../docs/images/Agent8.png" /></p>
+<p><img alt="image.png" src="../images/Agent8.png" /></p>
 <p>每个子 Agent 拥有独立的上下文窗口。</p>
 <p>子 Agent（Subagent）是短暂的、隔离的——完成一个任务后即销毁。Agent 团队（Agent Teams）则是多个独立 Agent 实例长时间协作、互相发消息，更像一个真实的团队。</p>
 <ul>
@@ -961,7 +961,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 </code></pre></div>
 
 <h2 id="74-反思与修正reflection">7.4 反思与修正（Reflection）</h2>
-<p><img alt="image.png" src="../docs/images/Agent9.png" /></p>
+<p><img alt="image.png" src="../images/Agent9.png" /></p>
 <table>
 <thead>
 <tr>
@@ -1039,7 +1039,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 </code></pre></div>
 
 <h2 id="75-rag-agent检索增强型智能体">7.5 RAG + Agent（检索增强型智能体）</h2>
-<p><img alt="image.png" src="../docs/images/Agent10.png" /></p>
+<p><img alt="image.png" src="../images/Agent10.png" /></p>
 <p>与一般RAG不同： <br />
 一般 RAG 是用户提问时固定检索一次，将结果塞入 Prompt。<br />
 RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、需要检索什么，并可以多次查询知识库，直到获得足够的信息来完成任务。</p>
@@ -1105,7 +1105,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
 <h2 id="76-工作流编排workflow-dag-有向无环图">7.6 工作流编排（Workflow / DAG 有向无环图）</h2>
 <p>把 Agent 行为固化为一张有向无环图（DAG），每个节点是一个 LLM 调用或工具调用，边表示数据依赖关系，由框架驱动执行。</p>
 <p>这是最接近传统软件工程的一种 Agent 架构。与前面几种架构的最大区别在于：<code>Agent 的自主决策空间被限制在单个节点内部，节点之间的流转是预先定义好的，不可更改。</code></p>
-<p><img alt="image.png" src="../docs/images/Agent11.png" /></p>
+<p><img alt="image.png" src="../images/Agent11.png" /></p>
 <ul>
 <li>可预测、可审计、可重试</li>
 <li>支持并行加速</li>
@@ -1169,7 +1169,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
 </code></pre></div>
 
 <h1 id="8-skills">8 skills</h1>
-<p>参考<a href="../Vibe_Coding/Claude.ipynb">calude</a> 中的skill讲解</p>
+<p>参考<a href="../Vibe_Coding/Claude.html">Claude</a> 中的skill讲解</p>
 <h1 id="9-function-calling">9 Function Calling</h1>
 <p>工具调用是让 LLM 能够使用外部工具的核心机制</p>
 <p><img alt="image.png" src="Agent_files/image.png" /></p>

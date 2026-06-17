@@ -347,10 +347,10 @@ markdown直接输入网址：https://www.example.com
 >```
 示例：
 >```md
->使用 Conda。参阅 [Conda.ipynb](./Conda.ipynb)
+>使用 Conda。参阅 [Conda.md](./Conda.md)
 >```
 
-使用 Conda。参阅 [Conda.ipynb](./Conda.ipynb)
+使用 Conda。参阅 [Conda.md](./Conda.md)
 
 # 10 图片
 >```markdown
@@ -621,7 +621,7 @@ Obsidian 不依赖云端格式，不锁用户数据，任何时间可迁移，�
 
 Obsidian 官方网站： https://obsidian.md/
 
-![obsidian.png](../docs/images/obsidian.png)
+![obsidian.png](../images/obsidian.png)
 
 ## 15.1 创建一个库 (Vault)
 Vault 是 Obsidian 中最重要的概念。

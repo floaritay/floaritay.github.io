@@ -8,7 +8,7 @@ https://blog.csdn.net/qq_36816848/article/details/122286610?ops_request_misc=%25
 # 深度学习概念
 发展历程
 
-![image.png](../docs/images/DL1.png)
+![image.png](../images/DL1.png)
 
 ## 深度学习定义
 深度学习定义：一般是指通过训练多层网络结构对未知数据进行分类或回归
@@ -101,7 +101,7 @@ F1 值 (F1 - score)
 
 全连接层可以对输入数据进行线性变换，公式为y=f(Wx+b)，其中x是上一层的输出向量，W是权重矩阵，b是偏置向量，f是激活函数 。
 
-![image.png](../docs/images/DL2.png)  
+![image.png](../images/DL2.png)  
 其中圆形节点表示一个神经元，方形节点表示一组神经元
 
 ![image-2.png](DeepLearning_files/image-2.png)
@@ -175,8 +175,8 @@ SGD 的基本思想是在每次迭代中，沿着损失函数梯度的反方向�
 使用非线性激活函数，使网络表示输入输出之间非线性的复杂的任意函数映射。
 
 **常见激活函数**  
-![image.png](../docs/images/DL3.png)  
-![image-2.png](../docs/images/DL4.png)
+![image.png](../images/DL3.png)  
+![image-2.png](../images/DL4.png)
 
 **引用资料**  
 https://ai-wx.blog.csdn.net/article/details/104729911  
@@ -226,20 +226,20 @@ Pytorch中优化器与学习率衰减方法总结
 https://blog.csdn.net/ys1305/article/details/94332643
 
 ### 批量梯度下降法 BGD
-![BGD1.png](../docs/images/BGD1.png)  
-![BGD2.png](../docs/images/BGD2.png)  
-![BGD3.png](../docs/images/BGD3.png)  
+![BGD1.png](../images/BGD1.png)  
+![BGD2.png](../images/BGD2.png)  
+![BGD3.png](../images/BGD3.png)  
 
 **计算示例**  
-![BGD计算示例1.png](../docs/images/BGD4.png)  
-![BGD计算示例2.png](../docs/images/BGD5.png) 
-![BGD计算示例3.png](../docs/images/BGD6.png)  
+![BGD计算示例1.png](../images/BGD4.png)  
+![BGD计算示例2.png](../images/BGD5.png) 
+![BGD计算示例3.png](../images/BGD6.png)  
 新的参数 θ0 =0.04，θ1 =0.0867，再次计算梯度并更新参数，直到满足收敛条件（如损失函数变化小于某个阈值或达到最大迭代次数）。
 
 ### 随机梯度下降 SGD
 每次迭代（更新参数）只使用``单个训练样本``   
-![SGD1.png](../docs/images/SGD1.png)
-![SGD2.png](../docs/images/SGD2.png)
+![SGD1.png](../images/SGD1.png)
+![SGD2.png](../images/SGD2.png)
 
 优点：  
 SGD 一次迭代只需对一个样本进行计算，因此运行速度很快。
@@ -274,8 +274,8 @@ MBGD 每次迭代使用一小部分训练样本（称为一个小批量，batch�
 
 
 ### 自适应学习率AdaGrad
-![AdaGrad1.png](../docs/images/AdaGrad1.png)
-![AdaGrad2.png](../docs/images/AdaGrad2.png)  
+![AdaGrad1.png](../images/AdaGrad1.png)
+![AdaGrad2.png](../images/AdaGrad2.png)  
 **优势**   
 自适应学习率：  
 无需手动调整每个参数的学习率，算法能够自动根据参数的更新情况调整学习率。AdaGrad 可以为不同参数提供合适的学习率。
@@ -293,8 +293,8 @@ MBGD 每次迭代使用一小部分训练样本（称为一个小批量，batch�
 
 ### AdaDelta
 Adagrad的改进，解决了 Adagrad 学习率单调递减且过早衰减的问题，能够在训练过程中动态调整学习率。   
-![AdaDelta1.png](../docs/images/AdaDelta1.png)
-![AdaDelta2.png](../docs/images/AdaDelta2.png)
+![AdaDelta1.png](../images/AdaDelta1.png)
+![AdaDelta2.png](../images/AdaDelta2.png)
 
 **优势**  
 无需手动设置学习率：AdaDelta 通过自身机制动态调整学习率。  
@@ -314,7 +314,7 @@ Adagrad的改进，解决了 Adagrad 学习率单调递减且过早衰减的问�
 
 ### RMSProp
 AdaDelta的一个特例  
-![PMSProp1.png](../docs/images/PMSProp1.png)
+![PMSProp1.png](../images/PMSProp1.png)
 
 **优势**  
 避免学习率过早衰减：  
@@ -339,8 +339,8 @@ RMSProp 主要关注梯度的二阶矩（平方的平均）来调整学习率，
 
 ### Adam
 结合了 Adagrad 和 RMSProp 的优点，通过计算梯度的一阶矩估计（均值）和二阶矩估计（方差），自适应地调整每个参数的学习率。
-![Adam1.png](../docs/images/Adam1.png)
-![Adam2.png](../docs/images/Adam2.png)
+![Adam1.png](../images/Adam1.png)
+![Adam2.png](../images/Adam2.png)
 
 **优势**  
 收敛速度快：Adam 结合了梯度的一阶矩和二阶矩信息，自适应地调整学习率，收敛更快。
@@ -423,7 +423,7 @@ Momentum 的核心思想源于物理学中的动量概念。在梯度下降过�
 
 ### 均方误差损失（MSE）
 ### 平均绝对误差损失函数（MAE）
-![损失函数1.png](../docs/images/lossing1.png)  
+![损失函数1.png](../images/lossing1.png)  
 
 
 ```python
@@ -483,7 +483,7 @@ def cross_entropy(y_true, y_pred):
 ```
 
 ### 铰链损失函数
-![损失函数2.png](../docs/images/lossing2.png)
+![损失函数2.png](../images/lossing2.png)
 
 ### Hinge损失函数
 运用 Hinge 损失的典型分类器是 SVM 算法，因为 Hinge 损失可以用来解决间隔最大化问题。  
@@ -533,15 +533,15 @@ https://blog.csdn.net/jiaoyangwm/article/details/80011656
 
   - 一个卷积核只能提取一个特征，所以我们需要多几个卷积核，假设我们有6个卷积核，我们就会得到6个Feature Map，将这6个Feature Map组成一起就是一个神经元。这6个Feature Map我们需要101*6=606个参数。这个值和10000比还是比较小的。
 
-![CNN1.png](../docs/images/CNN1.png)  
-![CNN3.png](../docs/images/CNN2.png)
+![CNN1.png](../images/CNN1.png)  
+![CNN3.png](../images/CNN2.png)
 
 
 **参数计算**  
 在局部连接且有权值共享的情况下，参数计算：  
-![CNN3.png](../docs/images/CNN3.png)  
+![CNN3.png](../images/CNN3.png)  
 没有权值共享时：  
-![image.png](../docs/images/attach1.png)
+![image.png](../images/attach1.png)
 
 ## 卷积层
 卷积是一种有效提取图片特征的方法。  
@@ -728,11 +728,11 @@ AlexNet包含8层，其中有5层卷积层和3层全连接层，具体结构如�
 
 ## GoogleNet（Inception网络）
 ![](https://i-blog.csdnimg.cn/blog_migrate/d97f6f40936dcafc68ccd791a2e08a86.png)   
-![image.png](../docs/images/VGG1.png)  
+![image.png](../images/VGG1.png)  
 ![](https://i-blog.csdnimg.cn/blog_migrate/83f69afdacc9a48d3df7199d90ffc604.png)  
 ![](https://i-blog.csdnimg.cn/blog_migrate/0652fe36d703075789d12bf558316ca7.png)  
-![image.png](../docs/images/VGG2.png) 
-![image.png](../docs/images/VGG3.png) 
+![image.png](../images/VGG2.png) 
+![image.png](../images/VGG3.png) 
 
 Inception V1 参数少但效果好的原因除了模型层数更深、表达能力更强外，还有两点：
 
@@ -748,7 +748,7 @@ Inception V1 参数少但效果好的原因除了模型层数更深、表达能�
 
 **为什么卷积分解减少参数**  
 从感受野的角度看，两个连续的3×3卷积核组合起来的感受野与一个7×7卷积核的感受野相同。  
-![image.png](../docs/images/VGG4.png)
+![image.png](../images/VGG4.png)
 
 ## ResNet
 ### 原理
@@ -840,7 +840,7 @@ ResNet 的结构设计使得模型具有较好的泛化能力，不仅在图像�
 # RNN
 
 ## 原理结构
-![image.png](../docs/images/RNN1.png)
+![image.png](../images/RNN1.png)
 ![](https://i-blog.csdnimg.cn/blog_migrate/e72bcfc9271ddc149c352b2aaa311ae1.png )  
 
 **引用资料**  
@@ -911,16 +911,16 @@ tanh 层创建一个新的候选值向量C~t​​加入到状态中。
 
 
 # GAN
-![image.png](../docs/images/GAN1.png)
-![image.png](../docs/images/GAN2.png)
-![image.png](../docs/images/DCGAN.png)  
+![image.png](../images/GAN1.png)
+![image.png](../images/GAN2.png)
+![image.png](../images/DCGAN.png)  
 见Paddle实践
 
 # YOLO
 
 # AE 自编码器
-![image.png](../docs/images/AE1.png)
-![image.png](../docs/images/AE2.png)
+![image.png](../images/AE1.png)
+![image.png](../images/AE2.png)
 
 # 其他
 ## 梯度爆炸
@@ -1016,7 +1016,7 @@ Kaiming 初始化则针对 ReLU 激活函数进行了优化，能更好地初始
 
 ## 层归一化 批归一化
 批归一化（Batch Normalization，BN）和层归一化（Layer Normalization，LN）  
-![image.png](../docs/images/normalization.png)
+![image.png](../images/normalization.png)
 
 # PyTorch实践
 
@@ -1045,7 +1045,7 @@ class Sample(nn.Module):
 ```
 
 ## LeNet
-![image.png](../docs/images/Lenet.png)
+![image.png](../images/Lenet.png)
 
 
 ```python
@@ -1101,7 +1101,7 @@ class LeNet(nn.Module):
 ```
 
 ## AlexNet
-![image.png](../docs/images/AlexNet.png)
+![image.png](../images/AlexNet.png)
 
 
 ```python

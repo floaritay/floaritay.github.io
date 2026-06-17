@@ -391,7 +391,7 @@
 https://blog.csdn.net/qq_36816848/article/details/122286610?ops_request_misc=%257B%2522request%255Fid%2522%253A%252297b8cfef9715fbe9c31808d5428f70ab%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=97b8cfef9715fbe9c31808d5428f70ab&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-122286610-null-null.142^v102^pc_search_result_base5&amp;utm_term=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0&amp;spm=1018.2226.3001.4187</p>
 <h1 id="_2">深度学习概念</h1>
 <p>发展历程</p>
-<p><img alt="image.png" src="../docs/images/DL1.png" /></p>
+<p><img alt="image.png" src="../images/DL1.png" /></p>
 <h2 id="_3">深度学习定义</h2>
 <p>深度学习定义：一般是指通过训练多层网络结构对未知数据进行分类或回归</p>
 <p>深度学习分类：</p>
@@ -456,7 +456,7 @@ https://blog.csdn.net/qq_36816848/article/details/122286610?ops_request_misc=%25
 <p><strong>全连接层</strong><br />
 在全连接层中，每一个神经元都与上一层的所有神经元相连。假设上一层有m个神经元，当前层有n个神经元，那么这两层之间就有m×n个权重参数。</p>
 <p>全连接层可以对输入数据进行线性变换，公式为y=f(Wx+b)，其中x是上一层的输出向量，W是权重矩阵，b是偏置向量，f是激活函数 。</p>
-<p><img alt="image.png" src="../docs/images/DL2.png" /><br />
+<p><img alt="image.png" src="../images/DL2.png" /><br />
 其中圆形节点表示一个神经元，方形节点表示一组神经元</p>
 <p><img alt="image-2.png" src="DeepLearning_files/image-2.png" /></p>
 <h2 id="_7">前向传播</h2>
@@ -513,8 +513,8 @@ https://blog.csdn.net/qq_36816848/article/details/122286610?ops_request_misc=%25
 <p>假若网络中全部是线性部件，那么线性的组合还是线性，输出就是一个简单的线性函数。这样就做不到用非线性来逼近任意函数。<br />
 使用非线性激活函数，使网络表示输入输出之间非线性的复杂的任意函数映射。</p>
 <p><strong>常见激活函数</strong><br />
-<img alt="image.png" src="../docs/images/DL3.png" /><br />
-<img alt="image-2.png" src="../docs/images/DL4.png" /></p>
+<img alt="image.png" src="../images/DL3.png" /><br />
+<img alt="image-2.png" src="../images/DL4.png" /></p>
 <p><strong>引用资料</strong><br />
 https://ai-wx.blog.csdn.net/article/details/104729911<br />
 https://ai-wx.blog.csdn.net/article/details/118914829   </p>
@@ -549,18 +549,18 @@ https://zhuanlan.zhihu.com/p/22252270 <br />
 Pytorch中优化器与学习率衰减方法总结<br />
 https://blog.csdn.net/ys1305/article/details/94332643</p>
 <h3 id="bgd">批量梯度下降法 BGD</h3>
-<p><img alt="BGD1.png" src="../docs/images/BGD1.png" /><br />
-<img alt="BGD2.png" src="../docs/images/BGD2.png" /><br />
-<img alt="BGD3.png" src="../docs/images/BGD3.png" />  </p>
+<p><img alt="BGD1.png" src="../images/BGD1.png" /><br />
+<img alt="BGD2.png" src="../images/BGD2.png" /><br />
+<img alt="BGD3.png" src="../images/BGD3.png" />  </p>
 <p><strong>计算示例</strong><br />
-<img alt="BGD计算示例1.png" src="../docs/images/BGD4.png" /><br />
-<img alt="BGD计算示例2.png" src="../docs/images/BGD5.png" /> 
-<img alt="BGD计算示例3.png" src="../docs/images/BGD6.png" /><br />
+<img alt="BGD计算示例1.png" src="../images/BGD4.png" /><br />
+<img alt="BGD计算示例2.png" src="../images/BGD5.png" /> 
+<img alt="BGD计算示例3.png" src="../images/BGD6.png" /><br />
 新的参数 θ0 =0.04，θ1 =0.0867，再次计算梯度并更新参数，直到满足收敛条件（如损失函数变化小于某个阈值或达到最大迭代次数）。</p>
 <h3 id="sgd">随机梯度下降 SGD</h3>
 <p>每次迭代（更新参数）只使用<code>单个训练样本</code> <br />
-<img alt="SGD1.png" src="../docs/images/SGD1.png" />
-<img alt="SGD2.png" src="../docs/images/SGD2.png" /></p>
+<img alt="SGD1.png" src="../images/SGD1.png" />
+<img alt="SGD2.png" src="../images/SGD2.png" /></p>
 <p>优点：<br />
 SGD 一次迭代只需对一个样本进行计算，因此运行速度很快。</p>
 <p>缺点： <br />
@@ -586,8 +586,8 @@ MBGD 每次迭代使用一小部分训练样本（称为一个小批量，batch�
 尽管 MBGD 在大多数情况下收敛速度较快，但在某些复杂的非凸问题中，可能仍然无法快速收敛到全局最优解或接近全局最优解的区域，
 相较于一些自适应学习率的优化算法，如 Adam，可能需要更多的迭代次数。  </p>
 <h3 id="adagrad">自适应学习率AdaGrad</h3>
-<p><img alt="AdaGrad1.png" src="../docs/images/AdaGrad1.png" />
-<img alt="AdaGrad2.png" src="../docs/images/AdaGrad2.png" /><br />
+<p><img alt="AdaGrad1.png" src="../images/AdaGrad1.png" />
+<img alt="AdaGrad2.png" src="../images/AdaGrad2.png" /><br />
 <strong>优势</strong> <br />
 自适应学习率：<br />
 无需手动调整每个参数的学习率，算法能够自动根据参数的更新情况调整学习率。AdaGrad 可以为不同参数提供合适的学习率。</p>
@@ -601,8 +601,8 @@ MBGD 每次迭代使用一小部分训练样本（称为一个小批量，batch�
 虽然 AdaGrad 减少了对学习率手动调整的需求，但对初始学习率α和防止除零的小常数ϵ的选择仍然较为敏感。</p>
 <h3 id="adadelta">AdaDelta</h3>
 <p>Adagrad的改进，解决了 Adagrad 学习率单调递减且过早衰减的问题，能够在训练过程中动态调整学习率。 <br />
-<img alt="AdaDelta1.png" src="../docs/images/AdaDelta1.png" />
-<img alt="AdaDelta2.png" src="../docs/images/AdaDelta2.png" /></p>
+<img alt="AdaDelta1.png" src="../images/AdaDelta1.png" />
+<img alt="AdaDelta2.png" src="../images/AdaDelta2.png" /></p>
 <p><strong>优势</strong><br />
 无需手动设置学习率：AdaDelta 通过自身机制动态调整学习率。  </p>
 <p>对非平稳目标函数适应性强：<br />
@@ -616,7 +616,7 @@ MBGD 每次迭代使用一小部分训练样本（称为一个小批量，batch�
 特别是在梯度突然发生较大变化时，可能需要一定的时间来调整学习率以适应新的梯度情况。</p>
 <h3 id="rmsprop">RMSProp</h3>
 <p>AdaDelta的一个特例<br />
-<img alt="PMSProp1.png" src="../docs/images/PMSProp1.png" /></p>
+<img alt="PMSProp1.png" src="../images/PMSProp1.png" /></p>
 <p><strong>优势</strong><br />
 避免学习率过早衰减：<br />
 RMSProp 通过引入梯度平方的移动平均，克服了 Adagrad 中学习率随时间单调递减且过早衰减的问题。<br />
@@ -634,8 +634,8 @@ RMSProp 主要关注梯度的二阶矩（平方的平均）来调整学习率，
 尽管 RMSProp 在收敛速度和处理非平稳目标函数方面表现良好，但像其他基于梯度的优化算法一样，它仍然有可能陷入局部最优解，尤其是在处理非常复杂的非凸优化问题时。</p>
 <h3 id="adam">Adam</h3>
 <p>结合了 Adagrad 和 RMSProp 的优点，通过计算梯度的一阶矩估计（均值）和二阶矩估计（方差），自适应地调整每个参数的学习率。
-<img alt="Adam1.png" src="../docs/images/Adam1.png" />
-<img alt="Adam2.png" src="../docs/images/Adam2.png" /></p>
+<img alt="Adam1.png" src="../images/Adam1.png" />
+<img alt="Adam2.png" src="../images/Adam2.png" /></p>
 <p><strong>优势</strong><br />
 收敛速度快：Adam 结合了梯度的一阶矩和二阶矩信息，自适应地调整学习率，收敛更快。</p>
 <p>鲁棒性强： <br />
@@ -704,7 +704,7 @@ Momentum 的核心思想源于物理学中的动量概念。在梯度下降过�
 <h2 id="-">回归-损失函数</h2>
 <h3 id="mse">均方误差损失（MSE）</h3>
 <h3 id="mae">平均绝对误差损失函数（MAE）</h3>
-<p><img alt="损失函数1.png" src="../docs/images/lossing1.png" />  </p>
+<p><img alt="损失函数1.png" src="../images/lossing1.png" />  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
@@ -748,7 +748,7 @@ Momentum 的核心思想源于物理学中的动量概念。在梯度下降过�
 </code></pre></div>
 
 <h3 id="_20">铰链损失函数</h3>
-<p><img alt="损失函数2.png" src="../docs/images/lossing2.png" /></p>
+<p><img alt="损失函数2.png" src="../images/lossing2.png" /></p>
 <h3 id="hinge">Hinge损失函数</h3>
 <p>运用 Hinge 损失的典型分类器是 SVM 算法，因为 Hinge 损失可以用来解决间隔最大化问题。<br />
 当分类模型需要硬分类结果的，例如分类结果是 0 或 1 、 -1或 1 的二分类数据， Hinge 损失是最方便的选择 。<br />
@@ -806,13 +806,13 @@ https://blog.csdn.net/jiaoyangwm/article/details/80011656</p>
 </ul>
 </li>
 </ol>
-<p><img alt="CNN1.png" src="../docs/images/CNN1.png" /><br />
-<img alt="CNN3.png" src="../docs/images/CNN2.png" /></p>
+<p><img alt="CNN1.png" src="../images/CNN1.png" /><br />
+<img alt="CNN3.png" src="../images/CNN2.png" /></p>
 <p><strong>参数计算</strong><br />
 在局部连接且有权值共享的情况下，参数计算：<br />
-<img alt="CNN3.png" src="../docs/images/CNN3.png" /><br />
+<img alt="CNN3.png" src="../images/CNN3.png" /><br />
 没有权值共享时：<br />
-<img alt="image.png" src="../docs/images/attach1.png" /></p>
+<img alt="image.png" src="../images/attach1.png" /></p>
 <h2 id="_23">卷积层</h2>
 <p>卷积是一种有效提取图片特征的方法。<br />
 一般用一个正方形卷积核，遍历图片上的每一个像素点。<br />
@@ -1187,11 +1187,11 @@ F5 层总参数量：48000+120=48120。</p>
 <h2 id="vgg">VGG</h2>
 <h2 id="googlenetinception">GoogleNet（Inception网络）</h2>
 <p><img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/d97f6f40936dcafc68ccd791a2e08a86.png" /> <br />
-<img alt="image.png" src="../docs/images/VGG1.png" /><br />
+<img alt="image.png" src="../images/VGG1.png" /><br />
 <img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/83f69afdacc9a48d3df7199d90ffc604.png" /><br />
 <img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/0652fe36d703075789d12bf558316ca7.png" /><br />
-<img alt="image.png" src="../docs/images/VGG2.png" /> 
-<img alt="image.png" src="../docs/images/VGG3.png" /> </p>
+<img alt="image.png" src="../images/VGG2.png" /> 
+<img alt="image.png" src="../images/VGG3.png" /> </p>
 <p>Inception V1 参数少但效果好的原因除了模型层数更深、表达能力更强外，还有两点：</p>
 <ul>
 <li>
@@ -1207,7 +1207,7 @@ F5 层总参数量：48000+120=48120。</p>
 卷积以后通道数变为卷积核个数的数量  </p>
 <p><strong>为什么卷积分解减少参数</strong><br />
 从感受野的角度看，两个连续的3×3卷积核组合起来的感受野与一个7×7卷积核的感受野相同。<br />
-<img alt="image.png" src="../docs/images/VGG4.png" /></p>
+<img alt="image.png" src="../images/VGG4.png" /></p>
 <h2 id="resnet">ResNet</h2>
 <h3 id="_36">原理</h3>
 <p>假设现有一个比较浅的网络已达到了饱和的准确率，这时在它后面再加上几个恒等映射层（即 y=x，输出等于输入），这样就增加了网络的深度，并且误差不会增加，也即更深的网络不应该带来训练集上误差的上升。</p>
@@ -1441,7 +1441,7 @@ ResNet 由多个残差块堆叠而成，在网络的开头和结尾通常还包�
 ResNet 的结构设计使得模型具有较好的泛化能力，不仅在图像分类任务中表现出色，在其他计算机视觉任务如目标检测、语义分割等，以及一些非视觉领域的任务中也被广泛应用，并取得了良好的效果。</p>
 <h1 id="rnn">RNN</h1>
 <h2 id="_39">原理结构</h2>
-<p><img alt="image.png" src="../docs/images/RNN1.png" />
+<p><img alt="image.png" src="../images/RNN1.png" />
 <img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/e72bcfc9271ddc149c352b2aaa311ae1.png" />  </p>
 <p><strong>引用资料</strong><br />
 https://my.oschina.net/u/876354/blog/1621839</p>
@@ -1513,14 +1513,14 @@ LSTM 拥有三个门，分别是遗忘门，输入门和输出门，来保护和
 </ol>
 <h1 id="r-cnnfast-r-cnn">R-CNN、Fast R-CNN</h1>
 <h1 id="gan">GAN</h1>
-<p><img alt="image.png" src="../docs/images/GAN1.png" />
-<img alt="image.png" src="../docs/images/GAN2.png" />
-<img alt="image.png" src="../docs/images/DCGAN.png" /><br />
+<p><img alt="image.png" src="../images/GAN1.png" />
+<img alt="image.png" src="../images/GAN2.png" />
+<img alt="image.png" src="../images/DCGAN.png" /><br />
 见Paddle实践</p>
 <h1 id="yolo">YOLO</h1>
 <h1 id="ae">AE 自编码器</h1>
-<p><img alt="image.png" src="../docs/images/AE1.png" />
-<img alt="image.png" src="../docs/images/AE2.png" /></p>
+<p><img alt="image.png" src="../images/AE1.png" />
+<img alt="image.png" src="../images/AE2.png" /></p>
 <h1 id="_46">其他</h1>
 <h2 id="_47">梯度爆炸</h2>
 <p>在反向传播计算梯度时，梯度值变得非常大，以指数级增长，最终导致模型无法收敛，具体表现为模型参数更新幅度过大，权重变得极不稳定，甚至使得训练过程中断。  </p>
@@ -1645,7 +1645,7 @@ Kaiming 初始化则针对 ReLU 激活函数进行了优化，能更好地初始
 </ol>
 <h2 id="_51">层归一化 批归一化</h2>
 <p>批归一化（Batch Normalization，BN）和层归一化（Layer Normalization，LN）<br />
-<img alt="image.png" src="../docs/images/normalization.png" /></p>
+<img alt="image.png" src="../images/normalization.png" /></p>
 <h1 id="pytorch">PyTorch实践</h1>
 <h2 id="pytorch_1">Pytorch中模型的搭建</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
@@ -1669,7 +1669,7 @@ Kaiming 初始化则针对 ReLU 激活函数进行了优化，能更好地初始
 </code></pre></div>
 
 <h2 id="lenet_1">LeNet</h2>
-<p><img alt="image.png" src="../docs/images/Lenet.png" /></p>
+<p><img alt="image.png" src="../images/Lenet.png" /></p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">LeNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -1722,7 +1722,7 @@ Kaiming 初始化则针对 ReLU 激活函数进行了优化，能更好地初始
 </code></pre></div>
 
 <h2 id="alexnet_1">AlexNet</h2>
-<p><img alt="image.png" src="../docs/images/AlexNet.png" /></p>
+<p><img alt="image.png" src="../images/AlexNet.png" /></p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
 

@@ -608,7 +608,7 @@ Obsidian Publish 是官方付费服务，可以将选定的笔记发布为网站
 # 9 结合 Claude Code 使用
 
 ## 9.1 使用Obsidian的插件
-参考[Claude Code](./Vibe_Coding/Claude.md)文档安装使用Claude。
+参考[Claude Code](../Vibe_Coding/Claude.md)文档安装使用Claude。
 
 从 GitHub Release https://github.com/YishenTu/claudian/releases/latest 下载 main.js、manifest.json 和 styles.css 这三个文件。
 
