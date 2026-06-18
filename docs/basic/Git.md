@@ -79,6 +79,26 @@
   - [20.1 **基础语法规则**](#201-基础语法规则)
   - [20.2 **通用模板**](#202-通用模板)
   - [20.3 **其他**](#203-其他)
+- [21 GitHub Issue 与 PR 协作流程](#21-github-issue-与-pr-协作流程)
+  - [21.1 Issue 使用流程](#211-issue-使用流程)
+    - [21.1.1 创建 Issue](#2111-创建-issue)
+    - [21.1.2 使用 Labels、Milestone、Assignees](#2112-使用-labelsmilestoneassignees)
+    - [21.1.3 使用 Projects（看板）](#2113-使用-projects看板)
+    - [21.1.4 关联 Pull Request](#2114-关联-pull-request)
+  - [21.2 Pull Request 流程](#212-pull-request-流程)
+    - [21.2.1 从 Issue 创建分支](#2121-从-issue-创建分支)
+    - [21.2.2 开发并提交](#2122-开发并提交)
+    - [21.2.3 创建 PR](#2123-创建-pr)
+    - [21.2.4 Code Review 流程](#2124-code-review-流程)
+    - [21.2.5 合并策略](#2125-合并策略)
+    - [21.2.6 合并后清理分支](#2126-合并后清理分支)
+  - [21.3 完整协作流程示例](#213-完整协作流程示例)
+  - [21.4 最佳实践](#214-最佳实践)
+    - [21.4.1 分支命名规范](#2141-分支命名规范)
+    - [21.4.2 PR 大小控制](#2142-pr-大小控制)
+    - [21.4.3 Code Review 礼仪](#2143-code-review-礼仪)
+    - [21.4.4 使用 GitHub CLI (`gh`)](#2144-使用-github-cli-gh)
+  - [21.5 Issue 与 PR 速查表](#215-issue-与-pr-速查表)
 
 ---
 # 1 Git 简介
@@ -99,7 +119,7 @@ Git 不仅仅是个版本控制系统，它也是个内容管理系统(CMS)，�
 
 5. **Git 的内容完整性要优于 SVN**：Git 的内容存储使用的是 SHA-1 哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。
 
-![image.png](../images/Git_SVN.png)
+![image.png](../docs/images/Git_SVN.png)
 
 ## 1.2 Git 与 Github
 Git是个版本控制的工具，用来管理本地的代码工程，它可以记录代码内容的变更；而Github是一个代码托管平台，我们可以使用Git将本地代码上传到Github。
@@ -204,7 +224,7 @@ Git 可以理解 kdiff3，tkdiff，meld，xxdiff，emerge，vimdiff，gvimdiff�
 >git config --list
 
 # 3 Git 工作流程
-![image.png](../images\Git工作流程.png)
+![image.png](../docs/images/Git工作流程.png)
 
 1. 克隆仓库  
 如果你要参与一个已有的项目，首先需要将远程仓库克隆到本地：
@@ -287,7 +307,7 @@ Git 可以理解 kdiff3，tkdiff，meld，xxdiff，emerge，vimdiff，gvimdiff�
 
 
 
-![image.png](../images/Git工作区.png)
+![image.png](../docs/images/Git工作区.png)
 
 - 图中左侧为工作区，右侧为版本库。在版本库中标记为 "index" 的区域是暂存区（stage/index），标记为 "master" 的是 master 分支所代表的目录树。
 
@@ -1502,3 +1522,376 @@ feature/功能名（新功能）、fix/问题描述（修复bug）、docs/文档
    >   git rm --cached 文件名  # 移除跟踪（本地文件保留）
    >   git commit -m "停止跟踪 xxx 文件"
    >   ```
+
+# 21 GitHub Issue 与 PR 协作流程
+
+在实际团队开发中，GitHub 的 **Issue** 和 **Pull Request（PR）** 是最核心的协作工具。Issue 用于追踪任务和讨论，PR 用于代码审查和合并。
+
+
+## 21.1 Issue 使用流程
+
+Issue 是 GitHub 上的「议题/工单」，用于描述一个 **要开发的功能**、**需要修复的 Bug** 或 **待办事项**。
+
+### 21.1.1 创建 Issue
+
+在仓库页面点击 **Issues** → **New Issue**，填写：
+
+| 字段 | 说明 |
+|------|------|
+| **Title** | 简明扼要的标题，如 `添加用户登录功能` |
+| **Description** | 详细描述问题/功能，可使用 Markdown 格式 |
+| **Assignees** | 指定负责人（谁来做） |
+| **Labels** | 打标签分类（`bug`、`feature`、`enhancement` 等） |
+| **Projects** | 关联项目看板（用于进度追踪） |
+| **Milestone** | 关联里程碑（用于版本规划） |
+
+好的 Issue 描述模板示例：
+
+```markdown
+### 功能描述
+作为用户，我希望能够通过邮箱登录，以便快速访问系统。
+
+### 验收标准
+- [ ] 用户输入邮箱和密码后点击登录
+- [ ] 验证邮箱格式是否正确
+- [ ] 登录成功后跳转到首页
+- [ ] 登录失败时显示错误提示
+
+### 技术要求
+- 使用 JWT Token 进行身份验证
+- 密码使用 bcrypt 加密存储
+
+### 相关资源
+- UI 设计稿: [链接]
+- API 文档: [链接]
+```
+
+### 21.1.2 使用 Labels、Milestone、Assignees
+
+- **Labels（标签）**：用于分类 Issue，常见的标签有：
+  | 标签 | 含义 |
+  |------|------|
+  | `bug` | 程序缺陷 |
+  | `feature` | 新功能请求 |
+  | `enhancement` | 功能改进 |
+  | `documentation` | 文档相关 |
+  | `help wanted` | 寻求帮助 |
+  | `good first issue` | 适合新手 |
+
+- **Milestone（里程碑）**：将 Issue 组织到版本发布计划中，如 `v1.0`、`v2.0`
+
+- **Assignees（指派人员）**：明确指定谁负责处理这个 Issue
+
+### 21.1.3 使用 Projects（看板）
+
+GitHub Projects 提供看板视图追踪进度，通常包含以下列：
+
+| 列名 | 说明 |
+|------|------|
+| **To do** | 待办事项 |
+| **In progress** | 开发中 |
+| **In review** | 代码审查中 |
+| **Done** | 已完成 |
+
+### 21.1.4 关联 Pull Request
+
+在 PR 描述或提交信息中使用关键词可以自动关联和关闭 Issue：
+
+| 关键词 | 效果 |
+|--------|------|
+| `close #123` | 合并 PR 时关闭 Issue #123 |
+| `closes #123` | 同上 |
+| `closed #123` | 同上 |
+| `fix #123` | 合并 PR 时关闭 Issue #123 |
+| `fixes #123` | 同上 |
+| `fixed #123` | 同上 |
+| `resolve #123` | 合并 PR 时关闭 Issue #123 |
+| `resolves #123` | 同上 |
+| `resolved #123` | 同上 |
+
+示例：
+
+```markdown
+## 描述
+实现了用户邮箱登录功能。
+
+Closes #123
+```
+
+## 21.2 Pull Request 流程
+
+Pull Request 是通知团队成员「代码已准备好，请审查」的机制。
+
+### 21.2.1 从 Issue 创建分支
+
+在开始开发前，先从主分支创建新分支：
+
+```bash
+# 1. 确保主分支最新
+git checkout main
+git pull
+
+# 2. 创建功能分支（建议分支名包含 Issue 编号）
+git checkout -b feature/issue-123-login
+```
+
+### 21.2.2 开发并提交
+
+开发过程中，在 commit message 中关联 Issue：
+
+```bash
+git add .
+git commit -m "feat: 添加邮箱登录功能
+
+fix #123: 实现用户邮箱密码登录"
+```
+
+推荐的 commit message 格式：
+
+| 类型 | 说明 | 示例 |
+|------|------|------|
+| `feat:` | 新功能 | `feat: 添加用户登录页面` |
+| `fix:` | Bug 修复 | `fix: 修复登录按钮无法点击` |
+| `docs:` | 文档更新 | `docs: 更新 API 文档` |
+| `refactor:` | 代码重构 | `refactor: 重构登录逻辑` |
+| `test:` | 测试相关 | `test: 添加登录功能单元测试` |
+| `chore:` | 杂项（构建、依赖等） | `chore: 更新依赖版本` |
+
+### 21.2.3 创建 PR
+
+开发完成后推送分支并创建 PR：
+
+```bash
+# 推送分支到远程
+git push -u origin feature/issue-123-login
+```
+
+在 GitHub 页面点击 **Compare & pull request**，填写 PR 信息：
+
+```markdown
+## 描述
+实现了用户邮箱登录功能。
+
+Closes #123
+
+## 变更内容
+- 添加登录页面 UI
+- 实现邮箱格式验证
+- 集成 JWT 身份验证
+
+## 检查清单
+- [ ] 代码已自测
+- [ ] 已添加单元测试
+- [ ] 文档已更新
+- [ ] 无 lint 错误
+
+## 截图
+![登录页面截图](URL)
+```
+
+### 21.2.4 Code Review 流程
+
+PR 创建后，需要团队成员进行 Code Review：
+
+1. **添加 Reviewers**：在 PR 右侧面板添加审查人员
+2. **审查反馈**：审查者会在代码行上留下评论
+3. **修改代码**：根据反馈修改代码并推送新提交
+4. **重新审查**：修改完成后通知审查者再次审查
+5. **批准合并**：审查通过后点击 **Approve**
+
+处理审查意见：
+
+```bash
+# 根据反馈修改代码
+git add .
+git commit -m "fix: 根据 review 建议优化登录验证逻辑"
+git push
+```
+新提交会自动更新到 PR 中，无需重新创建 PR。
+
+### 21.2.5 合并策略
+
+GitHub 提供三种合并方式：
+
+| 策略 | 说明 | 适用场景 |
+|------|------|----------|
+| **Merge Commit** | 保留所有提交历史，生成一个合并提交 | 需要保留完整开发细节 |
+| **Squash and Merge** | 将所有提交压缩成一个提交再合并 | 功能分支，保持主分支历史整洁 |
+| **Rebase and Merge** | 将提交变基到主分支顶部，避免合并节点 | 希望保持线性历史 |
+
+```bash
+# 合并后的主分支更新
+git checkout main
+git pull
+```
+
+### 21.2.6 合并后清理分支
+
+PR 合并后，删除本地和远程的功能分支：
+
+```bash
+# 删除本地分支
+git branch -d feature/issue-123-login
+
+# 删除远程分支
+git push origin --delete feature/issue-123-login
+
+# 或者使用 GitHub 页面上的 "Delete branch" 按钮
+```
+
+
+## 21.3 完整协作流程示例
+
+从 Issue 到 PR 合并的完整流程：
+
+```bash
+# 1. 同步主分支
+git checkout main
+git pull
+
+# 2. 基于 Issue 创建功能分支
+git checkout -b feature/issue-456-register
+
+# 3. 开发功能，多次提交
+git add .
+git commit -m "feat: 添加注册页面 UI"
+git add .
+git commit -m "fix #456: 实现用户注册功能"
+
+# 4. 推送分支到远程
+git push -u origin feature/issue-456-register
+
+# 5. 在 GitHub 创建 PR，链接 Issue
+#    PR 描述中写 "Closes #456"
+
+# 6. 根据 Code Review 反馈修改
+git add .
+git commit -m "fix: 修复注册表单验证逻辑"
+git push
+
+# 7. PR 合并后（在 GitHub 上点击 Merge）
+
+# 8. 清理分支
+git checkout main
+git pull
+git branch -d feature/issue-456-register
+```
+
+## 21.4 最佳实践
+
+### 21.4.1 分支命名规范
+
+| 前缀 | 用途 | 示例 |
+|------|------|------|
+| `feature/` | 新功能 | `feature/user-login` |
+| `bugfix/` | Bug 修复 | `bugfix/login-button-crash` |
+| `hotfix/` | 紧急修复 | `hotfix/security-vulnerability` |
+| `release/` | 发布准备 | `release/v1.2.0` |
+| `docs/` | 文档更新 | `docs/update-readme` |
+| `refactor/` | 代码重构 | `refactor/auth-module` |
+
+### 21.4.2 PR 大小控制
+
+- **单一职责**：一个 PR 只做一件事（一个功能或一个修复）
+- **控制行数**：建议每个 PR 不超过 300-500 行变更
+- **及时提交**：大功能拆分成多个小 PR 逐步合并
+- **避免混合**：不要在同个 PR 中混合重构和新功能
+
+### 21.4.3 Code Review 礼仪
+
+**提交者（Author）**：
+- PR 描述清晰，说明改动原因和影响范围
+- 自测通过后再请求审查
+- 及时回应评论，不拖延
+- 每个 Review 意见都回复（Resolve 或回复理由）
+
+**审查者（Reviewer）**：
+- 尽快审查，避免阻塞进度
+- 评论对事不对人，语气友善
+- 区分「必须修改」和「建议修改」
+- 使用 GitHub 的「Request changes」和「Comment」区分严重程度
+
+### 21.4.4 使用 GitHub CLI (`gh`)
+
+GitHub CLI 可以在终端中完成 Issue 和 PR 操作：
+
+```bash
+# 安装 gh（Windows）
+winget install --id GitHub.cli
+
+# 登录 GitHub
+gh auth login
+
+# 创建 Issue
+gh issue create \
+  --title "添加用户登录功能" \
+  --body "实现邮箱密码登录" \
+  --assignee @me \
+  --label feature \
+  --milestone "v1.0"
+
+# 查看 Issue 列表
+gh issue list
+
+# 查看 Issue 详情
+gh issue view 123
+
+# 创建 PR
+gh pr create \
+  --title "feat: 添加用户登录功能" \
+  --body "Closes #123" \
+  --assignee @me \
+  --reviewer teammate
+
+# 查看 PR 列表
+gh pr list
+
+# 查看 PR 详情
+gh pr view 456
+
+# 检出 PR 到本地
+gh pr checkout 456
+
+# 审查 PR（Approve）
+gh pr review 456 --approve
+
+# 合并 PR
+gh pr merge 456 --squash
+
+# 查看 CI 状态
+gh pr checks 456
+```
+
+## 21.5 Issue 与 PR 速查表
+
+### Issue 管理
+
+| 命令 / 操作 | 说明 |
+|-------------|------|
+| `gh issue create` | 创建 Issue |
+| `gh issue list` | 列出 Issue |
+| `gh issue view <id>` | 查看 Issue 详情 |
+| `gh issue close <id>` | 关闭 Issue |
+| `gh issue reopen <id>` | 重新打开 Issue |
+| 在 PR 描述中写 `Closes #123` | 合并时自动关闭 Issue |
+
+### PR 管理
+
+| 命令 / 操作 | 说明 |
+|-------------|------|
+| `gh pr create` | 创建 PR |
+| `gh pr list` | 列出 PR |
+| `gh pr view <id>` | 查看 PR 详情 |
+| `gh pr checkout <id>` | 在本地检出 PR |
+| `gh pr review <id> --approve` | 批准 PR |
+| `gh pr merge <id> --squash` | squash 合并 PR |
+
+### 常见 Git 命令
+
+| 命令 | 说明 |
+|------|------|
+| `git checkout -b feature/xxx` | 创建并切换分支 |
+| `git push -u origin feature/xxx` | 首次推送分支 |
+| `git push origin --delete feature/xxx` | 删除远程分支 |
+| `git branch -d feature/xxx` | 删除本地分支 |
+| `git commit -m "fix #123: 描述"` | 提交时关联 Issue |
