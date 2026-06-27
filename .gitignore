@@ -1,4 +1,5 @@
-others/
+Others/
+Temp/
 model/15_model.h5
 .env
 DeepLearing/data
@@ -11,6 +12,8 @@ DeepLearing/data
 docs/**/*.html
 !docs/index.html
 
-# Generated notes metadata (built by CI via gen_notes_meta.py)
+# Generated notes/posts metadata (built by CI via gen_notes_meta.py)
 docs/_notes.json
 docs/_notes.js
+docs/_posts.json
+docs/_posts.js

@@ -757,6 +757,157 @@
             align-self: center;
         }
 
+        /* ========== RECENT UPDATES ========== */
+        .recent-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .recent-section { grid-template-columns: 1fr; }
+        }
+
+        .recent-item {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .recent-item:hover {
+            background: var(--card-opaque);
+            border-color: var(--border);
+            box-shadow: var(--glass-highlight);
+        }
+
+        .recent-date {
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .recent-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--ink-soft);
+            transition: color 0.2s;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .recent-item:hover .recent-title {
+            color: var(--accent);
+        }
+
+        .recent-cat {
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: var(--ink-faint);
+            background: rgba(26, 24, 20, 0.04);
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* ========== BLOG MODULE ========== */
+        .blog-page {
+            padding: 40px 0 60px;
+        }
+
+        .blog-search-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .blog-card {
+            display: block;
+            padding: 20px 24px;
+            background: var(--card-opaque);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .blog-card:hover {
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow);
+            transform: translateY(-1px);
+        }
+
+        .blog-card-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+
+        .blog-card:hover .blog-card-title {
+            color: var(--accent);
+        }
+
+        .blog-card-desc {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--ink-muted);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .blog-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.72rem;
+            color: var(--ink-faint);
+        }
+
+        .blog-card-meta .blog-date {
+            font-weight: 300;
+        }
+
+        .blog-card-meta .blog-read-time {
+            font-weight: 300;
+            opacity: 0.7;
+        }
+
+        .blog-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+        }
+
+        .blog-empty-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
         /* ========== PROJECT MODULE ========== */
         .projects-page {
             padding: 40px 0 60px;
@@ -1526,6 +1677,7 @@
                     <button class="nav-link active" data-target="introModule" type="button">介绍</button>
                     <button class="nav-link" data-target="projectModule" type="button">项目</button>
                     <button class="nav-link" data-target="notesModule" type="button">笔记</button>
+                    <button class="nav-link" data-target="blogModule" type="button">博客</button>
                 </div>
             </div>
         </nav>
@@ -1552,11 +1704,11 @@
                     </div>
                     <div class="profile-stats">
                         <div class="stat-cell">
-                            <div class="stat-value" data-count="51">0</div>
+                            <div class="stat-value" data-count="53">0</div>
                             <div class="stat-label">Notes</div>
                         </div>
                         <div class="stat-cell">
-                            <div class="stat-value" data-count="16">0</div>
+                            <div class="stat-value" data-count="15">0</div>
                             <div class="stat-label">Categories</div>
                         </div>
                         <div class="stat-cell">
@@ -1697,6 +1849,15 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Recent Updates -->
+                <div class="divider reveal">
+                    <div class="divider-line"></div>
+                    <span class="divider-label">最近更新</span>
+                    <div class="divider-line"></div>
+                </div>
+                <div class="recent-section reveal" id="recentUpdates"></div>
+
             </div>
         </section>
 
@@ -1862,6 +2023,28 @@
             </div>
         </section>
 
+        <!-- ==================== BLOG ==================== -->
+        <section id="blogModule" class="module">
+            <div class="blog-page">
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <span class="divider-label">Blog & Articles</span>
+                    <div class="divider-line"></div>
+                </div>
+
+                <div class="blog-search-bar">
+                    <div class="search-field">
+                        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                        <input id="blogSearchInput" type="search" placeholder="搜索文章标题或摘要..." autocomplete="off" />
+                    </div>
+                    <div class="result-count" id="blogResultInfo">--</div>
+                </div>
+
+                <div id="blogNoResult" class="no-result-msg">没有找到匹配文章。</div>
+                <div id="blogContainer" class="blog-grid"></div>
+            </div>
+        </section>
+
         <!-- ========== FOOTER ========== -->
         <footer class="site-footer">
             <span class="footer-text">floaritay &copy; 2026 &mdash; Built with Jupyter Notebook &amp; GitHub Pages</span>
@@ -1869,9 +2052,10 @@
     </main>
 
     <button id="backToTopBtn" class="back-top" title="回到顶部" aria-label="回到顶部">&uarr;</button>
-    <div class="kbd-hint"><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> switch sections</div>
+    <div class="kbd-hint"><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> switch sections</div>
 
     <script src="_notes.js"></script>
+    <script src="_posts.js"></script>
     <script>
         // ========== Core ==========
         const navLinks = Array.from(document.querySelectorAll('.nav-link'));
@@ -1913,7 +2097,7 @@
         // ========== Keyboard ==========
         document.addEventListener('keydown', e => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            if (e.key === '1' || e.key === '2' || e.key === '3') {
+            if (e.key === '1' || e.key === '2' || e.key === '3' || e.key === '4') {
                 navLinks[parseInt(e.key) - 1]?.click();
             }
         });
@@ -2043,6 +2227,89 @@
 
         searchInput?.addEventListener('input', renderNotes);
         loadNotes();
+
+        // ========== Recent Updates ==========
+        function renderRecentUpdates() {
+            const container = document.getElementById('recentUpdates');
+            if (!container || !window.__NOTES_DATA || !window.__NOTES_DATA.length) return;
+            const sorted = [...window.__NOTES_DATA]
+                .filter(n => n.updated)
+                .sort((a, b) => b.updated.localeCompare(a.updated))
+                .slice(0, 8);
+            container.innerHTML = sorted.map(n =>
+                `<a class="recent-item" href="${esc(n.path)}">` +
+                `<span class="recent-date">${n.updated}</span>` +
+                `<span class="recent-title">${esc(n.title)}</span>` +
+                `<span class="recent-cat">${esc(n.category)}</span>` +
+                '</a>'
+            ).join('');
+        }
+        renderRecentUpdates();
+
+        // ========== Blog Posts ==========
+        (function() {
+            const blogContainer = document.getElementById('blogContainer');
+            const blogSearchInput = document.getElementById('blogSearchInput');
+            const blogResultInfo = document.getElementById('blogResultInfo');
+            const blogNoResult = document.getElementById('blogNoResult');
+            let allPosts = [];
+
+            function escHtml(s) {
+                return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+
+            function estimateReadTime(text) {
+                // Chinese: ~400 chars/min, English: ~200 words/min
+                const chars = text.replace(/\s/g, '').length;
+                const mins = Math.max(1, Math.ceil(chars / 400));
+                return mins + ' 分钟';
+            }
+
+            function loadPosts() {
+                if (window.__POSTS_DATA && window.__POSTS_DATA.length) {
+                    allPosts = window.__POSTS_DATA;
+                    renderPosts();
+                } else {
+                    blogContainer.innerHTML = '<div class="blog-empty"><div class="blog-empty-icon">📝</div><p>还没有文章，敬请期待。</p></div>';
+                    blogResultInfo.textContent = '0 articles';
+                }
+            }
+
+            function getFilteredPosts() {
+                const kw = (blogSearchInput?.value || '').toLowerCase().trim();
+                return allPosts.filter(p => {
+                    if (!kw) return true;
+                    return (p.title || '').toLowerCase().includes(kw) ||
+                           (p.desc || '').toLowerCase().includes(kw);
+                });
+            }
+
+            function renderPosts() {
+                const filtered = getFilteredPosts();
+                if (filtered.length === 0 && allPosts.length > 0) {
+                    blogContainer.innerHTML = '';
+                    blogNoResult.style.display = 'block';
+                } else if (filtered.length === 0) {
+                    blogContainer.innerHTML = '<div class="blog-empty"><div class="blog-empty-icon">📝</div><p>还没有文章，敬请期待。</p></div>';
+                    blogNoResult.style.display = 'none';
+                } else {
+                    blogNoResult.style.display = 'none';
+                    blogContainer.innerHTML = filtered.map(p => {
+                        const dateStr = p.updated ? '<span class="blog-date">' + p.updated + '</span>' : '';
+                        const readTime = '<span class="blog-read-time">⏱ ' + estimateReadTime(p.desc || '') + '</span>';
+                        return '<a class="blog-card" href="' + escHtml(p.path) + '">' +
+                            '<div class="blog-card-title">' + escHtml(p.title) + '</div>' +
+                            (p.desc ? '<div class="blog-card-desc">' + escHtml(p.desc) + '</div>' : '') +
+                            '<div class="blog-card-meta">' + dateStr + readTime + '</div>' +
+                            '</a>';
+                    }).join('');
+                }
+                blogResultInfo.textContent = filtered.length + ' / ' + allPosts.length + ' articles';
+            }
+
+            blogSearchInput?.addEventListener('input', renderPosts);
+            loadPosts();
+        })();
 
         // ========== Scroll reveal ==========
         const revealObserver = new IntersectionObserver(entries => {
