@@ -953,8 +953,10 @@ def extract_title(md_text: str) -> str:
 
 
 def rewrite_md_links(html: str) -> str:
-    """Rewrite .md links in generated HTML to .html links."""
-    return re.sub(r'href="([^"]*?)\.md"', r'href="\1.html"', html)
+    """Rewrite .md and .ipynb links in generated HTML to .html links."""
+    html = re.sub(r'href="([^"]*?)\.md"', r'href="\1.html"', html)
+    html = re.sub(r'href="([^"]*?)\.ipynb"', r'href="\1.html"', html)
+    return html
 
 
 def fix_heading_ids(html: str) -> str:
