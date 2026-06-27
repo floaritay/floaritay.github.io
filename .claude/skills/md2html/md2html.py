@@ -313,9 +313,29 @@ def preprocess_blank_lines(md_text: str) -> str:
     return '\n'.join(result)
 
 
+def preprocess_strip_toc(md_text: str) -> str:
+    """Strip the hand-written '# 目录' block from the beginning of markdown.
+
+    The TOC block looks like:
+        # 目录
+        - [1 Section](#1-section)
+        ...
+        ---
+
+    We remove everything from the start up to (and including) the '---' separator,
+    so only the actual content remains. The sidebar TOC is generated separately.
+    """
+    # Match: starts with '# 目录', then any content, then a line that is exactly '---'
+    m = re.match(r'^#\s*目录\s*\n.*?\n---\s*\n+', md_text, re.DOTALL)
+    if m:
+        return md_text[m.end():]
+    return md_text
+
+
 def preprocess(md_text: str) -> tuple:
     """Run all preprocessing steps in order. Returns (text, math_blocks, math_inlines)."""
     md_text = preprocess_image_paths(md_text)
+    md_text = preprocess_strip_toc(md_text)  # Remove hand-written TOC before other processing
     md_text = preprocess_mermaid(md_text)  # Before blockquote: match > ```mermaid
     md_text = preprocess_blockquote_codeblocks(md_text)
     md_text = preprocess_blank_lines(md_text)
@@ -693,6 +713,104 @@ TEMPLATE = """\
             border-color: var(--accent);
         }}
 
+        /* Last-updated date */
+        .meta-date {{
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }}
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {{
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }}
+        .toc-sidebar::-webkit-scrollbar {{ width: 3px; }}
+        .toc-sidebar::-webkit-scrollbar-thumb {{ background: rgba(26,24,20,0.08); border-radius: 2px; }}
+        .toc-sidebar-title {{
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }}
+        .toc-sidebar ul {{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }}
+        .toc-sidebar li {{ margin: 0; }}
+        .toc-sidebar a {{
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }}
+        .toc-sidebar a:hover {{
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }}
+        .toc-sidebar a.active {{
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }}
+        .toc-sidebar .toc-h2 {{ padding-left: 20px; font-size: 0.73rem; }}
+        .toc-sidebar .toc-h3 {{ padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }}
+        .toc-sidebar-toggle {{
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }}
+        @media (max-width: 1200px) {{
+            .toc-sidebar {{
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }}
+            .toc-sidebar.open {{ display: block; }}
+            .toc-sidebar-toggle {{ display: flex; left: 16px; right: auto; }}
+        }}
+
         @media (max-width: 768px) {{
             .page {{ padding: 0 16px 40px; }}
             .markdown-body h1 {{ font-size: 1.7rem; }}
@@ -711,6 +829,7 @@ TEMPLATE = """\
             <span class="sep">/</span>
             <span>{category}</span>
         </nav>
+{meta_date}
         <article class="markdown-body">
 {content}
         </article>
@@ -718,7 +837,9 @@ TEMPLATE = """\
             <a href="{home_link}">&larr; 返回首页</a>
         </footer>
     </div>
+{toc_sidebar}
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {{
@@ -727,10 +848,100 @@ TEMPLATE = """\
         btn.addEventListener('click', () => {{
             window.scrollTo({{ top: 0, behavior: 'smooth' }});
         }});
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {{
+            tocToggle.addEventListener('click', () => {{
+                tocSidebar.classList.toggle('open');
+            }});
+            // Close on outside click
+            document.addEventListener('click', (e) => {{
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {{
+                    tocSidebar.classList.remove('open');
+                }}
+            }});
+        }}
+        // Scroll-spy for TOC sidebar
+        (function() {{
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {{
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {{
+                    const el = document.getElementById(id);
+                    if (el) headings.push({{ el, link: a }});
+                }}
+            }});
+            if (!headings.length) return;
+            function updateActive() {{
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {{
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }}
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }}
+            window.addEventListener('scroll', updateActive, {{ passive: true }});
+            updateActive();
+        }})();
     </script>
 </body>
 </html>
 """
+
+
+def load_notes_meta() -> dict:
+    """Load _notes.json metadata and return a lookup dict keyed by 'category/file'."""
+    meta_path = DOCS_DIR / "_notes.json"
+    if not meta_path.exists():
+        return {}
+    try:
+        import json
+        notes = json.loads(meta_path.read_text(encoding="utf-8"))
+        return {f"{n['category']}/{n['file']}": n for n in notes}
+    except Exception:
+        return {}
+
+
+def build_meta_date(note_meta: dict) -> str:
+    """Build a simple last-updated date line."""
+    date = note_meta.get("updated", "") if note_meta else ""
+    if not date:
+        return ""
+    return f'<div class="meta-date">最后更新: {date}</div>'
+
+
+def build_toc_sidebar(html_body: str) -> str:
+    """Build a floating TOC sidebar from h1, h2, and h3 headings in the HTML body.
+
+    Note: the hand-written '# 目录' TOC is stripped during preprocessing,
+    so the remaining h1 headings are actual content sections (e.g. '# 1 简介').
+    """
+    import html as html_mod
+    headings = []
+    for m in re.finditer(r'<(h[123])\s+id="([^"]*)"[^>]*>(.+?)</\1>', html_body, re.DOTALL):
+        tag, hid, text = m.group(1), m.group(2), m.group(3)
+        # Strip inner HTML tags (e.g. <a>, <code>)
+        clean = re.sub(r'<[^>]+>', '', text).strip()
+        clean = html_mod.unescape(clean)
+        if clean:
+            headings.append((tag, hid, clean))
+    if len(headings) < 3:
+        return ""
+    items = []
+    for tag, hid, text in headings:
+        cls = f' class="toc-{tag}"' if tag in ("h2", "h3") else ""
+        items.append(f'<li><a{cls} href="#{hid}">{text}</a></li>')
+    ul = "\n".join(items)
+    return (
+        '<nav class="toc-sidebar">\n'
+        '<div class="toc-sidebar-title">目录</div>\n'
+        f'<ul>\n{ul}\n</ul>\n'
+        '</nav>'
+    )
 
 
 def extract_title(md_text: str) -> str:
@@ -803,7 +1014,7 @@ def fix_heading_ids(html: str) -> str:
     return html
 
 
-def convert_file(md_path: Path) -> None:
+def convert_file(md_path: Path, notes_meta: dict) -> None:
     """Convert a single .md file to .html."""
     md_text = md_path.read_text(encoding="utf-8")
 
@@ -831,18 +1042,32 @@ def convert_file(md_path: Path) -> None:
     # Fix heading IDs to match TOC anchor links
     html_body = fix_heading_ids(html_body)
 
-    title = extract_title(md_text) or md_path.stem
     category = md_path.parent.name if md_path.parent != DOCS_DIR else "笔记"
 
     # Compute relative path back to docs/index.html
     depth = len(md_path.relative_to(DOCS_DIR).parts) - 1
     home_link = "../" * depth + "index.html"
 
+    # Look up metadata for this note
+    rel = md_path.relative_to(DOCS_DIR)
+    meta_key = f"{rel.parts[0]}/{rel.name}" if len(rel.parts) > 1 else rel.name
+    note_meta = notes_meta.get(meta_key, {})
+
+    title = note_meta.get("title") or extract_title(md_text) or md_path.stem
+
+    # Build date display
+    meta_date = build_meta_date(note_meta)
+
+    # Build floating TOC sidebar
+    toc_sidebar = build_toc_sidebar(html_body)
+
     html_content = TEMPLATE.format(
         title=title,
         category=category,
         home_link=home_link,
         content=html_body,
+        meta_date=meta_date,
+        toc_sidebar=toc_sidebar,
     )
 
     html_path = md_path.with_suffix(".html")
@@ -852,9 +1077,12 @@ def convert_file(md_path: Path) -> None:
 
 def main():
     print(f"Converting .md files in {DOCS_DIR} ...\n")
+    notes_meta = load_notes_meta()
+    if notes_meta:
+        print(f"  Loaded metadata for {len(notes_meta)} notes.\n")
     count = 0
     for md_file in sorted(DOCS_DIR.rglob("*.md")):
-        convert_file(md_file)
+        convert_file(md_file, notes_meta)
         count += 1
     print(f"\nDone. Converted {count} files.")
 
