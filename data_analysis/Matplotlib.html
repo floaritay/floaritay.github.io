@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Matplotlib - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,9 +482,8 @@
             <span class="sep">/</span>
             <span>data_analysis</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -437,7 +534,7 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_2">创建画布和子图</h1>
+<h1 id="_1">创建画布和子图</h1>
 <h2 id="pltfigure">plt.figure()</h2>
 <p>用于创建一个新的图形窗口，可通过参数设置大小（figsize）和分辨率（dpi）  </p>
 <table>
@@ -593,7 +690,7 @@ plt.subplot(nrows, ncols, index, **kwargs)  </p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_3">颜色说明</h2>
+<h2 id="_2">颜色说明</h2>
 <ol>
 <li>
 <p>颜色名称<br />
@@ -627,7 +724,7 @@ plt.subplot(nrows, ncols, index, **kwargs)  </p>
 '0.25' 表示 25% 灰度  </p>
 </li>
 </ol>
-<h1 id="_4">绘制图形</h1>
+<h1 id="_3">绘制图形</h1>
 <h2 id="pltplot">plt.plot() 折线图</h2>
 <p>plt.plot(x, y, color, linestyle, marker, markersize, markeredgewidth, markeredgecolor, markerfacecolor, alpha, linewidth)  绘制折线图  </p>
 <ol>
@@ -1235,7 +1332,7 @@ align='mid', orientation='vertical', rwidth=None, log=False, color=None, label=N
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_5">美化图形</h1>
+<h1 id="_4">美化图形</h1>
 <h2 id="plttitletitle">plt.title('Title') 标题</h2>
 <p>plt.title(label, fontdict=None, loc='center', pad=None, **kwargs)</p>
 <p>参数说明</p>
@@ -1985,12 +2082,12 @@ plt.axis(<em>args, </em>*kwargs)<br />
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_6">调整子图布局</h1>
+<h1 id="_5">调整子图布局</h1>
 <h2 id="plttight_layout">plt.tight_layout() 自动调整子图间距</h2>
 <p>避免重叠 </p>
 <h2 id="pltsubplots_adjust">plt.subplots_adjust() 手动调整子图间</h2>
 <p><code>plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)</code></p>
-<h1 id="_7">保存和显示图形</h1>
+<h1 id="_6">保存和显示图形</h1>
 <h2 id="pltsavefig">plt.savefig() 将图形保存为文件</h2>
 <p><code>plt.savefig('plot.png', dpi=300, bbox_inches='tight')</code></p>
 <table>
@@ -2117,14 +2214,14 @@ plt.savefig() 应该在 plt.show() 之前调用，因为 plt.show() 会清除图
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_8">多子图绘制</h1>
+<h1 id="_7">多子图绘制</h1>
 <h2 id="pltsubplots">plt.subplots()</h2>
 <p>一次性创建多个子图，返回一个图形对象和子图数组  </p>
 <div class="highlight"><pre><span></span><code>fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 axes[0, 0].plot(x, y)  # 在第一个子图中绘图
 </code></pre></div>
 
-<h1 id="_9">自定义样式</h1>
+<h1 id="_8">自定义样式</h1>
 <table>
 <thead>
 <tr>
@@ -2244,7 +2341,7 @@ axes[0, 0].plot(x, y)  # 在第一个子图中绘图
 <div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="c1"># 恢复默认</span>
 </code></pre></div>
 
-<h1 id="_10">中文显示支持</h1>
+<h1 id="_9">中文显示支持</h1>
 <table>
 <thead>
 <tr>
@@ -2299,7 +2396,45 @@ axes[0, 0].plot(x, y)  # 在第一个子图中绘图
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">创建画布和子图</a></li>
+<li><a class="toc-h2" href="#pltfigure">plt.figure()</a></li>
+<li><a class="toc-h2" href="#pltsubplot">plt.subplot()</a></li>
+<li><a class="toc-h2" href="#_2">颜色说明</a></li>
+<li><a href="#_3">绘制图形</a></li>
+<li><a class="toc-h2" href="#pltplot">plt.plot() 折线图</a></li>
+<li><a class="toc-h2" href="#pltscatterx-y">plt.scatter(x, y)散点图</a></li>
+<li><a class="toc-h2" href="#pltbarx-height">plt.bar(x, height)柱状图</a></li>
+<li><a class="toc-h2" href="#pltpiesizes-labelslabels">plt.pie(sizes, labels=labels)饼图</a></li>
+<li><a class="toc-h2" href="#plthistdata-bins30">plt.hist(data, bins=30)直方图</a></li>
+<li><a href="#_4">美化图形</a></li>
+<li><a class="toc-h2" href="#plttitletitle">plt.title('Title') 标题</a></li>
+<li><a class="toc-h2" href="#pltxlabelx-axis-label-x">plt.xlabel('X-axis Label') x轴标签</a></li>
+<li><a class="toc-h2" href="#pltylabely-axis-label-y">plt.ylabel('Y-axis Label') y轴标签</a></li>
+<li><a class="toc-h2" href="#pltlegend">plt.legend() 图例</a></li>
+<li><a class="toc-h2" href="#pltxlimxmin-xmax-x">plt.xlim(xmin, xmax) x轴范围</a></li>
+<li><a class="toc-h2" href="#pltylimymin-ymax-y">plt.ylim(ymin, ymax) y轴范围</a></li>
+<li><a class="toc-h2" href="#pltgrid">plt.grid() 网格线</a></li>
+<li><a class="toc-h2" href="#pltxticks-x">plt.xticks() x轴</a></li>
+<li><a class="toc-h2" href="#pltyticks-y">plt.yticks() y轴</a></li>
+<li><a class="toc-h2" href="#pltaxis">plt.axis() 坐标轴范围</a></li>
+<li><a href="#_5">调整子图布局</a></li>
+<li><a class="toc-h2" href="#plttight_layout">plt.tight_layout() 自动调整子图间距</a></li>
+<li><a class="toc-h2" href="#pltsubplots_adjust">plt.subplots_adjust() 手动调整子图间</a></li>
+<li><a href="#_6">保存和显示图形</a></li>
+<li><a class="toc-h2" href="#pltsavefig">plt.savefig() 将图形保存为文件</a></li>
+<li><a class="toc-h2" href="#pltshow">plt.show() 显示图形</a></li>
+<li><a class="toc-h2" href="#pltimshow">plt.imshow() 显示图片</a></li>
+<li><a href="#_7">多子图绘制</a></li>
+<li><a class="toc-h2" href="#pltsubplots">plt.subplots()</a></li>
+<li><a href="#_8">自定义样式</a></li>
+<li><a href="#_9">中文显示支持</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -2308,6 +2443,45 @@ axes[0, 0].plot(x, y)  # 在第一个子图中绘图
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

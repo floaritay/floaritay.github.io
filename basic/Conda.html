@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Conda - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,24 +482,12 @@
             <span class="sep">/</span>
             <span>basic</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-介绍">1 介绍</a></li>
-<li><a href="#2-安装">2 安装</a></li>
-<li><a href="#3-conda管理">3 Conda管理</a><ul>
-<li><a href="#31-conda管理">3.1 conda管理</a></li>
-<li><a href="#32-环境管理">3.2 环境管理</a></li>
-<li><a href="#33-包管理命令">3.3 包管理命令</a></li>
-<li><a href="#34-注意">3.4 注意</a></li>
-</ul>
-</li>
-</ul>
-<hr />
-<h1 id="1-介绍">1 介绍</h1>
-<h1 id="2-安装">2 安装</h1>
-<h1 id="3-conda管理">3 Conda管理</h1>
-<h2 id="31-conda管理">3.1 conda管理</h2>
+<h1 id="1">1 介绍</h1>
+<h1 id="2">2 安装</h1>
+<h1 id="3-conda">3 Conda管理</h1>
+<h2 id="31-conda">3.1 conda管理</h2>
 <p>conda --version</p>
 <ul>
 <li>查看conda版本</li>
@@ -418,7 +504,7 @@
 <ul>
 <li>查询某个命令的帮助</li>
 </ul>
-<h2 id="32-环境管理">3.2 环境管理</h2>
+<h2 id="32">3.2 环境管理</h2>
 <p>conda create -n &lt;环境名&gt; python=&lt;版本&gt;  </p>
 <ul>
 <li>创建新环境（如 conda create -n myenv python=3.10）  </li>
@@ -447,7 +533,7 @@
 <ul>
 <li>从配置文件创建环境  </li>
 </ul>
-<h2 id="33-包管理命令">3.3 包管理命令</h2>
+<h2 id="33">3.3 包管理命令</h2>
 <p>conda install &lt;包名&gt;  </p>
 <ul>
 <li>安装指定包（如 conda install pandas=2.0，指定版本）</li>
@@ -472,7 +558,7 @@
 <ul>
 <li>搜索 Conda 仓库中可用的包版本</li>
 </ul>
-<h2 id="34-注意">3.4 注意</h2>
+<h2 id="34">3.4 注意</h2>
 <p>conda命令的一些选项开关有两种指定方式</p>
 <p>一种两个连接号“--”后跟选项名全程</p>
 <p>一种是一个连接号“-”后跟简称</p>
@@ -484,7 +570,20 @@
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 介绍</a></li>
+<li><a href="#2">2 安装</a></li>
+<li><a href="#3-conda">3 Conda管理</a></li>
+<li><a class="toc-h2" href="#31-conda">3.1 conda管理</a></li>
+<li><a class="toc-h2" href="#32">3.2 环境管理</a></li>
+<li><a class="toc-h2" href="#33">3.3 包管理命令</a></li>
+<li><a class="toc-h2" href="#34">3.4 注意</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -493,6 +592,45 @@
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

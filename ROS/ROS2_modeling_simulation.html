@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>ROS2_modeling_simulation - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,9 +482,8 @@
             <span class="sep">/</span>
             <span>ROS</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-14</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
 <h1 id="urdf">URDF</h1>
 <p>URDF（Unified Robot Description Format）统一机器人描述格式，URDF使用XML格式描述机器人文件。  </p>
 <p>XML是 被设计用来传输和存储数据的可扩展标记语言，注意语言本身是没有含义的，只是规定了其数据格式</p>
@@ -404,7 +501,7 @@
 <p>robot标签的子标签link: <code>&lt;robot name="fishbot"&gt;&lt;link name="base_link"&gt;&lt;/link&gt;link&gt;&lt;/robot&gt;</code></p>
 <h2 id="urdf_1">URDF的组成</h2>
 <p>一般情况下，URDF由<code>声明信息</code>和<code>两种关键组件</code>共同组成</p>
-<h3 id="_2">声明信息</h3>
+<h3 id="_1">声明信息</h3>
 <p>声明信息包含两部分，第一部分是xml的声明信息，放在第一行 第二部分是机器人的声明，通过robot标签就可以声明一个机器人模型</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
 <span class="nt">&lt;robot</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;fishbot&quot;</span><span class="nt">&gt;</span>
@@ -554,7 +651,7 @@ inertial<span class="w"> </span>惯性参数<span class="w"> </span>质量等，
 2. 建立urdf文件夹，编写urdf文件
 3. 建立launch文件夹，编写launch文件
 4. 修改setup.py配置，编译测试</p>
-<h2 id="_3">建立功能包</h2>
+<h2 id="_2">建立功能包</h2>
 <p>先创建一个chapt8_ws工作空间，然后建立功能包，包的类型选ament_python</p>
 <div class="highlight"><pre><span></span><code><span class="nx">mkdir</span><span class="w"> </span><span class="o">-</span><span class="nx">p</span><span class="w"> </span><span class="nx">chapt8</span><span class="o">/</span><span class="nx">chapt8_ws</span><span class="o">/</span><span class="nx">src</span>
 <span class="nx">cd</span><span class="w"> </span><span class="nx">chapt8</span><span class="o">/</span><span class="nx">chapt8_ws</span><span class="o">/</span><span class="nx">src</span>
@@ -765,7 +862,7 @@ ros2 launch fishbot_description display_rviz2.launch.py
 <span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
 </code></pre></div>
 
-<h1 id="_4">创建一个两轮差速模型</h1>
+<h1 id="_3">创建一个两轮差速模型</h1>
 <p>接下来添加如下部件和关节：</p>
 <ul>
 <li>IMU传感器部件与关节</li>
@@ -776,7 +873,7 @@ ros2 launch fishbot_description display_rviz2.launch.py
 <p><img alt="image.png" src="ROS2_modeling_simulation_files/image.png" /></p>
 <h2 id="imu">添加imu</h2>
 <p>见上节练习</p>
-<h2 id="_5">添加右轮</h2>
+<h2 id="_4">添加右轮</h2>
 <p>关节名称为right_wheel_link，轮子的宽为4cm,直径为6.4cm,几何形状是个圆柱体  </p>
 <p>需要注意的是,圆柱默认的朝向是向上的</p>
 <p>我们可通过origin的rpy改变轮子的旋转角度，让其绕x轴旋转pi/2</p>
@@ -811,7 +908,7 @@ ros2 launch fishbot_description display_rviz2.launch.py
 <span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
 </code></pre></div>
 
-<h2 id="_6">添加左轮</h2>
+<h2 id="_5">添加左轮</h2>
 <p>左轮就是右轮的映射，不再赘述</p>
 <div class="highlight"><pre><span></span><code><span class="w"> </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_wheel_link&quot;</span><span class="nt">&gt;</span>
 <span class="w">     </span><span class="nt">&lt;visual&gt;</span>
@@ -833,7 +930,7 @@ ros2 launch fishbot_description display_rviz2.launch.py
 <span class="w"> </span><span class="nt">&lt;/joint&gt;</span>
 </code></pre></div>
 
-<h2 id="_7">添加支撑轮</h2>
+<h2 id="_6">添加支撑轮</h2>
 <p>支撑轮子固定在机器人的前方，用个球体，半径用0.016m，小球的直径为0.032m与左右轮子半径相同，然后向下偏移0.016+0.06=0.076m,向下值为负，同时把支撑论向前移动一些，选个0.06m</p>
 <div class="highlight"><pre><span></span><code><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;caster_link&quot;</span><span class="nt">&gt;</span>
 <span class="w">   </span><span class="nt">&lt;visual&gt;</span>
@@ -970,7 +1067,7 @@ ros2 launch fishbot_description display_rviz2.launch.py
 <span class="nt">&lt;/robot&gt;</span>
 </code></pre></div>
 
-<h2 id="_8">编译测试</h2>
+<h2 id="_7">编译测试</h2>
 <div class="highlight"><pre><span></span><code>colcon build
 source install/setup.bash
 ros2 launch fishbot_description display_rviz2.launch.py
@@ -991,7 +1088,7 @@ jointstate多出两个滑动条<br />
 <li>joint_states中的值的变换</li>
 </ul>
 <p>可以看到随着进度条拖动,话题中的值和rviz2中机器人关节在同步的旋转,joint_states话题也可以手动发送,下一节我们通过手动发送joint_states来控制机器人轮子转动</p>
-<h2 id="_9">如何让车轮着地</h2>
+<h2 id="_8">如何让车轮着地</h2>
 <p>虽然显示出了机器人模型，但有一个问题，那就是在RVIZ中的机器人轮子是在地面之下的。</p>
 <p>原因在于我们fixed-frame选择的是base_link,base_link的位置本来就在left_wheel_link和right_wheel_link只上，那该怎么办呢？</p>
 <p>其实很简单，我们增加一个虚拟link和关节，这个关节与base_link相连，位置位于base_link向下刚好到车轮下表面的位置。</p>
@@ -1011,7 +1108,7 @@ jointstate多出两个滑动条<br />
 <h1 id="jiontstatesrviz2">通过JiontStates控制RVIZ2关节</h1>
 <p>我们需要自己编写节点,取代joint_state_publisher发送关节位姿给robot_state_pubsher，robot_state_publisher发送tf控制机器人的关节转动。</p>
 <p><img alt="image.png" src="ROS2_modeling_simulation_files/image.png" /></p>
-<h2 id="_10">新建节点</h2>
+<h2 id="_9">新建节点</h2>
 <div class="highlight"><pre><span></span><code>cd chapt8/chapt8_ws/src
 touch fishbot_description/fishbot_description/rotate_wheel.py
 </code></pre></div>
@@ -1056,7 +1153,7 @@ source install/setup.bash
 ros2 run fishbot_description rotate_wheel
 </code></pre></div>
 
-<h2 id="_11">创建发布者</h2>
+<h2 id="_10">创建发布者</h2>
 <p>创建发布者之前，首先要知道robot_state_pubsher所订阅的话题类型是什么</p>
 <div class="highlight"><pre><span></span><code>ros2 topic info /joint_states
 
@@ -1111,7 +1208,7 @@ rotate_wheel.py</p>
        <span class="bp">self</span><span class="o">.</span><span class="n">pub_joint_states_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">JointState</span><span class="p">,</span><span class="s2">&quot;joint_states&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> 
 </code></pre></div>
 
-<h2 id="_12">编写发布逻辑</h2>
+<h2 id="_11">编写发布逻辑</h2>
 <p><strong>多线程定频发布Rate</strong></p>
 <p>创建好发布者，我们想让话题按照某个固定的速度进行发布，可以采用ROS2中的定时神器Rate</p>
 <p>为了能够一直循环使用rate，我们单独开一个线程用于发布joint_states话题数据，在ROS2程序中单独开线程进行话题发布的方法为：  </p>
@@ -1258,7 +1355,7 @@ float64[] effort #扭矩数据
    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span> <span class="c1"># 关闭rclpy</span>
 </code></pre></div>
 
-<h2 id="_13">编译测试</h2>
+<h2 id="_12">编译测试</h2>
 <p>测试之前还需要修改下display_rviz2.launch.py文件，注释其joint_state_publisher节点</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># ld.add_action(joint_state_publisher_node)</span>
 <span class="n">ld</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">robot_state_publisher_node</span><span class="p">)</span>
@@ -1281,7 +1378,7 @@ ros2 run fishbot_description rotate_wheel
 </code></pre></div>
 
 <p>观察此时rviz界面，可以看到轮子疯狂转动</p>
-<h1 id="_14">机器人仿真介绍</h1>
+<h1 id="_13">机器人仿真介绍</h1>
 <p>机器人仿真其实就是通过软件来模仿硬件的特性，用于验证机器人算法、架构等。</p>
 <p><strong>为什么需要机器人仿真</strong></p>
 <p>对于个人极客来说，直接动手比仿真要来的快和直接的多。单对于公司和非常复杂的项目来说，仿真就变得很重要了。</p>
@@ -1328,7 +1425,7 @@ ros2 run fishbot_description rotate_wheel
 <h1 id="urdf_3">为机器人URDF模型添加物理参数</h1>
 <p>机器人仿真就是用软件来模拟硬件的特性，那么我们必须要告诉仿真平台机器人各个关节的物理属性。</p>
 <p>所以这节需要将物理信息写入到urdf中，让机器人在gazebo中显示出来。</p>
-<h2 id="_15"><strong>物理参数</strong></h2>
+<h2 id="_14"><strong>物理参数</strong></h2>
 <p>一般来说有<code>碰撞</code>和<code>内参</code>两个就够了，这里再加一个摩擦力配置  </p>
 <p>碰撞描述是物体的用于碰撞检测的包围形状。内参用于描述物体的质量，惯性矩阵。link的摩擦力。</p>
 <p><strong>碰撞检测</strong></p>
@@ -1478,7 +1575,7 @@ string status_message             # Comments if available.
 <li><code>geometry_msgs/Pose initial_pose</code> ，机器人的初始化位置</li>
 <li><code>string reference_frame</code> ，初始姿态是相对于该实体的frame定义的。如果保持"empty"或"world"或“map”，则使用 gazebo的world作为frame。如果指定了不存在的实体，则会返回错误</li>
 </ul>
-<h2 id="_16">调用服务加载机器人</h2>
+<h2 id="_15">调用服务加载机器人</h2>
 <p>在rqt工具集里有一个叫服务请求工具。</p>
 <p>命令行输入rqt，在插件选项中选择Services-&gt;Service Caller,然后再下拉框选择/spawn_entity服务。</p>
 <p>接着我们把我们的FishBot的URDF模型复制粘贴，放到xml中（注意要把原来的''删掉），然后点击小电话Call图标。</p>
@@ -1548,7 +1645,7 @@ string status_message             # Comments if available.
 </li>
 </ul>
 <p>当然上面两类插件功能也可以写到一个插件里，两轮差速插件就是一个二合一加强版。</p>
-<h2 id="_17">两轮差速插件介绍</h2>
+<h2 id="_16">两轮差速插件介绍</h2>
 <p>两轮差速插件用于控制机器人轮子关节的位置变化，同时该插件还会获取轮子的位置以及速度的信息的反馈，根据反馈的位置信息结合运动学模型即可计算出当前机器人的位姿（里程计）。</p>
 <p>该插件的名称为：<code>gazebo_ros_diff_drive</code></p>
 <p>两轮差速控制器可以将轮子的目标转速发送给Gazebo，并从Gazebo获取到实际的速度和位置。</p>
@@ -1659,7 +1756,7 @@ string status_message             # Comments if available.
       <span class="o">&lt;/</span><span class="n">plugin</span><span class="o">&gt;</span>
 </code></pre></div>
 
-<h2 id="_18">两轮差速插件测试</h2>
+<h2 id="_17">两轮差速插件测试</h2>
 <div class="highlight"><pre><span></span><code>colcon build
 source install/setup.bash
 ros2 launch fishbot_description gazebo.launch.py
@@ -1848,7 +1945,7 @@ ros2 launch fishbot_description gazebo.launch.py
     <span class="o">&lt;/</span><span class="n">gazebo</span><span class="o">&gt;</span>
 </code></pre></div>
 
-<h2 id="_19">编译测试</h2>
+<h2 id="_18">编译测试</h2>
 <div class="highlight"><pre><span></span><code>colcon build
 
 ros2 launch fishbot_description gazebo.launch.py
@@ -1997,7 +2094,7 @@ ros2 launch fishbot_description gazebo.launch.py
 <p>雷达的pose就是雷达的joint中位置的设置值</p>
 </li>
 </ul>
-<h2 id="_20">编译测试</h2>
+<h2 id="_19">编译测试</h2>
 <div class="highlight"><pre><span></span><code>colcon build
 source install/setup.bash
 ros2 launch fishbot_description gazebo.launch.py
@@ -2015,7 +2112,59 @@ ros2 topic echo /scan</p>
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#urdf">URDF</a></li>
+<li><a class="toc-h2" href="#urdf_1">URDF的组成</a></li>
+<li><a class="toc-h3" href="#_1">声明信息</a></li>
+<li><a class="toc-h3" href="#jointlink">两种关键组件(Joint&Link)</a></li>
+<li><a class="toc-h2" href="#link">Link</a></li>
+<li><a class="toc-h3" href="#link_1">link标签</a></li>
+<li><a class="toc-h2" href="#joint">Joint</a></li>
+<li><a class="toc-h3" href="#joint_1">Joint标签</a></li>
+<li><a href="#rviz2-urdf">RVIZ2 可视化 URDF 模型</a></li>
+<li><a class="toc-h2" href="#_2">建立功能包</a></li>
+<li><a class="toc-h2" href="#urdfurdf">创建urdf文件夹编写urdf文件</a></li>
+<li><a class="toc-h2" href="#launchlaunch">创建launch文件夹编写launch文件</a></li>
+<li><a class="toc-h2" href="#setuppy">修改setup.py编译测试</a></li>
+<li><a href="#_3">创建一个两轮差速模型</a></li>
+<li><a class="toc-h2" href="#imu">添加imu</a></li>
+<li><a class="toc-h2" href="#_4">添加右轮</a></li>
+<li><a class="toc-h2" href="#_5">添加左轮</a></li>
+<li><a class="toc-h2" href="#_6">添加支撑轮</a></li>
+<li><a class="toc-h2" href="#urdf_2">最终URDF文件</a></li>
+<li><a class="toc-h2" href="#_7">编译测试</a></li>
+<li><a class="toc-h2" href="#_8">如何让车轮着地</a></li>
+<li><a href="#jiontstatesrviz2">通过JiontStates控制RVIZ2关节</a></li>
+<li><a class="toc-h2" href="#_9">新建节点</a></li>
+<li><a class="toc-h2" href="#_10">创建发布者</a></li>
+<li><a class="toc-h2" href="#_11">编写发布逻辑</a></li>
+<li><a class="toc-h2" href="#_12">编译测试</a></li>
+<li><a href="#_13">机器人仿真介绍</a></li>
+<li><a href="#urdf_3">为机器人URDF模型添加物理参数</a></li>
+<li><a class="toc-h2" href="#_14">物理参数</a></li>
+<li><a class="toc-h2" href="#base_link">完整base_link如下</a></li>
+<li><a href="#gazebourdf">Gazebo加载URDF</a></li>
+<li><a class="toc-h2" href="#gazebo">Gazebo插件</a></li>
+<li><a class="toc-h2" href="#_15">调用服务加载机器人</a></li>
+<li><a class="toc-h2" href="#gazebofishbotlaunch">将启动gazebo和生产fishbot写成launch文件</a></li>
+<li><a href="#gazebo_1">Gazebo仿真插件之两轮差速</a></li>
+<li><a class="toc-h2" href="#gazebo_2">Gazebo插件介绍</a></li>
+<li><a class="toc-h2" href="#_16">两轮差速插件介绍</a></li>
+<li><a class="toc-h2" href="#urdf_4">在URDF中配置两轮差速模型</a></li>
+<li><a class="toc-h2" href="#_17">两轮差速插件测试</a></li>
+<li><a href="#gazeboimu">Gazebo仿真插件之IMU</a></li>
+<li><a class="toc-h2" href="#urdf_5">urdf</a></li>
+<li><a class="toc-h2" href="#_18">编译测试</a></li>
+<li><a class="toc-h2" href="#gazebo_3">解决gazebo失败方案</a></li>
+<li><a href="#gazebo_4">Gazebo仿真插件之激光雷达</a></li>
+<li><a class="toc-h2" href="#urdf_6">urdf</a></li>
+<li><a class="toc-h2" href="#_19">编译测试</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -2024,6 +2173,45 @@ ros2 topic echo /scan</p>
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

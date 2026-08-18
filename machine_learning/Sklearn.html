@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Sklearn - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,15 +482,9 @@
             <span class="sep">/</span>
             <span>machine_learning</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#0-100-100-100-19">0       1.00      1.00      1.00        19</a></li>
-<li><a href="#1-100-100-100-13">1       1.00      1.00      1.00        13</a></li>
-<li><a href="#2-100-100-100-13">2       1.00      1.00      1.00        13</a></li>
-</ul>
-<hr />
-<h1 id="_2">简介</h1>
+<h1 id="_1">简介</h1>
 <p>Sklearn（全称 scikit-learn）是一个开源的机器学习库<br />
 在 Sklearn 中，机器学习的流程遵循一定的模式：数据加载、数据预处理、训练模型、评估模型 和 调优模型  </p>
 <ul>
@@ -431,7 +523,7 @@
 </li>
 </ul>
 <p>Sklearn 可以很好地与 NumPy、SciPy、Pandas 等 Python 数据处理库兼容，支持多种数据格式（如 NumPy 数组、Pandas DataFrame）进行输入和输出  </p>
-<h2 id="_3">常见的模块和类</h2>
+<h2 id="_2">常见的模块和类</h2>
 <ul>
 <li>分类（Classification）    <ul>
 <li>sklearn.linear_model.LogisticRegression：逻辑回归  </li>
@@ -469,7 +561,7 @@
 </li>
 </ul>
 <hr />
-<h1 id="_4">基础</h1>
+<h1 id="_3">基础</h1>
 <p>5大方面：数据表示、模型类型、预处理方法、评估指标、模型调优</p>
 <p><strong>数据表示：数据集和特征</strong>  </p>
 <ul>
@@ -602,8 +694,8 @@
 </code></pre></div>
 
 <hr />
-<h1 id="_5">数据预处理</h1>
-<h2 id="_6">缺失值</h2>
+<h1 id="_4">数据预处理</h1>
+<h2 id="_5">缺失值</h2>
 <ul>
 <li>检查缺失值</li>
 <li>填充缺失值 <ul>
@@ -630,7 +722,7 @@
 <span class="c1"># df_imputed = SimpleImputer(strategy=&#39;mean&#39;).fit_transfrom(df)</span>
 </code></pre></div>
 
-<h2 id="_7">数据缩放</h2>
+<h2 id="_6">数据缩放</h2>
 <ul>
 <li>标准化（Standardization）：将数据转换为均值为0、标准差为1的分布。适用于大多数机器学习算法  </li>
 <li>归一化（Normalization）：将数据缩放到指定范围(通常是 [0, 1])  </li>
@@ -638,7 +730,7 @@
 <p>为什么需要标准化和归一化？<br />
 标准化：对于距离度量（如 K 最近邻、支持向量机等）非常重要，因为特征的尺度不一致可能导致某些特征对模型的影响过大。标准化能确保每个特征对模型有相同的贡献<br />
 归一化：有些算法（如神经网络、梯度下降优化算法等）对输入数据的范围非常敏感，归一化有助于加速收敛 </p>
-<h2 id="_8">类别变量编码</h2>
+<h2 id="_7">类别变量编码</h2>
 <p>机器学习模型通常无法直接处理字符串类型的类别变量，因此需要将类别变量转化为数值型数据  </p>
 <ul>
 <li>标签编码<br />
@@ -668,7 +760,7 @@
 <span class="n">X_encoded</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_9">特征选择</h2>
+<h2 id="_8">特征选择</h2>
 <div class="highlight"><pre><span></span><code>通过选择最重要的特征来提高模型的性能，并减少计算成本
 </code></pre></div>
 
@@ -699,7 +791,7 @@
 <span class="n">X_rfe</span> <span class="o">=</span> <span class="n">rfe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_10">特征工程</h2>
+<h2 id="_9">特征工程</h2>
 <p>通过对现有特征进行处理、组合或构造新的特征，以提高模型的表现<br />
 特征工程的常见方式包括：  </p>
 <ul>
@@ -707,7 +799,7 @@
 <li>特征转换：对特征进行对数变换、平方根变换等，以解决数据的非线性问题  </li>
 <li>特征创建：根据现有数据创建新的特征，例如从时间戳中提取出日期、月份、星期等  </li>
 </ul>
-<h2 id="_11">特征提取</h2>
+<h2 id="_10">特征提取</h2>
 <p>旨在从原始特征中提取出新的、更具表达力的特征<br />
 常见的特征提取方法包括: 主成分分析（PCA） 和 线性判别分析（LDA）  </p>
 <ul>
@@ -737,7 +829,7 @@
 <span class="n">X_lda</span> <span class="o">=</span> <span class="n">lda</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_12">处理不平衡数据</h2>
+<h2 id="_11">处理不平衡数据</h2>
 <p>在分类问题中，如果数据集的各类别样本数量差异较大，可能会导致模型偏向预测多数类，从而影响模型的性能<br />
 常见的处理方法包括：  </p>
 <ul>
@@ -762,8 +854,8 @@
 </code></pre></div>
 
 <hr />
-<h1 id="_13">模型</h1>
-<h2 id="_14">分类模型</h2>
+<h1 id="_12">模型</h1>
+<h2 id="_13">分类模型</h2>
 <h3 id="logistic-regression">逻辑回归（Logistic Regression）</h3>
 <p>逻辑回归是一种经典的线性分类模型。它通过将线性回归的输出通过逻辑函数（sigmoid）映射到 0 和 1 之间，从而预测事件的概率  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -849,7 +941,7 @@ SVM 的基本思想是找到一个超平面，使得不同类别的样本点之�
 <span class="n">rf_pred</span> <span class="o">=</span> <span class="n">rf_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_15">回归模型</h2>
+<h2 id="_14">回归模型</h2>
 <h3 id="linear-regression">线性回归（Linear Regression）</h3>
 <p>线性回归通过拟合一条直线来预测目标变量。其核心假设是特征与目标变量之间存在线性关系</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
@@ -888,7 +980,7 @@ SVM 的基本思想是找到一个超平面，使得不同类别的样本点之�
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_16">聚类模型</h2>
+<h2 id="_15">聚类模型</h2>
 <h3 id="k-k-means">K-均值（K-Means）</h3>
 <p>K-均值是一种常见的聚类算法，目标是将数据分为 K 个簇，通过最小化每个数据点与其簇中心的距离来优化簇划分  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
@@ -920,7 +1012,7 @@ SVM 的基本思想是找到一个超平面，使得不同类别的样本点之�
 <span class="n">labels</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_17">模型评估与调优</h1>
+<h1 id="_16">模型评估与调优</h1>
 <h2 id="f1">精度、召回率、F1 分数</h2>
 <p>对于分类模型<br />
 我们通常使用精度、召回率、F1 分数等指标来评估模型性能  </p>
@@ -1117,7 +1209,7 @@ Pipeline由多个步骤（step）组成，每个步骤是一个元组，包含�
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_18">调参与优化</h2>
+<h2 id="_17">调参与优化</h2>
 <p>当我们使用 Pipeline 时，可以直接进行超参数调优<br />
 通过结合 GridSearchCV 或 RandomizedSearchCV，可以优化管道中的每一个步骤的超参数  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
@@ -1188,7 +1280,7 @@ Pipeline由多个步骤（step）组成，每个步骤是一个元组，包含�
 </code></pre></div>
 
 <hr />
-<h1 id="_19">自定义模型与功能</h1>
+<h1 id="_18">自定义模型与功能</h1>
 <p>除了使用现成的模型和预处理功能外，用户还可以根据自己的需求创建自定义的模型、转换器和功能<br />
 通常涉及继承 scikit-learn 的基类，如 BaseEstimator 和 TransformerMixin，然后实现特定的 fit 和 predict 方法  </p>
 <h2 id="transformer">自定义转换器（Transformer）</h2>
@@ -1285,7 +1377,7 @@ Pipeline由多个步骤（step）组成，每个步骤是一个元组，包含�
 <span class="c1"># predict 方法通过比较测试数据与均值的大小，做出分类预测</span>
 </code></pre></div>
 
-<h2 id="_20">使用管道</h2>
+<h2 id="_19">使用管道</h2>
 <p>scikit-learn 允许将自定义转换器和估计器作为管道的步骤<br />
 这使得可以将数据预处理和模型训练过程整合成一个工作流<br />
 自定义模型和功能可以像内建的转换器和估计器一样，与管道一起工作  </p>
@@ -1365,7 +1457,7 @@ Pipeline由多个步骤（step）组成，每个步骤是一个元组，包含�
 </code></pre></div>
 
 <hr />
-<h1 id="_21">模型保存与加载</h1>
+<h1 id="_20">模型保存与加载</h1>
 <p>在机器学习中，模型的训练过程通常是耗时的，为了避免每次重新训练模型，我们可以将训练好的模型保存下来，便于以后进行加载和预测<br />
 scikit-learn 提供了两种常用的方式来保存和加载模型：joblib 和 pickl  </p>
 <h2 id="joblib">joblib</h2>
@@ -1440,7 +1532,7 @@ joblib 提供了一个简单的 API 来保存和加载对象<br />
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Predictions:&quot;</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>    
 </code></pre></div>
 
-<h2 id="_22">保存和加载管道</h2>
+<h2 id="_21">保存和加载管道</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
@@ -1470,7 +1562,7 @@ joblib 提供了一个简单的 API 来保存和加载对象<br />
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Predictions:&quot;</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_23">版本管理</h2>
+<h2 id="_22">版本管理</h2>
 <p>每次训练模型并保存时，最好为模型文件命名加上时间戳或版本号，以便区分不同版本的模型  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
@@ -1481,7 +1573,7 @@ joblib 提供了一个简单的 API 来保存和加载对象<br />
 <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;svm_model_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s1">.joblib&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_24">更多</h2>
+<h2 id="_23">更多</h2>
 <p>可以将保存的模型与 Web 服务、批处理作业或其他应用程序集成<br />
 假设我们正在使用 Flask 创建一个简单的 Web 服务，通过 API 接口提供模型预测服务  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">jsonify</span>
@@ -1504,8 +1596,8 @@ joblib 提供了一个简单的 API 来保存和加载对象<br />
    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_25">示例</h1>
-<h2 id="_26">数据加载与可视化</h2>
+<h1 id="_24">示例</h1>
+<h2 id="_25">数据加载与可视化</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
@@ -1559,7 +1651,7 @@ joblib 提供了一个简单的 API 来保存和加载对象<br />
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_27">特征选择与数据预处理</h2>
+<h2 id="_26">特征选择与数据预处理</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
 
 <span class="c1"># 提取特征和标签</span>
@@ -1582,7 +1674,7 @@ joblib 提供了一个简单的 API 来保存和加载对象<br />
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected features:&quot;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">selected_features</span><span class="p">])</span>
 </code></pre></div>
 
-<h2 id="_28">建立分类模型</h2>
+<h2 id="_27">建立分类模型</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
@@ -1620,7 +1712,7 @@ joblib 提供了一个简单的 API 来保存和加载对象<br />
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SVM Accuracy: </span><span class="si">{</span><span class="n">accuracy_svm</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_29">评估模型并优化</h2>
+<h2 id="_28">评估模型并优化</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
 
 <span class="c1"># 混淆矩阵</span>
@@ -1667,7 +1759,7 @@ joblib 提供了一个简单的 API 来保存和加载对象<br />
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean CV Accuracy: </span><span class="si">{</span><span class="n">cross_val_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_30">完整代码</h2>
+<h2 id="_29">完整代码</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 导入必要的库</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -1786,7 +1878,7 @@ joblib 提供了一个简单的 API 来保存和加载对象<br />
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean CV Accuracy: </span><span class="si">{</span><span class="n">cross_val_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_31">房价预测</h1>
+<h1 id="_30">房价预测</h1>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">GridSearchCV</span>
@@ -1898,7 +1990,63 @@ joblib 提供了一个简单的 API 来保存和加载对象<br />
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">简介</a></li>
+<li><a class="toc-h2" href="#_2">常见的模块和类</a></li>
+<li><a href="#_3">基础</a></li>
+<li><a href="#_4">数据预处理</a></li>
+<li><a class="toc-h2" href="#_5">缺失值</a></li>
+<li><a class="toc-h2" href="#_6">数据缩放</a></li>
+<li><a class="toc-h2" href="#_7">类别变量编码</a></li>
+<li><a class="toc-h2" href="#_8">特征选择</a></li>
+<li><a class="toc-h2" href="#_9">特征工程</a></li>
+<li><a class="toc-h2" href="#_10">特征提取</a></li>
+<li><a class="toc-h2" href="#_11">处理不平衡数据</a></li>
+<li><a href="#_12">模型</a></li>
+<li><a class="toc-h2" href="#_13">分类模型</a></li>
+<li><a class="toc-h3" href="#logistic-regression">逻辑回归（Logistic Regression）</a></li>
+<li><a class="toc-h3" href="#k-k-nearest-neighbors-knn">K-近邻（K-Nearest Neighbors, KNN）</a></li>
+<li><a class="toc-h3" href="#support-vector-machine-svm">支持向量机（Support Vector Machine, SVM）</a></li>
+<li><a class="toc-h3" href="#decision-tree-random-forest">决策树与随机森林（Decision Tree & Random Forest）</a></li>
+<li><a class="toc-h2" href="#_14">回归模型</a></li>
+<li><a class="toc-h3" href="#linear-regression">线性回归（Linear Regression）</a></li>
+<li><a class="toc-h3" href="#ridge-regression">岭回归（Ridge Regression）</a></li>
+<li><a class="toc-h3" href="#lasso-lasso-regression">Lasso 回归（Lasso Regression）</a></li>
+<li><a class="toc-h2" href="#_15">聚类模型</a></li>
+<li><a class="toc-h3" href="#k-k-means">K-均值（K-Means）</a></li>
+<li><a class="toc-h3" href="#dbscan">DBSCAN（密度聚类）</a></li>
+<li><a class="toc-h3" href="#hierarchical-clustering">层次聚类（Hierarchical Clustering）</a></li>
+<li><a href="#_16">模型评估与调优</a></li>
+<li><a class="toc-h2" href="#f1">精度、召回率、F1 分数</a></li>
+<li><a class="toc-h2" href="#mse-r2">均方误差（MSE） 和 决定系数（R²）</a></li>
+<li><a class="toc-h2" href="#cross_val_score">交叉验证（cross_val_score）</a></li>
+<li><a class="toc-h2" href="#gridsearchcv">网格搜索（GridSearchCV）</a></li>
+<li><a class="toc-h2" href="#randomizedsearchcv">随机搜索（RandomizedSearchCV）</a></li>
+<li><a href="#pipeline">管道（Pipeline）</a></li>
+<li><a class="toc-h2" href="#_17">调参与优化</a></li>
+<li><a href="#_18">自定义模型与功能</a></li>
+<li><a class="toc-h2" href="#transformer">自定义转换器（Transformer）</a></li>
+<li><a class="toc-h2" href="#estimator">自定义估计器（Estimator）</a></li>
+<li><a class="toc-h2" href="#_19">使用管道</a></li>
+<li><a href="#_20">模型保存与加载</a></li>
+<li><a class="toc-h2" href="#joblib">joblib</a></li>
+<li><a class="toc-h2" href="#pickle">pickle</a></li>
+<li><a class="toc-h2" href="#_21">保存和加载管道</a></li>
+<li><a class="toc-h2" href="#_22">版本管理</a></li>
+<li><a class="toc-h2" href="#_23">更多</a></li>
+<li><a href="#_24">示例</a></li>
+<li><a class="toc-h2" href="#_25">数据加载与可视化</a></li>
+<li><a class="toc-h2" href="#_26">特征选择与数据预处理</a></li>
+<li><a class="toc-h2" href="#_27">建立分类模型</a></li>
+<li><a class="toc-h2" href="#_28">评估模型并优化</a></li>
+<li><a class="toc-h2" href="#_29">完整代码</a></li>
+<li><a href="#_30">房价预测</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1907,6 +2055,45 @@ joblib 提供了一个简单的 API 来保存和加载对象<br />
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

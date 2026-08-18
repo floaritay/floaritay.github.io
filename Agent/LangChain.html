@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>LangChain - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,35 +482,9 @@
             <span class="sep">/</span>
             <span>Agent</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-14</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-简介">1 简介</a></li>
-<li><a href="#2-安装">2 安装</a></li>
-<li><a href="#3-一个简单的-llm-应用">3 一个简单的 LLM 应用</a><ul>
-<li><a href="#31-使用语言模型">3.1 使用语言模型</a></li>
-<li><a href="#32-输出解析器">3.2 输出解析器</a></li>
-<li><a href="#33-提示词模板">3.3 提示词模板</a></li>
-<li><a href="#34-langsmith">3.4 langSmith</a></li>
-<li><a href="#35-langserve">3.5 LangServe</a></li>
-</ul>
-</li>
-<li><a href="#4-聊天机器人">4 聊天机器人</a><ul>
-<li><a href="#41-加入提示词模板">4.1 加入提示词模板</a></li>
-<li><a href="#42-管理对话历史">4.2 管理对话历史</a></li>
-<li><a href="#43-流式处理">4.3 流式处理</a></li>
-</ul>
-</li>
-<li><a href="#5-向量存储和检索器">5 向量存储和检索器</a><ul>
-<li><a href="#51-文档">5.1 文档</a></li>
-<li><a href="#52-向量存储">5.2 向量存储</a></li>
-<li><a href="#53-检索器">5.3 检索器</a></li>
-</ul>
-</li>
-<li><a href="#6-agent">6 Agent</a></li>
-</ul>
-<hr />
-<h1 id="1-简介">1 简介</h1>
+<h1 id="1">1 简介</h1>
 <p>LangChain 是一个用于开发由大型语言模型 (LLMs) 驱动的应用程序的框架。</p>
 <p><img alt="image.png" src="../images/langchain1.png" /></p>
 <p>框架由以下开源库组成</p>
@@ -440,7 +512,7 @@
 </li>
 </ul>
 <p><img alt="image.png" src="../images/Agent2.png" /></p>
-<h1 id="2-安装">2 安装</h1>
+<h1 id="2">2 安装</h1>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>langchain
 </code></pre></div>
 
@@ -448,14 +520,14 @@
 <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>langchain<span class="w"> </span>-c<span class="w"> </span>conda-forge
 </code></pre></div>
 
-<h1 id="3-一个简单的-llm-应用">3 一个简单的 LLM 应用</h1>
+<h1 id="3-llm">3 一个简单的 LLM 应用</h1>
 <p>这个应用将把文本从英语翻译成另一种语言。</p>
 <p>这是一个相对简单的 LLM 应用 - 只需一次 LLM 调用加上一些提示。</p>
 <p>尽管如此，这是一个很好的开始使用 LangChain 的方式 - 许多功能只需一些提示和一次 LLM 调用就可以构建！</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>langchain-openai
 </code></pre></div>
 
-<h2 id="31-使用语言模型">3.1 使用语言模型</h2>
+<h2 id="31">3.1 使用语言模型</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -533,7 +605,7 @@
 <span class="n">model</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="32-输出解析器">3.2 输出解析器</h2>
+<h2 id="32">3.2 输出解析器</h2>
 <p>注意到，模型的响应是一个AIMessage。</p>
 <p>包含一个字符串响应以及关于响应的其他元数据。我们通常可能只想处理字符串响应。</p>
 <ol>
@@ -558,7 +630,7 @@
 <span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="33-提示词模板">3.3 提示词模板</h2>
+<h2 id="33">3.3 提示词模板</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.prompts</span><span class="w"> </span><span class="kn">import</span> <span class="n">PromptTemplate</span>   
 
 <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;将以下内容翻译成英文 : </span><span class="si">{text}</span><span class="s2">&quot;</span>
@@ -679,7 +751,7 @@
 <span class="n">remote_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;你好&quot;</span><span class="p">})</span>
 </code></pre></div>
 
-<h1 id="4-聊天机器人">4 聊天机器人</h1>
+<h1 id="4">4 聊天机器人</h1>
 <p>我们将通过一个示例来设计和实现一个基于大型语言模型的聊天机器人。 这个聊天机器人将能够进行对话并记住之前的互动。</p>
 <p>我们可以使用消息历史类来包装我们的模型，使其具有状态。 这将跟踪模型的输入和输出，并将其存储在某个数据存储中。 </p>
 <p>未来的交互将加载这些消息，并将其作为输入的一部分传递给链。</p>
@@ -737,7 +809,7 @@
 <div class="highlight"><pre><span></span><code>  &#39;Your name is Floaritay.&#39;
 </code></pre></div>
 
-<h2 id="41-加入提示词模板">4.1 加入提示词模板</h2>
+<h2 id="41">4.1 加入提示词模板</h2>
 <p>提示词模板帮助将原始用户信息转换为大型语言模型可以处理的格式。</p>
 <p>在这种情况下，原始用户输入只是一个消息，我们将其传递给大型语言模型。</p>
 <p>现在让我们使其变得更复杂一些。让我们添加一个带有一些自定义指令的系统消息。</p>
@@ -825,14 +897,14 @@
 <div class="highlight"><pre><span></span><code>  &#39;你好，Floaritay！有什么我可以帮你的吗？如果有问题或者需要咨询，尽管说吧。&#39;
 </code></pre></div>
 
-<h2 id="42-管理对话历史">4.2 管理对话历史</h2>
+<h2 id="42">4.2 管理对话历史</h2>
 <p>如果不加以管理，消息列表将无限增长，并可能溢出大型语言模型的上下文窗口。因此，添加一个限制您传入消息大小的步骤是很重要的。</p>
 <p>注意：在提示模板之前但在从消息历史加载之前的消息之后执行此操作。</p>
 <p>我们可以通过在提示前添加一个简单的步骤，适当地修改 messages 键，然后将该新链封装在消息历史类中来实现。</p>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
-<h2 id="43-流式处理">4.3 流式处理</h2>
+<h2 id="43">4.3 流式处理</h2>
 <p>大型语言模型有时可能需要一段时间才能响应，因此为了改善用户体验，大多数应用程序所做的一件事是随着每个令牌的生成流回。这样用户就可以看到进度。</p>
 <p>所有链都暴露一个.stream方法，使用消息历史的链也不例外。我们可以简单地使用该方法获取流式响应。</p>
 <div class="highlight"><pre><span></span><code><span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;configurable&#39;</span><span class="p">:{</span><span class="s1">&#39;session_id&#39;</span><span class="p">:</span><span class="s1">&#39;A3&#39;</span><span class="p">}}</span>
@@ -867,9 +939,9 @@
     <span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">())</span>
 </code></pre></div>
 
-<h1 id="5-向量存储和检索器">5 向量存储和检索器</h1>
+<h1 id="5">5 向量存储和检索器</h1>
 <p>从（向量）数据库和其他来源检索数据，以便与大型语言模型工作流集成。</p>
-<h2 id="51-文档">5.1 文档</h2>
+<h2 id="51">5.1 文档</h2>
 <p>LangChain 实现了一个 文档 抽象，旨在表示一个文本单元及其相关元数据。它有两个属性：</p>
 <ul>
 <li>page_content：一个表示内容的字符串；</li>
@@ -902,7 +974,7 @@
 <span class="p">]</span>
 </code></pre></div>
 
-<h2 id="52-向量存储">5.2 向量存储</h2>
+<h2 id="52">5.2 向量存储</h2>
 <p>向量搜索是一种常见的存储和搜索非结构化数据（例如非结构化文本）的方法。其思想是存储与文本相关联的数值向量。</p>
 <p>给定一个查询，我们可以将其 嵌入 为相同维度的向量，并使用向量相似性度量来识别存储中的相关数据。</p>
 <p>LangChain 向量存储 对象包含用于将文本和 文档 对象添加到存储中以及使用各种相似性度量进行查询的方法。</p>
@@ -911,7 +983,7 @@
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
-<h2 id="53-检索器">5.3 检索器</h2>
+<h2 id="53">5.3 检索器</h2>
 <p>LangChain VectorStore 对象不继承 Runnable，因此无法立即集成到 LangChain 表达式 chains 中。</p>
 <p>LangChain 检索器 是 Runnables，因此它们实现了一组标准方法（例如，同步和异步的 invoke 和 batch 操作），并设计为可以纳入 LCEL 链中。</p>
 <p>我们可以自己创建一个简单版本，而无需继承 Retriever。如果我们选择希望用于检索文档的方法，我们可以轻松创建一个可运行的对象。下面我们将围绕 similarity_search 方法构建一个：</p>
@@ -921,7 +993,30 @@
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 简介</a></li>
+<li><a href="#2">2 安装</a></li>
+<li><a href="#3-llm">3 一个简单的 LLM 应用</a></li>
+<li><a class="toc-h2" href="#31">3.1 使用语言模型</a></li>
+<li><a class="toc-h2" href="#32">3.2 输出解析器</a></li>
+<li><a class="toc-h2" href="#33">3.3 提示词模板</a></li>
+<li><a class="toc-h2" href="#34-langsmith">3.4 langSmith</a></li>
+<li><a class="toc-h2" href="#35-langserve">3.5 LangServe</a></li>
+<li><a href="#4">4 聊天机器人</a></li>
+<li><a class="toc-h2" href="#41">4.1 加入提示词模板</a></li>
+<li><a class="toc-h2" href="#42">4.2 管理对话历史</a></li>
+<li><a class="toc-h2" href="#43">4.3 流式处理</a></li>
+<li><a href="#5">5 向量存储和检索器</a></li>
+<li><a class="toc-h2" href="#51">5.1 文档</a></li>
+<li><a class="toc-h2" href="#52">5.2 向量存储</a></li>
+<li><a class="toc-h2" href="#53">5.3 检索器</a></li>
+<li><a href="#6-agent">6 Agent</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -930,6 +1025,45 @@
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Markdown - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,88 +482,15 @@
             <span class="sep">/</span>
             <span>basic</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-14</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-概述">1 概述</a></li>
-<li><a href="#2-markdown编辑器">2 Markdown编辑器</a><ul>
-<li><a href="#21-vs-code-markdown">2.1 VS Code Markdown</a></li>
-</ul>
-</li>
-<li><a href="#3-标题">3 标题</a></li>
-<li><a href="#4-文本格式">4 文本格式</a><ul>
-<li><a href="#41-字体">4.1 字体</a></li>
-<li><a href="#42-分隔线">4.2 分隔线</a></li>
-<li><a href="#43-下划线">4.3 下划线</a></li>
-<li><a href="#44-行内代码标记">4.4 行内代码标记</a></li>
-<li><a href="#45-文本高亮">4.5 文本高亮</a></li>
-<li><a href="#46-转义">4.6 转义</a></li>
-</ul>
-</li>
-<li><a href="#5-列表">5 列表</a><ul>
-<li><a href="#51-无序嵌套列表">5.1 无序嵌套列表</a></li>
-<li><a href="#52-有序嵌套列表">5.2 有序嵌套列表</a></li>
-<li><a href="#53-混合嵌套">5.3 混合嵌套</a></li>
-</ul>
-</li>
-<li><a href="#6-引用">6 引用</a><ul>
-<li><a href="#61-多级嵌套引用">6.1 多级嵌套引用</a></li>
-<li><a href="#62-区块与列表">6.2 区块与列表</a></li>
-<li><a href="#63-区块与其他元素">6.3 区块与其他元素</a></li>
-</ul>
-</li>
-<li><a href="#7-代码">7 代码</a></li>
-<li><a href="#8-链接">8 链接</a><ul>
-<li><a href="#81-参考链接">8.1 参考链接</a></li>
-<li><a href="#82-自动链接识别">8.2 自动链接识别</a></li>
-</ul>
-</li>
-<li><a href="#9-锚点">9 锚点</a><ul>
-<li><a href="#91-自定义锚点">9.1 自定义锚点</a><ul>
-<li><a href="#911-锚点示例位置">9.1.1 锚点示例位置</a></li>
-</ul>
-</li>
-<li><a href="#92-跨文件跳转语法">9.2 跨文件跳转语法</a></li>
-</ul>
-</li>
-<li><a href="#10-图片">10 图片</a><ul>
-<li><a href="#101-尺寸控制">10.1 尺寸控制</a></li>
-<li><a href="#102-链接与图片">10.2 链接与图片</a></li>
-</ul>
-</li>
-<li><a href="#11-表格">11 表格</a><ul>
-<li><a href="#111-对齐">11.1 对齐</a></li>
-<li><a href="#112-换行">11.2 换行</a></li>
-</ul>
-</li>
-<li><a href="#12-html元素">12 HTML元素</a></li>
-<li><a href="#13-数学公式">13 数学公式</a><ul>
-<li><a href="#131-行内公式与块级公式">13.1 行内公式与块级公式</a></li>
-</ul>
-</li>
-<li><a href="#14-图表绘制">14 图表绘制</a><ul>
-<li><a href="#141-流程图">14.1 流程图</a></li>
-<li><a href="#142-时序图">14.2 时序图</a></li>
-<li><a href="#143-甘特图">14.3 甘特图</a></li>
-<li><a href="#144-饼图">14.4 饼图</a></li>
-<li><a href="#145-类图-classdiagram">14.5 类图 ClassDiagram</a></li>
-<li><a href="#146-自定义与交互式图表">14.6 自定义与交互式图表</a></li>
-</ul>
-</li>
-<li><a href="#15-obsidian">15 Obsidian</a><ul>
-<li><a href="#151-创建一个库-vault">15.1 创建一个库 (Vault)</a></li>
-<li><a href="#152-obsidian-插件">15.2 Obsidian 插件</a></li>
-</ul>
-</li>
-</ul>
-<hr />
-<h1 id="1-概述">1 概述</h1>
+<h1 id="1">1 概述</h1>
 <p>Markdown 是一种轻量级标记语言，允许使用易读易写的纯文本格式编写文档。</p>
 <p>Markdown 编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式的文档。</p>
 <p>Markdown 编写的文档后缀为 .md, .markdown。</p>
 <p>Markdown 并不是 HTML 的替代品，而是 HTML 的简化版本。实际上，Markdown 的最终目标就是转换为 HTML。</p>
 <p>Markdown 源码 → 解析器 → HTML 输出 → 浏览器渲染</p>
-<h1 id="2-markdown编辑器">2 Markdown编辑器</h1>
+<h1 id="2-markdown">2 Markdown编辑器</h1>
 <ol>
 <li>VS Code Markdown  </li>
 <li>
@@ -491,7 +516,7 @@
 <p>实时预览需要执行 Markdown: Open Preview to the Side 命令来实现。</p>
 <p>如果使用 VS Code 等编辑器，按 Ctrl+Shift+V 打开预览面板，也可以点击右上角的预览图标</p>
 <p>如果你需要将 markdown 转为 PDF、图片、HTML 等格式也可以安装对应的插件来实现</p>
-<h1 id="3-标题">3 标题</h1>
+<h1 id="3">3 标题</h1>
 <p>两种格式：<code>=</code> 和 <code>-</code>以及<code>#</code></p>
 <div class="highlight"><pre><span></span><code><span class="gh">我展示的是一级标题</span>
 <span class="gh">=================</span>
@@ -508,10 +533,10 @@
 </code></pre></div>
 
 <p>行首位置：# 号必须在行首，前面不能有其他字符（空格或制表符）。</p>
-<h1 id="4-文本格式">4 文本格式</h1>
+<h1 id="4">4 文本格式</h1>
 <p>换行是使用两个以上空格加上回车  </p>
 <p>当然也可以在段落后面使用一个空行来表示重新开始一个段落。</p>
-<h2 id="41-字体">4.1 字体</h2>
+<h2 id="41">4.1 字体</h2>
 <p>粗体语法：使用两个星号 <code>**</code> 或两个下划线 <code>__</code> 包围文字<br />
 斜体语法：使用一个星号 <code>*</code> 或一个下划线 <code>_</code> 包围文字<br />
 粗斜体组合：使用三个星号 <code>***</code> 或三个下划线 <code>___</code>包围文字  </p>
@@ -523,7 +548,7 @@
 ___粗斜体文字___
 </code></pre></div>
 
-<h2 id="42-分隔线">4.2 分隔线</h2>
+<h2 id="42">4.2 分隔线</h2>
 <p>在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内除空格外不能有其他东西。</p>
 <div class="highlight"><pre><span></span><code>***
 
@@ -534,10 +559,10 @@ ___粗斜体文字___
 ----------
 </code></pre></div>
 
-<h2 id="43-下划线">4.3 下划线</h2>
+<h2 id="43">4.3 下划线</h2>
 <p>HTML 的 <code>&lt;u&gt;</code> 标签 <code>&lt;u&gt;带下划线文本&lt;/u&gt;</code></p>
 <p><u>带下划线文本</u></p>
-<h2 id="44-行内代码标记">4.4 行内代码标记</h2>
+<h2 id="44">4.4 行内代码标记</h2>
 <p>单行：使用一个反引号 ` 包围代码  </p>
 <div class="highlight"><pre><span></span><code><span class="sb">`git commit`</span>
 </code></pre></div>
@@ -569,19 +594,19 @@ ___粗斜体文字___
 <span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="45-文本高亮">4.5 文本高亮</h2>
+<h2 id="45">4.5 文本高亮</h2>
 <div class="highlight"><pre><span></span><code>这是&lt;mark&gt;高亮文本&lt;/mark&gt;
 </code></pre></div>
 
 <p>这是<mark>高亮文本</mark></p>
-<h2 id="46-转义">4.6 转义</h2>
+<h2 id="46">4.6 转义</h2>
 <p>Markdown 使用反斜杠转义特殊字符  </p>
 <div class="highlight"><pre><span></span><code>\*\* 正常显示星号 \*\*  
 </code></pre></div>
 
 <p>** 正常显示星号 **  </p>
-<h1 id="5-列表">5 列表</h1>
-<h2 id="51-无序嵌套列表">5.1 无序嵌套列表</h2>
+<h1 id="5">5 列表</h1>
+<h2 id="51">5.1 无序嵌套列表</h2>
 <p>无序列表使用<code>*</code>、<code>+</code>或<code>-</code>作为列表标记，这些标记后面要添加一个空格，然后再填写内容</p>
 <div class="highlight"><pre><span></span><code><span class="k">*</span><span class="w"> </span>第一项
 
@@ -594,7 +619,7 @@ ___粗斜体文字___
 <span class="k">-</span><span class="w"> </span>第三项
 </code></pre></div>
 
-<h2 id="52-有序嵌套列表">5.2 有序嵌套列表</h2>
+<h2 id="52">5.2 有序嵌套列表</h2>
 <div class="highlight"><pre><span></span><code><span class="k">1.</span> 准备阶段
 <span class="w">  </span><span class="k">1.</span> 收集资料
 <span class="w">  </span><span class="k">2.</span> 制定计划
@@ -604,7 +629,7 @@ ___粗斜体文字___
 <span class="k">3.</span> 总结阶段
 </code></pre></div>
 
-<h2 id="53-混合嵌套">5.3 混合嵌套</h2>
+<h2 id="53">5.3 混合嵌套</h2>
 <div class="highlight"><pre><span></span><code><span class="k">1.</span> 主要任务
 <span class="w">  </span><span class="k">-</span><span class="w"> </span>子任务A
 <span class="w">  </span><span class="k">-</span><span class="w"> </span>子任务B
@@ -623,7 +648,7 @@ ___粗斜体文字___
 <span class="k">  &gt; </span><span class="ge">可以在列表项中使用引用</span>
 </code></pre></div>
 
-<h1 id="6-引用">6 引用</h1>
+<h1 id="6">6 引用</h1>
 <p>在段落开头使用 <code>&gt;</code> 符号 ，然后后面紧跟一个<code>空格</code>符号。换行同前</p>
 <div class="highlight"><pre><span></span><code><span class="k">&gt; </span><span class="ge">这是引用的第一行。（这后面有两个空格）  </span>
 <span class="k">&gt; </span><span class="ge">这是引用的第二行。</span>
@@ -637,13 +662,13 @@ ___粗斜体文字___
 只需要在第一行使用 &gt; 符号。  
 </code></pre></div>
 
-<h2 id="61-多级嵌套引用">6.1 多级嵌套引用</h2>
+<h2 id="61">6.1 多级嵌套引用</h2>
 <div class="highlight"><pre><span></span><code><span class="k">&gt; </span><span class="ge">最外层</span>
 <span class="k">&gt; </span><span class="ge">&gt; 第一层嵌套</span>
 <span class="k">&gt; </span><span class="ge">&gt; &gt; 第二层嵌套</span>
 </code></pre></div>
 
-<h2 id="62-区块与列表">6.2 区块与列表</h2>
+<h2 id="62">6.2 区块与列表</h2>
 <div class="highlight"><pre><span></span><code><span class="k">&gt; </span><span class="ge">区块中使用列表</span>
 <span class="k">&gt; </span><span class="ge">1. 第一项</span>
 <span class="k">&gt; </span><span class="ge">2. 第二项</span>
@@ -653,11 +678,11 @@ ___粗斜体文字___
 </code></pre></div>
 
 <p>同理也可以在列表中使用区块</p>
-<h2 id="63-区块与其他元素">6.3 区块与其他元素</h2>
+<h2 id="63">6.3 区块与其他元素</h2>
 <p>引用块内可以包含几乎所有其他 Markdown 元素</p>
-<h1 id="7-代码">7 代码</h1>
+<h1 id="7">7 代码</h1>
 <p>见 <a href="#行内代码标记">文本格式 行内代码标记</a></p>
-<h1 id="8-链接">8 链接</h1>
+<h1 id="8">8 链接</h1>
 <div class="highlight"><pre><span></span><code>[<span class="nt">链接标题</span>](<span class="na">链接地址 &quot;可选的标注&quot;</span>)
 或
 &lt;链接地址&gt;
@@ -665,7 +690,7 @@ ___粗斜体文字___
 
 <p>这是一个链接 <a href="https://www.baidu.com" title="百度一下，你就知道">百度搜索</a> 鼠标悬停显示标注<br />
 <a href="https://www.baidu.com">https://www.baidu.com</a></p>
-<h2 id="81-参考链接">8.1 参考链接</h2>
+<h2 id="81">8.1 参考链接</h2>
 <p>将链接定义与使用分离，让文档更整洁，特别适合长文档或需要多次引用相同链接的情况。  </p>
 <p>当参考标签与链接标题相同时，可以省略第二个方括号</p>
 <div class="highlight"><pre><span></span><code>markdown[链接标题][参考标签]
@@ -676,13 +701,13 @@ ___粗斜体文字___
 <p>这个链接用 1 作为网址变量 <a href="http://www.google.com/">Google</a><br />
 然后在文档的结尾为变量赋值网址<br />
 markdown 我喜欢使用 <a href="https://github.com">GitHub</a> 来管理代码。  </p>
-<h2 id="82-自动链接识别">8.2 自动链接识别</h2>
+<h2 id="82">8.2 自动链接识别</h2>
 <p>现代 Markdown 解析器通常支持自动识别 URL 和邮箱地址</p>
 <div class="highlight"><pre><span></span><code>markdown直接输入网址：https://www.example.com  
 </code></pre></div>
 
 <p>markdown直接输入网址：https://www.example.com  </p>
-<h1 id="9-锚点">9 锚点</h1>
+<h1 id="9">9 锚点</h1>
 <div class="highlight"><pre><span></span><code><span class="gu">## 目录</span>
 <span class="k">-</span><span class="w"> </span>[<span class="nt">第一章：介绍</span>](<span class="na">#第一章介绍</span>)
 <span class="k">-</span><span class="w"> </span>[<span class="nt">第二章：安装</span>](<span class="na">#第二章安装</span>)
@@ -698,7 +723,7 @@ markdown 我喜欢使用 <a href="https://github.com">GitHub</a> 来管理代码
 这里是使用说明...
 </code></pre></div>
 
-<h2 id="91-自定义锚点">9.1 自定义锚点</h2>
+<h2 id="91">9.1 自定义锚点</h2>
 <div class="highlight"><pre><span></span><code>&lt;a id=&quot;custom-anchor&quot;&gt;&lt;/a&gt;
 <span class="gu">### 9.1.1 锚点示例位置</span>
 
@@ -706,13 +731,13 @@ markdown 我喜欢使用 <a href="https://github.com">GitHub</a> 来管理代码
 </code></pre></div>
 
 <p><a id="custom-anchor"></a></p>
-<h3 id="911-锚点示例位置">9.1.1 锚点示例位置</h3>
+<h3 id="911">9.1.1 锚点示例位置</h3>
 <p><a href="#custom-anchor">点击跳转到锚点示例位置</a></p>
 <div class="highlight"><pre><span></span><code>[<span class="nt">回到顶部</span>](<span class="na">#</span>)
 </code></pre></div>
 
 <p><a href="#">回到顶部</a></p>
-<h2 id="92-跨文件跳转语法">9.2 跨文件跳转语法</h2>
+<h2 id="92">9.2 跨文件跳转语法</h2>
 <div class="highlight"><pre><span></span><code>[<span class="nt">显示的文字</span>](<span class="na">文件路径</span>)
 </code></pre></div>
 
@@ -721,7 +746,7 @@ markdown 我喜欢使用 <a href="https://github.com">GitHub</a> 来管理代码
 </code></pre></div>
 
 <p>使用 Conda。参阅 <a href="./Conda.html">Conda.md</a></p>
-<h1 id="10-图片">10 图片</h1>
+<h1 id="10">10 图片</h1>
 <div class="highlight"><pre><span></span><code>![<span class="nt">文字描述</span>](<span class="na">图片路径 &quot;可选图片标注&quot;</span>)
 </code></pre></div>
 
@@ -732,7 +757,7 @@ markdown 我喜欢使用 <a href="https://github.com">GitHub</a> 来管理代码
 <li>注意路径分隔符在不同操作系统中的差异</li>
 </ul>
 <p>也可以像链接网址那样对图片网址使用变量</p>
-<h2 id="101-尺寸控制">10.1 尺寸控制</h2>
+<h2 id="101">10.1 尺寸控制</h2>
 <p>Markdown 还没有办法指定图片的高度与宽度，如果需要的话，你可以使用 <code>&lt;img&gt;</code> 标签。</p>
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;image.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;描述文字&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;300&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;200&quot;</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;image.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;描述文字&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;width: 300px; height: auto;&quot;</span><span class="p">&gt;</span>
@@ -750,12 +775,12 @@ markdown 我喜欢使用 <a href="https://github.com">GitHub</a> 来管理代码
 <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;image.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;右对齐图片&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;float: right; margin-left: 20px;&quot;</span><span class="p">&gt;</span>
 </code></pre></div>
 
-<h2 id="102-链接与图片">10.2 链接与图片</h2>
+<h2 id="102">10.2 链接与图片</h2>
 <p>将图片作为链接的可点击元素</p>
 <div class="highlight"><pre><span></span><code>[<span class="nt">![图片alt文本</span>](<span class="na">图片URL</span>)](链接URL)
 </code></pre></div>
 
-<h1 id="11-表格">11 表格</h1>
+<h1 id="11">11 表格</h1>
 <div class="highlight"><pre><span></span><code>|  表头   | 表头  |
 |  ----  | ----  |
 | 单元格  | 单元格 |
@@ -812,7 +837,7 @@ markdown 我喜欢使用 <a href="https://github.com">GitHub</a> 来管理代码
 </tr>
 </tbody>
 </table>
-<h2 id="111-对齐">11.1 对齐</h2>
+<h2 id="111">11.1 对齐</h2>
 <ul>
 <li>---: 设置内容和标题栏居右对齐。</li>
 <li>:--- 设置内容和标题栏居左对齐。</li>
@@ -824,7 +849,7 @@ markdown 我喜欢使用 <a href="https://github.com">GitHub</a> 来管理代码
 | 单元格 | 单元格 | 单元格 |
 </code></pre></div>
 
-<h2 id="112-换行">11.2 换行</h2>
+<h2 id="112">11.2 换行</h2>
 <p>使用 <code>&lt;br&gt;</code></p>
 <div class="highlight"><pre><span></span><code>| 项目 | 详细说明 |
 |------|----------|
@@ -850,9 +875,9 @@ markdown 我喜欢使用 <a href="https://github.com">GitHub</a> 来管理代码
 </tr>
 </tbody>
 </table>
-<h1 id="12-html元素">12 HTML元素</h1>
+<h1 id="12-html">12 HTML元素</h1>
 <p>目前支持的 HTML 元素有：<code>&lt;kbd&gt; &lt;b&gt; &lt;i&gt; &lt;em&gt; &lt;sup&gt; &lt;sub&gt; &lt;br&gt;</code>等</p>
-<h1 id="13-数学公式">13 数学公式</h1>
+<h1 id="13">13 数学公式</h1>
 <p>在 Markdown 中，数学公式通过 <code>LaTeX</code> 语法来表示。</p>
 <p><strong>基本语法结构</strong>   </p>
 <ul>
@@ -862,7 +887,7 @@ markdown 我喜欢使用 <a href="https://github.com">GitHub</a> 来管理代码
 <li>上标：使用 ^，如 x^2</li>
 <li>分组：用花括号将多个字符组合，如 x_{i+1}</li>
 </ul>
-<h2 id="131-行内公式与块级公式">13.1 行内公式与块级公式</h2>
+<h2 id="131">13.1 行内公式与块级公式</h2>
 <p>行内公式使用单个美元符号 $ 包围</p>
 <p>块级公式使用两个美元符号 $$ 包围</p>
 <div class="highlight"><pre><span></span><code>变量 $x = 5$ 和函数 $f(x) = x^2 + 2x + 1$。
@@ -892,10 +917,10 @@ $$\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}$$
     f''(x)  &amp;= 2a
     \end{align}\]</div></p>
 <p>其余自行了解latex语法</p>
-<h1 id="14-图表绘制">14 图表绘制</h1>
+<h1 id="14">14 图表绘制</h1>
 <p><code>Mermaid</code> 是最流行的 Markdown 图表工具之一，它允许你使用简单的文本语法生成各种图表。<br />
 支持图表类型：流程图 (Flowchart)，序列图 (Sequence Diagram)，类图 (Class Diagram)，状态图 (State Diagram)，甘特图 (Gantt Chart)，饼图 (Pie Chart)</p>
-<h2 id="141-流程图">14.1 流程图</h2>
+<h2 id="141">14.1 流程图</h2>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
@@ -931,7 +956,7 @@ graph TD
 <li>-- 实线</li>
 <li>-. 虚线</li>
 </ul>
-<h2 id="142-时序图">14.2 时序图</h2>
+<h2 id="142">14.2 时序图</h2>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
@@ -954,7 +979,7 @@ sequenceDiagram
 <li>--&gt;&gt; 虚线箭头</li>
 <li>note 添加注释</li>
 </ul>
-<h2 id="143-甘特图">14.3 甘特图</h2>
+<h2 id="143">14.3 甘特图</h2>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
@@ -980,7 +1005,7 @@ gantt
 <li>section 定义阶段</li>
 <li>任务状态：done（已完成）、active（进行中）、crit（关键）</li>
 </ul>
-<h2 id="144-饼图">14.4 饼图</h2>
+<h2 id="144">14.4 饼图</h2>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
@@ -993,7 +1018,7 @@ pie
    "其他" : 10
 
 </div>
-<h2 id="145-类图-classdiagram">14.5 类图 ClassDiagram</h2>
+<h2 id="145-classdiagram">14.5 类图 ClassDiagram</h2>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
@@ -1014,7 +1039,7 @@ classDiagram
    用户 "1" --> "n" 订单
 
 </div>
-<h2 id="146-自定义与交互式图表">14.6 自定义与交互式图表</h2>
+<h2 id="146">14.6 自定义与交互式图表</h2>
 <p>Mermaid 允许自定义图表样式：</p>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
@@ -1040,17 +1065,69 @@ graph TD
 <p>Obsidian 不依赖云端格式，不锁用户数据，任何时间可迁移，可被任意编辑器读取。</p>
 <p>Obsidian 官方网站： https://obsidian.md/</p>
 <p><img alt="obsidian.png" src="../images/obsidian.png" /></p>
-<h2 id="151-创建一个库-vault">15.1 创建一个库 (Vault)</h2>
+<h2 id="151-vault">15.1 创建一个库 (Vault)</h2>
 <p>Vault 是 Obsidian 中最重要的概念。</p>
 <p>Vault = 文件夹： 库其实就是你电脑上的一个普通文件夹，用来存放你所有的笔记文件。</p>
-<h2 id="152-obsidian-插件">15.2 Obsidian 插件</h2>
+<h2 id="152-obsidian">15.2 Obsidian 插件</h2>
 <p>Obsidian 的插件分为两大类：核心插件和社区插件，可以在设置选择打开查看。</p>
         </article>
         <footer class="site-footer">
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 概述</a></li>
+<li><a href="#2-markdown">2 Markdown编辑器</a></li>
+<li><a class="toc-h2" href="#21-vs-code-markdown">2.1 VS Code Markdown</a></li>
+<li><a href="#3">3 标题</a></li>
+<li><a href="#4">4 文本格式</a></li>
+<li><a class="toc-h2" href="#41">4.1 字体</a></li>
+<li><a class="toc-h2" href="#42">4.2 分隔线</a></li>
+<li><a class="toc-h2" href="#43">4.3 下划线</a></li>
+<li><a class="toc-h2" href="#44">4.4 行内代码标记</a></li>
+<li><a class="toc-h2" href="#45">4.5 文本高亮</a></li>
+<li><a class="toc-h2" href="#46">4.6 转义</a></li>
+<li><a href="#5">5 列表</a></li>
+<li><a class="toc-h2" href="#51">5.1 无序嵌套列表</a></li>
+<li><a class="toc-h2" href="#52">5.2 有序嵌套列表</a></li>
+<li><a class="toc-h2" href="#53">5.3 混合嵌套</a></li>
+<li><a href="#6">6 引用</a></li>
+<li><a class="toc-h2" href="#61">6.1 多级嵌套引用</a></li>
+<li><a class="toc-h2" href="#62">6.2 区块与列表</a></li>
+<li><a class="toc-h2" href="#63">6.3 区块与其他元素</a></li>
+<li><a href="#7">7 代码</a></li>
+<li><a href="#8">8 链接</a></li>
+<li><a class="toc-h2" href="#81">8.1 参考链接</a></li>
+<li><a class="toc-h2" href="#82">8.2 自动链接识别</a></li>
+<li><a href="#9">9 锚点</a></li>
+<li><a class="toc-h2" href="#91">9.1 自定义锚点</a></li>
+<li><a class="toc-h3" href="#911">9.1.1 锚点示例位置</a></li>
+<li><a class="toc-h2" href="#92">9.2 跨文件跳转语法</a></li>
+<li><a href="#10">10 图片</a></li>
+<li><a class="toc-h2" href="#101">10.1 尺寸控制</a></li>
+<li><a class="toc-h2" href="#102">10.2 链接与图片</a></li>
+<li><a href="#11">11 表格</a></li>
+<li><a class="toc-h2" href="#111">11.1 对齐</a></li>
+<li><a class="toc-h2" href="#112">11.2 换行</a></li>
+<li><a href="#12-html">12 HTML元素</a></li>
+<li><a href="#13">13 数学公式</a></li>
+<li><a class="toc-h2" href="#131">13.1 行内公式与块级公式</a></li>
+<li><a href="#14">14 图表绘制</a></li>
+<li><a class="toc-h2" href="#141">14.1 流程图</a></li>
+<li><a class="toc-h2" href="#142">14.2 时序图</a></li>
+<li><a class="toc-h2" href="#143">14.3 甘特图</a></li>
+<li><a class="toc-h2" href="#144">14.4 饼图</a></li>
+<li><a class="toc-h2" href="#145-classdiagram">14.5 类图 ClassDiagram</a></li>
+<li><a class="toc-h2" href="#146">14.6 自定义与交互式图表</a></li>
+<li><a href="#15-obsidian">15 Obsidian</a></li>
+<li><a class="toc-h2" href="#151-vault">15.1 创建一个库 (Vault)</a></li>
+<li><a class="toc-h2" href="#152-obsidian">15.2 Obsidian 插件</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1059,6 +1136,45 @@ graph TD
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

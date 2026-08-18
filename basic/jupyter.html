@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>jupyter - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,45 +482,8 @@
             <span class="sep">/</span>
             <span>basic</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-11</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-jupyter-notebook">1 Jupyter Notebook</a><ul>
-<li><a href="#11-ipynb文件">1.1 .ipynb文件</a></li>
-<li><a href="#12-架构">1.2 架构</a></li>
-<li><a href="#13-文件转换与可视化">1.3 文件转换与可视化</a></li>
-<li><a href="#14-生态">1.4 生态</a></li>
-</ul>
-</li>
-<li><a href="#2-安装">2 安装</a></li>
-<li><a href="#3-vs-code-中使用-jupyter-notebook">3 VS Code 中使用 Jupyter Notebook</a><ul>
-<li><a href="#31-单元格运行与管理">3.1 单元格运行与管理</a></li>
-<li><a href="#32-导出">3.2 导出</a></li>
-<li><a href="#33-调试">3.3 调试</a></li>
-<li><a href="#34-远程连接">3.4 远程连接</a></li>
-<li><a href="#35-差异比对">3.5 差异比对</a></li>
-</ul>
-</li>
-<li><a href="#4-操作模式">4 操作模式</a></li>
-<li><a href="#5-快捷键">5 快捷键</a><ul>
-<li><a href="#51-运行-cell-的快捷键通用">5.1 运行 Cell 的快捷键（通用）</a></li>
-<li><a href="#52-命令模式快捷键蓝色边框">5.2 命令模式快捷键（蓝色边框）</a></li>
-<li><a href="#53-编辑模式快捷键绿色边框">5.3 编辑模式快捷键（绿色边框）</a></li>
-</ul>
-</li>
-<li><a href="#6-魔法命令">6 魔法命令</a></li>
-<li><a href="#7-tqdm">7 tqdm</a></li>
-<li><a href="#8-高级技巧">8 高级技巧</a></li>
-<li><a href="#9-jupyter-book">9 jupyter-Book</a><ul>
-<li><a href="#91-安装">9.1 安装</a></li>
-<li><a href="#92-管理文件与目录-_tocyml">9.2 管理文件与目录 (_toc.yml)：</a></li>
-<li><a href="#93-基本配置-_configyml">9.3 基本配置 (_config.yml)：</a></li>
-<li><a href="#94-本地构建与预览">9.4 本地构建与预览</a></li>
-<li><a href="#95-设置-github-actions-自动部署推荐">9.5 设置 GitHub Actions 自动部署（推荐）：</a></li>
-</ul>
-</li>
-</ul>
-<hr />
 <h1 id="1-jupyter-notebook">1 Jupyter Notebook</h1>
 <p>一个开源的 Web 应用程序，允许我们创建和分享包含实时代码、数学方程、可视化图表和解释性文本的文档。</p>
 <p>Jupyter 的名字来源于它所支持的三种核心语言：Julia、Python 和 R。</p>
@@ -434,10 +495,10 @@
 <li>可重复研究：整个分析过程（代码、数据、结果）都被保存在一个文件中，其他人可以完整地复现你的工作。</li>
 <li>快速原型设计：你可以快速搭建想法，并分段测试代码，无需运行整个脚本。</li>
 </ul>
-<h2 id="11-ipynb文件">1.1 .ipynb文件</h2>
+<h2 id="11-ipynb">1.1 .ipynb文件</h2>
 <p>其实是一段结构化的 JSON 文本。意味着它具有极强的可移植性。你可以轻松地在 GitHub 上分享它，或者将其转换成 PDF、HTML。</p>
 <p>它需要一个渲染引擎（如 Jupyter Notebook 软件、VS Code 插件或 GitHub 预览器）来将其转化为我们熟悉的交互界面。</p>
-<h2 id="12-架构">1.2 架构</h2>
+<h2 id="12">1.2 架构</h2>
 <p>核心是一个交互式计算模型。它基于浏览器提供 REPL（读取-求值-输出循环），其底层由以下硬核技术支撑：</p>
 <ul>
 <li>核心组件： 结合了 IPython（增强型交互式 Python）、ØMQ（高效消息队列）和 Tornado（高性能 Web 服务器）。</li>
@@ -445,12 +506,12 @@
 <li>解耦设计： 内核并不依赖于特定的文档，它可以运行在本地，也可以部署在远程服务器上。</li>
 <li>全能扩展： 目前支持包括 Python、R、Julia、Haskell 在内的 100 多种 编程语言（其名字 Ju-Py-Ter 正是取自 Julia, Python 和 R）。</li>
 </ul>
-<h2 id="13-文件转换与可视化">1.3 文件转换与可视化</h2>
+<h2 id="13">1.3 文件转换与可视化</h2>
 <ul>
 <li>nbconvert (导出)： 将 Notebook 转换为 PDF、HTML、Markdown、甚至幻灯片（Reveal.js）和 LaTeX。</li>
 <li>nbviewer (在线预览)： 这是一个基于 Web 的服务，只要你给它一个公开的 Notebook URL，它就能将其动态渲染为精美的网页，无需接收方安装任何软件。</li>
 </ul>
-<h2 id="14-生态">1.4 生态</h2>
+<h2 id="14">1.4 生态</h2>
 <table>
 <thead>
 <tr>
@@ -477,7 +538,7 @@
 </tr>
 </tbody>
 </table>
-<h1 id="2-安装">2 安装</h1>
+<h1 id="2">2 安装</h1>
 <p>前提是你的电脑上已经安装了 Python 和包管理工具 pip</p>
 <p>打开你的命令行工具：</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>--version
@@ -495,30 +556,30 @@ jupyter<span class="w"> </span>--version
 </code></pre></div>
 
 <p>也可以使用conda安装</p>
-<h1 id="3-vs-code-中使用-jupyter-notebook">3 VS Code 中使用 Jupyter Notebook</h1>
+<h1 id="3-vs-code-jupyter-notebook">3 VS Code 中使用 Jupyter Notebook</h1>
 <p>打开 VS Code，点击左侧活动栏的 Extensions（扩展） 图标（快捷键 Ctrl+Shift+X），搜索并安装 "Jupyter" 插件（由 Microsoft 提供），安装此插件会自动安装 Python 扩展。</p>
 <p>新建一个以 .ipynb 结尾的文件即可</p>
 <p>点击编辑界面右上角的 "Select Kernel"（选择内核）。  </p>
 <p>在弹出的列表中，选择你安装好的 Python 版本或 Anaconda 环境（例如 Python 3.x.x 或 base (conda)）。  </p>
 <p>如果是第一次运行，VS Code 可能会提示你安装 ipykernel 包，点击"安装"即可。</p>
-<h2 id="31-单元格运行与管理">3.1 单元格运行与管理</h2>
+<h2 id="31">3.1 单元格运行与管理</h2>
 <p>单块运行：点击单元格左侧的 播放图标 (▶)。</p>
 <p>多块运行：使用顶部工具栏的"双箭头"图标 Run All 运行全文；或在特定单元格处选择 Run Above（运行上方所有）或 Run Below（运行下方所有）。</p>
 <p>按章节运行：在"大纲 (Outline)"视图中，可以点击章节标题旁的按钮，运行该 Markdown 标题下的整组单元格。</p>
-<h2 id="32-导出">3.2 导出</h2>
+<h2 id="32">3.2 导出</h2>
 <p>点击工具栏的 ... &gt; Export。支持导出为 .py 脚本、HTML 或 PDF（注：PDF 导出需安装 TeX 环境）。</p>
-<h2 id="33-调试">3.3 调试</h2>
+<h2 id="33">3.3 调试</h2>
 <p>逐行运行 (Run by Line)：点击单元格工具栏的图标，可不被打扰地单步执行代码。</p>
 <p>完全调试：在单元格左侧设置断点，选择 Run 按钮旁的 Debug Cell。</p>
-<h2 id="34-远程连接">3.4 远程连接</h2>
+<h2 id="34">3.4 远程连接</h2>
 <p>若需使用远程服务器的算力：</p>
 <p>点击右上角 Kernel Picker（内核选择器）。</p>
 <p>选择 Existing Jupyter Server</p>
 <p>输入带有 ?token= 的服务器 URL 即可连接。</p>
-<h2 id="35-差异比对">3.5 差异比对</h2>
+<h2 id="35">3.5 差异比对</h2>
 <p>由于 .ipynb 本质是 JSON，VS Code 提供了可视化比对工具。</p>
 <p>点击右上角"打开更改"图标</p>
-<h1 id="4-操作模式">4 操作模式</h1>
+<h1 id="4">4 操作模式</h1>
 <table>
 <thead>
 <tr>
@@ -543,8 +604,8 @@ jupyter<span class="w"> </span>--version
 </tr>
 </tbody>
 </table>
-<h1 id="5-快捷键">5 快捷键</h1>
-<h2 id="51-运行-cell-的快捷键通用">5.1 运行 Cell 的快捷键（通用）</h2>
+<h1 id="5">5 快捷键</h1>
+<h2 id="51-cell">5.1 运行 Cell 的快捷键（通用）</h2>
 <p>以下三个快捷键在两种模式下均可使用，是高频操作：</p>
 <table>
 <thead>
@@ -572,7 +633,7 @@ jupyter<span class="w"> </span>--version
 </tr>
 </tbody>
 </table>
-<h2 id="52-命令模式快捷键蓝色边框">5.2 命令模式快捷键（蓝色边框）</h2>
+<h2 id="52">5.2 命令模式快捷键（蓝色边框）</h2>
 <p>按 Esc 进入命令模式后，可使用以下快捷键：</p>
 <p>1、Cell 的插入与删除</p>
 <table>
@@ -747,7 +808,7 @@ jupyter<span class="w"> </span>--version
 </tr>
 </tbody>
 </table>
-<h2 id="53-编辑模式快捷键绿色边框">5.3 编辑模式快捷键（绿色边框）</h2>
+<h2 id="53">5.3 编辑模式快捷键（绿色边框）</h2>
 <p>按 Enter 进入编辑模式后，可使用以下快捷键在 Cell 内部操作：</p>
 <p>1、代码编辑</p>
 <table>
@@ -823,7 +884,7 @@ jupyter<span class="w"> </span>--version
 </tr>
 </tbody>
 </table>
-<h1 id="6-魔法命令">6 魔法命令</h1>
+<h1 id="6">6 魔法命令</h1>
 <p>Jupyter 内置的特殊指令，以 %（单行）或 %%（整个 Cell）开头，用于完成计时、调试、文件操作等常用任务</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># %timeit：对单行代码进行多次重复计时，取平均值，结果更准确（适合测试简短表达式的性能）</span>
 <span class="o">%</span><span class="n">timeit</span> <span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]</span>
@@ -957,10 +1018,10 @@ jupyter<span class="w"> </span>--version
         <span class="n">pbar</span><span class="o">.</span><span class="n">set_postfix</span><span class="p">({</span><span class="s2">&quot;chunk&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">})</span>  <span class="c1"># 在进度条右侧显示附加信息</span>
 </code></pre></div>
 
-<h1 id="8-高级技巧">8 高级技巧</h1>
+<h1 id="8">8 高级技巧</h1>
 <p>...</p>
 <h1 id="9-jupyter-book">9 jupyter-Book</h1>
-<h2 id="91-安装">9.1 安装</h2>
+<h2 id="91">9.1 安装</h2>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>jupyter-book
 
 jupyter-book<span class="w"> </span>create<span class="w"> </span>my-learning-notes
@@ -972,7 +1033,7 @@ jupyter-book<span class="w"> </span>create<span class="w"> </span>my-learning-no
 <li>_toc.yml：“目录大纲”，决定了笔记的章节顺序。</li>
 <li>intro.md等示例文件：可直接删除。</li>
 </ul>
-<h2 id="92-管理文件与目录-_tocyml">9.2 管理文件与目录 (_toc.yml)：</h2>
+<h2 id="92-_tocyml">9.2 管理文件与目录 (_toc.yml)：</h2>
 <div class="highlight"><pre><span></span><code><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jb-book</span>
 <span class="nt">root</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">intro</span><span class="w">   </span><span class="c1"># 指定首页文件（如 intro.md）</span>
 <span class="nt">chapters</span><span class="p">:</span>
@@ -984,7 +1045,7 @@ jupyter-book<span class="w"> </span>create<span class="w"> </span>my-learning-no
 </code></pre></div>
 
 <p>然后，您需要把 .ipynb 或 .md 文件放到对应的文件夹里（如 python/01-basic.ipynb）。</p>
-<h2 id="93-基本配置-_configyml">9.3 基本配置 (_config.yml)：</h2>
+<h2 id="93-_configyml">9.3 基本配置 (_config.yml)：</h2>
 <div class="highlight"><pre><span></span><code><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">我的学习笔记</span><span class="w">       </span><span class="c1"># 网站标题</span>
 <span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">你的名字</span>
 <span class="nt">logo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">images/logo.png</span><span class="w">    </span><span class="c1"># 可选，Logo路径</span>
@@ -994,14 +1055,14 @@ jupyter-book<span class="w"> </span>create<span class="w"> </span>my-learning-no
 </code></pre></div>
 
 <p>这里选择执行模式时需稍加留意：设为 auto 时 Jupyter Book 会用缓存结果，force 会强制执行（当笔记代码较多时，构建时间会比较长）。</p>
-<h2 id="94-本地构建与预览">9.4 本地构建与预览</h2>
+<h2 id="94">9.4 本地构建与预览</h2>
 <p>在 my-learning-notes 文件夹下运行构建命令：</p>
 <div class="highlight"><pre><span></span><code>jupyter-book<span class="w"> </span>build<span class="w"> </span>.
 </code></pre></div>
 
 <p>终端显示 "build finished successfully" 即表示成功。生成的静态网页都在 _build/html/ 文件夹中。<br />
 你可以在浏览器里打开 _build/html/index.html 来预览。</p>
-<h2 id="95-设置-github-actions-自动部署推荐">9.5 设置 GitHub Actions 自动部署（推荐）：</h2>
+<h2 id="95-github-actions">9.5 设置 GitHub Actions 自动部署（推荐）：</h2>
 <ol>
 <li>
 <p>添加 .nojekyll 文件（必须）：回到本地 my-learning-notes 根目录，创建空的 .nojekyll 文件以关闭 Jekyll 处理。</p>
@@ -1053,7 +1114,39 @@ jupyter-book<span class="w"> </span>create<span class="w"> </span>my-learning-no
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1-jupyter-notebook">1 Jupyter Notebook</a></li>
+<li><a class="toc-h2" href="#11-ipynb">1.1 .ipynb文件</a></li>
+<li><a class="toc-h2" href="#12">1.2 架构</a></li>
+<li><a class="toc-h2" href="#13">1.3 文件转换与可视化</a></li>
+<li><a class="toc-h2" href="#14">1.4 生态</a></li>
+<li><a href="#2">2 安装</a></li>
+<li><a href="#3-vs-code-jupyter-notebook">3 VS Code 中使用 Jupyter Notebook</a></li>
+<li><a class="toc-h2" href="#31">3.1 单元格运行与管理</a></li>
+<li><a class="toc-h2" href="#32">3.2 导出</a></li>
+<li><a class="toc-h2" href="#33">3.3 调试</a></li>
+<li><a class="toc-h2" href="#34">3.4 远程连接</a></li>
+<li><a class="toc-h2" href="#35">3.5 差异比对</a></li>
+<li><a href="#4">4 操作模式</a></li>
+<li><a href="#5">5 快捷键</a></li>
+<li><a class="toc-h2" href="#51-cell">5.1 运行 Cell 的快捷键（通用）</a></li>
+<li><a class="toc-h2" href="#52">5.2 命令模式快捷键（蓝色边框）</a></li>
+<li><a class="toc-h2" href="#53">5.3 编辑模式快捷键（绿色边框）</a></li>
+<li><a href="#6">6 魔法命令</a></li>
+<li><a href="#7-tqdm">7 tqdm</a></li>
+<li><a href="#8">8 高级技巧</a></li>
+<li><a href="#9-jupyter-book">9 jupyter-Book</a></li>
+<li><a class="toc-h2" href="#91">9.1 安装</a></li>
+<li><a class="toc-h2" href="#92-_tocyml">9.2 管理文件与目录 (_toc.yml)：</a></li>
+<li><a class="toc-h2" href="#93-_configyml">9.3 基本配置 (_config.yml)：</a></li>
+<li><a class="toc-h2" href="#94">9.4 本地构建与预览</a></li>
+<li><a class="toc-h2" href="#95-github-actions">9.5 设置 GitHub Actions 自动部署（推荐）：</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1062,6 +1155,45 @@ jupyter-book<span class="w"> </span>create<span class="w"> </span>my-learning-no
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

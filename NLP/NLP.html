@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>NLP - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,121 +482,8 @@
             <span class="sep">/</span>
             <span>NLP</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<div class="highlight"><pre><span></span><code>- [1.1 基于规则](#11-基于规则)
-- [1.2 基于统计](#12-基于统计)
-- [1.3 基于神经网络](#13-基于神经网络)
-- [2.1 N-gram模型](#21-n-gram模型)
-- [2.2 神经网络模型与词嵌入](#22-神经网络模型与词嵌入)
-  - [2.2.1 前馈神经网络模型](#221-前馈神经网络模型)
-  - [2.2.3 LSTM/GRU](#223-lstmgru)
-  - [2.2.4 Transformer架构](#224-transformer架构)
-  - [2.2.5 Decoder-Only 架构](#225-decoder-only-架构)
-  - [2.2.6 预训练语言模型](#226-预训练语言模型)
-- [3.1 文本清洗](#31-文本清洗)
-- [3.2 分词](#32-分词)
-  - [3.2.1 字节对编码(BPE)](#321-字节对编码bpe)
-- [3.3 移除停用词](#33-移除停用词)
-- [3.4 词干还原](#34-词干还原)
-- [3.5 词性标注](#35-词性标注)
-</code></pre></div>
-
-<ul>
-<li><a href="#4-文本表示方法">4 文本表示方法</a><ul>
-<li><a href="#41-传统文本表示">4.1 传统文本表示</a><ul>
-<li><a href="#412-词袋模型bag-of-words">4.1.2 词袋模型（Bag of Words）</a></li>
-<li><a href="#413-tf-idf">4.1.3 TF-IDF</a></li>
-<li><a href="#414-n-gram-模型">4.1.4 N-gram 模型</a></li>
-</ul>
-</li>
-<li><a href="#42-词向量表示">4.2 词向量表示</a><ul>
-<li><a href="#421-word2vec">4.2.1 Word2Vec</a></li>
-<li><a href="#422-glove-词向量">4.2.2 GloVe 词向量</a></li>
-<li><a href="#423-fasttext">4.2.3 FastText</a></li>
-</ul>
-</li>
-<li><a href="#43-文档级表示">4.3 文档级表示</a><ul>
-<li><a href="#431-doc2vec">4.3.1 Doc2Vec</a></li>
-<li><a href="#432-句向量与文档向量">4.3.2 句向量与文档向量</a></li>
-<li><a href="#434-主题模型lda">4.3.4 主题模型（LDA）</a></li>
-</ul>
-</li>
-<li><a href="#44-上下文感知的表示">4.4 上下文感知的表示</a><ul>
-<li><a href="#441-elmo-模型">4.4.1 ELMo 模型</a></li>
-<li><a href="#442-bert-及其变体">4.4.2 BERT 及其变体</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#5-文本分类">5 文本分类</a><ul>
-<li><a href="#51-流程与方法">5.1 流程与方法</a></li>
-<li><a href="#52-示例">5.2 示例</a></li>
-</ul>
-</li>
-<li><a href="#20-类新闻数据集这里选择4个类别作为示例无神论基督教计算机图形医学">20 类新闻数据集。这里选择4个类别作为示例（无神论、基督教、计算机图形、医学）</a></li>
-<li><a href="#6-情感分析">6 情感分析</a><ul>
-<li><a href="#61-基于词典的情感分析方法">6.1 基于词典的情感分析方法</a></li>
-<li><a href="#62-基于机器学习的情感分析方法">6.2 基于机器学习的情感分析方法</a></li>
-<li><a href="#63-细粒度情感分析">6.3 细粒度情感分析</a></li>
-</ul>
-</li>
-<li><a href="#7-命名实体识别">7 命名实体识别</a><ul>
-<li><a href="#71-评估指标">7.1 评估指标</a></li>
-</ul>
-</li>
-<li><a href="#8-关系抽取">8 关系抽取</a><ul>
-<li><a href="#81-主要方法">8.1 主要方法</a></li>
-<li><a href="#82-评估指标">8.2 评估指标</a></li>
-<li><a href="#83-示例">8.3 示例</a></li>
-</ul>
-</li>
-<li><a href="#9-文本相似度计算">9 文本相似度计算</a><ul>
-<li><a href="#91-主要方法">9.1 主要方法</a></li>
-<li><a href="#92-相似度度量指标">9.2 相似度度量指标</a></li>
-<li><a href="#93-示例">9.3 示例</a></li>
-</ul>
-</li>
-<li><a href="#10-神经网络">10 神经网络</a><ul>
-<li><a href="#101-循环神经网络rnn">10.1 循环神经网络（RNN）</a></li>
-<li><a href="#102-长短期记忆网络lstm">10.2 长短期记忆网络（LSTM）</a></li>
-<li><a href="#103-门控循环单元gru">10.3 门控循环单元（GRU）</a></li>
-<li><a href="#104-双向-rnnbi-rnn">10.4 双向 RNN（Bi-RNN）</a></li>
-</ul>
-</li>
-<li><a href="#11-序列到序列模型">11 序列到序列模型</a><ul>
-<li><a href="#111-训练与优化">11.1 训练与优化</a></li>
-</ul>
-</li>
-<li><a href="#12-transformer架构">12 Transformer架构</a><ul>
-<li><a href="#121-注意力机制">12.1 注意力机制</a><ul>
-<li><a href="#1211-自注意力机制">12.1.1 自注意力机制</a></li>
-<li><a href="#1212-多头注意力">12.1.2 多头注意力</a></li>
-</ul>
-</li>
-<li><a href="#122-位置编码positional-encoding">12.2 位置编码（Positional Encoding）</a></li>
-<li><a href="#123-前馈神经网络feed-forward-network">12.3 前馈神经网络（Feed-Forward Network）</a></li>
-<li><a href="#124-残差连接与层归一化residual-connection-layer-norm">12.4 残差连接与层归一化（Residual Connection &amp; Layer Norm）</a></li>
-<li><a href="#125-编码器-解码器结构">12.5 编码器-解码器结构</a></li>
-</ul>
-</li>
-<li><a href="#13-预训练模型">13 预训练模型</a></li>
-<li><a href="#14-bert">14 BERT</a><ul>
-<li><a href="#141-bert的微调">14.1 BERT的微调</a></li>
-<li><a href="#142-主流bert变体模型">14.2 主流BERT变体模型</a></li>
-</ul>
-</li>
-<li><a href="#15-生成式模型">15 生成式模型</a></li>
-<li><a href="#16-多模态">16 多模态</a><ul>
-<li><a href="#161-clip">16.1 CLIP</a></li>
-<li><a href="#162-dall-e">16.2 DALL-E</a></li>
-<li><a href="#163-其他多模态模型">16.3 其他多模态模型</a></li>
-</ul>
-</li>
-<li><a href="#17-扩散模型">17 扩散模型</a></li>
-<li><a href="#18-微调">18 微调</a></li>
-</ul>
-<hr />
 <h1 id="1">1. 发展历程</h1>
 <p>基于规则-&gt;基于统计-&gt;基于深度学习</p>
 <h2 id="11">1.1 基于规则</h2>
@@ -1061,10 +1046,10 @@ Output=x+Sublayer(x)。</p>
 <p>混淆矩阵分析</p>
 </li>
 </ul>
-<h1 id="4-文本表示方法">4 文本表示方法</h1>
+<h1 id="4">4 文本表示方法</h1>
 <p>在文本处理之后，需要将非结构化的文本数据转化为计算机可以处理的数值形式。  </p>
-<h2 id="41-传统文本表示">4.1 传统文本表示</h2>
-<h3 id="412-词袋模型bag-of-words">4.1.2 词袋模型（Bag of Words）</h3>
+<h2 id="41">4.1 传统文本表示</h2>
+<h3 id="412-bag-of-words">4.1.2 词袋模型（Bag of Words）</h3>
 <p>词袋模型是最简单的文本表示方法之一，它将文本视为一个无序的词汇集合。  </p>
 <ul>
 <li>根据语料库构建词汇表，统计每个词在文档中出现的次数</li>
@@ -1150,7 +1135,7 @@ D3：香蕉 葡萄  </p>
 <span class="nb">print</span><span class="p">(</span><span class="n">X_tfidf</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
 </code></pre></div>
 
-<h3 id="414-n-gram-模型">4.1.4 N-gram 模型</h3>
+<h3 id="414-n-gram">4.1.4 N-gram 模型</h3>
 <p>N-gram 模型考虑了词语的顺序信息，通过连续n个词的组合来表示文本。  </p>
 <p>常见类型</p>
 <ul>
@@ -1174,7 +1159,7 @@ D3：香蕉 葡萄  </p>
 <span class="nb">print</span><span class="p">(</span><span class="n">bigram_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span>
 </code></pre></div>
 
-<h2 id="42-词向量表示">4.2 词向量表示</h2>
+<h2 id="42">4.2 词向量表示</h2>
 <h3 id="421-word2vec">4.2.1 Word2Vec</h3>
 <p>Word2Vec 是一种基于神经网络的词向量表示方法，由 Google 在 2013 年提出。  </p>
 <p>核心思想：相似上下文的词，语义相似 → 向量相似</p>
@@ -1243,7 +1228,7 @@ D3：香蕉 葡萄  </p>
 <span class="n">similar_words</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="o">.</span><span class="n">most_similar</span><span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="422-glove-词向量">4.2.2 GloVe 词向量</h3>
+<h3 id="422-glove">4.2.2 GloVe 词向量</h3>
 <p>GloVe（Global Vectors for Word Representation）结合了全局统计信息和局部上下文窗口的优点。</p>
 <p>核心思想</p>
 <ul>
@@ -1451,7 +1436,7 @@ D2：我 爱 香蕉  </p>
 <span class="n">vector</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">wv</span><span class="p">[</span><span class="s1">&#39;unseenword&#39;</span><span class="p">]</span>
 </code></pre></div>
 
-<h2 id="43-文档级表示">4.3 文档级表示</h2>
+<h2 id="43">4.3 文档级表示</h2>
 <h3 id="431-doc2vec">4.3.1 Doc2Vec</h3>
 <p>Doc2Vec 是 Word2Vec 的扩展，新增段落向量，既能生成词向量，也直接输出整篇文档向量。  </p>
 <p>两种模型</p>
@@ -1468,7 +1453,7 @@ D2：我 爱 香蕉  </p>
 <span class="n">vector</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">infer_vector</span><span class="p">([</span><span class="s2">&quot;new&quot;</span><span class="p">,</span> <span class="s2">&quot;document&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">])</span>
 </code></pre></div>
 
-<h3 id="432-句向量与文档向量">4.3.2 句向量与文档向量</h3>
+<h3 id="432">4.3.2 句向量与文档向量</h3>
 <p>常用方法</p>
 <ul>
 <li>平均法：对词向量取平均</li>
@@ -1483,7 +1468,7 @@ D2：我 爱 香蕉  </p>
 <span class="n">embeddings</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="434-主题模型lda">4.3.4 主题模型（LDA）</h3>
+<h3 id="434-lda">4.3.4 主题模型（LDA）</h3>
 <p>潜在狄利克雷分配（LDA）是一种无监督的主题建模方法。  </p>
 <p>核心思想：一篇文档由多个主题混合构成，一个主题由多个词语混合构成</p>
 <ul>
@@ -1512,8 +1497,8 @@ D2：我 爱 香蕉  </p>
 <span class="n">lda</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="44-上下文感知的表示">4.4 上下文感知的表示</h2>
-<h3 id="441-elmo-模型">4.4.1 ELMo 模型</h3>
+<h2 id="44">4.4 上下文感知的表示</h2>
+<h3 id="441-elmo">4.4.1 ELMo 模型</h3>
 <p>ELMo（Embeddings from Language Models）动态上下文词向量 是最早的上下文相关词表示方法之一。  </p>
 <p>核心：同一个词，不同句子、不同语境，生成不一样向量</p>
 <p>解决 Word2Vec/GloVe/FastText 一词一向量、无法区分多义词的缺陷。</p>
@@ -1525,7 +1510,7 @@ D2：我 爱 香蕉  </p>
 <li>词向量随句子上下文实时变化</li>
 </ul>
 <p><img alt="image.png" src="NLP_files/image.png" /></p>
-<h3 id="442-bert-及其变体">4.4.2 BERT 及其变体</h3>
+<h3 id="442-bert">4.4.2 BERT 及其变体</h3>
 <p>BERT（Bidirectional Encoder Representations from Transformers）是 Google 提出的预训练语言模型。</p>
 <p>双向预训练 Transformer 编码器，生成上下文动态词向量，彻底解决一词多义，是经典预训练底座模型。</p>
 <p>关键创新</p>
@@ -1633,7 +1618,7 @@ D2：我 爱 香蕉  </p>
 </tr>
 </tbody>
 </table>
-<h1 id="5-文本分类">5 文本分类</h1>
+<h1 id="5">5 文本分类</h1>
 <p>将给定的文本文档自动归类到一个或多个预定义的类别中。</p>
 <ul>
 <li>情感分析：判断评论是正面还是负面</li>
@@ -1642,7 +1627,7 @@ D2：我 爱 香蕉  </p>
 <li>意图识别：理解用户查询的真实意图</li>
 <li>医疗诊断：根据症状描述分类疾病类型</li>
 </ul>
-<h2 id="51-流程与方法">5.1 流程与方法</h2>
+<h2 id="51">5.1 流程与方法</h2>
 <p>原始文本 -&gt; 文本预处理 -&gt; 特征提取 -&gt; 分类模型 -&gt; 分类结果  </p>
 <ol>
 <li>文本预处理
@@ -1784,9 +1769,9 @@ D2：我 爱 香蕉  </p>
 2. 领域适应：模型在新领域的表现下降
 3. 小样本学习：标注数据有限的情况
 4. 解释性：理解模型为何做出特定分类决策</p>
-<h1 id="6-情感分析">6 情感分析</h1>
+<h1 id="6">6 情感分析</h1>
 <p>通过计算技术自动识别、提取和分析文本中的主观信息，判断作者对特定主题、产品或服务的态度是正面、负面还是中性  </p>
-<h2 id="61-基于词典的情感分析方法">6.1 基于词典的情感分析方法</h2>
+<h2 id="61">6.1 基于词典的情感分析方法</h2>
 <p>传统的情感分析技术，主要依赖预构建的情感词典。</p>
 <p>优点：
 - 无需训练数据
@@ -1796,7 +1781,7 @@ D2：我 爱 香蕉  </p>
 - 难以处理复杂语言现象(如讽刺、反语)
 - 依赖词典的覆盖度和质量
 - 无法捕捉上下文语义</p>
-<h2 id="62-基于机器学习的情感分析方法">6.2 基于机器学习的情感分析方法</h2>
+<h2 id="62">6.2 基于机器学习的情感分析方法</h2>
 <p>典型特征工程
 - 词袋模型(BOW)：文本表示为词语出现频率的向量
 - TF-IDF：考虑词语在文档中的重要性
@@ -1821,7 +1806,7 @@ D2：我 爱 香蕉  </p>
 <span class="nb">print</span><span class="p">(</span><span class="n">prediction</span><span class="p">)</span>  <span class="c1"># 输出: &#39;positive&#39;</span>
 </code></pre></div>
 
-<h2 id="63-细粒度情感分析">6.3 细粒度情感分析</h2>
+<h2 id="63">6.3 细粒度情感分析</h2>
 <p>细粒度情感分析(Aspect-Based Sentiment Analysis, ABSA)是更高级的情感分析任务，旨在识别文本中提到的特定方面及其对应的情感。  </p>
 <p>ABSA的核心子任务<br />
 - 方面提取：识别文本中讨论的实体或属性
@@ -1853,7 +1838,7 @@ D2：我 爱 香蕉  </p>
 <span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>  <span class="c1"># 可能输出: 1 (负面)</span>
 </code></pre></div>
 
-<h1 id="7-命名实体识别">7 命名实体识别</h1>
+<h1 id="7">7 命名实体识别</h1>
 <p>命名实体识别（Named Entity Recognition，简称 NER）是自然语言处理（NLP）中的一项基础任务，它的目标是识别文本中具有特定意义的实体，并将其分类到预定义的类别中<br />
 - 命名实体：文本中表示特定对象的专有名词
 - 实体类别：常见类型包括人名、地名、组织机构名、时间、日期、货币等</p>
@@ -1896,7 +1881,7 @@ D2：我 爱 香蕉  </p>
 <span class="nb">print</span><span class="p">(</span><span class="n">rule_based_ner</span><span class="p">(</span><span class="n">sample</span><span class="p">))</span>
 </code></pre></div>
 
-<h2 id="71-评估指标">7.1 评估指标</h2>
+<h2 id="71">7.1 评估指标</h2>
 <p>关键性能指标
 - 精确率（Precision）：识别正确的实体占所有识别实体的比例
 - 召回率（Recall）：识别正确的实体占所有实际实体的比例
@@ -1907,13 +1892,13 @@ D2：我 爱 香蕉  </p>
 精确率 = 80/90 ≈ 89%<br />
 召回率 = 80/100 = 80%<br />
 F1 = 2<em>(0.89</em>0.8)/(0.89+0.8) ≈ 84%  </p>
-<h1 id="8-关系抽取">8 关系抽取</h1>
+<h1 id="8">8 关系抽取</h1>
 <p>关系抽取(Relation Extraction)是自然语言处理中的一个重要任务，旨在从非结构化文本中识别实体之间的语义关系。简单来说，就是从句子中找出"谁"和"谁"之间有什么"关系"  </p>
 <p>核心要素
 - 实体识别：首先需要识别文本中的命名实体
 - 关系分类：然后判断这些实体之间存在什么类型的关系
 - 关系表示：最后以结构化形式表示这些关系</p>
-<h2 id="81-主要方法">8.1 主要方法</h2>
+<h2 id="81">8.1 主要方法</h2>
 <ol>
 <li>基于规则的方法<br />
 优点：实现简单，准确率高<br />
@@ -1963,11 +1948,11 @@ BERT，GPT，RoBERTa</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="82-评估指标">8.2 评估指标</h2>
+<h2 id="82">8.2 评估指标</h2>
 <p>精确率(Precision)<br />
 召回率(Recall)<br />
 F1值  </p>
-<h2 id="83-示例">8.3 示例</h2>
+<h2 id="83">8.3 示例</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 示例数据集</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;比尔盖茨是微软的创始人&quot;</span><span class="p">,</span> <span class="s2">&quot;relations&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;head&quot;</span><span class="p">:</span> <span class="s2">&quot;比尔盖茨&quot;</span><span class="p">,</span> <span class="s2">&quot;tail&quot;</span><span class="p">:</span> <span class="s2">&quot;微软&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;创始人&quot;</span><span class="p">}]},</span>
@@ -1993,13 +1978,13 @@ F1值  </p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;预测关系: </span><span class="si">{</span><span class="n">prediction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="9-文本相似度计算">9 文本相似度计算</h1>
+<h1 id="9">9 文本相似度计算</h1>
 <p>旨在量化两个文本片段之间的相似程度。这项技术在信息检索、问答系统、抄袭检测、推荐系统等多个领域都有广泛应用。
 - 语义相似度：衡量文本在含义上的接近程度
 - 字面相似度：衡量文本在表面词汇上的重叠程度
 - 向量空间模型：将文本表示为高维空间中的向量
 - 距离度量：计算向量之间的距离或相似度</p>
-<h2 id="91-主要方法">9.1 主要方法</h2>
+<h2 id="91">9.1 主要方法</h2>
 <ol>
 <li>基于词频的方法<br />
 词袋模型(Bag of Words)<br />
@@ -2071,7 +2056,7 @@ BERT 相似度计算  </li>
 <span class="n">last_hidden_states</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">last_hidden_state</span>
 </code></pre></div>
 
-<h2 id="92-相似度度量指标">9.2 相似度度量指标</h2>
+<h2 id="92">9.2 相似度度量指标</h2>
 <table>
 <thead>
 <tr>
@@ -2105,7 +2090,7 @@ BERT 相似度计算  </li>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;文本相似度: </span><span class="si">{</span><span class="n">similarity</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="93-示例">9.3 示例</h2>
+<h2 id="93">9.3 示例</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 新闻标题相似度检测</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">cosine_similarity</span>
@@ -2134,8 +2119,8 @@ BERT 相似度计算  </li>
 根据场景选择方法（短文本：BERT等预训练模型，长文档：TF-IDF + 余弦相似度，实时系统：Word2Vec等轻量模型）<br />
 考虑计算效率（大规模数据使用近似最近邻(ANN)算法，考虑使用Faiss等高效相似度搜索库）<br />
 持续评估优化（建立人工评估集，监控生产环境效果，定期更新模型）  </p>
-<h1 id="10-神经网络">10 神经网络</h1>
-<h2 id="101-循环神经网络rnn">10.1 循环神经网络（RNN）</h2>
+<h1 id="10">10 神经网络</h1>
+<h2 id="101-rnn">10.1 循环神经网络（RNN）</h2>
 <p>循环神经网络（Recurrent Neural Network，RNN） 是一种专门处理序列数据（如文本、语音、时间序列）的神经网络。  </p>
 <p>与传统的前馈神经网络不同，RNN 具有"记忆"能力，能够保存之前步骤的信息。  </p>
 <p>循环神经网络能够利用前一步的隐藏状态（Hidden State）来影响当前步骤的输出，从而捕捉序列中的时序依赖关系   </p>
@@ -2182,7 +2167,7 @@ RNN 在每个时间步 t 执行以下计算：  </p>
 <li>梯度消失/爆炸问题（难以学习长期依赖）  </li>
 <li>计算效率较低（无法并行处理时间步）  </li>
 </ul>
-<h2 id="102-长短期记忆网络lstm">10.2 长短期记忆网络（LSTM）</h2>
+<h2 id="102-lstm">10.2 长短期记忆网络（LSTM）</h2>
 <p>LSTM（Long Short-Term Memory）是 RNN 的一种改进架构，专门设计来解决标准 RNN 的长期依赖问题  </p>
 <p>LSTM 引入了三个门控机制和一个记忆单元：</p>
 <table>
@@ -2266,7 +2251,7 @@ RNN 在每个时间步 t 执行以下计算：  </p>
 </ul>
 <p>旧记忆<span class="math-inline">\(c_{t-1}\)</span><strong>直接直通累加</strong>，没有经过非线性激活压缩。<br />
 只要遗忘门接近1，早期信息几乎无损向后传递，梯度不会快速消失。  </p>
-<h2 id="103-门控循环单元gru">10.3 门控循环单元（GRU）</h2>
+<h2 id="103-gru">10.3 门控循环单元（GRU）</h2>
 <p>GRU（Gated Recurrent Unit）是 LSTM 的简化版本，在保持相似性能的同时减少了参数数量  </p>
 <p>GRU 把 LSTM 的 4 组参数 → 简化成 3 组 (遗忘门 f + 输入门 i -&gt; 更新门 z)<br />
 GRU 把 LSTM 的 2 个状态 → 简化成 1 个 (用 h 兼顾细胞状态 c)</p>
@@ -2315,7 +2300,7 @@ GRU 把 LSTM 的 2 个状态 → 简化成 1 个 (用 h 兼顾细胞状态 c)</p
        <span class="k">return</span> <span class="n">h_next</span>
 </code></pre></div>
 
-<h2 id="104-双向-rnnbi-rnn">10.4 双向 RNN（Bi-RNN）</h2>
+<h2 id="104-rnnbi-rnn">10.4 双向 RNN（Bi-RNN）</h2>
 <p>双向 RNN 通过同时考虑过去和未来的上下文信息，增强了序列建模能力。</p>
 <p>Bi-RNN 包含两个独立的 RNN 层：</p>
 <ul>
@@ -2342,7 +2327,7 @@ GRU 把 LSTM 的 2 个状态 → 简化成 1 个 (用 h 兼顾细胞状态 c)</p
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Bidirectional</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">64</span><span class="p">)))</span>  <span class="c1"># 创建双向LSTM层</span>
 </code></pre></div>
 
-<h1 id="11-序列到序列模型">11 序列到序列模型</h1>
+<h1 id="11_1">11 序列到序列模型</h1>
 <p>序列到序列(Sequence-to-Sequence, Seq2Seq)模型是NLP中的一种重要架构，专门用于将一个序列转换为另一个序列的任务。这种模型的核心思想是接受一个<strong>长度可变</strong>的输入序列，生成一个<strong>长度可变</strong>的输出序列。</p>
 <p>Seq2Seq模型属于编码器-解码器(Encoder-Decoder)架构：</p>
 <ul>
@@ -2356,7 +2341,7 @@ GRU 把 LSTM 的 2 个状态 → 简化成 1 个 (用 h 兼顾细胞状态 c)</p
 </ul>
 <p><img alt="image.png" src="NLP_files/image.png" /></p>
 <p>适用于机器翻译，生成式摘要，普通对话</p>
-<h2 id="111-训练与优化">11.1 训练与优化</h2>
+<h2 id="111">11.1 训练与优化</h2>
 <p>训练流程
 1. 准备平行语料数据集
 2. 定义损失函数(通常为交叉熵)
@@ -2394,7 +2379,7 @@ GRU 把 LSTM 的 2 个状态 → 简化成 1 个 (用 h 兼顾细胞状态 c)</p
 <li>ROUGE：文本摘要常用指标</li>
 <li>人工评估：对话系统重要补充</li>
 </ul>
-<h1 id="12-transformer架构">12 Transformer架构</h1>
+<h1 id="12-transformer">12 Transformer架构</h1>
 <p>参考<a href="#224-transformer架构">2.2.4 transformer架构</a></p>
 <p><img alt="image-2.png" src="NLP_files/image-2.png" /></p>
 <ol>
@@ -2455,7 +2440,7 @@ GRU 把 LSTM 的 2 个状态 → 简化成 1 个 (用 h 兼顾细胞状态 c)</p
 举例：输入"我爱"，模型输出"你"的概率可能是80%，"吃饭"的概率是10%…</p>
 </li>
 </ol>
-<h2 id="121-注意力机制">12.1 注意力机制</h2>
+<h2 id="121">12.1 注意力机制</h2>
 <p>注意力机制(Attention Mechanism)是深度学习中的一种重要技术，它模仿了人类视觉和认知过程中的注意力分配方式。<br />
 就像你在阅读时会不自觉地将注意力集中在关键词上一样，注意力机制让神经网络能够动态地关注输入数据中最相关的部分。  </p>
 <p>依赖注意力机制（无需循环或卷积结构）来捕捉输入序列中的全局依赖关系，从而实现高效的并行计算和更强的长距离依赖建模。</p>
@@ -2474,7 +2459,7 @@ d_k：键的维度，用于缩放点积结果  </p>
 <li>并行计算能力：相比RNN的顺序处理，注意力可以<strong>并行</strong>计算  </li>
 <li>可解释性：注意力权重可以直观展示模型关注的重点  </li>
 </ul>
-<h3 id="1211-自注意力机制">12.1.1 自注意力机制</h3>
+<h3 id="1211">12.1.1 自注意力机制</h3>
 <p>自注意力(Self-Attention)是注意力机制的一种特殊形式，它允许输入序列中的每个元素都与序列中的所有其他元素建立联系。</p>
 <p>工作原理：  </p>
 <ul>
@@ -2498,7 +2483,7 @@ d_k：键的维度，用于缩放点积结果  </p>
    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="1212-多头注意力">12.1.2 多头注意力</h3>
+<h3 id="1212">12.1.2 多头注意力</h3>
 <p>多头注意力(Multi-Head Attention)是自注意力的扩展，它将注意力机制并行执行多次，然后将结果拼接起来。  </p>
 <p>结构组成</p>
 <ul>
@@ -2543,7 +2528,7 @@ d_k：键的维度，用于缩放点积结果  </p>
        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_o</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="122-位置编码positional-encoding">12.2 位置编码（Positional Encoding）</h2>
+<h2 id="122-positional-encoding">12.2 位置编码（Positional Encoding）</h2>
 <p>Transformer 本身没有循环或卷积结构，无法直接感知序列顺序，因此需要显式地注入位置信息。
 使用正弦/余弦函数或可学习的位置编码</p>
 <p><div class="math-block">\[PE_{(pos,2i)} = \sin\left( \frac{pos}{10000^{2i/d_{\text{model}}}} \right),\]</div></p>
@@ -2566,13 +2551,13 @@ d_k：键的维度，用于缩放点积结果  </p>
         <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s1">&#39;pe&#39;</span><span class="p">,</span> <span class="n">pe</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="123-前馈神经网络feed-forward-network">12.3 前馈神经网络（Feed-Forward Network）</h2>
+<h2 id="123-feed-forward-network">12.3 前馈神经网络（Feed-Forward Network）</h2>
 <p>每个位置的表示会通过一个两层全连接网络（含非线性激活，如ReLU）进行进一步变换。</p>
 <p>公式：$$FFN(x) = max(0 , xW_1+b_1)W_2+b_2$$</p>
-<h2 id="124-残差连接与层归一化residual-connection-layer-norm">12.4 残差连接与层归一化（Residual Connection &amp; Layer Norm）</h2>
+<h2 id="124-residual-connection-layer-norm">12.4 残差连接与层归一化（Residual Connection &amp; Layer Norm）</h2>
 <p>残差连接：将输入直接加到输出上,如 x+Sublayer(x)，缓解梯度消失。</p>
 <p>层归一化：对每一层的输出进行归一化，加速训练。</p>
-<h2 id="125-编码器-解码器结构">12.5 编码器-解码器结构</h2>
+<h2 id="125-">12.5 编码器-解码器结构</h2>
 <p>Transformer采用经典的编码器-解码器架构，但每个部分都由多层相同的模块堆叠而成。</p>
 <p>解码器在编码器基础上增加了：</p>
 <ul>
@@ -2639,7 +2624,7 @@ d_k：键的维度，用于缩放点积结果  </p>
 <span class="n">plot_attention</span><span class="p">(</span><span class="n">attention</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="13-预训练模型">13 预训练模型</h1>
+<h1 id="13_1">13 预训练模型</h1>
 <p>预训练模型（Pre-trained Models）是NLP领域近年来最重要的技术突破之一。预训练模型通过在大规模文本数据上进行预先训练，学习通用的语言表示能力，然后可以针对特定任务进行微调（Fine-tuning）。即<strong>迁移学习</strong>。</p>
 <p>传统NLP模型需要大量标注数据，从零开始训练，适用于特定任务，开发效率较低。预训练模型只需少量标注数据，通过预训练+微调的两阶段学习，可以跨任务通用，开发效率高</p>
 <p>发展历程：词嵌入时代（2013-2017：Word2Vec、GloVe、FastText）-&gt;上下文感知时代（2018-2019：ELMo、ULMFiT，动态词向量表示，处理一词多义）-&gt;Transformer时代（2019至今：BERT、GPT、T5）</p>
@@ -2710,7 +2695,7 @@ d_k：键的维度，用于缩放点积结果  </p>
 <li>Masked Language Model (MLM)：随机遮盖15%的输入token，预测被遮盖的词</li>
 <li>Next Sentence Prediction (NSP)：判断两个句子是否连续出现</li>
 </ul>
-<h2 id="141-bert的微调">14.1 BERT的微调</h2>
+<h2 id="141-bert">14.1 BERT的微调</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 使用HuggingFace Transformers进行微调示例</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BertForSequenceClassification</span><span class="p">,</span> <span class="n">Trainer</span>
 
@@ -2724,7 +2709,7 @@ d_k：键的维度，用于缩放点积结果  </p>
 <span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="142-主流bert变体模型">14.2 主流BERT变体模型</h2>
+<h2 id="142-bert">14.2 主流BERT变体模型</h2>
 <p>RoBERTa (Robustly Optimized BERT)</p>
 <ul>
 <li>更大的批次(8k vs 256)</li>
@@ -2745,9 +2730,9 @@ d_k：键的维度，用于缩放点积结果  </p>
 <li>ELECTRA：用生成器-判别器架构替代MLM</li>
 <li>SpanBERT：优化对文本跨度的建模</li>
 </ul>
-<h1 id="15-生成式模型">15 生成式模型</h1>
+<h1 id="15">15 生成式模型</h1>
 <p>一类通过大规模无监督学习从文本数据中获取通用语言知识，并能够生成连贯、合理文本的深度学习模型。采用自回归或自编码架构。</p>
-<h1 id="16-多模态">16 多模态</h1>
+<h1 id="16">16 多模态</h1>
 <p>指能够同时处理和理解多种数据模态（如文本、图像、音频等）的深度学习模型。与传统的单模态模型不同，这些模型通过大规模预训练学习不同模态之间的关联和对应关系。</p>
 <h2 id="161-clip">16.1 CLIP</h2>
 <p>CLIP（Contrastive Language-Image Pre-training）是 OpenAI 于 2021 年提出的多模态模型，通过对比学习的方式建立图像和文本之间的关联（图文对比学习）。</p>
@@ -2837,9 +2822,9 @@ d_k：键的维度，用于缩放点积结果  </p>
 <li>将图像生成视为序列预测问题</li>
 <li>使用 12-billion 参数的 Transformer 模型</li>
 </ul>
-<h2 id="163-其他多模态模型">16.3 其他多模态模型</h2>
+<h2 id="163">16.3 其他多模态模型</h2>
 <p>...</p>
-<h1 id="17-扩散模型">17 扩散模型</h1>
+<h1 id="17">17 扩散模型</h1>
 <p>扩散模型（Diffusion Model）是当前图像/视频生成的主流生成模型，核心是<strong>先逐步加噪破坏数据，再学习反向去噪重建数据</strong>，从随机噪声生成真实样本。</p>
 <p>把<strong>清晰图像 → 逐步加噪 → 纯噪声</strong>（正向），再训练模型做<strong>纯噪声 → 逐步去噪 → 清晰图像</strong>（反向）；本质是学习数据分布的“去噪规律”。</p>
 <p>过程
@@ -2878,7 +2863,7 @@ d_k：键的维度，用于缩放点积结果  </p>
 <li>视频生成：Sora、Runway Gen-2（视频扩散）</li>
 <li>3D生成、分子设计、音频生成</li>
 </ul>
-<h1 id="18-微调">18 微调</h1>
+<h1 id="18">18 微调</h1>
 <p>NLP 主流微调方式速览
 1. 全参数微调<br />
 全部权重一起更新，适配性最强，算力显存消耗大，数据充足时使用。</p>
@@ -2914,7 +2899,7 @@ d_k：键的维度，用于缩放点积结果  </p>
 </li>
 <li>RLAIF：AI 替代人工标注做偏好对齐，成本更低</li>
 </ol>
-<h1 id="_2"></h1>
+<h1 id="_1"></h1>
 <h1 id="python-nlp">Python NLP 生态</h1>
 <ul>
 <li>NLTK - 学术研究首选的自然语言处理工具包</li>
@@ -3030,7 +3015,7 @@ d_k：键的维度，用于缩放点积结果  </p>
 <span class="nb">print</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_3">案例：中文文本分析流程</h2>
+<h2 id="_2">案例：中文文本分析流程</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 结合多个工具的中文文本处理流程</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">jieba</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">hanlp</span><span class="w"> </span><span class="kn">import</span> <span class="n">HanLP</span>
@@ -3058,7 +3043,100 @@ d_k：键的维度，用于缩放点积结果  </p>
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1. 发展历程</a></li>
+<li><a class="toc-h2" href="#11">1.1 基于规则</a></li>
+<li><a class="toc-h2" href="#12">1.2 基于统计</a></li>
+<li><a class="toc-h2" href="#13">1.3 基于神经网络</a></li>
+<li><a href="#2">2. 语言模型发展</a></li>
+<li><a class="toc-h2" href="#21-n-gram模型">2.1 N-gram模型</a></li>
+<li><a class="toc-h2" href="#22">2.2 神经网络模型与词嵌入</a></li>
+<li><a class="toc-h3" href="#221">2.2.1 前馈神经网络模型</a></li>
+<li><a class="toc-h3" href="#222">2.2.2循环神经网络模型</a></li>
+<li><a class="toc-h3" href="#223-lstmgru">2.2.3 LSTM/GRU</a></li>
+<li><a class="toc-h3" href="#224-transformer">2.2.4 Transformer架构</a></li>
+<li><a class="toc-h3" href="#225-decoder-only">2.2.5 Decoder-Only 架构</a></li>
+<li><a class="toc-h3" href="#226">2.2.6 预训练语言模型</a></li>
+<li><a href="#3">3. 文本预处理</a></li>
+<li><a class="toc-h2" href="#31">3.1 文本清洗</a></li>
+<li><a class="toc-h2" href="#32">3.2 分词</a></li>
+<li><a class="toc-h3" href="#321-bpe">3.2.1 字节对编码(BPE)</a></li>
+<li><a class="toc-h2" href="#33">3.3 移除停用词</a></li>
+<li><a class="toc-h2" href="#34">3.4 词干还原</a></li>
+<li><a class="toc-h2" href="#35">3.5 词性标注</a></li>
+<li><a href="#4">4 文本表示方法</a></li>
+<li><a class="toc-h2" href="#41">4.1 传统文本表示</a></li>
+<li><a class="toc-h3" href="#412-bag-of-words">4.1.2 词袋模型（Bag of Words）</a></li>
+<li><a class="toc-h3" href="#413-tf-idf">4.1.3 TF-IDF</a></li>
+<li><a class="toc-h3" href="#414-n-gram">4.1.4 N-gram 模型</a></li>
+<li><a class="toc-h2" href="#42">4.2 词向量表示</a></li>
+<li><a class="toc-h3" href="#421-word2vec">4.2.1 Word2Vec</a></li>
+<li><a class="toc-h3" href="#422-glove">4.2.2 GloVe 词向量</a></li>
+<li><a class="toc-h3" href="#423-fasttext">4.2.3 FastText</a></li>
+<li><a class="toc-h2" href="#43">4.3 文档级表示</a></li>
+<li><a class="toc-h3" href="#431-doc2vec">4.3.1 Doc2Vec</a></li>
+<li><a class="toc-h3" href="#432">4.3.2 句向量与文档向量</a></li>
+<li><a class="toc-h3" href="#434-lda">4.3.4 主题模型（LDA）</a></li>
+<li><a class="toc-h2" href="#44">4.4 上下文感知的表示</a></li>
+<li><a class="toc-h3" href="#441-elmo">4.4.1 ELMo 模型</a></li>
+<li><a class="toc-h3" href="#442-bert">4.4.2 BERT 及其变体</a></li>
+<li><a href="#5">5 文本分类</a></li>
+<li><a class="toc-h2" href="#51">5.1 流程与方法</a></li>
+<li><a href="#6">6 情感分析</a></li>
+<li><a class="toc-h2" href="#61">6.1 基于词典的情感分析方法</a></li>
+<li><a class="toc-h2" href="#62">6.2 基于机器学习的情感分析方法</a></li>
+<li><a class="toc-h2" href="#63">6.3 细粒度情感分析</a></li>
+<li><a href="#7">7 命名实体识别</a></li>
+<li><a class="toc-h2" href="#71">7.1 评估指标</a></li>
+<li><a href="#8">8 关系抽取</a></li>
+<li><a class="toc-h2" href="#81">8.1 主要方法</a></li>
+<li><a class="toc-h2" href="#82">8.2 评估指标</a></li>
+<li><a class="toc-h2" href="#83">8.3 示例</a></li>
+<li><a href="#9">9 文本相似度计算</a></li>
+<li><a class="toc-h2" href="#91">9.1 主要方法</a></li>
+<li><a class="toc-h2" href="#92">9.2 相似度度量指标</a></li>
+<li><a class="toc-h2" href="#93">9.3 示例</a></li>
+<li><a href="#10">10 神经网络</a></li>
+<li><a class="toc-h2" href="#101-rnn">10.1 循环神经网络（RNN）</a></li>
+<li><a class="toc-h2" href="#102-lstm">10.2 长短期记忆网络（LSTM）</a></li>
+<li><a class="toc-h2" href="#103-gru">10.3 门控循环单元（GRU）</a></li>
+<li><a class="toc-h2" href="#104-rnnbi-rnn">10.4 双向 RNN（Bi-RNN）</a></li>
+<li><a href="#11_1">11 序列到序列模型</a></li>
+<li><a class="toc-h2" href="#111">11.1 训练与优化</a></li>
+<li><a href="#12-transformer">12 Transformer架构</a></li>
+<li><a class="toc-h2" href="#121">12.1 注意力机制</a></li>
+<li><a class="toc-h3" href="#1211">12.1.1 自注意力机制</a></li>
+<li><a class="toc-h3" href="#1212">12.1.2 多头注意力</a></li>
+<li><a class="toc-h2" href="#122-positional-encoding">12.2 位置编码（Positional Encoding）</a></li>
+<li><a class="toc-h2" href="#123-feed-forward-network">12.3 前馈神经网络（Feed-Forward Network）</a></li>
+<li><a class="toc-h2" href="#124-residual-connection-layer-norm">12.4 残差连接与层归一化（Residual Connection & Layer Norm）</a></li>
+<li><a class="toc-h2" href="#125-">12.5 编码器-解码器结构</a></li>
+<li><a class="toc-h2" href="#bert">案例：BERT中的注意力</a></li>
+<li><a class="toc-h2" href="#1_1">练习1：实现基础注意力机制</a></li>
+<li><a class="toc-h2" href="#2_1">练习2：可视化注意力权重</a></li>
+<li><a href="#13_1">13 预训练模型</a></li>
+<li><a href="#14-bert">14 BERT</a></li>
+<li><a class="toc-h2" href="#141-bert">14.1 BERT的微调</a></li>
+<li><a class="toc-h2" href="#142-bert">14.2 主流BERT变体模型</a></li>
+<li><a href="#15">15 生成式模型</a></li>
+<li><a href="#16">16 多模态</a></li>
+<li><a class="toc-h2" href="#161-clip">16.1 CLIP</a></li>
+<li><a class="toc-h2" href="#162-dall-e">16.2 DALL-E</a></li>
+<li><a class="toc-h2" href="#163">16.3 其他多模态模型</a></li>
+<li><a href="#17">17 扩散模型</a></li>
+<li><a href="#18">18 微调</a></li>
+<li><a href="#_1">Python NLP 生态</a></li>
+<li><a class="toc-h2" href="#nltk">NLTK</a></li>
+<li><a class="toc-h2" href="#spacy">spaCy</a></li>
+<li><a class="toc-h2" href="#jieba">jieba</a></li>
+<li><a class="toc-h2" href="#hanlp">HanLP</a></li>
+<li><a class="toc-h2" href="#_2">案例：中文文本分析流程</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -3067,6 +3145,45 @@ d_k：键的维度，用于缩放点积结果  </p>
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

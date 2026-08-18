@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>OpenCV - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,10 +482,9 @@
             <span class="sep">/</span>
             <span>CV</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
-<h1 id="_2">基础模块</h1>
+<h1 id="_1">基础模块</h1>
 <p>以下是 OpenCV 中最常用的一些模块：</p>
 <ul>
 <li>
@@ -576,14 +673,14 @@ Flann: 快速近似最近邻搜索。  </li>
 <p>Photo: 图像修复和去噪。  </p>
 <p>Stitching: 图像拼接。  </p>
 <p>Shape: 形状匹配和距离计算。  </p>
-<h1 id="_3">图像处理基础</h1>
+<h1 id="_2">图像处理基础</h1>
 <p>图像的基本属性：  </p>
 <ul>
 <li>图像的尺寸（Width, Height）：可以通过 img.shape 获取</li>
 <li>颜色通道（Channels）：通常为 RGB（三个通道），也可以是灰度图（单通道）</li>
 <li>数据类型（Data type）：常见的有 uint8（0-255 范围），也可以是 float32 或其他</li>
 </ul>
-<h2 id="_4">基本操作</h2>
+<h2 id="_3">基本操作</h2>
 <h3 id="imread">imread()</h3>
 <h3 id="imshow">imshow()</h3>
 <h3 id="imwrite">imwrite()</h3>
@@ -633,7 +730,7 @@ Flann: 快速近似最近邻搜索。  </li>
 <span class="n">merged_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span><span class="p">])</span>
 </code></pre></div>
 
-<h2 id="_5">图像缩放、旋转、平移、翻转</h2>
+<h2 id="_4">图像缩放、旋转、平移、翻转</h2>
 <h3 id="resize">resize()</h3>
 <p><code>resized_img = cv2.resize(img, (width, height))</code></p>
 <h3 id="getrotationmatrix2d">getRotationMatrix2D()</h3>
@@ -675,7 +772,7 @@ flags（可选）：插值方法，影响变换后像素值的计算方式，默
 <span class="n">flipped_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">flip_code</span><span class="p">)</span>  <span class="c1"># flip_code: 0 (垂直翻转), 1 (水平翻转), -1 (双向翻转)</span>
 </code></pre></div>
 
-<h2 id="_6">图像算术运算</h2>
+<h2 id="_5">图像算术运算</h2>
 <h3 id="add">add()</h3>
 <p>如果像素值相加后超过 255，OpenCV 会自动将其截断为 255  </p>
 <h3 id="subtract">subtract()</h3>
@@ -696,7 +793,7 @@ flags（可选）：插值方法，影响变换后像素值的计算方式，默
 <span class="c1"># alpha 和 beta 是权重，gamma 是标量值。</span>
 </code></pre></div>
 
-<h2 id="_7">图像位运算</h2>
+<h2 id="_6">图像位运算</h2>
 <h3 id="cv2bitwise_and">cv2.bitwise_and()</h3>
 <p>掩码操作、图像分割</p>
 <h3 id="cv2bitwise_or">cv2.bitwise_or()</h3>
@@ -718,7 +815,7 @@ flags（可选）：插值方法，影响变换后像素值的计算方式，默
 <span class="n">result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_xor</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_8">图像阈值处理</h2>
+<h2 id="_7">图像阈值处理</h2>
 <h3 id="threshold">threshold()</h3>
 <p><code>cv2.threshold(src, thresh, maxval, type[, dst]) → retval, dst</code><br />
 type：阈值化类型</p>
@@ -752,7 +849,7 @@ C：</p>
 <span class="n">ret</span><span class="p">,</span> <span class="n">thresholded_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_OTSU</span><span class="p">)</span><span class="c1"># 自动计算最佳全局阈值（适用于双峰直方图图像）</span>
 </code></pre></div>
 
-<h2 id="_9">图像平滑处理</h2>
+<h2 id="_8">图像平滑处理</h2>
 <p>线性滤波函数（基于卷积核的加权平均）</p>
 <h3 id="blur-boxfilter">blur() 或 boxFilter()</h3>
 <p>ksize：卷积核大小（如 (5,5)），必须为正奇数<br />
@@ -782,7 +879,7 @@ sigmaSpace：坐标空间标准差（值越大，空间影响范围越广）  </
 <span class="n">blurred_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bilateralFilter</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">sigmaColor</span><span class="p">,</span> <span class="n">sigmaSpace</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_10">图像的颜色空间与转换</h2>
+<h2 id="_9">图像的颜色空间与转换</h2>
 <h3 id="cvtcolor">cvtColor()</h3>
 <p><code>cv2.cvtColor(src, code[, dstCn[, dst]])</code><br />
 code：颜色空间转换代码<br />
@@ -797,7 +894,7 @@ dstCn（可选）：输出图像的通道数。若未指定，则根据 code 自
 <span class="n">yuv_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2YUV</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_11">图像文本</h2>
+<h2 id="_10">图像文本</h2>
 <h3 id="puttext">putText()</h3>
 <p><code>cv2.putText(image, text, org, fontFace, fontScale, color, thickness)</code>
 text: 要绘制的文本  </p>
@@ -815,7 +912,7 @@ text: 要绘制的文本  </p>
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_12">图像边缘检测</h2>
+<h2 id="_11">图像边缘检测</h2>
 <h3 id="canny">Canny()</h3>
 <p>Canny 算法原理：<br />
 使用高斯滤波平滑图像以去除噪声。<br />
@@ -901,7 +998,7 @@ ksize：近似核尺寸，必须为正奇数（如 1、3、5）。默认值为 1
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_13">形态学操作</h2>
+<h2 id="_12">形态学操作</h2>
 <p>形态学操作常用于二值图像的处理，常见的操作有腐蚀、膨胀、开运算、闭运算等。   </p>
 <h3 id="getstructuringelement">getStructuringElement()</h3>
 <p><code>kernel = cv2.getStructuringElement(shape, ksize[, anchor])</code><br />
@@ -964,7 +1061,7 @@ shape：指定结构元素的几何类型   </p>
 <span class="n">closing_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">morphologyEx</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">MORPH_CLOSE</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_14">图像轮廓检测</h2>
+<h2 id="_13">图像轮廓检测</h2>
 <p>OpenCV 提供了强大的轮廓检测功能，可以用于对象识别、图像分割等应用</p>
 <h3 id="findcontours">findContours()</h3>
 <p><code>contours, hierarchy = cv2.findContours(image, mode, method, offset=None)</code>  </p>
@@ -1124,7 +1221,7 @@ closed: 布尔值，表示轮廓是否闭合<br />
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_15">图像直方图</h2>
+<h2 id="_14">图像直方图</h2>
 <p>OpenCV 提供了丰富的直方图计算和操作函数：</p>
 <table>
 <thead>
@@ -1245,7 +1342,7 @@ method: 比较方法，例如 cv2.HISTCMP_CORREL（相关性比较）  </p>
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_16">视频处理</h2>
+<h2 id="_15">视频处理</h2>
 <p>OpenCV 也支持视频的处理，可以读取视频文件、捕捉视频流并进行实时处理  </p>
 <h3 id="videocapture">VideoCapture()</h3>
 <p><code>cv2.VideoCapture(source)</code></p>
@@ -1319,7 +1416,7 @@ method: 比较方法，例如 cv2.HISTCMP_CORREL（相关性比较）  </p>
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_17">运动检测</h1>
+<h1 id="_16">运动检测</h1>
 <p>运动检测是视频处理中的一个重要应用。可以通过计算帧之间的差异来检测运动物体  </p>
 <p>以下是一个简单的运动检测示例：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
@@ -1358,7 +1455,7 @@ method: 比较方法，例如 cv2.HISTCMP_CORREL（相关性比较）  </p>
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_18">视频目标跟踪</h1>
+<h1 id="_17">视频目标跟踪</h1>
 <p>MeanShift（均值漂移）算法是一种基于密度的非参数化聚类算法，最初用于图像分割，后来被引入到目标跟踪领域。<br />
 其核心思想是通过迭代计算目标区域的质心，并将窗口中心移动到质心位置，从而实现目标的跟踪。  </p>
 <p>MeanShift 算法的基本步骤如下：
@@ -1555,7 +1652,7 @@ CamShift 算法在 MeanShift 的基础上增加了窗口大小和方向的调整
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_19">视频背景减除</h1>
+<h1 id="_18">视频背景减除</h1>
 <p>背景减除的核心思想是通过建模背景，然后将当前帧与背景模型进行比较，从而分离出前景对象。</p>
 <p>OpenCV 提供了多种背景减除算法，其中 MOG（Mixture of Gaussians）和 MOG2 是最常用的两种方法。</p>
 <p>MOG（Mixture of Gaussians）算法</p>
@@ -1646,7 +1743,7 @@ MOG2 通过动态调整高斯分布的数量和参数，能够更准确地建模
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_20">物体检测</h1>
+<h1 id="_19">物体检测</h1>
 <p>OpenCV 提供了多种物体检测算法，如 Haar 特征分类器、HOG + SVM 等 <br />
 OpenCV 提供了基于 Haar 特征分类器的人脸检测方法，简单易用且效果显著   </p>
 <p>Haar 特征分类器是一种基于 Haar-like 特征的机器学习方法。<br />
@@ -1743,7 +1840,7 @@ OpenCV 提供了预训练的 Haar 特征分类器，可以直接用于人脸检�
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_21">物体识别</h1>
+<h1 id="_20">物体识别</h1>
 <p>什么是模板匹配？
 模板匹配是一种在图像中寻找与给定模板图像最相似区域的技术。</p>
 <p>简单来说，模板匹配就是在一幅大图像中寻找与模板图像（即我们想要识别的物体）最匹配的部分，这种方法适用于物体在图像中的大小、方向和形状基本不变的情况。</p>
@@ -1879,7 +1976,7 @@ OpenCV 提供了多种相似度计算方法，如</p>
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_22">图像拼接</h1>
+<h1 id="_21">图像拼接</h1>
 <p>图像拼接是计算机视觉中的一个重要应用，它可以将多张有重叠区域的图像拼接成一张更大的图像。  </p>
 <p>应用场景<br />
 全景图生成: 将多幅图像拼接成一幅全景图。<br />
@@ -2050,7 +2147,7 @@ OpenCV 提供了多种相似度计算方法，如</p>
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_23">简单滤镜</h1>
+<h1 id="_22">简单滤镜</h1>
 <div class="highlight"><pre><span></span><code><span class="c1">## 怀旧滤镜</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -2130,7 +2227,100 @@ OpenCV 提供了多种相似度计算方法，如</p>
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">基础模块</a></li>
+<li><a href="#_2">图像处理基础</a></li>
+<li><a class="toc-h2" href="#_3">基本操作</a></li>
+<li><a class="toc-h3" href="#imread">imread()</a></li>
+<li><a class="toc-h3" href="#imshow">imshow()</a></li>
+<li><a class="toc-h3" href="#imwrite">imwrite()</a></li>
+<li><a class="toc-h3" href="#destroyallwindows">destroyAllWindows()</a></li>
+<li><a class="toc-h3" href="#split">split()</a></li>
+<li><a class="toc-h3" href="#merge">merge()</a></li>
+<li><a class="toc-h2" href="#_4">图像缩放、旋转、平移、翻转</a></li>
+<li><a class="toc-h3" href="#resize">resize()</a></li>
+<li><a class="toc-h3" href="#getrotationmatrix2d">getRotationMatrix2D()</a></li>
+<li><a class="toc-h3" href="#warpaffine">warpAffine()</a></li>
+<li><a class="toc-h3" href="#flip">flip()</a></li>
+<li><a class="toc-h2" href="#_5">图像算术运算</a></li>
+<li><a class="toc-h3" href="#add">add()</a></li>
+<li><a class="toc-h3" href="#subtract">subtract()</a></li>
+<li><a class="toc-h3" href="#multiply">multiply()</a></li>
+<li><a class="toc-h3" href="#devide">devide()</a></li>
+<li><a class="toc-h3" href="#addweighted">addWeighted()</a></li>
+<li><a class="toc-h2" href="#_6">图像位运算</a></li>
+<li><a class="toc-h3" href="#cv2bitwise_and">cv2.bitwise_and()</a></li>
+<li><a class="toc-h3" href="#cv2bitwise_or">cv2.bitwise_or()</a></li>
+<li><a class="toc-h3" href="#cv2bitwise_not">cv2.bitwise_not()</a></li>
+<li><a class="toc-h3" href="#cv2bitwise_xor">cv2.bitwise_xor() 按位异或</a></li>
+<li><a class="toc-h2" href="#_7">图像阈值处理</a></li>
+<li><a class="toc-h3" href="#threshold">threshold()</a></li>
+<li><a class="toc-h3" href="#adaptivethreshold">adaptiveThreshold()</a></li>
+<li><a class="toc-h2" href="#_8">图像平滑处理</a></li>
+<li><a class="toc-h3" href="#blur-boxfilter">blur() 或 boxFilter()</a></li>
+<li><a class="toc-h3" href="#gaussianblur">GaussianBlur()</a></li>
+<li><a class="toc-h3" href="#medianblur">medianBlur()</a></li>
+<li><a class="toc-h3" href="#bilateralfilter">bilateralFilter()</a></li>
+<li><a class="toc-h2" href="#_9">图像的颜色空间与转换</a></li>
+<li><a class="toc-h3" href="#cvtcolor">cvtColor()</a></li>
+<li><a class="toc-h2" href="#_10">图像文本</a></li>
+<li><a class="toc-h3" href="#puttext">putText()</a></li>
+<li><a class="toc-h2" href="#_11">图像边缘检测</a></li>
+<li><a class="toc-h3" href="#canny">Canny()</a></li>
+<li><a class="toc-h3" href="#sobel">Sobel()</a></li>
+<li><a class="toc-h3" href="#laplacian">Laplacian()</a></li>
+<li><a class="toc-h3" href="#scharr">Scharr()</a></li>
+<li><a class="toc-h2" href="#_12">形态学操作</a></li>
+<li><a class="toc-h3" href="#getstructuringelement">getStructuringElement()</a></li>
+<li><a class="toc-h3" href="#erode">erode()</a></li>
+<li><a class="toc-h3" href="#dilate">dilate()</a></li>
+<li><a class="toc-h3" href="#morphologyex">morphologyEx()</a></li>
+<li><a class="toc-h2" href="#_13">图像轮廓检测</a></li>
+<li><a class="toc-h3" href="#findcontours">findContours()</a></li>
+<li><a class="toc-h3" href="#drawcontours">drawContours()</a></li>
+<li><a class="toc-h3" href="#contourarea">contourArea()</a></li>
+<li><a class="toc-h3" href="#arclength">arcLength()</a></li>
+<li><a class="toc-h3" href="#boundingrect">boundingRect()</a></li>
+<li><a class="toc-h3" href="#minarearect">minAreaRect()</a></li>
+<li><a class="toc-h3" href="#minenclosingcircle">minEnclosingCircle()</a></li>
+<li><a class="toc-h3" href="#approxpolydp">approxPolyDP()</a></li>
+<li><a class="toc-h2" href="#_14">图像直方图</a></li>
+<li><a class="toc-h3" href="#calchist">calcHist()</a></li>
+<li><a class="toc-h3" href="#equalizehist">equalizeHist()</a></li>
+<li><a class="toc-h3" href="#normalize">normalize()</a></li>
+<li><a class="toc-h3" href="#comparehist">compareHist()</a></li>
+<li><a class="toc-h2" href="#_15">视频处理</a></li>
+<li><a class="toc-h3" href="#videocapture">VideoCapture()</a></li>
+<li><a class="toc-h3" href="#videowriter">VideoWriter()</a></li>
+<li><a class="toc-h3" href="#capisopened">cap.isOpened()</a></li>
+<li><a class="toc-h3" href="#capread">cap.read()</a></li>
+<li><a class="toc-h3" href="#capgetpropid">cap.get(propId)</a></li>
+<li><a class="toc-h3" href="#trackerkcf_create">TrackerKCF_create()</a></li>
+<li><a class="toc-h3" href="#createbackgroundsubtractormog2">createBackgroundSubtractorMOG2()</a></li>
+<li><a href="#_16">运动检测</a></li>
+<li><a href="#_17">视频目标跟踪</a></li>
+<li><a class="toc-h2" href="#meanshift">meanShift()</a></li>
+<li><a class="toc-h2" href="#camshift">CamShift()</a></li>
+<li><a href="#_18">视频背景减除</a></li>
+<li><a class="toc-h2" href="#bgsegmcreatebackgroundsubtractormog">bgsegm.createBackgroundSubtractorMOG()</a></li>
+<li><a class="toc-h2" href="#createbackgroundsubtractormog2_1">createBackgroundSubtractorMOG2()</a></li>
+<li><a href="#_19">物体检测</a></li>
+<li><a class="toc-h2" href="#cascadeclassifier">CascadeClassifier()</a></li>
+<li><a href="#_20">物体识别</a></li>
+<li><a class="toc-h2" href="#matchtemplate">matchTemplate()</a></li>
+<li><a href="#_21">图像拼接</a></li>
+<li><a class="toc-h2" href="#sift_creat">SIFT_creat()</a></li>
+<li><a class="toc-h2" href="#xfeatures2dsurf_create">xfeatures2d.SURF_create()</a></li>
+<li><a class="toc-h2" href="#orb_create">ORB_create()</a></li>
+<li><a class="toc-h2" href="#cv2bfmatcher">cv2.BFMatcher()</a></li>
+<li><a href="#_22">简单滤镜</a></li>
+<li><a href="#cv2tracker">cv2.Tracker</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -2139,6 +2329,45 @@ OpenCV 提供了多种相似度计算方法，如</p>
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

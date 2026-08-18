@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>PyTorch - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,10 +482,9 @@
             <span class="sep">/</span>
             <span>DeepLearing</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-14</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
-<h1 id="_2">简介</h1>
+<h1 id="_1">简介</h1>
 <p>PyTorch 是一个开源的 Python 机器学习库，基于 Torch 库，底层由 C++ 实现，应用于人工智能领域，如计算机视觉和自然语言处理。</p>
 <p>许多深度学习软件都是基于 PyTorch 构建的，包括特斯拉自动驾驶、Uber 的 Pyro、Hugging Face 的 Transformers、 PyTorch Lightning 和 Catalyst。</p>
 <p>PyTorch 两大特征：</p>
@@ -463,7 +560,7 @@ PyTorch 中的核心数据结构是 张量（Tensor），它是一个多维矩�
 <li>torchaudio：用于音频处理的工具包。</li>
 <li>PyTorch Lightning：一种简化 PyTorch 代码的高层库，专注于研究和实验的快速迭代。</li>
 </ul>
-<h1 id="_3">安装</h1>
+<h1 id="_2">安装</h1>
 <p><strong>支持的操作系统</strong><br />
 Windows：Windows 10 或更高版本（64位） </p>
 <p><strong>Python 版本要求</strong><br />
@@ -639,7 +736,7 @@ conda create -n python311 python=3.11  </p>
           [0.5782, 0.3445, 0.2649]])
 </code></pre></div>
 
-<h1 id="_4">基础</h1>
+<h1 id="_3">基础</h1>
 <p>PyTorch 是一个开源的深度学习框架，以其灵活性和动态计算图而广受欢迎。</p>
 <p>PyTorch 主要有以下几个基础概念：</p>
 <ul>
@@ -701,7 +798,7 @@ conda create -n python311 python=3.11  </p>
 <p>执行流程：<br />
 Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<br />
 既保持易用性，又确保高性能。  </p>
-<h2 id="_5">张量</h2>
+<h2 id="_4">张量</h2>
 <p>张量是 PyTorch 中的核心数据结构，用于存储和操作多维数组。</p>
 <p>张量可以视为一个多维数组，支持加速计算的操作。</p>
 <p>在 PyTorch 中，张量的概念类似于 NumPy 中的数组，但是 PyTorch 的张量可以运行在不同的设备上，比如 CPU 和 GPU。</p>
@@ -717,7 +814,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
   PyTorch支持多种数据类型，包括整数型（如torch.int8、torch.int32）、浮点型（如torch.float32、torch.float64）和布尔型（torch.bool）。</p>
 </li>
 </ul>
-<h3 id="_6">创建张量</h3>
+<h3 id="_5">创建张量</h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -756,7 +853,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
           [-0.8879,  0.8097,  0.0214]], device=&#39;cuda:0&#39;)
 </code></pre></div>
 
-<h3 id="_7">常用张量操作</h3>
+<h3 id="_6">常用张量操作</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 张量相加</span>
 <span class="n">e</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -773,13 +870,13 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 返回形状</span>
 </code></pre></div>
 
-<h3 id="_8">张量与设备</h3>
+<h3 id="_7">张量与设备</h3>
 <p>PyTorch 张量可以存在于不同的设备上，包括CPU和GPU，你可以将张量移动到 GPU 上以加速计算：</p>
 <div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
    <span class="n">tensor_gpu</span> <span class="o">=</span> <span class="n">tensor_from_list</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>  <span class="c1"># 将张量移动到GPU</span>
 </code></pre></div>
 
-<h3 id="_9">梯度和自动微分</h3>
+<h3 id="_8">梯度和自动微分</h3>
 <p>当你创建一个需要梯度的张量时，PyTorch可以自动计算其梯度：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 创建一个需要梯度的张量</span>
 <span class="n">tensor_requires_grad</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -802,9 +899,9 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <span class="c1"># dz/dx = dz/dy * dy/dx = 1 * 3 = 3</span>
 </code></pre></div>
 
-<h3 id="_10">内存和性能</h3>
+<h3 id="_9">内存和性能</h3>
 <p>PyTorch 张量还提供了一些内存管理功能，比如.clone()、.detach() 和 .to() 方法，它们可以帮助你优化内存使用和提高性能。</p>
-<h2 id="_11">自动求导</h2>
+<h2 id="_10">自动求导</h2>
 <p>在深度学习中，自动求导主要用于两个方面：一是在训练神经网络时计算梯度，二是进行反向传播算法的实现。自动求导基于链式法则</p>
 <p><strong>动态图与静态图：</strong></p>
 <ul>
@@ -837,7 +934,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
   tensor(17.3876, grad_fn=&lt;MeanBackward0&gt;)
 </code></pre></div>
 
-<h3 id="_12">反向传播</h3>
+<h3 id="_11">反向传播</h3>
 <p>一旦定义了计算图，可以通过 .backward() 方法来计算梯度</p>
 <p>反向传播是一种通过计算损失函数关于网络参数的梯度来训练神经网络的方法。</p>
 <p>在每次迭代中，网络的前向传播会计算输出和损失，然后反向传播会计算损失关于每个参数的梯度，并使用这些梯度来更新参数</p>
@@ -852,7 +949,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
           [3.8721, 2.1770]])
 </code></pre></div>
 
-<h3 id="_13">停止梯度计算</h3>
+<h3 id="_12">停止梯度计算</h3>
 <p>使用 torch.no_grad() 或设置 requires_grad=False。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 使用 torch.no_grad() 禁用梯度计算</span>
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
@@ -894,7 +991,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <span class="w">  </span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="_14">前向传播与损失计算</h3>
+<h3 id="_13">前向传播与损失计算</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 随机输入</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
@@ -917,7 +1014,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
   tensor(1.4575, grad_fn=&lt;MseLossBackward0&gt;)
 </code></pre></div>
 
-<h2 id="_15">优化器</h2>
+<h2 id="_14">优化器</h2>
 <p>PyTorch 提供了多种优化器，例如 SGD、Adam 等。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 定义优化器（使用 Adam 优化器）</span>
 <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
@@ -928,7 +1025,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>  <span class="c1"># 更新参数</span>
 </code></pre></div>
 
-<h2 id="_16">设备</h2>
+<h2 id="_15">设备</h2>
 <p>使用 torch.device 来指定计算设备</p>
 <p>在训练过程中，所有张量和模型都应该移到同一个设备上（要么都在 CPU 上，要么都在 GPU 上）。</p>
 <div class="highlight"><pre><span></span><code><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
@@ -941,7 +1038,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <span class="n">Y</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_17">层</h2>
+<h2 id="_16">层</h2>
 <p>PyTorch 提供了许多常见的神经网络层，以下是几个常见的：</p>
 <ul>
 <li>nn.Linear(in_features, out_features)：全连接层，输入 in_features 个特征，输出 out_features 个特征。</li>
@@ -950,7 +1047,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <li>nn.ReLU()：ReLU 激活函数，常用于隐藏层。</li>
 <li>nn.Softmax(dim)：Softmax 激活函数，通常用于输出层，适用于多类分类问题。</li>
 </ul>
-<h2 id="_18">激活函数</h2>
+<h2 id="_17">激活函数</h2>
 <p>激活函数决定了神经元是否应该被激活。它们是非线性函数，使得神经网络能够学习和执行更复杂的任务。常见的激活函数包括：</p>
 <ul>
 <li>Sigmoid：用于二分类问题，输出值在 0 和 1 之间。</li>
@@ -958,7 +1055,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <li>ReLU（Rectified Linear Unit）：目前最流行的激活函数之一，定义为 f(x) = max(0, x)，有助于解决梯度消失问题。</li>
 <li>Softmax：常用于多分类问题的输出层，将输出转换为概率分布。</li>
 </ul>
-<h2 id="_19">损失函数</h2>
+<h2 id="_18">损失函数</h2>
 <p>常见的损失函数包括：</p>
 <ul>
 <li>均方误差（MSELoss）：回归问题常用，计算输出与目标值的平方差。</li>
@@ -975,7 +1072,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCEWithLogitsLoss</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_20">优化器</h2>
+<h2 id="_19">优化器</h2>
 <p>优化器负责在训练过程中更新网络的权重和偏置。</p>
 <p>常见的优化器包括：</p>
 <ul>
@@ -993,7 +1090,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_21">训练过程</h2>
+<h2 id="_20">训练过程</h2>
 <p>训练神经网络涉及以下步骤：</p>
 <ol>
 <li>准备数据：通过 DataLoader 加载数据。</li>
@@ -1021,7 +1118,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Epoch [</span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">/100], Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_22">测试与评估</h2>
+<h2 id="_21">测试与评估</h2>
 <p>训练完成后，需要对模型进行测试和评估。</p>
 <p>常见的步骤包括：</p>
 <ul>
@@ -1036,7 +1133,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_23">训练模型步骤</h2>
+<h2 id="_22">训练模型步骤</h2>
 <ol>
 <li>
 <p>数据准备：</p>
@@ -1113,7 +1210,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 </ul>
 </li>
 </ol>
-<h2 id="_24">简单神经网络模型</h2>
+<h2 id="_23">简单神经网络模型</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
@@ -1154,9 +1251,9 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Epoch [</span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">/100], Loss: </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_25">张量</h1>
+<h1 id="_24">张量</h1>
 <p><img alt="image.png" src="https://www.runoob.com/wp-content/uploads/2024/12/1__D5ZvufDS38WkhK9rK32hQ.jpg" /></p>
-<h2 id="_26">创建张量</h2>
+<h2 id="_25">创建张量</h2>
 <table>
 <thead>
 <tr>
@@ -1246,7 +1343,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape:&quot;</span><span class="p">,</span> <span class="n">tensor_5d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># 形状</span>
 </code></pre></div>
 
-<h2 id="_27">张量的属性</h2>
+<h2 id="_26">张量的属性</h2>
 <table>
 <thead>
 <tr>
@@ -1335,8 +1432,8 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transposed Tensor:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">tensor</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_28">张量的操作</h2>
-<h3 id="_29"><strong>基础操作</strong></h3>
+<h2 id="_27">张量的操作</h2>
+<h3 id="_28"><strong>基础操作</strong></h3>
 <table>
 <thead>
 <tr>
@@ -1393,7 +1490,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 </tr>
 </tbody>
 </table>
-<h3 id="_30"><strong>形状操作</strong></h3>
+<h3 id="_29"><strong>形状操作</strong></h3>
 <table>
 <thead>
 <tr>
@@ -1539,8 +1636,8 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NumPy 数组（不会同步变化）:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">numpy_independent</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_31">第一个神经网络</h1>
-<h2 id="_32">示例一</h2>
+<h1 id="_30">第一个神经网络</h1>
+<h2 id="_31">示例一</h2>
 <p>用 PyTorch 实现一个简单的前馈神经网络，完成一个二分类任务。</p>
 <p>网络结构包括输入层、隐藏层和输出层，使用了 ReLU 激活函数和 Sigmoid 激活函数。</p>
 <p>采用了均方误差损失函数和随机梯度下降优化器。</p>
@@ -1615,7 +1712,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 
 <p><img alt="png" src="PyTorch_files/PyTorch_62_0.png" /></p>
 <p><img alt="png" src="PyTorch_files/PyTorch_62_1.png" /></p>
-<h2 id="_33">示例二</h2>
+<h2 id="_32">示例二</h2>
 <p>假设有一个二维数据集，目标是根据点的位置将它们分类到两个类别中（例如，红色和蓝色点）。</p>
 <p>以下展示了如何使用神经网络完成简单的二分类任务，通过 PyTorch 的模块化接口，神经网络的构建、训练和可视化都非常直观。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
@@ -1698,7 +1795,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 </code></pre></div>
 
 <p><img alt="png" src="PyTorch_files/PyTorch_66_0.png" /></p>
-<h1 id="_34">数据处理与加载</h1>
+<h1 id="_33">数据处理与加载</h1>
 <h2 id="torchutilsdatadataset">torch.utils.data.Dataset</h2>
 <p><code>torch.utils.data.Dataset</code> 是一个抽象类，允许你从自己的数据源中创建数据集。</p>
 <p>需要继承该类并实现以下两个方法：</p>
@@ -1832,7 +1929,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <p>从文件夹加载图像数据，每个子文件夹代表一个类别，适用于图像分类任务。</p>
 <h2 id="torchtext">torchtext</h2>
 <p>自然语言处理工具包，提供了文本数据处理和建模的工具，包括数据预处理和数据加载的方式。</p>
-<h2 id="_35">合并数据集</h2>
+<h2 id="_34">合并数据集</h2>
 <p>PyTorch 提供了 ConcatDataset 和 ChainDataset 等类来连接多个数据集。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcatDataset</span>
 
@@ -1841,7 +1938,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 <span class="n">combined_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">combined_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_36">线性回归</h1>
+<h1 id="_35">线性回归</h1>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
@@ -1958,7 +2055,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 </code></pre></div>
 
 <p><img alt="png" src="PyTorch_files/PyTorch_85_1.png" /></p>
-<h1 id="_37">卷积神经网络</h1>
+<h1 id="_36">卷积神经网络</h1>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
@@ -2086,7 +2183,7 @@ Python代码 → C++核心计算 → 底层CUDA/C库加速 → 返回结果。<b
 </code></pre></div>
 
 <p><img alt="png" src="PyTorch_files/PyTorch_92_0.png" /></p>
-<h1 id="_38">循环神经网络</h1>
+<h1 id="_37">循环神经网络</h1>
 <p>专门用于处理序列数据，能够捕捉时间序列或有序数据的动态信息，能够处理序列数据，如文本、时间序列或音频。</p>
 <p>PyTorch 提供了几种 RNN 模块，包括：</p>
 <ul>
@@ -2371,9 +2468,9 @@ PE_{(pos, 2i)} = \sin\left( \dfrac{pos}{10000^{2i/d_{\text{model}}}} \right) \\
 PE_{(pos, 2i+1)} = \cos\left( \dfrac{pos}{10000^{2i/d_{\text{model}}}} \right)
 \end{cases}\]</div>
 pos 是词的位置，i 是维度索引。</p>
-<h2 id="_39">残差连接和层归一化</h2>
+<h2 id="_38">残差连接和层归一化</h2>
 <p>为了稳定训练过程，每个子层（如自注意力层和前馈神经网络）后面都会接一个残差连接和层归一化（Layer Normalization）。</p>
-<h2 id="_40">简单实现</h2>
+<h2 id="_39">简单实现</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
@@ -3460,7 +3557,73 @@ torchserve<span class="w"> </span>--start<span class="w">  </span><span class="s
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">简介</a></li>
+<li><a class="toc-h2" href="#pytorch">PyTorch 特性</a></li>
+<li><a href="#_2">安装</a></li>
+<li><a class="toc-h2" href="#miniconda">Miniconda</a></li>
+<li><a class="toc-h2" href="#cuda">CUDA</a></li>
+<li><a class="toc-h2" href="#pytorch_1">Pytorch安装</a></li>
+<li><a href="#_3">基础</a></li>
+<li><a class="toc-h2" href="#pytorch_2">PyTorch 架构总览</a></li>
+<li><a class="toc-h2" href="#_4">张量</a></li>
+<li><a class="toc-h3" href="#_5">创建张量</a></li>
+<li><a class="toc-h3" href="#_6">常用张量操作</a></li>
+<li><a class="toc-h3" href="#_7">张量与设备</a></li>
+<li><a class="toc-h3" href="#_8">梯度和自动微分</a></li>
+<li><a class="toc-h3" href="#_9">内存和性能</a></li>
+<li><a class="toc-h2" href="#_10">自动求导</a></li>
+<li><a class="toc-h3" href="#_11">反向传播</a></li>
+<li><a class="toc-h3" href="#_12">停止梯度计算</a></li>
+<li><a class="toc-h2" href="#nnmodule">神经网络（nn.Module）</a></li>
+<li><a class="toc-h3" href="#_13">前向传播与损失计算</a></li>
+<li><a class="toc-h2" href="#_14">优化器</a></li>
+<li><a class="toc-h2" href="#_15">设备</a></li>
+<li><a class="toc-h2" href="#_16">层</a></li>
+<li><a class="toc-h2" href="#_17">激活函数</a></li>
+<li><a class="toc-h2" href="#_18">损失函数</a></li>
+<li><a class="toc-h2" href="#_19">优化器</a></li>
+<li><a class="toc-h2" href="#_20">训练过程</a></li>
+<li><a class="toc-h2" href="#_21">测试与评估</a></li>
+<li><a class="toc-h2" href="#_22">训练模型步骤</a></li>
+<li><a class="toc-h2" href="#_23">简单神经网络模型</a></li>
+<li><a href="#_24">张量</a></li>
+<li><a class="toc-h2" href="#_25">创建张量</a></li>
+<li><a class="toc-h2" href="#_26">张量的属性</a></li>
+<li><a class="toc-h2" href="#_27">张量的操作</a></li>
+<li><a class="toc-h3" href="#_28">基础操作</a></li>
+<li><a class="toc-h3" href="#_29">形状操作</a></li>
+<li><a class="toc-h2" href="#gpu">张量的 GPU 加速</a></li>
+<li><a class="toc-h2" href="#numpy">张量与 NumPy 的互操作</a></li>
+<li><a href="#_30">第一个神经网络</a></li>
+<li><a class="toc-h2" href="#_31">示例一</a></li>
+<li><a class="toc-h2" href="#_32">示例二</a></li>
+<li><a href="#_33">数据处理与加载</a></li>
+<li><a class="toc-h2" href="#torchutilsdatadataset">torch.utils.data.Dataset</a></li>
+<li><a class="toc-h2" href="#torchutilsdatadataloader">torch.utils.data.Dataloader</a></li>
+<li><a class="toc-h2" href="#torchutilsdatatenserdataset">torch.utils.data.TenserDataset</a></li>
+<li><a class="toc-h2" href="#torchvisiontransforms">torchvision.transforms</a></li>
+<li><a class="toc-h2" href="#trochvisiondatasets">trochvision.datasets</a></li>
+<li><a class="toc-h2" href="#torchvisiondatasetsimagefolder">torchvision.datasets.ImageFolder</a></li>
+<li><a class="toc-h2" href="#torchtext">torchtext</a></li>
+<li><a class="toc-h2" href="#_34">合并数据集</a></li>
+<li><a href="#_35">线性回归</a></li>
+<li><a href="#_36">卷积神经网络</a></li>
+<li><a href="#_37">循环神经网络</a></li>
+<li><a href="#transformer">Transformer</a></li>
+<li><a class="toc-h2" href="#self-attention">自注意力机制（Self-Attention）</a></li>
+<li><a class="toc-h2" href="#multi-head-attention">多头注意力（Multi-Head Attention）</a></li>
+<li><a class="toc-h2" href="#positional-encoding">位置编码（Positional Encoding）</a></li>
+<li><a class="toc-h2" href="#_38">残差连接和层归一化</a></li>
+<li><a class="toc-h2" href="#_39">简单实现</a></li>
+<li><a href="#transformer-pytorch">Transformer Pytorch 实现</a></li>
+<li><a href="#optim">optim 优化器模块</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -3469,6 +3632,45 @@ torchserve<span class="w"> </span>--start<span class="w">  </span><span class="s
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

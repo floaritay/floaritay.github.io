@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>ROS2_robotics - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,11 +482,10 @@
             <span class="sep">/</span>
             <span>ROS</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
-<h1 id="_2">空间坐标描述</h1>
-<h1 id="_3">空间坐标描述实战</h1>
+<h1 id="_1">空间坐标描述</h1>
+<h1 id="_2">空间坐标描述实战</h1>
 <p>本节包含</p>
 <ul>
 <li>使用numpy表示位置矢量和旋转矩阵</li>
@@ -438,7 +535,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;位置矢量P_BP:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">P_BP</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_4">姿态表示</h1>
+<h1 id="_3">姿态表示</h1>
 <p>常用的坐标描述分为三类，共五种。</p>
 <ul>
 <li>旋转矩阵-旋转矩阵</li>
@@ -451,16 +548,16 @@
 <li>固定角与旋转矩阵互转</li>
 <li>四元数与旋转矩阵互转</li>
 </ul>
-<h2 id="_5">旋转矩阵</h2>
+<h2 id="_4">旋转矩阵</h2>
 <p>旋转矩阵采用的是旋转后的坐标系三个轴分别与原坐标系三个轴的夹角余弦值共九个数字组成的3*3矩阵。</p>
 <p>旋转矩阵一般记作R</p>
 <blockquote>
 <p>若两个坐标系姿态相同，其旋转矩阵为单位矩阵。</p>
 </blockquote>
-<h3 id="_6"><strong>旋转矩阵的描述</strong></h3>
+<h3 id="_5"><strong>旋转矩阵的描述</strong></h3>
 <p><img alt="image.png" src="ROS2_robotics_files/image.png" />
 <img alt="image-2.png" src="ROS2_robotics_files/image-2.png" /></p>
-<h3 id="_7"><strong>绕某一轴旋转θ角的旋转矩阵</strong></h3>
+<h3 id="_6"><strong>绕某一轴旋转θ角的旋转矩阵</strong></h3>
 <p>新的坐标系绕原坐标系某一坐标轴旋转任意角度得到的旋转矩阵有如下等式<br />
 <img alt="image.png" src="ROS2_robotics_files/image.png" /></p>
 <h2 id="-">欧拉角-绕坐标轴的旋转</h2>
@@ -470,7 +567,7 @@
 <p><img alt="image.png" src="ROS2_robotics_files/image.png" /></p>
 <p>所以我们对旋转顺序做排列组合，可以得到12种旋转顺序:<br />
 xyz,xyx, xzy，xzx,yzx, yzy，yxz, yxy , zxy，zxz, zyx, zyz</p>
-<h3 id="_8"><strong>两种参考坐标系</strong></h3>
+<h3 id="_7"><strong>两种参考坐标系</strong></h3>
 <p>除了要考虑旋转时所绕轴的顺序，还要考虑参考坐标系（坐标轴）的不同。</p>
 <p>参考固定的坐标系<br />
 <img alt="image.png" src="http://fishros.com/d2lros2/humble/chapt6/get_started/3.%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E7%A7%8D%E8%A1%A8%E7%A4%BA/imgs/808db9fe269b4684bc0537e3154f2a32.gif" /></p>
@@ -487,23 +584,23 @@ xyz,xyx, xzy，xzx,yzx, yzy，yxz, yxy , zxy，zxz, zyx, zyz</p>
 <blockquote>
 <p>无论是参考自身坐标系还是参考固定的坐标系，都有12种旋转方式，所以欧拉角有12*2=24种旋转方式</p>
 </blockquote>
-<h3 id="_9"><strong>固定转轴欧拉角 转 旋转矩阵</strong></h3>
+<h3 id="_8"><strong>固定转轴欧拉角 转 旋转矩阵</strong></h3>
 <p><img alt="image.png" src="ROS2_robotics_files/image.png" /></p>
-<h3 id="_10"><strong>非固定旋转轴的欧拉角</strong></h3>
+<h3 id="_9"><strong>非固定旋转轴的欧拉角</strong></h3>
 <p>我们以旋转顺序ZYX为例<br />
 <img alt="image.png" src="ROS2_robotics_files/image.png" /></p>
 <blockquote>
 <p>旋转矩阵转欧拉角的方法需要使用双参变量的反正切函数，我们后面在程序当中直接调用对应函数即可实现，这里对原理就不再进行推导了</p>
 </blockquote>
-<h2 id="_11">轴角</h2>
+<h2 id="_10">轴角</h2>
 <p>等效角度轴线：  </p>
 <p>上一节欧拉角中无论是绕着自身的某个轴旋转，还是绕着固定的坐标系的某个轴进行旋转，旋转时参考的轴都是坐标系的主轴</p>
 <p>假如我们参考的轴不是主轴，那么任何姿态都可以通过选择适当的轴和角度得到，换句话说，两个坐标系之间的任何姿态都可以通过绕某一个特定的轴(矢量)旋转特定的角度得到。</p>
-<h3 id="_12">轴角转旋转矩阵</h3>
+<h3 id="_11">轴角转旋转矩阵</h3>
 <p><img alt="image.png" src="ROS2_robotics_files/image.png" /></p>
 <p>旋转矩阵转轴角需要根据情况讨论，该部分转换我们直接调用相应函数实现，这里对其原理不再叙述<br />
 参考：https://en.wikipedia.org/wiki/Rotation_matrix#Axis_of_a_rotation</p>
-<h2 id="_13">四元数</h2>
+<h2 id="_12">四元数</h2>
 <p>四元数的四个数字由一个实部和三个虚部组成，是一个超复数形式<code>q=w+x∗i+y∗j+z∗k</code></p>
 <blockquote>
 <p>在机器人学当中用到的四元数都是单位四元数（四维单位超球体在三维空间的投影）,下文中提到的四元数默认指单位四元数</p>
@@ -511,9 +608,9 @@ xyz,xyx, xzy，xzx,yzx, yzy，yxz, yxy , zxy，zxz, zyx, zyz</p>
 <p>参考：https://www.bilibili.com/video/BV1SW411y7W1/?spm_id_from=888.80997.embed_other.whitelist&amp;t=607.674594&amp;bvid=BV1SW411y7W1</p>
 <p><img alt="image.png" src="ROS2_robotics_files/image.png" />
 <img alt="image-2.png" src="ROS2_robotics_files/image-2.png" /></p>
-<h1 id="_14">姿态转换实战</h1>
-<h1 id="_15">齐次坐标变换</h1>
-<h1 id="_16">齐次坐标变换实战</h1>
+<h1 id="_13">姿态转换实战</h1>
+<h1 id="_14">齐次坐标变换</h1>
+<h1 id="_15">齐次坐标变换实战</h1>
 <h1 id="tf2">TF2介绍</h1>
 <p>使用tf的坐标广播工具进行广播坐标关系，广播时需要三个数据：</p>
 <ul>
@@ -588,7 +685,37 @@ Usage: static_transform_publisher x y z yaw pitch roll frame_id child_frame_id
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">空间坐标描述</a></li>
+<li><a href="#_2">空间坐标描述实战</a></li>
+<li><a class="toc-h2" href="#numpy">numpy表示位姿</a></li>
+<li><a class="toc-h2" href="#numpy_1">numpy坐标变换</a></li>
+<li><a href="#_3">姿态表示</a></li>
+<li><a class="toc-h2" href="#_4">旋转矩阵</a></li>
+<li><a class="toc-h3" href="#_5">旋转矩阵的描述</a></li>
+<li><a class="toc-h3" href="#_6">绕某一轴旋转θ角的旋转矩阵</a></li>
+<li><a class="toc-h2" href="#-">欧拉角-绕坐标轴的旋转</a></li>
+<li><a class="toc-h3" href="#12">12种旋转顺序</a></li>
+<li><a class="toc-h3" href="#_7">两种参考坐标系</a></li>
+<li><a class="toc-h3" href="#_8">固定转轴欧拉角 转 旋转矩阵</a></li>
+<li><a class="toc-h3" href="#_9">非固定旋转轴的欧拉角</a></li>
+<li><a class="toc-h2" href="#_10">轴角</a></li>
+<li><a class="toc-h3" href="#_11">轴角转旋转矩阵</a></li>
+<li><a class="toc-h2" href="#_12">四元数</a></li>
+<li><a href="#_13">姿态转换实战</a></li>
+<li><a href="#_14">齐次坐标变换</a></li>
+<li><a href="#_15">齐次坐标变换实战</a></li>
+<li><a href="#tf2">TF2介绍</a></li>
+<li><a class="toc-h2" href="#tf2_1">TF2常用工具</a></li>
+<li><a href="#rviz2-tf">RVIZ2-TF组件</a></li>
+<li><a href="#python">python实现坐标变换发布监听</a></li>
+<li><a href="#tf">TF时间机制</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -597,6 +724,45 @@ Usage: static_transform_publisher x y z yaw pitch roll frame_id child_frame_id
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

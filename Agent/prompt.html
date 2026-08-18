@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>prompt - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,45 +482,9 @@
             <span class="sep">/</span>
             <span>Agent</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-14</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-提示词工程">1 提示词工程</a><ul>
-<li><a href="#11-提示词结构">1.1 提示词结构</a></li>
-<li><a href="#12-token">1.2 Token</a></li>
-<li><a href="#13-上下文窗口">1.3 上下文窗口</a></li>
-<li><a href="#14-xml-标签分离数据与指令">1.4 XML 标签分离数据与指令</a></li>
-<li><a href="#15-控制输出格式">1.5 控制输出格式</a></li>
-<li><a href="#16-先思考">1.6 先思考</a></li>
-<li><a href="#17-用示例">1.7 用示例</a></li>
-<li><a href="#18-完整提示词">1.8 完整提示词</a></li>
-<li><a href="#19-提示词链">1.9 提示词链</a></li>
-<li><a href="#110-元提示">1.10 元提示</a></li>
-<li><a href="#111-迭代优化">1.11 迭代优化</a></li>
-</ul>
-</li>
-<li><a href="#2-上下文工程">2 上下文工程</a><ul>
-<li><a href="#21-分配管理">2.1 分配管理</a></li>
-<li><a href="#22-系统提示">2.2 系统提示</a></li>
-<li><a href="#23-工具定义">2.3 工具定义</a></li>
-<li><a href="#24-历史记录">2.4 历史记录</a></li>
-<li><a href="#25-检索上下文">2.5 检索上下文</a><ul>
-<li><a href="#251-及时上下文">2.5.1 及时上下文</a></li>
-<li><a href="#252-渐进式披露">2.5.2 渐进式披露</a></li>
-<li><a href="#253-上下文压缩链">2.5.3 上下文压缩链</a></li>
-<li><a href="#254-子代理架构sub-agent-architectures">2.5.4 子代理架构（Sub-agent architectures）</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#3-驾驭工程">3 驾驭工程</a><ul>
-<li><a href="#31-ai-工程范式的三次跃迁">3.1 AI 工程范式的三次跃迁</a></li>
-<li><a href="#32-驾驭工程的四大护栏">3.2 驾驭工程的四大护栏</a></li>
-</ul>
-</li>
-</ul>
-<hr />
-<h1 id="1-提示词工程">1 提示词工程</h1>
+<h1 id="1">1 提示词工程</h1>
 <p>提示词（Prompt）：输入给 AI 模型的指令、问题、或文本输入。</p>
 <p>工程（Engineering）：在这里指的是设计、优化和改进你的输入文本的过程。</p>
 <p>为什么需要学习提示词工程？</p>
@@ -432,7 +494,7 @@
 <li>解锁能力 —— 复杂推理、角色扮演、格式输出，都需要特定技巧才能激发</li>
 <li>降低成本 —— 对开发者而言，好的提示词意味着更少的 API 调用</li>
 </ul>
-<h2 id="11-提示词结构">1.1 提示词结构</h2>
+<h2 id="11">1.1 提示词结构</h2>
 <table>
 <thead>
 <tr>
@@ -463,10 +525,10 @@
 <p>AI 模型不是以"字"或"词"为单位处理文本的，而是以 Token 为单位。</p>
 <p>Token (词元) = AI 能理解的最小文本单位</p>
 <p>1000 Token ≈ 750 个英文单词 ≈ 500 个中文汉字</p>
-<h2 id="13-上下文窗口">1.3 上下文窗口</h2>
+<h2 id="13">1.3 上下文窗口</h2>
 <p>在一次对话中能处理的最大 Token 数量。超过这个上限，模型就会"忘记"最早的内容。</p>
 <p><img alt="image.png" src="../images/Agent.png" /></p>
-<h2 id="14-xml-标签分离数据与指令">1.4 XML 标签分离数据与指令</h2>
+<h2 id="14-xml">1.4 XML 标签分离数据与指令</h2>
 <div class="highlight"><pre><span></span><code>请用不超过<span class="w"> </span>100<span class="w"> </span>字总结<span class="w"> </span><span class="nt">&lt;article&gt;</span><span class="w"> </span>标签中文章的核心观点。
 
 <span class="nt">&lt;article&gt;</span>
@@ -532,7 +594,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="15-控制输出格式">1.5 控制输出格式</h2>
+<h2 id="15">1.5 控制输出格式</h2>
 <p>方法一：直接描述你想要的格式</p>
 <div class="highlight"><pre><span></span><code>分析以下产品评论的情感，以<span class="w"> </span>JSON<span class="w"> </span>格式输出，包含以下字段：
 -<span class="w"> </span>sentiment：值为<span class="w"> </span>&quot;positive&quot;、&quot;negative&quot;<span class="w"> </span>或<span class="w"> </span>&quot;neutral&quot;
@@ -587,7 +649,7 @@
 <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;以下是分析结果：</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">}</span>
 </code></pre></div>
 
-<h2 id="16-先思考">1.6 先思考</h2>
+<h2 id="16">1.6 先思考</h2>
 <p>为什么先思考更准确？</p>
 <p>这涉及语言模型的工作原理：它每次只预测下一个词。如果你直接要它给结论，它会根据问题直接猜结论。如果你让它先把推理过程写出来，那些推理内容会成为生成结论的依据，准确率会显著提升。</p>
 <p>示例：</p>
@@ -610,7 +672,7 @@ D：内部协作——转发给相关团队
 请在<span class="w"> </span><span class="nt">&lt;reasoning&gt;</span><span class="w"> </span>中分析判断依据，在<span class="w"> </span><span class="nt">&lt;result&gt;</span><span class="w"> </span>中给出分类字母和类别名称。
 </code></pre></div>
 
-<h2 id="17-用示例">1.7 用示例</h2>
+<h2 id="17">1.7 用示例</h2>
 <p>有时候，你想要的效果很难用文字描述清楚——比如一种特定的语气、一种独特的格式风格。这时候，直接给例子比反复描述更有效。</p>
 <p>这种方法叫做少样本学习（Few-Shot Learning）</p>
 <div class="highlight"><pre><span></span><code>【示例 1】
@@ -630,7 +692,7 @@ D：内部协作——转发给相关团队
 改写后：
 </code></pre></div>
 
-<h2 id="18-完整提示词">1.8 完整提示词</h2>
+<h2 id="18">1.8 完整提示词</h2>
 <div class="highlight"><pre><span></span><code>════════════════════════════════
 第 1 段：角色与目标
 ════════════════════════════════
@@ -695,7 +757,7 @@ AI 需要知道哪些背景信息？
 <span class="nt">&lt;/contract&gt;</span>
 </code></pre></div>
 
-<h2 id="19-提示词链">1.9 提示词链</h2>
+<h2 id="19">1.9 提示词链</h2>
 <p>当一个任务过于复杂，单条提示词无法可靠完成时，可以把它拆分成多个子任务，依次执行，前一步的输出作为下一步的输入——这就是提示词链（Prompt Chaining）。</p>
 <div class="highlight"><pre><span></span><code>#<span class="w"> </span>第一步：信息提取
 请从以下简历中提取关键信息，以<span class="w"> </span>JSON<span class="w"> </span>格式输出：
@@ -721,7 +783,7 @@ AI 需要知道哪些背景信息？
 </code></pre></div>
 
 <p>在代码中实现提示词链时，建议在每一步之间加入输出验证逻辑——检查 JSON 格式是否正确、关键字段是否存在。发现异常时可以自动重试或切换到备用提示词，而不是把错误一路传递下去。</p>
-<h2 id="110-元提示">1.10 元提示</h2>
+<h2 id="110">1.10 元提示</h2>
 <p>当你不知道如何写一个好的提示词时，有一个被严重低估的方法：直接让 AI 帮你写或改进提示词。这就是元提示（Meta-Prompting）——用提示词来生成提示词。</p>
 <p>示例一</p>
 <div class="highlight"><pre><span></span><code>我需要一个 System Prompt，用于构建一个面向电商客服场景的 AI 助手。
@@ -748,7 +810,7 @@ AI 需要知道哪些背景信息？
 <span class="nt">&lt;/problem&gt;</span>
 </code></pre></div>
 
-<h2 id="111-迭代优化">1.11 迭代优化</h2>
+<h2 id="111">1.11 迭代优化</h2>
 <p>提示词工程从来不是一蹴而就的。专业的做法是：写 → 测试 → 分析 → 修改 → 再测试，循环迭代。</p>
 <div class="mermaid">
 flowchart TB
@@ -773,7 +835,7 @@ flowchart TB
    5 --> 2
 
 </div>
-<h1 id="2-上下文工程">2 上下文工程</h1>
+<h1 id="2">2 上下文工程</h1>
 <p><strong>什么是上下文工程</strong><br />
 上下文工程是系统化设计和优化传递给 AI Agent 的上下文信息的技术实践，它的目标是让 Agent 在有限的上下文窗口内获得最有效的信息，从而提升任务执行的准确性、效率和可靠性。</p>
 <p><strong>上下文工程 vs. 提示工程</strong><br />
@@ -819,7 +881,7 @@ flowchart TB
 </tr>
 </tbody>
 </table>
-<h2 id="21-分配管理">2.1 分配管理</h2>
+<h2 id="21">2.1 分配管理</h2>
 <p>将上下文窗口视为一个有限的「预算」，合理分配给不同类型的上下文。</p>
 <p>不是所有信息都值得占据上下文空间，每一条上下文都应该有明确的 ROI。</p>
 <p>以 200K token 窗口为例：</p>
@@ -832,7 +894,7 @@ flowchart TB
 </code></pre></div>
 
 <p>实际比例应根据 Agent 的具体任务类型动态调整。</p>
-<h2 id="22-系统提示">2.2 系统提示</h2>
+<h2 id="22">2.2 系统提示</h2>
 <table>
 <thead>
 <tr>
@@ -888,7 +950,7 @@ flowchart TB
 <span class="gs">**建议**</span>：[修复建议]
 </code></pre></div>
 
-<h2 id="23-工具定义">2.3 工具定义</h2>
+<h2 id="23">2.3 工具定义</h2>
 <p>工具描述往往占据上下文的最大比重，但很多工具从未被实际调用。</p>
 <table>
 <thead>
@@ -918,7 +980,7 @@ flowchart TB
 </table>
 <p>常见失败模式是“臃肿工具集”：功能边界模糊，导致“选哪个工具”这一决策本身就含混不清。<br />
 如果人类工程师都说不准用哪个工具，别指望智能体做得更好。精心甄别一个“最小可行工具集（MVTS）”往往能显著提升长期交互中的稳定性与可维护性。</p>
-<h2 id="24-历史记录">2.4 历史记录</h2>
+<h2 id="24">2.4 历史记录</h2>
 <p>多轮对话中，历史记录快速增长并占据上下文。</p>
 <p>需要选择合适的压缩策略来平衡上下文完整性和窗口限制。</p>
 <table>
@@ -947,7 +1009,7 @@ flowchart TB
 </tr>
 </tbody>
 </table>
-<h2 id="25-检索上下文">2.5 检索上下文</h2>
+<h2 id="25">2.5 检索上下文</h2>
 <table>
 <thead>
 <tr>
@@ -974,16 +1036,16 @@ flowchart TB
 </tr>
 </tbody>
 </table>
-<h3 id="251-及时上下文">2.5.1 及时上下文</h3>
+<h3 id="251">2.5.1 及时上下文</h3>
 <p>工程实践正在从“推理前一次性检索（embedding 检索）”逐步过渡到“及时（Just-in-time, JIT）上下文”。</p>
 <p>后者不再预先加载所有相关数据，而是维护轻量化引用（文件路径、存储查询、URL 等），在运行时通过工具动态加载所需数据。</p>
 <p>这样可让模型撰写针对性查询、缓存必要结果，并用诸如 head/tail 之类的命令分析大体量数据——无需把整块数据一次性塞入上下文。</p>
-<h3 id="252-渐进式披露">2.5.2 渐进式披露</h3>
+<h3 id="252">2.5.2 渐进式披露</h3>
 <p>不一次性把所有信息塞进上下文，而是根据执行阶段逐步披露。</p>
 <p>初始上下文只包含系统提示和当前阶段的必要工具，当 Agent 完成当前阶段后，再注入下一阶段的工具和规则。每一步交互都会产生新的上下文，反过来指导下一步决策</p>
 <p>需要权衡的是：运行时探索往往比预计算检索更慢，并且需要有“主见”的工程设计来确保模型拥有正确的工具与启发式。如果缺少引导，智能体可能会误用工具、追逐死胡同或错过关键信息，造成上下文浪费。</p>
 <p>不少场景中，混合策略更有效：前置加载少量“高价值”上下文以保证速度，然后允许智能体按需继续自主探索。边界的选择取决于任务动态性与时效要求。在工程上，可以预先放入类似“项目约定说明（如 README/指南）”的文件，同时提供 glob、grep 等原语，让智能体即时检索具体文件，从而绕开过时索引与复杂语法树的沉没成本。</p>
-<h3 id="253-上下文压缩链">2.5.3 上下文压缩链</h3>
+<h3 id="253">2.5.3 上下文压缩链</h3>
 <p>当一个任务需要处理大量数据时，用链式调用拆分为多个步骤，每步只保留关键中间结果。</p>
 <div class="highlight"><pre><span></span><code>步骤1：读取全部日志文件 → 输出 { 错误数量，时间范围，错误类型列表 }
 
@@ -993,15 +1055,15 @@ flowchart TB
 </code></pre></div>
 
 <p>每条链路的输入都是上一步精炼后的摘要，而非原始数据，使得上下文始终保持可控大小。</p>
-<h3 id="254-子代理架构sub-agent-architectures">2.5.4 子代理架构（Sub-agent architectures）</h3>
+<h3 id="254-sub-agent-architectures">2.5.4 子代理架构（Sub-agent architectures）</h3>
 <p>由主代理负责高层规划与综合，多个专长子代理在“干净的上下文窗口”中各自深挖、调用工具并探索，最后仅回传凝练摘要（常见 1,000–2,000 tokens）。</p>
 <p>实现关注点分离。庞杂的搜索上下文留在子代理内部，主代理专注于整合与推理；适合需要并行探索的复杂研究/分析任务。</p>
-<h1 id="3-驾驭工程">3 驾驭工程</h1>
+<h1 id="3">3 驾驭工程</h1>
 <p>Harness Engineering（驾驭工程）是围绕 AI 智能体设计和构建约束机制、反馈回路、工作流控制和持续改进循环的系统工程实践。它不优化模型本身，而是优化模型运行的"环境"。</p>
 <p>"Harness"一词来自马具——缰绳、马鞍、嚼子</p>
 <p><strong>瓶颈不在模型智能，而在基础设施</strong> : Agent 的每一次失败，都是环境设计不完善的信号。正确的回应不是换一个更强的模型，而是重新设计它运行的环境。</p>
 <p>LangChain 的案例尤其有说服力：底层模型一个参数都没动，仅仅通过优化外部驾驭环境（文档结构、验证回路、追踪系统），编码 Agent 在 Terminal Bench 2.0 的得分从 52.8% 飙升至 66.5%，全球排名从第 30 位跃升至第 5 位。</p>
-<h2 id="31-ai-工程范式的三次跃迁">3.1 AI 工程范式的三次跃迁</h2>
+<h2 id="31-ai">3.1 AI 工程范式的三次跃迁</h2>
 <table>
 <thead>
 <tr>
@@ -1032,7 +1094,7 @@ flowchart TB
 </tr>
 </tbody>
 </table>
-<h2 id="32-驾驭工程的四大护栏">3.2 驾驭工程的四大护栏</h2>
+<h2 id="32">3.2 驾驭工程的四大护栏</h2>
 <div class="mermaid">
 flowchart TB
    %% 中心节点
@@ -1101,7 +1163,38 @@ flowchart TB
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 提示词工程</a></li>
+<li><a class="toc-h2" href="#11">1.1 提示词结构</a></li>
+<li><a class="toc-h2" href="#12-token">1.2 Token</a></li>
+<li><a class="toc-h2" href="#13">1.3 上下文窗口</a></li>
+<li><a class="toc-h2" href="#14-xml">1.4 XML 标签分离数据与指令</a></li>
+<li><a class="toc-h2" href="#15">1.5 控制输出格式</a></li>
+<li><a class="toc-h2" href="#16">1.6 先思考</a></li>
+<li><a class="toc-h2" href="#17">1.7 用示例</a></li>
+<li><a class="toc-h2" href="#18">1.8 完整提示词</a></li>
+<li><a class="toc-h2" href="#19">1.9 提示词链</a></li>
+<li><a class="toc-h2" href="#110">1.10 元提示</a></li>
+<li><a class="toc-h2" href="#111">1.11 迭代优化</a></li>
+<li><a href="#2">2 上下文工程</a></li>
+<li><a class="toc-h2" href="#21">2.1 分配管理</a></li>
+<li><a class="toc-h2" href="#22">2.2 系统提示</a></li>
+<li><a class="toc-h2" href="#23">2.3 工具定义</a></li>
+<li><a class="toc-h2" href="#24">2.4 历史记录</a></li>
+<li><a class="toc-h2" href="#25">2.5 检索上下文</a></li>
+<li><a class="toc-h3" href="#251">2.5.1 及时上下文</a></li>
+<li><a class="toc-h3" href="#252">2.5.2 渐进式披露</a></li>
+<li><a class="toc-h3" href="#253">2.5.3 上下文压缩链</a></li>
+<li><a class="toc-h3" href="#254-sub-agent-architectures">2.5.4 子代理架构（Sub-agent architectures）</a></li>
+<li><a href="#3">3 驾驭工程</a></li>
+<li><a class="toc-h2" href="#31-ai">3.1 AI 工程范式的三次跃迁</a></li>
+<li><a class="toc-h2" href="#32">3.2 驾驭工程的四大护栏</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1110,6 +1203,45 @@ flowchart TB
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>dip - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,74 +482,13 @@
             <span class="sep">/</span>
             <span>CV</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-纲要">1 纲要</a><ul>
-<li><a href="#11-图像滤波">1.1 图像滤波</a><ul>
-<li><a href="#111-空间域滤波">1.1.1 空间域滤波</a></li>
-<li><a href="#112-频率域滤波">1.1.2 频率域滤波</a></li>
-</ul>
-</li>
-<li><a href="#12-边缘检测">1.2 边缘检测</a><ul>
-<li><a href="#121-一阶微分边缘检测算子">1.2.1 一阶微分边缘检测算子</a></li>
-<li><a href="#122-二阶微分边缘检测算子">1.2.2 二阶微分边缘检测算子</a></li>
-<li><a href="#123-canny边缘检测算子">1.2.3 Canny边缘检测算子</a></li>
-</ul>
-</li>
-<li><a href="#13-图像增强">1.3 图像增强</a><ul>
-<li><a href="#131-空间域增强">1.3.1 空间域增强</a></li>
-<li><a href="#132-频率域增强">1.3.2 频率域增强</a></li>
-<li><a href="#133-彩色图像增强">1.3.3 彩色图像增强</a></li>
-<li><a href="#134-基于深度学习的图像增强">1.3.4 基于深度学习的图像增强</a></li>
-</ul>
-</li>
-<li><a href="#14-图像复原">1.4 图像复原</a><ul>
-<li><a href="#141-基于退化模型估计的方法">1.4.1 基于退化模型估计的方法</a></li>
-<li><a href="#142-基于迭代运算的方法">1.4.2 基于迭代运算的方法</a></li>
-<li><a href="#143-基于退化图像先验信息的方法">1.4.3 基于退化图像先验信息的方法</a></li>
-<li><a href="#144-基于空间域和频率域处理的方法">1.4.4 基于空间域和频率域处理的方法</a></li>
-<li><a href="#145-基于物理模型和统计模型的方法">1.4.5 基于物理模型和统计模型的方法</a></li>
-</ul>
-</li>
-<li><a href="#15-图像重建">1.5 图像重建</a><ul>
-<li><a href="#151-基于物理模型的重建">1.5.1 基于物理模型的重建</a></li>
-<li><a href="#152-基于深度学习的重建">1.5.2 基于深度学习的重建</a></li>
-<li><a href="#153-基于数学变换的重建">1.5.3 基于数学变换的重建</a></li>
-<li><a href="#154-基于插值的重建">1.5.4 基于插值的重建</a></li>
-<li><a href="#155-基于压缩感知的重建">1.5.5 基于压缩感知的重建</a></li>
-<li><a href="#156-基于多视角的三维重建">1.5.6 基于多视角的三维重建</a></li>
-<li><a href="#157-基于模型的正则化重建">1.5.7 基于模型的正则化重建</a></li>
-</ul>
-</li>
-<li><a href="#16-形态学图像处理">1.6 形态学图像处理</a><ul>
-<li><a href="#161-基本形态学操作">1.6.1 <strong>基本形态学操作</strong></a></li>
-<li><a href="#162-组合形态学操作">1.6.2 <strong>组合形态学操作</strong></a></li>
-<li><a href="#163-高级形态学操作">1.6.3 <strong>高级形态学操作</strong></a></li>
-<li><a href="#164-结构元素的选择">1.6.4 <strong>结构元素的选择</strong></a></li>
-</ul>
-</li>
-<li><a href="#17-图像分割">1.7 图像分割</a><ul>
-<li><a href="#171-基于阈值的分割方法">1.7.1 <strong>基于阈值的分割方法</strong></a></li>
-<li><a href="#172-基于边缘的分割方法">1.7.2 <strong>基于边缘的分割方法</strong></a></li>
-<li><a href="#173-基于区域的分割方法">1.7.3 <strong>基于区域的分割方法</strong></a></li>
-<li><a href="#174-基于聚类的分割方法">1.7.4 <strong>基于聚类的分割方法</strong></a></li>
-<li><a href="#175-基于图论的分割方法">1.7.5 <strong>基于图论的分割方法</strong></a></li>
-<li><a href="#176-基于深度学习的分割方法">1.7.6 <strong>基于深度学习的分割方法</strong></a></li>
-<li><a href="#177-其他方法">1.7.7 <strong>其他方法</strong></a></li>
-<li><a href="#178-方法选择建议">1.7.8 <strong>方法选择建议</strong></a></li>
-<li><a href="#179-总结">1.7.9 <strong>总结</strong></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr />
-<h1 id="1-纲要">1 纲要</h1>
-<h2 id="11-图像滤波">1.1 图像滤波</h2>
-<h3 id="111-空间域滤波">1.1.1 空间域滤波</h3>
+<h1 id="1">1 纲要</h1>
+<h2 id="11">1.1 图像滤波</h2>
+<h3 id="111">1.1.1 空间域滤波</h3>
 <p>空间域滤波是直接对图像的像素进行处理，根据滤波器的作用不同，又可分为线性滤波和非线性滤波。</p>
-<h4 id="_2">线性滤波</h4>
+<h4 id="_1">线性滤波</h4>
 <ul>
 <li><strong>均值滤波</strong>
     - <strong>原理</strong>：用滤波器模板确定的邻域内像素的平均灰度值去代替图像每个像素点的值，即对邻域内的像素进行简单的算术平均。
@@ -462,7 +499,7 @@
     - <strong>特点</strong>：能够有效地平滑图像，同时保留图像的边缘信息，因为它对不同位置的像素赋予了不同的权重，更加符合人眼的视觉特性。
     - <strong>应用场景</strong>：广泛应用于图像去噪、图像预处理等领域，特别是在需要保留图像边缘的情况下。</li>
 </ul>
-<h4 id="_3">非线性滤波</h4>
+<h4 id="_2">非线性滤波</h4>
 <ul>
 <li><strong>中值滤波</strong>
     - <strong>原理</strong>：将滤波器模板确定的邻域内的像素值进行排序，取中间值作为当前像素点的输出值。
@@ -473,7 +510,7 @@
     - <strong>特点</strong>：能够在去噪的同时，更好地保留图像的边缘和纹理信息，因为它综合考虑了空间和像素值两个因素。
     - <strong>应用场景</strong>：适用于对图像质量要求较高的场合，如人像美颜、图像增强等。</li>
 </ul>
-<h3 id="112-频率域滤波">1.1.2 频率域滤波</h3>
+<h3 id="112">1.1.2 频率域滤波</h3>
 <p>频率域滤波是先将图像从空间域转换到频率域，在频率域中对图像的频率成分进行处理，然后再将处理后的图像转换回空间域。常用的频率域滤波方法包括低通滤波、高通滤波、带通滤波和带阻滤波等。</p>
 <ul>
 <li><strong>低通滤波</strong>
@@ -488,8 +525,8 @@
     - <strong>原理</strong>：带通滤波器允许某一频带内的信号通过，而抑制该频带以外的信号；带阻滤波器则抑制某一频带内的信号，而允许该频带以外的信号通过。
     - <strong>应用场景</strong>：在图像处理中，带通滤波和带阻滤波的应用相对较少，但在某些特定的图像处理任务中可能会用到，例如去除图像中特定频率的干扰信号。</li>
 </ul>
-<h2 id="12-边缘检测">1.2 边缘检测</h2>
-<h3 id="121-一阶微分边缘检测算子">1.2.1 一阶微分边缘检测算子</h3>
+<h2 id="12">1.2 边缘检测</h2>
+<h3 id="121">1.2.1 一阶微分边缘检测算子</h3>
 <ul>
 <li><strong>Sobel算子</strong>
     - <strong>原理</strong>：Sobel算子是一种离散微分算子，它结合了高斯平滑和微分求导。该算子包含两组3×3的矩阵，分别为横向及纵向，将之与图像作平面卷积，即可分别得出横向及纵向的亮度差分近似值。
@@ -504,7 +541,7 @@
     - <strong>特点</strong>：定位精度较高，但对噪声非常敏感，容易检测出伪边缘。由于其检测的边缘比较细，适合检测具有陡峭边缘且噪声较小的图像。
     - <strong>应用场景</strong>：常用于对边缘细节要求较高、图像噪声较小的场景，如一些医学图像中特定组织的边缘检测。</li>
 </ul>
-<h3 id="122-二阶微分边缘检测算子">1.2.2 二阶微分边缘检测算子</h3>
+<h3 id="122">1.2.2 二阶微分边缘检测算子</h3>
 <ul>
 <li><strong>Laplacian算子</strong>
     - <strong>原理</strong>：Laplacian算子是一种二阶微分算子，它具有各向同性，即与坐标轴方向无关，坐标轴旋转后梯度结果不变。通过对图像进行二阶微分运算，根据二阶导数的过零点来确定边缘的位置。
@@ -515,7 +552,7 @@
     - <strong>特点</strong>：能够有效地检测边缘，同时对噪声有一定的抑制作用。但它计算量相对较大，因为需要进行高斯滤波和二阶微分运算。
     - <strong>应用场景</strong>：广泛应用于图像分割、特征提取等领域，特别是在对图像质量和边缘检测精度要求较高的情况下。</li>
 </ul>
-<h3 id="123-canny边缘检测算子">1.2.3 Canny边缘检测算子</h3>
+<h3 id="123-canny">1.2.3 Canny边缘检测算子</h3>
 <ul>
 <li>
 <p><strong>原理</strong>：Canny边缘检测算子是一个多阶段算法，主要包括以下几个步骤：
@@ -529,10 +566,10 @@
 </li>
 <li><strong>应用场景</strong>：是目前应用最为广泛的边缘检测算法之一，适用于各种复杂的图像场景，如目标识别、图像匹配、自动驾驶中的环境感知等。</li>
 </ul>
-<h2 id="13-图像增强">1.3 图像增强</h2>
-<h3 id="131-空间域增强">1.3.1 空间域增强</h3>
+<h2 id="13">1.3 图像增强</h2>
+<h3 id="131">1.3.1 空间域增强</h3>
 <p>空间域增强是直接对图像的像素灰度值进行操作，主要包括灰度变换和空间滤波。</p>
-<h4 id="_4">灰度变换</h4>
+<h4 id="_3">灰度变换</h4>
 <ul>
 <li><strong>线性灰度变换</strong>
     - <strong>原理</strong>：通过线性函数对图像的灰度值进行拉伸或压缩。公式为<span class="math-inline">\(g(x,y)=a\times f(x,y)+b\)</span>，其中<span class="math-inline">\(f(x,y)\)</span>是输入图像在点<span class="math-inline">\((x,y)\)</span>处的灰度值，<span class="math-inline">\(g(x,y)\)</span>是输出图像在点<span class="math-inline">\((x,y)\)</span>处的灰度值，<span class="math-inline">\(a\)</span>和<span class="math-inline">\(b\)</span>是常数。
@@ -542,7 +579,7 @@
     - <strong>对数变换</strong>：公式为<span class="math-inline">\(g(x,y)=c\times\log(1 + f(x,y))\)</span>，其中<span class="math-inline">\(c\)</span>是常数。对数变换可以压缩图像的动态范围，增强图像中暗区域的细节，常用于处理动态范围很大的图像，如傅里叶频谱图。
     - <strong>幂律（伽马）变换</strong>：公式为<span class="math-inline">\(g(x,y)=c\times f(x,y)^{\gamma}\)</span>，其中<span class="math-inline">\(c\)</span>和<span class="math-inline">\(\gamma\)</span>是正常数。当<span class="math-inline">\(\gamma &gt; 1\)</span>时，图像的高灰度区域得到扩展，低灰度区域被压缩；当<span class="math-inline">\(\gamma &lt; 1\)</span>时，情况相反。幂律变换可用于图像的校正，如显示器或打印机的伽马校正。</li>
 </ul>
-<h4 id="_5">空间滤波</h4>
+<h4 id="_4">空间滤波</h4>
 <ul>
 <li><strong>平滑滤波</strong>
     - <strong>均值滤波</strong>：用滤波器模板确定的邻域内像素的平均灰度值去代替图像每个像素点的值。算法简单，计算速度快，但会导致图像边缘模糊，常用于去除图像中的高斯噪声。
@@ -551,7 +588,7 @@
     - <strong>拉普拉斯算子</strong>：是一种二阶微分算子，通过计算图像的二阶导数来检测边缘。对噪声敏感，会增强图像中的噪声，但边缘定位精度较高，常与其他方法结合使用来增强图像边缘。
     - <strong>非锐化掩蔽</strong>：先对原图像进行模糊处理得到模糊图像，然后用原图像减去模糊图像得到掩蔽图像，最后将掩蔽图像按一定比例加到原图像上，从而增强图像的边缘和细节。</li>
 </ul>
-<h3 id="132-频率域增强">1.3.2 频率域增强</h3>
+<h3 id="132">1.3.2 频率域增强</h3>
 <p>频率域增强是将图像从空间域转换到频率域，在频率域中对图像的频率成分进行处理，然后再转换回空间域。</p>
 <ul>
 <li><strong>低通滤波</strong>
@@ -563,13 +600,13 @@
     - <strong>巴特沃斯高通滤波器</strong>：过渡特性平滑，能有效抑制“振铃”效应，在增强图像边缘的同时，保持图像的相对平滑。
     - <strong>高斯高通滤波器</strong>：能够增强图像的高频信息，使图像的边缘更加清晰，同时对噪声有一定的抑制作用。</li>
 </ul>
-<h3 id="133-彩色图像增强">1.3.3 彩色图像增强</h3>
+<h3 id="133">1.3.3 彩色图像增强</h3>
 <p>彩色图像增强不仅要考虑图像的亮度信息，还要考虑颜色信息，常见的方法有真彩色增强和假彩色增强。</p>
 <ul>
 <li><strong>真彩色增强</strong>：直接对彩色图像的三个颜色分量（如RGB颜色空间的R、G、B分量）分别进行灰度图像增强的处理，然后再将处理后的三个分量合成彩色图像。这种方法简单直接，但可能会改变图像的颜色平衡。</li>
 <li><strong>假彩色增强</strong>：将一幅彩色图像或多光谱图像的颜色映射到另一幅彩色图像的颜色空间中，以突出某些特定的信息。例如，将红外图像与可见光图像进行假彩色合成，可以突出目标与背景的差异，便于目标识别。</li>
 </ul>
-<h3 id="134-基于深度学习的图像增强">1.3.4 基于深度学习的图像增强</h3>
+<h3 id="134">1.3.4 基于深度学习的图像增强</h3>
 <p>随着深度学习技术的发展，基于深度学习的图像增强方法取得了显著的成果。</p>
 <ul>
 <li><strong>卷积神经网络（CNN）</strong>
@@ -581,8 +618,8 @@
     - <strong>特点</strong>：能够生成高质量、多样化的图像，在图像增强中可以生成更加自然、真实的增强结果。但训练过程相对复杂，容易出现模式崩溃等问题。
     - <strong>应用场景</strong>：常用于图像风格迁移、图像修复、图像超分辨率重建等对图像质量要求较高的任务。</li>
 </ul>
-<h2 id="14-图像复原">1.4 图像复原</h2>
-<h3 id="141-基于退化模型估计的方法">1.4.1 基于退化模型估计的方法</h3>
+<h2 id="14">1.4 图像复原</h2>
+<h3 id="141">1.4.1 基于退化模型估计的方法</h3>
 <ul>
 <li>
 <p><strong>逆滤波复原</strong>：<br />
@@ -597,17 +634,17 @@
   在约束条件下寻找使准则函数最小的复原图像，通常采用平滑约束（如使原始图像的二阶导数平方和最小）。通过拉格朗日乘数法求解，适用于噪声统计特性未知的情况。</p>
 </li>
 </ul>
-<h3 id="142-基于迭代运算的方法">1.4.2 基于迭代运算的方法</h3>
+<h3 id="142">1.4.2 基于迭代运算的方法</h3>
 <ul>
 <li><strong>Lucy-Richardson（L-R）复原</strong>：<br />
   基于贝叶斯理论，假设退化图像、原始图像和点扩散函数服从泊松统计模型，通过迭代运算收敛于最大似然解。迭代公式为<span class="math-inline">\(f^{(n+1)}(x,y)=f^{(n)}(x,y)\left[\frac{h*(-g/h*f^{(n)})}{h*(-1+g/h*f^{(n)})}\right]\)</span>，适用于点扩散函数已知的情况。</li>
 </ul>
-<h3 id="143-基于退化图像先验信息的方法">1.4.3 基于退化图像先验信息的方法</h3>
+<h3 id="143">1.4.3 基于退化图像先验信息的方法</h3>
 <ul>
 <li><strong>盲解卷积复原</strong>：<br />
   在缺乏退化图像先验知识的情况下，通过迭代算法同时估计原始图像和点扩散函数。例如，使用<code>deconvblind</code>函数（如MATLAB中）进行复原，适用于无法准确获取退化模型参数的场景。</li>
 </ul>
-<h3 id="144-基于空间域和频率域处理的方法">1.4.4 基于空间域和频率域处理的方法</h3>
+<h3 id="144">1.4.4 基于空间域和频率域处理的方法</h3>
 <ul>
 <li>
 <p><strong>空间滤波复原</strong>：<br />
@@ -618,7 +655,7 @@
   通过傅里叶变换将图像转换到频域，利用带阻滤波器、带通滤波器或陷波滤波器消除噪声或特定频率分量。例如，使用n阶巴特沃思带阻滤波器或高斯带阻滤波器进行周期噪声的削减。</p>
 </li>
 </ul>
-<h3 id="145-基于物理模型和统计模型的方法">1.4.5 基于物理模型和统计模型的方法</h3>
+<h3 id="145">1.4.5 基于物理模型和统计模型的方法</h3>
 <ul>
 <li>
 <p><strong>物理模型复原</strong>：<br />
@@ -629,8 +666,8 @@
   基于图像数据的概率分布和统计特性（如噪声模型、图像纹理模型、统计相关性），从数据层面理解和解释图像特性。例如，利用Wiener滤波进行基于噪声统计特性的去噪。</p>
 </li>
 </ul>
-<h2 id="15-图像重建">1.5 图像重建</h2>
-<h3 id="151-基于物理模型的重建">1.5.1 基于物理模型的重建</h3>
+<h2 id="15">1.5 图像重建</h2>
+<h3 id="151">1.5.1 基于物理模型的重建</h3>
 <ul>
 <li><strong>CT重建技术</strong>：<ul>
 <li><strong>滤波反投影（FBP）</strong>：作为商用CT扫描仪最常用的分析重建方法，通过在投影数据上使用1D滤波器，将数据反投影到图像空间。其优势在于计算效率高且数值稳定性强，适用于不同世代的CT数据采集几何形状。</li>
@@ -638,23 +675,23 @@
 </ul>
 </li>
 </ul>
-<h3 id="152-基于深度学习的重建">1.5.2 基于深度学习的重建</h3>
+<h3 id="152">1.5.2 基于深度学习的重建</h3>
 <ul>
 <li><strong>深度学习重建</strong>：通过深度神经网络学习图像的高级特征，实现高质量的图像重建。常见的模型包括自编码器和生成对抗网络（GAN）。例如，2025年AI图像重建系统通过将传统多步迭代采样过程整合为单次推理网络，直接优化图像重建目标，显著提升了推理速度和重建质量。</li>
 </ul>
-<h3 id="153-基于数学变换的重建">1.5.3 基于数学变换的重建</h3>
+<h3 id="153">1.5.3 基于数学变换的重建</h3>
 <ul>
 <li><strong>傅里叶变换重建</strong>：将图像转换为频域表示，通过频域处理和滤波后再进行逆傅里叶变换，实现图像重建。例如，低通滤波可用于去除图像中的高频噪声，从而恢复出清晰的图像。</li>
 </ul>
-<h3 id="154-基于插值的重建">1.5.4 基于插值的重建</h3>
+<h3 id="154">1.5.4 基于插值的重建</h3>
 <ul>
 <li><strong>插值法</strong>：通过已知像素信息估计未知像素值，常见的插值方法包括最近邻插值、双线性插值和双三次插值。这些方法简单易用，适用于对计算复杂度要求较低的场景。</li>
 </ul>
-<h3 id="155-基于压缩感知的重建">1.5.5 基于压缩感知的重建</h3>
+<h3 id="155">1.5.5 基于压缩感知的重建</h3>
 <ul>
 <li><strong>压缩感知重建</strong>：通过在采样阶段对图像进行稀疏表示，并利用稀疏性在重建阶段恢复图像。该方法在图像压缩和重建方面取得了显著效果，尤其适用于采样资源受限的场景。</li>
 </ul>
-<h3 id="156-基于多视角的三维重建">1.5.6 基于多视角的三维重建</h3>
+<h3 id="156">1.5.6 基于多视角的三维重建</h3>
 <ul>
 <li><strong>单目与多目图像重建</strong>：<ul>
 <li><strong>单目图像重建</strong>：通过单个视角的二维图像估计三维场景，通常需要时间序列上的多幅图像。例如，运动恢复结构（SFM）技术可根据连续图像重建三维环境。</li>
@@ -662,11 +699,11 @@
 </ul>
 </li>
 </ul>
-<h3 id="157-基于模型的正则化重建">1.5.7 基于模型的正则化重建</h3>
+<h3 id="157">1.5.7 基于模型的正则化重建</h3>
 <ul>
 <li><strong>基于模型的重建</strong>：利用先验知识和数学模型约束图像重建过程。例如，使用正则化方法（如TV正则化、稀疏表示正则化）对图像进行约束，以获得更准确的重建结果。</li>
 </ul>
-<h2 id="16-形态学图像处理">1.6 形态学图像处理</h2>
+<h2 id="16">1.6 形态学图像处理</h2>
 <h3 id="161">1.6.1 <strong>基本形态学操作</strong></h3>
 <h4 id="1-erosion"><strong>1. 腐蚀（Erosion）</strong></h4>
 <ul>
@@ -803,7 +840,7 @@
 <li><strong>大小</strong>：结构元素的大小影响操作的强度。较大的结构元素会导致更强的腐蚀或膨胀效果。</li>
 <li><strong>方向</strong>：对于线性结构元素，方向会影响操作的各向异性。</li>
 </ul>
-<h2 id="17-图像分割">1.7 图像分割</h2>
+<h2 id="17">1.7 图像分割</h2>
 <h3 id="171">1.7.1 <strong>基于阈值的分割方法</strong></h3>
 <p><strong>原理</strong>：根据像素灰度值设定阈值，将图像分为前景和背景。<br />
 <strong>适用场景</strong>：目标与背景灰度差异明显的图像。  </p>
@@ -1000,7 +1037,7 @@
 <li><strong>多模态融合</strong>：结合RGB、深度、热成像等多源数据。  </li>
 <li><strong>轻量化模型</strong>：优化计算效率，适应边缘设备。  </li>
 </ul>
-<h1 id="_6">基本函数</h1>
+<h1 id="_5">基本函数</h1>
 <h2 id="cv2">cv2</h2>
 <h3 id="imread">imread()</h3>
 <p>cv2.imread() 用于读取图片文件，imread() 函数有两个参数，第一个参数是图片路径，第二个参数表示读取图片的形式，有三种  </p>
@@ -1312,7 +1349,7 @@ plt.subplots(1, 5, figsize=(20, 4))
 <p>axes[0].imshow(imageA1)
 axes[0].set_title("Image A1")
 axes[0].axis('off')去掉坐标轴</p>
-<h1 id="_7">显示整个图形窗口</h1>
+<h1 id="_6">显示整个图形窗口</h1>
 <p>plt.show()</p>
 <h3 id="titlexlabelylabel">title,xlabel,ylabel</h3>
 <p>plt.title('Multiple Line Plots with Different Styles')
@@ -1335,10 +1372,10 @@ aspect: 图像的宽高比控制
 interpolation: 插值方法，用于平滑图像</p>
 <p>plt.imshow(img, "gray")</p>
 <h2 id="numpy">numpy</h2>
-<h1 id="_8">基本定义</h1>
-<h2 id="_9">二值化</h2>
+<h1 id="_7">基本定义</h1>
+<h2 id="_8">二值化</h2>
 <p>图像的二值化，就是将图像上的像素点的灰度值设置为0或255，也就是将整个图像呈现出明显的只有黑和白的视觉效果</p>
-<h1 id="_10">计算处理</h1>
+<h1 id="_9">计算处理</h1>
 <h2 id="divide">除法运算divide()</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 在 python 语言中，图像的除法运算可以调用 opencv-python 库中的 divide() 函数进行；</span>
 
@@ -1403,7 +1440,7 @@ interpolation: 插值方法，用于平滑图像</p>
 <span class="c1"># 结果说明：在保存成图像时，会自动截取（如果大于255，则取255）</span>
 </code></pre></div>
 
-<h2 id="_11">异或运算^</h2>
+<h2 id="_10">异或运算^</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 相同为0</span>
 <span class="c1"># 在 python 语言中，异或运算可以使用 ^ 表示</span>
 
@@ -1420,13 +1457,13 @@ interpolation: 插值方法，用于平滑图像</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
 </code></pre></div>
 
-<h2 id="_12">或运算|</h2>
+<h2 id="_11">或运算|</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 在 python 语言中，或运算用 | 表示</span>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">X</span> <span class="o">|</span> <span class="n">Y</span>
 </code></pre></div>
 
-<h1 id="_13">二值化与阈值化处理</h1>
+<h1 id="_12">二值化与阈值化处理</h1>
 <p>全局阈值法方法就是将图像中低于某个阈值的像素设置为黑色（0），而其他的设置为白色（255）</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -1508,8 +1545,8 @@ TRIANGLE法,全局自适应阈值，第二个参数值0可改为任意数字但�
     <span class="k">return</span>  <span class="n">TRIANGLE_img</span><span class="p">,</span> <span class="n">OTSU_img</span><span class="p">,</span> <span class="n">TRUNC_img</span><span class="p">,</span> <span class="n">TOZERO_img</span>
 </code></pre></div>
 
-<h1 id="_14">平滑处理</h1>
-<h2 id="_15">高斯平滑</h2>
+<h1 id="_13">平滑处理</h1>
+<h2 id="_14">高斯平滑</h2>
 <p>高斯平滑即采用高斯卷积核对图像矩阵进行卷积操作
 高斯卷积核是一个近似服从高斯分布的矩阵，随着距离中心点的距离增加，其值变小。这样进行平滑处理时，图像矩阵中锚点处像素值权重大，边缘处像素值权重小</p>
 <p>dst = cv2.GaussianBlur(src,ksize,sigmaX,sigmay,borderType)
@@ -1530,7 +1567,7 @@ borderType:填充边界类型
     cv2.BORDER_CONSTANT：填充固定值（如 0，默认黑色）
     cv2.BORDER_REFLECT：镜像反射边缘像素</p>
 <p>见'高斯滤波.py'</p>
-<h2 id="_16">均值平滑</h2>
+<h2 id="_15">均值平滑</h2>
 <p>高斯卷积核，对卷积框中像素值赋予不同权重，而均值平滑赋予相同权重
 opencv的boxFilter()函数和blur()函数都能用来进行均值平滑。</p>
 <p>cv2.boxFilter(src,ddepth,ksize,dst,anchor,normalize,borderType)
@@ -1558,7 +1595,7 @@ anchor：卷积核锚点，默认(-1,-1)表示卷积核的中心位置
 borderType:填充边界类型</p>
 <p>与高斯平滑相比：边缘模糊更严重，简单降噪，计算效率高
 见'均值滤波.py'</p>
-<h2 id="_17">中值平滑</h2>
+<h2 id="_16">中值平滑</h2>
 <p>是对核中所有像素值排序得到中间值，用该中间值来代替锚点值。
 opencv中利用medianBlur()来进行中值平滑。</p>
 <p>cv2.medianBlur(src,ksize,dst)
@@ -1571,7 +1608,7 @@ dst:输出图像矩阵,大小和数据类型都与src相同</p>
 <p>优点：对椒盐噪声（随机黑白点）效果显著，且能保留边缘。
 缺点：对高斯噪声（连续渐变噪声）效果有限，且计算复杂度较高（需排序）
 见'排序统计滤波.py'</p>
-<h2 id="_18">双边滤波</h2>
+<h2 id="_17">双边滤波</h2>
 <p>双边滤波是一种非线性滤波方法,相比于上面几种平滑算法，双边滤波在平滑的同时还能保持图像中物体的轮廓信息
 它通过结合空间距离权重（空间域）和像素值相似性权重（值域）实现这一目标
 双边滤波在高斯平滑的基础上引入了灰度值相似性权重因子，所以在构建其卷积核核时，要同时考虑空间距离权重和灰度值相似性权重
@@ -1592,9 +1629,9 @@ sigmaSpace： 空间域（坐标空间）的标准差
     值越大：颜色相近的较远的像素对滤波结果影响增强，从而使更大的区域中足够相似的颜色获取相同的颜色，平滑范围扩大，但可能导致边缘模糊
     值越小：仅邻近像素参与滤波，边缘保留更好，但去噪能力减弱
     推荐值：通常取 30~100，需与 sigmaColor 协同调整。</p>
-<h2 id="_19">示例</h2>
+<h2 id="_18">示例</h2>
 <p>见'平滑处理.py'</p>
-<h1 id="_20">直方图</h1>
+<h1 id="_19">直方图</h1>
 <ol>
 <li>概念
 直方图是一种统计报告图，形式上是一个个的长条形，长条形的面积表示频数，高度表示频数组距，宽度表示组距。当宽度相同时，一般就用长条形长度表示频数
@@ -1610,7 +1647,7 @@ sigmaSpace： 空间域（坐标空间）的标准差
 根据直方图的形态可以大致推断图像质量的好坏。由于图像包含有大量的像元，其像元灰度值的分布应符合概率统计分布规律。假定像元的灰度值是随机分布的，那么其直方图应该是正态分布
 图像的灰度值是离散变量，因此直方图表示的是离散的概率分布。若以各灰度级的像元数占总像元数的比例值为纵坐标轴做出图像的直方图，将直方图中各条形的最高点连成一条外轮廓线，纵坐标的比例值即为某灰度级出现的概率密度，轮廓线可近似看成图像相应的连续函数的概率分布曲线</li>
 </ol>
-<h2 id="_21">直方图与线性图</h2>
+<h2 id="_20">直方图与线性图</h2>
 <p>plt 绘制直方图和线性图</p>
 <p>plt.hist(data,bins=30, normed=0, facecolor="red", alpha=0.7)
 参数          作用
@@ -1644,15 +1681,15 @@ alpha     透明度</p>
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Task4/img/T1.png&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_22">绘制直方图</h2>
+<h2 id="_21">绘制直方图</h2>
 <p>cv2 绘制直方图
 cv2.calcHist([img], [0], None, [256], [0,256]) 
 见'绘制直方图.py'</p>
-<h2 id="_23">二维直方图</h2>
+<h2 id="_22">二维直方图</h2>
 <p>plt.hist2d()</p>
-<h2 id="_24">灰度直方图的计算</h2>
+<h2 id="_23">灰度直方图的计算</h2>
 <p>见'灰度直方图的计算.py'</p>
-<h2 id="_25">直方图均衡化</h2>
+<h2 id="_24">直方图均衡化</h2>
 <p>直方图均衡化是灰度变换的一个重要应用，它高效且易于实现，广泛应用于图像增强处理中<br />
 图像的像素灰度变化是随机的，直方图的图形高低不齐，直方图均衡化就是用一定的算法使<code>直方图大致平和</code><br />
 均衡化处理后的图象只能是近似均匀分布。本质是扩大量化间隔，而减少量化级别，<br />
@@ -1660,7 +1697,7 @@ cv2.calcHist([img], [0], None, [256], [0,256])
 灰度直方图均衡化的算法，简单地说，就是把直方图的每个灰度级进行归一化处理，求每种灰度的累积分布，得到一个映射的灰度映射表，然后根据相应的灰度值来修正原图中的每个像素  </p>
 <p>equalizeHist()   </p>
 <p>见 '直方图均衡化.py'  </p>
-<h1 id="_26">图像分割</h1>
+<h1 id="_25">图像分割</h1>
 <ol>
 <li>
 <p>基于RGB，HSV  </p>
@@ -1784,7 +1821,7 @@ cv2.calcHist([img], [0], None, [256], [0,256])
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_27">分水岭算法</h2>
+<h2 id="_26">分水岭算法</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -1874,8 +1911,8 @@ cv2.calcHist([img], [0], None, [256], [0,256])
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_28">边缘检测</h1>
-<h1 id="_29">频率域滤波</h1>
+<h1 id="_27">边缘检测</h1>
+<h1 id="_28">频率域滤波</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># 低通滤波</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">ideal_low_pass_filter</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">):</span>
     <span class="c1"># 计算图像的二维傅里叶变换</span>
@@ -1944,7 +1981,114 @@ cv2.calcHist([img], [0], None, [256], [0,256])
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 纲要</a></li>
+<li><a class="toc-h2" href="#11">1.1 图像滤波</a></li>
+<li><a class="toc-h3" href="#111">1.1.1 空间域滤波</a></li>
+<li><a class="toc-h3" href="#112">1.1.2 频率域滤波</a></li>
+<li><a class="toc-h2" href="#12">1.2 边缘检测</a></li>
+<li><a class="toc-h3" href="#121">1.2.1 一阶微分边缘检测算子</a></li>
+<li><a class="toc-h3" href="#122">1.2.2 二阶微分边缘检测算子</a></li>
+<li><a class="toc-h3" href="#123-canny">1.2.3 Canny边缘检测算子</a></li>
+<li><a class="toc-h2" href="#13">1.3 图像增强</a></li>
+<li><a class="toc-h3" href="#131">1.3.1 空间域增强</a></li>
+<li><a class="toc-h3" href="#132">1.3.2 频率域增强</a></li>
+<li><a class="toc-h3" href="#133">1.3.3 彩色图像增强</a></li>
+<li><a class="toc-h3" href="#134">1.3.4 基于深度学习的图像增强</a></li>
+<li><a class="toc-h2" href="#14">1.4 图像复原</a></li>
+<li><a class="toc-h3" href="#141">1.4.1 基于退化模型估计的方法</a></li>
+<li><a class="toc-h3" href="#142">1.4.2 基于迭代运算的方法</a></li>
+<li><a class="toc-h3" href="#143">1.4.3 基于退化图像先验信息的方法</a></li>
+<li><a class="toc-h3" href="#144">1.4.4 基于空间域和频率域处理的方法</a></li>
+<li><a class="toc-h3" href="#145">1.4.5 基于物理模型和统计模型的方法</a></li>
+<li><a class="toc-h2" href="#15">1.5 图像重建</a></li>
+<li><a class="toc-h3" href="#151">1.5.1 基于物理模型的重建</a></li>
+<li><a class="toc-h3" href="#152">1.5.2 基于深度学习的重建</a></li>
+<li><a class="toc-h3" href="#153">1.5.3 基于数学变换的重建</a></li>
+<li><a class="toc-h3" href="#154">1.5.4 基于插值的重建</a></li>
+<li><a class="toc-h3" href="#155">1.5.5 基于压缩感知的重建</a></li>
+<li><a class="toc-h3" href="#156">1.5.6 基于多视角的三维重建</a></li>
+<li><a class="toc-h3" href="#157">1.5.7 基于模型的正则化重建</a></li>
+<li><a class="toc-h2" href="#16">1.6 形态学图像处理</a></li>
+<li><a class="toc-h3" href="#161">1.6.1 基本形态学操作</a></li>
+<li><a class="toc-h3" href="#162">1.6.2 组合形态学操作</a></li>
+<li><a class="toc-h3" href="#163">1.6.3 高级形态学操作</a></li>
+<li><a class="toc-h3" href="#164">1.6.4 结构元素的选择</a></li>
+<li><a class="toc-h2" href="#17">1.7 图像分割</a></li>
+<li><a class="toc-h3" href="#171">1.7.1 基于阈值的分割方法</a></li>
+<li><a class="toc-h3" href="#172">1.7.2 基于边缘的分割方法</a></li>
+<li><a class="toc-h3" href="#173">1.7.3 基于区域的分割方法</a></li>
+<li><a class="toc-h3" href="#174">1.7.4 基于聚类的分割方法</a></li>
+<li><a class="toc-h3" href="#175">1.7.5 基于图论的分割方法</a></li>
+<li><a class="toc-h3" href="#176">1.7.6 基于深度学习的分割方法</a></li>
+<li><a class="toc-h3" href="#177">1.7.7 其他方法</a></li>
+<li><a class="toc-h3" href="#178">1.7.8 方法选择建议</a></li>
+<li><a class="toc-h3" href="#179">1.7.9 总结</a></li>
+<li><a href="#_5">基本函数</a></li>
+<li><a class="toc-h2" href="#cv2">cv2</a></li>
+<li><a class="toc-h3" href="#imread">imread()</a></li>
+<li><a class="toc-h3" href="#imwrite">imwrite()</a></li>
+<li><a class="toc-h3" href="#resize">resize( )</a></li>
+<li><a class="toc-h3" href="#cv2waitkey">cv2.waitKey()</a></li>
+<li><a class="toc-h3" href="#cv2destroyallwindows">cv2.destroyAllWindows()</a></li>
+<li><a class="toc-h3" href="#cvtcolor">cvtColor()</a></li>
+<li><a class="toc-h3" href="#imshow">imshow()</a></li>
+<li><a class="toc-h3" href="#threshold">threshold()</a></li>
+<li><a class="toc-h3" href="#gaussianblur">GaussianBlur() 高斯平滑</a></li>
+<li><a class="toc-h3" href="#boxfilter">boxFilter() 均值平滑</a></li>
+<li><a class="toc-h3" href="#blur">blur() 均值平滑</a></li>
+<li><a class="toc-h3" href="#medianblur">medianBlur() 中值平滑</a></li>
+<li><a class="toc-h3" href="#bilateralfilter">bilateralFilter() 双边滤波</a></li>
+<li><a class="toc-h3" href="#sobel">Sobel()</a></li>
+<li><a class="toc-h3" href="#puttext">putText() 在图像上添加文本</a></li>
+<li><a class="toc-h3" href="#calchist">calcHist() 直方图</a></li>
+<li><a class="toc-h3" href="#equalizehist">equalizeHist() 直方图均衡化</a></li>
+<li><a class="toc-h2" href="#matplotlibpyplot">matplotlib.pyplot</a></li>
+<li><a class="toc-h3" href="#figure">figure() 图形窗口</a></li>
+<li><a class="toc-h3" href="#plot">plot()</a></li>
+<li><a class="toc-h3" href="#subplots">subplots()</a></li>
+<li><a href="#_6">显示整个图形窗口</a></li>
+<li><a class="toc-h3" href="#titlexlabelylabel">title,xlabel,ylabel</a></li>
+<li><a class="toc-h3" href="#legend">legend()</a></li>
+<li><a class="toc-h3" href="#gridtrue">grid(True)</a></li>
+<li><a class="toc-h3" href="#show">show()</a></li>
+<li><a class="toc-h3" href="#imshow_1">imshow()</a></li>
+<li><a class="toc-h2" href="#numpy">numpy</a></li>
+<li><a href="#_7">基本定义</a></li>
+<li><a class="toc-h2" href="#_8">二值化</a></li>
+<li><a href="#_9">计算处理</a></li>
+<li><a class="toc-h2" href="#divide">除法运算divide()</a></li>
+<li><a class="toc-h2" href="#multiply">乘法运算multiply()</a></li>
+<li><a class="toc-h2" href="#subtract">减法运算subtract()</a></li>
+<li><a class="toc-h2" href="#add">加法运算add()</a></li>
+<li><a class="toc-h2" href="#_10">异或运算^</a></li>
+<li><a class="toc-h2" href="#_11">或运算|</a></li>
+<li><a href="#_12">二值化与阈值化处理</a></li>
+<li><a href="#_13">平滑处理</a></li>
+<li><a class="toc-h2" href="#_14">高斯平滑</a></li>
+<li><a class="toc-h2" href="#_15">均值平滑</a></li>
+<li><a class="toc-h2" href="#_16">中值平滑</a></li>
+<li><a class="toc-h2" href="#_17">双边滤波</a></li>
+<li><a class="toc-h2" href="#_18">示例</a></li>
+<li><a href="#_19">直方图</a></li>
+<li><a class="toc-h2" href="#_20">直方图与线性图</a></li>
+<li><a class="toc-h2" href="#_21">绘制直方图</a></li>
+<li><a class="toc-h2" href="#_22">二维直方图</a></li>
+<li><a class="toc-h2" href="#_23">灰度直方图的计算</a></li>
+<li><a class="toc-h2" href="#_24">直方图均衡化</a></li>
+<li><a href="#_25">图像分割</a></li>
+<li><a class="toc-h2" href="#canny">Canny</a></li>
+<li><a class="toc-h2" href="#_26">分水岭算法</a></li>
+<li><a class="toc-h2" href="#k-means">K-Means 聚类</a></li>
+<li><a class="toc-h2" href="#grabcut">Grabcut</a></li>
+<li><a href="#_27">边缘检测</a></li>
+<li><a href="#_28">频率域滤波</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1953,6 +2097,45 @@ cv2.calcHist([img], [0], None, [256], [0,256])
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

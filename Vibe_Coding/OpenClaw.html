@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>OpenClaw - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,28 +482,14 @@
             <span class="sep">/</span>
             <span>Vibe_Coding</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-简介">1 简介</a></li>
-<li><a href="#2-安装openclaw">2 安装OpenClaw</a><ul>
-<li><a href="#21-方式4">2.1 方式4</a></li>
-<li><a href="#22-方式1">2.2 方式1</a></li>
-<li><a href="#23-常用命令">2.3 常用命令</a></li>
-<li><a href="#24-卸载">2.4 卸载</a></li>
-</ul>
-</li>
-<li><a href="#3-配置大模型">3 配置大模型</a></li>
-<li><a href="#4-skills">4 skills</a></li>
-<li><a href="#5-插件">5 插件</a></li>
-</ul>
-<hr />
-<h1 id="1-简介">1 简介</h1>
+<h1 id="1">1 简介</h1>
 <p>OpenClaw 官网: https://openclaw.ai/</p>
 <p>中文文档： https://docs.openclaw.ai/zh-CN</p>
 <p>Github 地址：https://github.com/openclaw/openclaw</p>
 <p>OpenClaw 技能合集: https://github.com/VoltAgent/awesome-openclaw-skills</p>
-<h1 id="2-安装openclaw">2 安装OpenClaw</h1>
+<h1 id="2-openclaw">2 安装OpenClaw</h1>
 <p>方式1：通过云服务器ECS预置镜像安装，2核2G起步即可支持OpenClaw运行。</p>
 <p>方式2：基于容器服务镜像一键部署，零门槛秒级启动并支持弹性扩展。</p>
 <p>方式3：依托AI云桌面预置镜像灵活部署，支持Windows、Mac、iOS、Android多端登录。</p>
@@ -430,7 +514,7 @@ curl<span class="w"> </span>-fsSL<span class="w"> </span>https://openclaw.ai/ins
 <p>方式5：手动安装<br />
 需要 Node.js ≥22 并完成基本配置</p>
 <p>方式6：从源码安装</p>
-<h2 id="21-方式4">2.1 方式4</h2>
+<h2 id="21-4">2.1 方式4</h2>
 <p>执行脚本安装完成后进入 onboarding(设置向导) 流程：</p>
 <ol>
 <li>
@@ -465,7 +549,7 @@ curl<span class="w"> </span>-fsSL<span class="w"> </span>https://openclaw.ai/ins
 </li>
 </ol>
 <p>安装完后，就会自动访问 http://127.0.0.1:18789/chat，就可以打开聊天界面让它开始工作。</p>
-<h2 id="22-方式1">2.2 方式1</h2>
+<h2 id="22-1">2.2 方式1</h2>
 <p>以联通云为例</p>
 <ol>
 <li>
@@ -524,7 +608,7 @@ curl<span class="w"> </span>-fsSL<span class="w"> </span>https://openclaw.ai/ins
 <div class="highlight"><pre><span></span><code><span class="w">  </span>&gt;python3<span class="w"> </span>-m<span class="w"> </span>openclaw.cli
 </code></pre></div>
 
-<h2 id="23-常用命令">2.3 常用命令</h2>
+<h2 id="23">2.3 常用命令</h2>
 <table>
 <thead>
 <tr>
@@ -571,7 +655,7 @@ curl<span class="w"> </span>-fsSL<span class="w"> </span>https://openclaw.ai/ins
 </tr>
 </tbody>
 </table>
-<h2 id="24-卸载">2.4 卸载</h2>
+<h2 id="24">2.4 卸载</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 使用内置卸载程序</span>
 openclaw<span class="w"> </span>uninstall
 
@@ -580,7 +664,7 @@ openclaw<span class="w"> </span>uninstall<span class="w"> </span>--all<span clas
 npx<span class="w"> </span>-y<span class="w"> </span>openclaw<span class="w"> </span>uninstall<span class="w"> </span>--all<span class="w"> </span>--yes<span class="w"> </span>--non-interactive
 </code></pre></div>
 
-<h1 id="3-配置大模型">3 配置大模型</h1>
+<h1 id="3">3 配置大模型</h1>
 <p>步骤1：打开配置文件。<br />
 运行以下命令打开 Web UI，然后在Web UI的左侧菜单栏中选择Config &gt; Raw。</p>
 <div class="highlight"><pre><span></span><code>openclaw<span class="w"> </span>dashboard
@@ -666,7 +750,7 @@ clawhub<span class="w"> </span>install<span class="w"> </span>my-skill-pack
 clawhub<span class="w"> </span>update<span class="w"> </span>--all
 </code></pre></div>
 
-<h1 id="5-插件">5 插件</h1>
+<h1 id="5">5 插件</h1>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
@@ -679,7 +763,7 @@ clawhub<span class="w"> </span>update<span class="w"> </span>--all
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
-<h1 id="_2">常用命令</h1>
+<h1 id="_1">常用命令</h1>
 <table>
 <thead>
 <tr>
@@ -853,7 +937,7 @@ clawhub<span class="w"> </span>update<span class="w"> </span>--all
 </tr>
 </tbody>
 </table>
-<h1 id="_3">常见问题</h1>
+<h1 id="_2">常见问题</h1>
 <ol>
 <li>
 <p>若您在使用OpenClaw时，出现“no output”字样：</p>
@@ -866,7 +950,7 @@ clawhub<span class="w"> </span>update<span class="w"> </span>--all
 <img alt="image.png" src="https://support.cucloud.cn/upload/cms/content/editor/1772521526648.png" /></p>
 </li>
 </ol>
-<h1 id="_4">常用命令</h1>
+<h1 id="_3">常用命令</h1>
 <table>
 <thead>
 <tr>
@@ -908,7 +992,7 @@ clawhub<span class="w"> </span>update<span class="w"> </span>--all
 </tr>
 </tbody>
 </table>
-<h1 id="_5">其他</h1>
+<h1 id="_4">其他</h1>
 <h2 id="openclaw-web">OpenClaw 的 Web 控制面板</h2>
 <div class="highlight"><pre><span></span><code>root@open:~#<span class="w"> </span>openclaw<span class="w"> </span>dashboard
 
@@ -940,7 +1024,7 @@ disconnected (1008): unauthorized: gateway token missing (open a tokenized dashb
 3. 在 Gateway Token 输入框里粘贴刚才查到的 token；
 4. 点击 保存 / 连接。</p>
 <p>或者直接而用 openclaw dashboard 命令返回的链接，他已经自带token。</p>
-<h2 id="_6">服务常驻</h2>
+<h2 id="_5">服务常驻</h2>
 <p>在这个镜像里，OpenClaw 并没有“常驻后台服务”，每次 SSH 里敲命令都是一次性前端进程</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>status<span class="w"> </span>openclaw
 systemctl<span class="w"> </span>status<span class="w"> </span>openclaw-daemon
@@ -963,7 +1047,28 @@ Linux 下用 systemd 用户服务 openclaw-gateway.service，命令是：</p>
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 简介</a></li>
+<li><a href="#2-openclaw">2 安装OpenClaw</a></li>
+<li><a class="toc-h2" href="#21-4">2.1 方式4</a></li>
+<li><a class="toc-h2" href="#22-1">2.2 方式1</a></li>
+<li><a class="toc-h2" href="#23">2.3 常用命令</a></li>
+<li><a class="toc-h2" href="#24">2.4 卸载</a></li>
+<li><a href="#3">3 配置大模型</a></li>
+<li><a href="#4-skills">4 skills</a></li>
+<li><a href="#5">5 插件</a></li>
+<li><a href="#_1">常用命令</a></li>
+<li><a href="#_2">常见问题</a></li>
+<li><a href="#_3">常用命令</a></li>
+<li><a href="#_4">其他</a></li>
+<li><a class="toc-h2" href="#openclaw-web">OpenClaw 的 Web 控制面板</a></li>
+<li><a class="toc-h2" href="#_5">服务常驻</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -972,6 +1077,45 @@ Linux 下用 systemd 用户服务 openclaw-gateway.service，命令是：</p>
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

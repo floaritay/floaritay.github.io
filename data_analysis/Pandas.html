@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Pandas - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,53 +482,9 @@
             <span class="sep">/</span>
             <span>data_analysis</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#0-google-25">0  Google   25</a></li>
-<li><a href="#1-runoob-30">1  Runoob   30</a></li>
-<li><a href="#2-taobao-35">2  Taobao   35</a></li>
-<li><a href="#0-1">0    1</a></li>
-<li><a href="#1-2">1    2</a></li>
-<li><a href="#2-3">2    3</a></li>
-<li><a href="#3-4">3    4</a></li>
-<li><a href="#1-1">1    1</a></li>
-<li><a href="#2-2">2    2</a></li>
-<li><a href="#3-3">3    3</a></li>
-<li><a href="#4-4">4    4</a></li>
-<li><a href="#0-420">0    420</a></li>
-<li><a href="#1-380">1    380</a></li>
-<li><a href="#2-390">2    390</a></li>
-<li><a href="#0-420-50">0       420        50</a></li>
-<li><a href="#1-380-40">1       380        40</a></li>
-<li><a href="#0-1-4">0  1  4</a></li>
-<li><a href="#1-2-5">1  2  5</a></li>
-<li><a href="#2-3-6">2  3  6</a></li>
-<li><a href="#3-a-d">3  a  d</a></li>
-<li><a href="#4-b-d">4  b  d</a></li>
-<li><a href="#5-c-f">5  c  f</a></li>
-<li><a href="#0-1-alice-90">0   1  Alice     90</a></li>
-<li><a href="#1-2-bob-8">1   2    Bob     8</a></li>
-<li><a href="#0-2023-01-01-10-20">0  2023-01-01  10  20</a></li>
-<li><a href="#1-2023-01-02-30-40">1  2023-01-02  30  40</a></li>
-<li><a href="#0-2023-01-01-a-10">0  2023-01-01        A     10</a></li>
-<li><a href="#1-2023-01-02-a-30">1  2023-01-02        A     30</a></li>
-<li><a href="#2-2023-01-01-b-20">2  2023-01-01        B     20</a></li>
-<li><a href="#3-2023-01-02-b-4">3  2023-01-02        B     4</a></li>
-<li><a href="#0-a-10-组-a-的均值是-1-1-1实际计算会忽略-nan">0         A  1.0   组 A 的均值是 1 / 1 → 1（实际计算会忽略 NaN）</a></li>
-<li><a href="#1-a-10">1         A  1.0</a></li>
-<li><a href="#2-b-30">2         B  3.0</a></li>
-<li><a href="#3-b-40-组-b-均值是-35240">3         B  4.0   组 B 均值是 (3+5)/2=4.0</a></li>
-<li><a href="#4-b-50">4         B  5.0</a></li>
-<li><a href="#0-0-0-0-1">0             0             0                 0              1</a></li>
-<li><a href="#1-0-0-1-0">1             0             0                 1              0</a></li>
-<li><a href="#2-1-0-0-0">2             1             0                 0              0</a></li>
-<li><a href="#3-0-1-0-0">3             0             1                 0              0</a></li>
-<li><a href="#2-20">2          20</a></li>
-<li><a href="#2-40">2          40</a></li>
-</ul>
-<hr />
-<h1 id="_2">数据结构</h1>
+<h1 id="_1">数据结构</h1>
 <p>Pandas 的主要数据结构是 Series （一维数据）与 DataFrame（二维数据）  </p>
 <ul>
 <li>
@@ -711,7 +765,7 @@ DataFrame 既有行索引也有列索引，它可以被看做由 Series 组成�
 <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_3">更多</h2>
+<h2 id="_2">更多</h2>
 <div class="highlight"><pre><span></span><code><span class="c1">## 创建方法</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="c1"># 使用列表创建 Series</span>
@@ -1100,7 +1154,7 @@ DataFrame 既有行索引也有列索引，它可以被看做由 Series 组成�
 <span class="c1"># df.to_csv(&#39;output.csv&#39;, index=False)</span>
 </code></pre></div>
 
-<h2 id="_4">更多</h2>
+<h2 id="_3">更多</h2>
 <h3 id="loc-iloc">.loc[]    .iloc[]</h3>
 <div class="highlight"><pre><span></span><code><span class="c1">## 访问</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
@@ -2410,7 +2464,7 @@ DataFrame 既有行索引也有列索引，它可以被看做由 Series 组成�
 <span class="c1"># Name: students, dtype: int64</span>
 </code></pre></div>
 
-<h1 id="_5">数据清洗</h1>
+<h1 id="_4">数据清洗</h1>
 <p>1.缺失值处理：识别并填补缺失值，或删除含缺失值的行/列。</p>
 <p>2.重复数据处理：检查并删除重复数据，确保每条数据唯一。</p>
 <p>3.异常值处理：识别并处理异常值，如极端值、错误值。</p>
@@ -2528,7 +2582,7 @@ DataFrame 既有行索引也有列索引，它可以被看做由 Series 组成�
 <span class="c1"># 4         B  5.0</span>
 </code></pre></div>
 
-<h2 id="_6">清洗格式错误数据</h2>
+<h2 id="_5">清洗格式错误数据</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># 第三个日期格式错误</span>
@@ -2544,7 +2598,7 @@ DataFrame 既有行索引也有列索引，它可以被看做由 Series 组成�
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
 </code></pre></div>
 
-<h2 id="_7">清洗错误数据</h2>
+<h2 id="_6">清洗错误数据</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">person</span> <span class="o">=</span> <span class="p">{</span>
@@ -2613,7 +2667,7 @@ DataFrame 既有行索引也有列索引，它可以被看做由 Series 组成�
 <span class="c1"># 3             0             1                 0              0</span>
 </code></pre></div>
 
-<h2 id="_8">标准化</h2>
+<h2 id="_7">标准化</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="c1"># Z-score 标准化，将数据转换为均值为 0、标准差为 1 的分布</span>
@@ -2629,7 +2683,7 @@ DataFrame 既有行索引也有列索引，它可以被看做由 Series 组成�
 <span class="nb">print</span><span class="p">(</span><span class="n">df_scaled</span><span class="p">)</span> <span class="c1"># 输入可以是 DataFrame 或 NumPy 数组，但输出始终是 NumPy 数组</span>
 </code></pre></div>
 
-<h2 id="_9">更多</h2>
+<h2 id="_8">更多</h2>
 <table>
 <thead>
 <tr>
@@ -2823,26 +2877,26 @@ DataFrame 既有行索引也有列索引，它可以被看做由 Series 组成�
 </tbody>
 </table>
 <hr />
-<h1 id="_10">小结</h1>
-<h2 id="_11">读取数据</h2>
+<h1 id="_9">小结</h1>
+<h2 id="_10">读取数据</h2>
 <p>pd.read_csv(filename)<br />
 pd.read_excel(filename) <br />
 pd.read_sql(query, connection_object) <br />
 pd.read_json(json_string) <br />
 pd.read_html(url)   </p>
-<h2 id="_12">查看数据</h2>
+<h2 id="_11">查看数据</h2>
 <p>df.head(n)  <br />
 df.tail(n)  <br />
 df.info() <br />
 df.describe() <br />
 df.shape  </p>
-<h2 id="_13">数据清洗</h2>
+<h2 id="_12">数据清洗</h2>
 <p>df.dropna() <br />
 df.fillna(value)  <br />
 df.replace(old_value, new_value)  <br />
 df.duplicated() <br />
 df.drop_duplicates()   </p>
-<h2 id="_14">数据选择与切片</h2>
+<h2 id="_13">数据选择与切片</h2>
 <p>df[column_name] <br />
 df.loc[row_index, column_name]  <br />
 df.iloc[row_index, column_index]  <br />
@@ -2921,7 +2975,7 @@ df.sample(n)   </p>
 <span class="n">reset_index_sample</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_15">数据排序</h2>
+<h2 id="_14">数据排序</h2>
 <p>df.sort_values()<br />
 df.sort_index()   </p>
 <div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
@@ -3001,7 +3055,7 @@ df.sort_index()   </p>
 <span class="n">sorted_by_len</span> <span class="o">=</span> <span class="n">df_str_index</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">())</span>
 </code></pre></div>
 
-<h2 id="_16">数据分组和聚合</h2>
+<h2 id="_15">数据分组和聚合</h2>
 <p>df.groupby(column_name) <br />
 df.agg(function_name) <br />
 df.pivot_table(values, index, columns, aggfunc)  </p>
@@ -3192,10 +3246,10 @@ agg() 可以接受以下类型的参数</p>
 <span class="n">pivot6</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;Region&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">])</span> <span class="c1"># 对同一列应用多个聚合函数</span>
 </code></pre></div>
 
-<h2 id="_17">数据合并</h2>
+<h2 id="_16">数据合并</h2>
 <p>pd.concat([df1, df2])  <br />
 pd.merge(df1, df2, on=column_name)     </p>
-<h2 id="_18">数据选择和过滤</h2>
+<h2 id="_17">数据选择和过滤</h2>
 <p>df.loc[]  <br />
 df.iloc[] <br />
 df[df['column_name'] &gt; value] <br />
@@ -3209,7 +3263,7 @@ df.query('column_name &gt; value')<br />
 布尔索引优势：
 支持更复杂的逻辑（如嵌套函数调用）<br />
 无需字符串表达式，适合动态条件  </p>
-<h2 id="_19">数据统计和描述</h2>
+<h2 id="_18">数据统计和描述</h2>
 <p>df.describe() <br />
 df.mean() <br />
 df.median()  <br />
@@ -3252,7 +3306,7 @@ df.count()  </p>
 <span class="n">result</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;`Sales 2023` &gt; 150&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_20">相关性分析</h1>
+<h1 id="_19">相关性分析</h1>
 <ul>
 <li>皮尔逊相关系数：衡量变量之间的线性关系，适用于数值型变量</li>
 <li>斯皮尔曼等级相关系数：衡量变量之间的单调关系，适用于数值型和顺序型变量</li>
@@ -3288,7 +3342,7 @@ df.count()  </p>
 <span class="n">correlation</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;kendall&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_21">热力图</h2>
+<h2 id="_20">热力图</h2>
 <p>为了更直观地呈现相关性矩阵，可以使用热图（Heatmap）来可视化各个变量之间的相关性<br />
 使用 seaborn 库绘制相关性热图是一个常见的做法  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
@@ -3310,7 +3364,7 @@ df.count()  </p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_22">数据排序与聚和</h1>
+<h1 id="_21">数据排序与聚和</h1>
 <p>见‘补充函数，数据排序’<br />
 <code>sort_values(by, ascending)</code><br />
 <code>sort_index(axis)</code>  </p>
@@ -3370,7 +3424,7 @@ df.groupby('column').apply(lambda x: x.sort_values(...))      </p>
 <span class="nb">print</span><span class="p">(</span><span class="n">pivot_table</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_23">数据可视化</h1>
+<h1 id="_22">数据可视化</h1>
 <p>Pandas 提供了与 Matplotlib 和 Seaborn 等可视化库的集成，使得数据的可视化变得简单而高效  </p>
 <p>在 Pandas 中，数据可视化功能主要通过 DataFrame.plot() 和 Series.plot() 方法实现，这些方法实际上是对 Matplotlib 库的封装，简化了图表的绘制过程  </p>
 <h2 id="plot">plot</h2>
@@ -3519,8 +3573,8 @@ df.groupby('column').apply(lambda x: x.sort_values(...))      </p>
 </code></pre></div>
 
 <h2 id="matplotlib">matplotlib</h2>
-<h1 id="_24">高级功能</h1>
-<h2 id="_25">数据合并与连接</h2>
+<h1 id="_23">高级功能</h1>
+<h2 id="_24">数据合并与连接</h2>
 <p><code>merge() — 数据库风格的连接</code><br />
 允许根据某些列对两个 DataFrame 进行合并，类似 SQL 中的 JOIN 操作。支持内连接、外连接、左连接和右连接  </p>
 <p><code>concat() — 沿轴连接</code> <br />
@@ -3537,7 +3591,7 @@ df.groupby('column').apply(lambda x: x.sort_values(...))      </p>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_26">透视表与交叉表</h2>
+<h2 id="_25">透视表与交叉表</h2>
 <p><code>pivot_table() — 创建透视表</code>   </p>
 <p><code>crosstab(index,columns,values,aggfunc)— 创建交叉表</code>  </p>
 <ul>
@@ -3556,7 +3610,7 @@ df.groupby('column').apply(lambda x: x.sort_values(...))      </p>
 <span class="nb">print</span><span class="p">(</span><span class="n">cross_table</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_27">自定义函数</h2>
+<h2 id="_26">自定义函数</h2>
 <p><code>map()</code>   </p>
 <ul>
 <li>arg 应用的函数，字典或 Series</li>
@@ -3611,10 +3665,10 @@ apply更通用支持更复杂的逻辑  </p>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_28">分组操作与聚合</h2>
+<h2 id="_27">分组操作与聚合</h2>
 <p><code>groupby()</code><br />
 <code>agg()</code>  </p>
-<h2 id="_29">时间序列处理</h2>
+<h2 id="_28">时间序列处理</h2>
 <p><code>date_range() — 生成时间序列</code>  </p>
 <ul>
 <li>参数  说明</li>
@@ -3646,7 +3700,7 @@ apply更通用支持更复杂的逻辑  </p>
 <span class="nb">print</span><span class="p">(</span><span class="n">new_date</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_30">多重索引的创建</h2>
+<h2 id="_29">多重索引的创建</h2>
 <p><code>pd.MultiIndex.from_tuples()</code><br />
 使用元组来创建多重索引，每个元组对应一个索引层级 <br />
 <code>pd.MultiIndex.from_product()</code><br />
@@ -3698,7 +3752,7 @@ apply更通用支持更复杂的逻辑  </p>
 <span class="c1">#        2          40</span>
 </code></pre></div>
 
-<h2 id="_31">多重索引的操作</h2>
+<h2 id="_30">多重索引的操作</h2>
 <p>通过层级索引来访问数据。通过 loc[] 或 xs()可以方便地进行数据选择  </p>
 <div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;Letter&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span>
@@ -3724,7 +3778,7 @@ apply更通用支持更复杂的逻辑  </p>
 <span class="n">df_reset</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_32">示例：股票数据分析</h1>
+<h1 id="_31">示例：股票数据分析</h1>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span> <span class="c1"># yfinance（雅虎财经库）</span>
 
 <span class="c1"># 获取茅台（600519.SS）的股票数据，日期范围从 2020-01-01 到 2021-01-01</span>
@@ -3807,7 +3861,78 @@ apply更通用支持更复杂的逻辑  </p>
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">数据结构</a></li>
+<li><a href="#series">Series</a></li>
+<li><a class="toc-h2" href="#pdseries">pd.Series()</a></li>
+<li><a class="toc-h2" href="#series_1">Series方法</a></li>
+<li><a class="toc-h2" href="#_2">更多</a></li>
+<li><a href="#dataframe">DataFrame</a></li>
+<li><a class="toc-h2" href="#pddataframe">pd.DataFrame()</a></li>
+<li><a class="toc-h2" href="#dataframe_1">DataFrame 方法</a></li>
+<li><a class="toc-h2" href="#_3">更多</a></li>
+<li><a class="toc-h3" href="#loc-iloc">.loc[]    .iloc[]</a></li>
+<li><a class="toc-h3" href="#drop">.drop()</a></li>
+<li><a class="toc-h3" href="#concat">.concat()</a></li>
+<li><a class="toc-h3" href="#merge">.merge()</a></li>
+<li><a class="toc-h3" href="#pivot">.pivot()</a></li>
+<li><a class="toc-h3" href="#melt">.melt()</a></li>
+<li><a class="toc-h3" href="#replace">.replace()</a></li>
+<li><a href="#csv">CSV</a></li>
+<li><a class="toc-h2" href="#pdread_csv">pd.read_csv()</a></li>
+<li><a class="toc-h2" href="#dfto_csv">df.to_csv()</a></li>
+<li><a href="#excel">Excel</a></li>
+<li><a class="toc-h2" href="#pdread_excel">pd.read_excel()</a></li>
+<li><a class="toc-h2" href="#dfto_excel">df.to_excel()</a></li>
+<li><a class="toc-h2" href="#pdexcelfile">pd.ExcelFile()</a></li>
+<li><a class="toc-h2" href="#pdexcelwriter">pd.ExcelWriter()</a></li>
+<li><a href="#json">JSON</a></li>
+<li><a class="toc-h2" href="#pdread_json">pd.read_json()</a></li>
+<li><a class="toc-h2" href="#dfto_json">df.to_json()</a></li>
+<li><a class="toc-h2" href="#orient">orient参数</a></li>
+<li><a class="toc-h2" href="#json_normalize">json_normalize()</a></li>
+<li><a href="#_4">数据清洗</a></li>
+<li><a class="toc-h2" href="#dropna">删除空值 .dropna()</a></li>
+<li><a class="toc-h2" href="#fillna">填充空值 .fillna()</a></li>
+<li><a class="toc-h2" href="#_5">清洗格式错误数据</a></li>
+<li><a class="toc-h2" href="#_6">清洗错误数据</a></li>
+<li><a class="toc-h2" href="#duplicated-drop_duplicates">清洗重复数据 duplicated()  drop_duplicates()</a></li>
+<li><a class="toc-h2" href="#get_dummies">独热编码 .get_dummies()</a></li>
+<li><a class="toc-h2" href="#_7">标准化</a></li>
+<li><a class="toc-h2" href="#_8">更多</a></li>
+<li><a href="#_9">小结</a></li>
+<li><a class="toc-h2" href="#_10">读取数据</a></li>
+<li><a class="toc-h2" href="#_11">查看数据</a></li>
+<li><a class="toc-h2" href="#_12">数据清洗</a></li>
+<li><a class="toc-h2" href="#_13">数据选择与切片</a></li>
+<li><a class="toc-h2" href="#_14">数据排序</a></li>
+<li><a class="toc-h2" href="#_15">数据分组和聚合</a></li>
+<li><a class="toc-h2" href="#_16">数据合并</a></li>
+<li><a class="toc-h2" href="#_17">数据选择和过滤</a></li>
+<li><a class="toc-h2" href="#_18">数据统计和描述</a></li>
+<li><a href="#_19">相关性分析</a></li>
+<li><a class="toc-h2" href="#dfcorr">df.corr()</a></li>
+<li><a class="toc-h2" href="#_20">热力图</a></li>
+<li><a href="#_21">数据排序与聚和</a></li>
+<li><a href="#_22">数据可视化</a></li>
+<li><a class="toc-h2" href="#plot">plot</a></li>
+<li><a class="toc-h2" href="#seaborn">seaborn</a></li>
+<li><a class="toc-h2" href="#matplotlib">matplotlib</a></li>
+<li><a href="#_23">高级功能</a></li>
+<li><a class="toc-h2" href="#_24">数据合并与连接</a></li>
+<li><a class="toc-h2" href="#_25">透视表与交叉表</a></li>
+<li><a class="toc-h2" href="#_26">自定义函数</a></li>
+<li><a class="toc-h2" href="#_27">分组操作与聚合</a></li>
+<li><a class="toc-h2" href="#_28">时间序列处理</a></li>
+<li><a class="toc-h2" href="#_29">多重索引的创建</a></li>
+<li><a class="toc-h2" href="#_30">多重索引的操作</a></li>
+<li><a href="#_31">示例：股票数据分析</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -3816,6 +3941,45 @@ apply更通用支持更复杂的逻辑  </p>
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

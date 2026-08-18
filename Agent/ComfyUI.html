@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ComfyUI - floaritay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ]
+        });"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
+        onload="mermaid.initialize({startOnLoad:true, theme:'base', themeVariables:{primaryColor:'#f5f0e8', primaryTextColor:'#1a1814', primaryBorderColor:'rgba(26,24,20,0.12)', lineColor:'#8a8278', secondaryColor:'#faf7f0', tertiaryColor:'#faf7f0'}});"></script>
+    <style>
+        :root {
+            --paper: #f5f0e8;
+            --ink: #1a1814;
+            --ink-soft: #3d3830;
+            --ink-muted: #8a8278;
+            --ink-faint: #b5ae9f;
+            --accent: #b45309;
+            --accent-warm: #d97706;
+            --accent-soft: rgba(180, 83, 9, 0.08);
+            --teal: #0f766e;
+            --card-opaque: rgba(250, 247, 240, 0.88);
+            --border: rgba(26, 24, 20, 0.08);
+            --border-strong: rgba(26, 24, 20, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.35);
+            --shadow-sm: 0 1px 2px rgba(26, 24, 20, 0.03);
+            --shadow: 0 2px 12px rgba(26, 24, 20, 0.05), 0 1px 3px rgba(26, 24, 20, 0.03);
+            --shadow-lg: 0 8px 32px rgba(26, 24, 20, 0.07), 0 2px 8px rgba(26, 24, 20, 0.03);
+            --font-display: 'Instrument Serif', Georgia, serif;
+            --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Space Mono', 'Cascadia Code', monospace;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--ink);
+            background: var(--paper);
+            background-image:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(180, 83, 9, 0.04), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(15, 118, 110, 0.03), transparent);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.2;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(26, 24, 20, 0.12); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(26, 24, 20, 0.2); }
+
+        .page {
+            position: relative;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
+        }
+
+        .page::before {
+            content: '';
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 48px;
+            background: var(--card-opaque);
+            border-right: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        @media (max-width: 1100px) {
+            .page::before { display: none; }
+            .page { padding: 0 20px 60px; }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 32px 0 16px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            letter-spacing: 0.02em;
+        }
+        .breadcrumb a {
+            color: var(--ink-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb .sep { margin: 0 8px; color: var(--ink-faint); }
+
+        /* Article */
+        .markdown-body {
+            font-family: var(--font-body);
+            color: var(--ink-soft);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .markdown-body h1, .markdown-body h2, .markdown-body h3,
+        .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+            font-family: var(--font-display);
+            color: var(--ink);
+            font-weight: 400;
+            margin-top: 2em;
+            margin-bottom: 0.6em;
+            line-height: 1.3;
+        }
+
+        .markdown-body h1 {
+            font-size: 2.2rem;
+            margin-top: 0;
+            padding-bottom: 0.4em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h2 {
+            font-size: 1.65rem;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .markdown-body h3 { font-size: 1.35rem; }
+        .markdown-body h4 { font-size: 1.15rem; }
+        .markdown-body h5 { font-size: 1rem; }
+        .markdown-body h6 { font-size: 0.95rem; color: var(--ink-muted); }
+
+        .markdown-body p {
+            margin-bottom: 1em;
+        }
+
+        .markdown-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-soft);
+            transition: border-color 0.2s;
+        }
+        .markdown-body a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .markdown-body strong { color: var(--ink); font-weight: 600; }
+
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5em auto;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .markdown-body blockquote {
+            margin: 1.2em 0;
+            padding: 0.8em 1.2em;
+            border-left: 3px solid var(--accent);
+            background: var(--accent-soft);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            color: var(--ink-soft);
+        }
+        .markdown-body blockquote p:last-child { margin-bottom: 0; }
+
+        .markdown-body ul, .markdown-body ol {
+            margin: 0.8em 0;
+            padding-left: 1.8em;
+        }
+        .markdown-body li { margin-bottom: 0.3em; }
+        .markdown-body li > ul, .markdown-body li > ol { margin-top: 0.3em; }
+
+        .markdown-body code {
+            font-family: var(--font-mono);
+            font-size: 0.88em;
+            background: rgba(26, 24, 20, 0.05);
+            padding: 0.15em 0.4em;
+            border-radius: var(--radius-sm);
+            color: var(--accent);
+        }
+
+        .markdown-body pre {
+            margin: 1.2em 0;
+            padding: 1em 1.2em;
+            background: #2d2a24;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            box-shadow: var(--shadow);
+        }
+        .markdown-body pre code {
+            background: none;
+            padding: 0;
+            color: #e8e0d4;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2em 0;
+            font-size: 0.95rem;
+        }
+        .markdown-body th {
+            background: rgba(26, 24, 20, 0.04);
+            font-weight: 600;
+            text-align: left;
+            padding: 0.6em 1em;
+            border-bottom: 2px solid var(--border-strong);
+        }
+        .markdown-body td {
+            padding: 0.5em 1em;
+            border-bottom: 1px solid var(--border);
+        }
+        .markdown-body tr:hover td {
+            background: var(--accent-soft);
+        }
+
+        .markdown-body hr {
+            border: none;
+            border-top: 1px solid var(--border-strong);
+            margin: 2em 0;
+        }
+
+        /* Math blocks */
+        .math-block {
+            margin: 1.2em 0;
+            padding: 0.8em;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        /* Mermaid diagrams */
+        .mermaid {
+            margin: 1.5em 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        .mermaid svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Pygments code highlighting (dark theme matching warm palette) */
+        .highlight .hll { background-color: #49483e }
+        .highlight .c { color: #75715e }
+        .highlight .err { color: #f92672 }
+        .highlight .k { color: #66d9ef }
+        .highlight .l { color: #ae81ff }
+        .highlight .n { color: #f8f8f2 }
+        .highlight .o { color: #f92672 }
+        .highlight .p { color: #f8f8f2 }
+        .highlight .cm { color: #75715e }
+        .highlight .c1 { color: #75715e }
+        .highlight .cp { color: #75715e }
+        .highlight .kc { color: #66d9ef }
+        .highlight .kd { color: #66d9ef }
+        .highlight .kn { color: #f92672 }
+        .highlight .kp { color: #66d9ef }
+        .highlight .kr { color: #66d9ef }
+        .highlight .kt { color: #66d9ef }
+        .highlight .ld { color: #e6db74 }
+        .highlight .m { color: #ae81ff }
+        .highlight .s { color: #e6db74 }
+        .highlight .na { color: #a6e22e }
+        .highlight .nb { color: #f8f8f2 }
+        .highlight .nc { color: #a6e22e }
+        .highlight .no { color: #66d9ef }
+        .highlight .nd { color: #a6e22e }
+        .highlight .ni { color: #f8f8f2 }
+        .highlight .ne { color: #a6e22e }
+        .highlight .nf { color: #a6e22e }
+        .highlight .nl { color: #f8f8f2 }
+        .highlight .nn { color: #f8f8f2 }
+        .highlight .nx { color: #a6e22e }
+        .highlight .py { color: #f8f8f2 }
+        .highlight .nt { color: #f92672 }
+        .highlight .nv { color: #f8f8f2 }
+        .highlight .ow { color: #f92672 }
+        .highlight .w { color: #f8f8f2 }
+        .highlight .mf { color: #ae81ff }
+        .highlight .mh { color: #ae81ff }
+        .highlight .mi { color: #ae81ff }
+        .highlight .mo { color: #ae81ff }
+        .highlight .sb { color: #e6db74 }
+        .highlight .sc { color: #e6db74 }
+        .highlight .sd { color: #e6db74 }
+        .highlight .s2 { color: #e6db74 }
+        .highlight .se { color: #ae81ff }
+        .highlight .sh { color: #e6db74 }
+        .highlight .si { color: #e6db74 }
+        .highlight .sx { color: #e6db74 }
+        .highlight .sr { color: #e6db74 }
+        .highlight .s1 { color: #e6db74 }
+        .highlight .ss { color: #e6db74 }
+        .highlight .bp { color: #f8f8f2 }
+        .highlight .vc { color: #f8f8f2 }
+        .highlight .vg { color: #f8f8f2 }
+        .highlight .vi { color: #f8f8f2 }
+        .highlight .il { color: #ae81ff }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 32px 0;
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        .site-footer a {
+            color: var(--ink-muted);
+            text-decoration: none;
+        }
+        .site-footer a:hover { color: var(--accent); }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, color 0.2s, border-color 0.2s;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
+        @media (max-width: 768px) {
+            .page { padding: 0 16px 40px; }
+            .markdown-body h1 { font-size: 1.7rem; }
+            .markdown-body h2 { font-size: 1.35rem; }
+            .markdown-body { font-size: 0.95rem; }
+            .markdown-body pre { padding: 0.8em; }
+            .markdown-body pre code { font-size: 0.8rem; }
+            .back-to-top { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <nav class="breadcrumb">
+            <a href="../index.html">floaritay</a>
+            <span class="sep">/</span>
+            <span>Agent</span>
+        </nav>
+<div class="meta-date">最后更新: 2026-06-18</div>
+        <article class="markdown-body">
+<h1 id="1">1 介绍</h1>
+<p>参考<a href="https://docs.comfy.org/">Comfyui官网</a></p>
+<h1 id="2">2 安装</h1>
+<h2 id="21-comfyui-desktop">2.1 ComfyUI Desktop</h2>
+<p>...</p>
+<h2 id="22">2.2 便携版</h2>
+<p>在官网找到适用你GPU的版本</p>
+<p>下载文件并使用 7-ZIP 解压。解压后的文件夹结构：</p>
+<div class="highlight"><pre><span></span><code>ComfyUI_windows_portable
+├── 📂ComfyUI                    // ComfyUI 主程序
+├── 📂python_embeded            // 独立 Python 环境
+├── 📂update                    // 用于升级便携版的批处理脚本
+├── README_VERY_IMPORTANT.txt   // ComfyUI 便携版英文使用说明
+├── run_cpu.bat                 // 双击启动 ComfyUI（仅 CPU）
+└── run_nvidia_gpu.bat           // 双击启动 ComfyUI（Nvidia GPU）
+</code></pre></div>
+
+<p>双击 run_nvidia_gpu.bat 以启动 ComfyUI。</p>
+<p>打开浏览器并访问 http://127.0.0.1:8188 即可</p>
+<h3 id="221-readme_very_importanttxt">2.2.1 README_VERY_IMPORTANT.txt</h3>
+<div class="highlight"><pre><span></span><code>如何运行：
+如果您拥有 NVIDIA GPU：
+run_nvidia_gpu.bat
+如果您想启用快速 fp16 累加（对于 fp16 模型速度更快，但质量略低）：
+run_nvidia_gpu_fast_fp16_accumulation.bat
+
+
+便携版没有传统的安装程序，所有文件都在解压的文件夹里。常规卸载的第一步，就是直接把这个文件夹删除。
+
+用户配置和虚拟环境:
+这是 ComfyUI 生成工作流、日志和独立 Python 环境的地方，可能包含了你辛苦调好的设置。
+路径：C:\Users\&lt;你的用户名&gt;\Documents\ComfyUI 内的 .venv 和 user 文件夹-3-19。
+
+应用程序数据:
+ComfyUI 会在这里存储全局配置。
+路径：C:\Users\&lt;你的用户名&gt;\AppData\Roaming\ComfyUI-3-7。
+
+临时更新文件:
+路径：C:\Users\&lt;你的用户名&gt;\AppData\Local\@comfyorgcomfyui-electron-updater-4-7。
+
+桌面快捷方式和固定图标:
+检查并删除桌面上的 ComfyUI 图标，以及清理任务栏或开始菜单里的“固定图标”。
+
+=================================================
+
+要在缓慢的 CPU 模式下运行：
+run_cpu.bat
+
+如果界面中出现红色错误，请确保您在以下目录中有模型/检查点：ComfyUI\models\checkpoints
+
+您可以从以下地址下载 Stable Diffusion 1.5 模型：https://huggingface.co/Comfy-Org/stable-diffusion-v1-5-archive/blob/main/v1-5-pruned-emaonly-fp16.safetensors
+
+推荐的更新方式：
+要更新 ComfyUI 代码：update\update_comfyui.bat
+
+要更新 ComfyUI 及其 Python 依赖项，请注意，仅在遇到 Python 依赖项问题时才应运行此脚本。
+update\update_comfyui_and_python_dependencies.bat
+
+在 ComfyUI 和其他 UI 之间共享模型：
+在 ComfyUI 目录中，您会找到一个文件：extra_model_paths.yaml.example
+将此文件重命名为：extra_model_paths.yaml，并使用您喜欢的文本编辑器进行编辑。
+</code></pre></div>
+
+<h3 id="222-添加额外模型路径">2.2.2 添加额外模型路径</h3>
+<p>在 ComfyUI/models 目录之外管理模型文件，例如</p>
+<ul>
+<li>有多个 ComfyUI 实例，并希望它们共享模型文件以节省磁盘空间</li>
+<li>有不同类型的图形用户界面程序（例如 WebUI），并希望它们使用相同的模型文件</li>
+<li>无法识别或找到模型文件</li>
+</ul>
+<p>在 ComfyUI 的根目录中找到一个名为 extra_model_paths.yaml.example 的示例文件</p>
+<p>复制并重命名为 extra_model_paths.yaml </p>
+<p>假设你想将以下模型路径添加到 ComfyUI：</p>
+<div class="highlight"><pre><span></span><code>📁 YOUR_PATH/
+  ├── 📁models/
+  |   ├── 📁 loras/
+  |   │   └── xxxxx.safetensors
+  |   ├── 📁 checkpoints/
+  |   │   └── xxxxx.safetensors
+  |   ├── 📁 vae/
+  |   │   └── xxxxx.safetensors
+  |   └── 📁 controlnet/
+  |       └── xxxxx.safetensors
+</code></pre></div>
+
+<p>如下配置 extra_model_paths.yaml 文件，让 ComfyUI 识别您设备上的模型路径：</p>
+<div class="highlight"><pre><span></span><code>my_custom_config:
+    base_path: YOUR_PATH
+    loras: models/loras/
+    checkpoints: models/checkpoints/
+    vae: models/vae/
+    controlnet: models/controlnet/
+</code></pre></div>
+
+<p>或</p>
+<div class="highlight"><pre><span></span><code>my_custom_config:
+    base_path: YOUR_PATH/models/
+    loras: loras
+    checkpoints: checkpoints
+    vae: vae
+    controlnet: controlnet
+</code></pre></div>
+
+<p>保存后，重启 ComfyUI </p>
+<p>另外，可以参考默认的 extra_model_paths.yaml.example 以获取更多配置选项。</p>
+<h3 id="223">2.2.3 设置局域网访问</h3>
+<p>修改相应的 .bat 文件，通过添加 --listen 参数来指定监听地址。 </p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code>.<span class="se">\p</span>ython_embeded<span class="se">\p</span>ython.exe<span class="w"> </span>-s<span class="w"> </span>ComfyUI<span class="se">\m</span>ain.py<span class="w"> </span>--listen<span class="w"> </span>--windows-standalone-build
+pause
+</code></pre></div>
+
+<p>启用 ComfyUI 后，最终运行地址将变为</p>
+<div class="highlight"><pre><span></span><code>Starting<span class="w"> </span>server
+
+To<span class="w"> </span>see<span class="w"> </span>the<span class="w"> </span>GUI<span class="w"> </span>go<span class="w"> </span>to:<span class="w"> </span>http://0.0.0.0:8188
+To<span class="w"> </span>see<span class="w"> </span>the<span class="w"> </span>GUI<span class="w"> </span>go<span class="w"> </span>to:<span class="w"> </span>http://<span class="o">[</span>::<span class="o">]</span>:8188
+</code></pre></div>
+
+<p>按 WIN + R 并输入 cmd 以打开命令提示符，然后输入 ipconfig 查看本地 IP 地址。</p>
+<p>其他设备即可通过在浏览器中输入 http://your-local-IP:8188 来访问 ComfyUI。</p>
+<h2 id="23">2.3 手动安装</h2>
+<p>...</p>
+<h2 id="24-comfy-cloud">2.4 Comfy Cloud</h2>
+<p>ComfyUI 的云端版本，月度订阅</p>
+<p>https://comfy.org/cloud</p>
+<h1 id="3-安装自定义节点">3 安装自定义节点</h1>
+<p>自定义节点是 ComfyUI 的扩展插件，可添加新功能，例如高级图像处理、微调、色彩调整等。</p>
+<p>两个步骤：
+1. 将节点代码克隆到 ComfyUI/custom_nodes 目录
+2. 安装所需的 Python 依赖项</p>
+<p>有三种安装方式
+1. ComfyUI Manager
+2. Git
+3. Zip</p>
+<p>注意：小心恶意插件</p>
+<h2 id="31-comfyui-manager">3.1 ComfyUI Manager（推荐）</h2>
+<p>ComfyUI Manager 已内置于大多数当前版本的 ComfyUI 中。当节点未在注册表中或你需要特定版本时，请使用 Git clone 或 ZIP 方式。</p>
+<p>优点
+1. 自动安装
+2. 依赖处理
+3. 图形用户界面 无法直接搜索未在注册表中注册的节点</p>
+<p>缺点
+1. 无法直接搜索未在注册表中注册的节点</p>
+<p>对于运行 Windows 便携版 的用户，新版 ComfyUI-Manager 已内置于 ComfyUI 核心中，但需要手动启用。</p>
+<p>在项目根目录运行如下命令</p>
+<ol>
+<li>
+<p>安装管理器依赖项
+    <code>bash
+    .\python_embeded\python.exe -m pip install -r ComfyUI\manager_requirements.txt</code></p>
+</li>
+<li>
+<p>启用管理器启动 ComfyUI：
+    <code>bash
+    .\python_embeded\python.exe -s ComfyUI\main.py --windows-standalone-build --enable-manager
+    pause</code></p>
+</li>
+</ol>
+<p>界面</p>
+<ul>
+<li>左侧边栏（过滤器）：过滤已安装的节点、工作流中的节点、缺失的节点、可更新的节点等。</li>
+<li>顶部搜索栏：搜索节点包（Node Pack）或单个节点（Node），使用“过滤器”下拉菜单切换搜索类型</li>
+<li>右侧详情面板：点击节点以显示详细信息，包括描述、启用状态、版本信息等。“描述”选项卡包含仓库信息，“节点”选项卡预览所有节点</li>
+</ul>
+<p>功能</p>
+<ul>
+<li>搜索节点包（Node Pack）或单个节点（Node）</li>
+<li>安装节点，更新节点，查找缺失的节点，卸载节点</li>
+</ul>
+<p>新版管理器仅支持从注册表安装节点。如果您的节点未在注册表中注册，请先在管理器中完成注册。</p>
+<h3 id="311-comfyui-manager">3.1.1 ComfyUI-Manager 配置</h3>
+<p>管理器路径：<code>&lt;USER_DIRECTORY&gt;/__manager/</code></p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>config.ini</td>
+<td>基本配置</td>
+</tr>
+<tr>
+<td>channels.list</td>
+<td>可配置的频道列表</td>
+</tr>
+<tr>
+<td>pip_overrides.json</td>
+<td>自定义 pip 包映射</td>
+</tr>
+<tr>
+<td>pip_blacklist.list</td>
+<td>禁止安装的包</td>
+</tr>
+<tr>
+<td>pip_auto_fix.list</td>
+<td>自动恢复的包</td>
+</tr>
+<tr>
+<td>snapshots/</td>
+<td>已保存的快照文件</td>
+</tr>
+<tr>
+<td>startup-scripts/</td>
+<td>启动脚本文件</td>
+</tr>
+<tr>
+<td>components/</td>
+<td>组件文件</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://docs.comfy.org/manager/configuration">ComfyUI-Manager 配置</a> 包括</p>
+<ul>
+<li>Config.ini 选项，环境变量，高级配置，extra_model_paths.yaml 配置，CLI 工具</li>
+</ul>
+<h3 id="312">3.1.2 常见问题</h3>
+<p>自定义 git 可执行文件路径</p>
+<ul>
+<li>安装 ComfyUI-Manager 并运行一次 ComfyUI</li>
+<li>打开 <code>&lt;USER_DIRECTORY&gt;/default/ComfyUI-Manager/config.ini</code></li>
+<li>在 git_exe = 中指定包含文件名的完整路径  git_exe = C:\Program Files\Git\bin\git.exe</li>
+</ul>
+<p>ComfyUI-Manager 更新失败</p>
+<ul>
+<li>
+<p>进入 ComfyUI-Manager 目录并运行
+    <code>bash
+    git update-ref refs/remotes/origin/main a361cc1 &amp;&amp; git fetch --all &amp;&amp; git pull</code>
+安装路径不正确</p>
+</li>
+<li>
+<p>ComfyUI-Manager 文件必须位于 ComfyUI/custom_nodes/comfyui-manager</p>
+</li>
+</ul>
+<p>网络问题</p>
+<ul>
+<li>
+<p>如果对 GitHub 的访问受限，请设置 GITHUB_ENDPOINT 环境变量
+    <code>bash
+    GITHUB_ENDPOINT=https://mirror.ghproxy.com/https://github.com</code></p>
+</li>
+<li>
+<p>如果对 Hugging Face 的访问受限，请设置 HF_ENDPOINT 环境变量
+    <code>bash
+    HF_ENDPOINT=https://some-hf-mirror.com</code></p>
+</li>
+</ul>
+<p><a href="https://docs.comfy.org/manager/troubleshooting">故障排除</a></p>
+<h1 id="4">4 基本流程</h1>
+<p>1.加载示例工作流(三种方式)</p>
+<ul>
+<li>
+<p>从 ComfyUI 的工作流模板加载（在侧边栏中点击'模板'，选择第一个默认工作流'图像生成'来加载它）</p>
+</li>
+<li>
+<p>从带有工作流元数据的图像中加载(ComfyUI 生成的所有图像都包含元数据，其中包括工作流信息。)</p>
+<ul>
+<li>将 ComfyUI 生成的图像拖放到界面中</li>
+<li>使用菜单 Workflows -&gt; Open 打开图像</li>
+</ul>
+</li>
+<li>
+<p>ComfyUI 的工作流以 JSON 格式存储。通过菜单 Workflows -&gt; Export 导出工作流。下载后，使用菜单 Workflows -&gt; Open 加载该 JSON 文件。</p>
+</li>
+</ul>
+<p>2.模型安装</p>
+<p>加载工作流后，ComfyUI 会警告某些模型缺失</p>
+<p>点击警告以查看缺失的模型及下载链接，点击下载，或在HUggingFace手动下载。之后放入对应模型的文件夹</p>
+<p>所有模型都存储在 <code>&lt;your ComfyUI installation&gt;/ComfyUI/models/</code> 目录下，并包含 <code>checkpoints</code>、<code>embeddings</code>、<code>vae</code>、<code>lora</code>、<code>upscale_model</code> 等子文件夹。</p>
+<p>3.文生图生成</p>
+<p>安装或更新模型后，按下键盘上的 R 键以刷新对象定义，并更新节点中的模型列表</p>
+<p>在模型节点中确保选择模型，然后点击 Run 或按 Ctrl + Enter 进行生成。</p>
+<p>结果将显示在 Save Image 节点中。右键点击以保存到本地。</p>
+<h1 id="5">5 基本概念</h1>
+<h2 id="51">5.1 工作流</h2>
+<p>ComfyUI 是一个用于构建和运行生成式内容<strong>工作流</strong>的环境。</p>
+<p>工作流被定义为一组称为<strong>节点</strong>的程序对象的集合，这些对象相互连接形成网络。该网络也被称为<strong>图</strong></p>
+<p><img alt="工作流图片" src="https://mintcdn.com/dripart/7m9lukFrTCZs7Mhj/images/simple_workflow.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=7m9lukFrTCZs7Mhj&amp;q=85&amp;s=fac057821c21f5a34a5278fae3071c6d" /></p>
+<p>ComfyUI 的节点图不受传统计算机应用程序中提供的工具的限制。它是一个高级的<strong>可视化编程环境</strong>，允许用户在设计复杂系统时无需编写程序代码或理解高级数学知识。</p>
+<h2 id="52">5.2 节点</h2>
+<p>节点是执行任务的基本构建模块。</p>
+<p>节点通过链接相互连接，使我们能够像搭积木一样构建复杂的功能。 </p>
+<p><img alt="节点图片" src="https://mintcdn.com/dripart/7m9lukFrTCZs7Mhj/images/comfy_core/sampling/k_sampler.png?w=1100&amp;fit=max&amp;auto=format&amp;n=7m9lukFrTCZs7Mhj&amp;q=85&amp;s=68a302ca4faa52970fe7c7dadf351b41" /></p>
+<p>例如，在 K-Sampler 节点中，你可以看到它具有多个输入和输出，并且还包括多个参数设置。这些参数决定了节点的执行逻辑。每个节点背后都有精心编写的 Python 逻辑，使你无需自行编写代码即可实现相应的功能。</p>
+<h3 id="521">5.2.1 节点状态</h3>
+<p><img alt="节点状态" src="https://mintcdn.com/dripart/CGWmMjlFmU7msQ5S/images/concepts/node/status.jpg?fit=max&amp;auto=format&amp;n=CGWmMjlFmU7msQ5S&amp;q=85&amp;s=150ab91575a7c9300b7ed20d8026e499" /></p>
+<h3 id="522">5.2.2 节点连接</h3>
+<p>节点通过 链接 连接，使得相同类型的数据能够在不同的处理单元之间流动，从而实现最终结果。</p>
+<p>每个节点接收一些输入，通过其模块进行处理，并将其转换为相应的输出。不同节点之间的连接必须符合数据类型要求。在 ComfyUI 中，我们使用不同的颜色来区分节点的数据类型。以下是一些基本的数据类型：</p>
+<p><img alt="数据类型" src="https://mintcdn.com/dripart/CGWmMjlFmU7msQ5S/images/concepts/node/data_type.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=CGWmMjlFmU7msQ5S&amp;q=85&amp;s=087178033c73065ed5a521cb04f3f5cb" /></p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>颜色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>扩散模型/U-Net</td>
+<td>淡紫色</td>
+</tr>
+<tr>
+<td>CLIP 文本编码模型</td>
+<td>黄色</td>
+</tr>
+<tr>
+<td>VAE 解码/编码模型</td>
+<td>玫瑰</td>
+</tr>
+<tr>
+<td>条件化</td>
+<td>橙色</td>
+</tr>
+<tr>
+<td>潜在图像</td>
+<td>粉色</td>
+</tr>
+<tr>
+<td>像素图像</td>
+<td>蓝色</td>
+</tr>
+<tr>
+<td>遮罩</td>
+<td>绿色</td>
+</tr>
+<tr>
+<td>数字（整数或浮点数）</td>
+<td>浅绿色</td>
+</tr>
+<tr>
+<td>网格</td>
+<td>亮绿色</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>三大核心模型</strong>：淡紫色（扩散模型/U-Net）、黄色（CLIP文本编码模型）、玫瑰/粉红色（VAE解码/编码模型）。</li>
+<li><strong>数据载体</strong>：粉色线代表在潜在空间中的图像数据（Latent），蓝色线代表已解码的像素级图像数据（Image）。</li>
+<li><strong>条件与控制</strong>：橙色线代表条件化，通常连接文本提示词；绿色线代表遮罩，用于局部重绘或控制区域。</li>
+<li><strong>数值与参数</strong>：浅绿色和亮绿色代表各种输入输出的参数（如步数、CFG、宽高、种子等），不涉及图像或模型本体。</li>
+</ul>
+<p>也可以自定义节点的外观：修改样式，双击节点标题以修改节点名称，通过拖动任意角来调整节点大小</p>
+<p><strong>节点徽章</strong></p>
+<p>徽章显示功能，包含节点 ID 与 节点来源</p>
+<p>Comfy Core 节点使用狐狸图标进行显示，而自定义节点则使用其名称。</p>
+<p>可以在菜单中设置相应的显示方式</p>
+<h3 id="523">5.2.3 节点上下文菜单</h3>
+<p>包括</p>
+<ul>
+<li>节点自身的上下文菜单</li>
+<li>输入/输出的上下文菜单</li>
+</ul>
+<p>通过右键点击节点，可以展开相应的节点上下文菜单：</p>
+<p><img alt="节点上下文菜单" src="https://mintcdn.com/dripart/CGWmMjlFmU7msQ5S/images/concepts/node/context_menus_1.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=CGWmMjlFmU7msQ5S&amp;q=85&amp;s=a544cec80957d1cb035197c4edebf57e" /></p>
+<p>在节点的右键上下文菜单中，可以调整节点的颜色样式，修改标题，克隆、复制或删除节点，设置节点的模式（始终、从不、旁路）</p>
+<p><strong>模式</strong></p>
+<ul>
+<li>始终（Always）：默认节点模式。节点在首次运行或自上次执行以来任何输入发生变化时都会执行</li>
+<li>从不（Never）：节点在任何情况下都不会执行，就像已被删除一样。后续节点无法从中读取或接收任何数据</li>
+<li>旁路（Bypass）：该节点在任何情况下都不会执行，但后续节点仍可以尝试获取未经过此节点处理的数据。</li>
+</ul>
+<p><img alt="never和bypass比较" src="https://mintcdn.com/dripart/-uf1LbfqYw9IrpmN/images/concepts/node/never_vs_bypass.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=-uf1LbfqYw9IrpmN&amp;q=85&amp;s=ecb4d7a59f71c1a85b241529ed1ede46" /></p>
+<p>在对比示例中，两个工作流同时应用了两个 LoRA 模型，区别在于一个 Load LoRA 节点设置为 Never 模式，而另一个设置为 Bypass 模式。</p>
+<p>设置为 Never 模式的节点会导致后续节点显示错误，因为它们没有接收到任何输入数据。</p>
+<p>设置为 Bypass 模式的节点仍允许后续节点接收未处理的数据，因此它们会从第一个 Load LoRA 节点加载输出数据，使后续工作流能够正常运行</p>
+<p><strong>输入/输出右键菜单</strong></p>
+<p>主要与相应输入/输出的数据类型相关</p>
+<p>当拖动节点的输入/输出时，如果出现连接但尚未连接到另一个节点的输入或输出，松开鼠标后会弹出该输入/输出的上下文菜单，用于快速添加相关类型的节点。</p>
+<h3 id="524">5.2.4 节点选择工具箱</h3>
+<p>节点选择工具箱是一个浮动工具，提供对节点的快速操作。当选择一个节点时，它会悬浮在该节点上方。</p>
+<p>通过此工具箱，可以更改节点的颜色，快速将节点设置为旁路模式，锁定节点，删除节点</p>
+<p>这些功能也可以在对应节点的右键菜单中找到。节点选择工具箱只是提供了一种快捷操作方式。可以在设置中将其关闭。</p>
+<h3 id="525">5.2.5 子图</h3>
+<p>可以将一组节点折叠为一个可复用的子图节点，以整理复杂的图表，并在不同工作流中复用相同的结构。 </p>
+<h3 id="526">5.2.6 自定义节点</h3>
+<p>ComfyUI 的基础安装中包含了大量的 Comfy Core 节点。社区还维护着一个庞大的自定义节点目录，用于支持专业的工作流。</p>
+<p>ComfyUI 支持通过多种方式安装自定义节点，推荐使用 ComfyUI Manager 安装。可以帮助进行自定义节点的安装（包括依赖项），版本控制等</p>
+<p>有关如何安装使用 自定义节点 与 ComfyUI Manager 参阅 <a href="#3-安装自定义节点">3 安装自定义节点</a>。</p>
+<h2 id="53">5.3 参数</h2>
+<p>节点是参数的容器。节点通常具有属性，也称为参数。是可以更改的变量。</p>
+<p><img alt="参数" src="https://mintcdn.com/dripart/Rig0_LOInmwVbVSB/images/concepts/core-concepts_properties.png?w=1100&amp;fit=max&amp;auto=format&amp;n=Rig0_LOInmwVbVSB&amp;q=85&amp;s=f1ba7ae145baeba3b8bed3b62ba6afa0" /></p>
+<p>例如，Load Checkpoint（加载检查点）节点只有一个属性：生成模型检查点文件的路径。KSampler（K采样器）节点则具有多个属性，如采样步骤数、CFG 比例、sampler_name（采样器名称）等。</p>
+<p><strong>数据类型</strong></p>
+<p>ComfyUI 使用 Python 脚本语言编写，Python 对数据类型的宽容度很高。相比之下，ComfyUI 环境是强类型的。这意味着不同的数据类型不能混用。例如，我们不能将图像输出连接到整数输入。</p>
+<h2 id="54">5.4 链接</h2>
+<p>节点之间绘制的线条或曲线被称为链接。它们将数据从一个节点的输出传输到另一个节点的输入，从而定义工作流的流向。</p>
+<p><strong>重定向节点</strong></p>
+<p>当工作流变得复杂时，连接线可能会相互重叠或穿过节点后方，导致难以阅读。Reroute 节点（在画布空白处右键 → 搜索 Reroute → 添加 Reroute 节点。）允许你手动将连接线重定向到二维图表空间中的任意位置，从而保持布局的整洁和清晰。</p>
+<p><img alt="重定向" src="https://mintcdn.com/dripart/EgZuQyCGLVUEw53Z/images/interface/link/reroute.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=EgZuQyCGLVUEw53Z&amp;q=85&amp;s=6bdb8be3153d06a3e5354f2d488922e6" /></p>
+<p>ComfyUI 在图形画布中也内置了原生的重定向功能。</p>
+<h2 id="55">5.5 模型</h2>
+<p>模型是实际驱动工作流的权重文件，例如检查点（Checkpoints）、VAE、LoRA、ControlNet 和超分辨率工具。</p>
+<p>通常需要从网上（如 Hugging Face、Civitai 或 GitHub）下载，并将它们放置在 ComfyUI/models/ 下对应类型的子文件夹中（或遵循模板的提示），然后在正确的加载器节点中选择该文件（通常以 Load 开头的节点）。</p>
+<p>除了主检查点之外，许多工作流会添加更小的辅助模型，例如：</p>
+<ul>
+<li>LoRA — 针对特定风格、角色或概念优化的轻量级附加模型</li>
+<li>ControlNet — 提供来自边缘、深度、姿态等额外引导信息</li>
+<li>Inpainting  — 填充或替换现有图像中的区域</li>
+</ul>
+<p><strong>卸载模型</strong></p>
+<p>删除放入ComfyUI/models/文件夹中的其文件。</p>
+<p><strong>添加额外的模型路径</strong></p>
+<p>通过 extra_model_paths.yaml 配置文件添加额外模型搜索路径 参考<a href="#222-添加额外模型路径">2.2.2 添加额外模型路径</a></p>
+<h2 id="56">5.6 依赖项</h2>
+<p>工作流文件依赖于其他文件，例如媒体素材输入、模型、自定义节点、相关的 Python 依赖项等。只有当所有相关依赖都满足时，才能正常运行。</p>
+<h1 id="6">6 界面概览</h1>
+<p><strong>语言</strong></p>
+<p>可以点击设置齿轮图标，然后在 Comfy —&gt; Locale 下选择想要的语言。</p>
+<p><strong>界面</strong></p>
+<p><img alt="界面" src="https://mintcdn.com/dripart/ypWEPMPDkbY_QhNi/images/interface/overview/comfyui-new-interface-main.png?w=1100&amp;fit=max&amp;auto=format&amp;n=ypWEPMPDkbY_QhNi&amp;q=85&amp;s=50152398bc264e01943150891c866f9d" /></p>
+<ol>
+<li>
+<p>主菜单：点击展开功能菜单，包括文件操作、帮助菜单等。</p>
+</li>
+<li>
+<p>左侧面板条目：</p>
+</li>
+<li>
+<p>资源：显示生成的图像、视频及其他资源。</p>
+</li>
+<li>节点：列出 ComfyUI 原生和第三方节点。</li>
+<li>模型：显示 ComfyUI 启动后检测到的模型信息。启动后，如果下载了模型，按 r 键刷新节点定义以获取最新模型。</li>
+<li>工作流：显示本地保存的工作流。</li>
+<li>
+<p>模板：提供 ComfyUI 内置的工作流模板。</p>
+</li>
+<li>
+<p>底部工具栏：包含帮助（打开运行时日志）、控制台（打开运行时日志）、快捷键（显示快捷键面板）和设置（打开设置面板）按钮。</p>
+</li>
+<li>
+<p>顶部区域：显示当前打开的工作流。 </p>
+</li>
+<li>
+<p>新建工作流按钮：点击可创建一个新的空白工作流文件。 </p>
+</li>
+<li>
+<p>右侧控制区域：运行和队列控制管理，在此可以运行工作流并查看队列。 </p>
+</li>
+<li>
+<p>登录状态：默认不显示，仅在登录后显示，用于需要闭源合作伙伴节点时。 </p>
+</li>
+<li>
+<p>快捷访问按钮：打开右侧面板。</p>
+</li>
+<li>
+<p>画布导航工具：可以在移动或平移模式之间切换，打开小地图，并切换节点连接显示。</p>
+</li>
+</ol>
+<p><img alt="侧边栏" src="https://mintcdn.com/dripart/qYv6P0RgI3co7-eH/images/interface/overview/side-panel.png?fit=max&amp;auto=format&amp;n=qYv6P0RgI3co7-eH&amp;q=85&amp;s=138181422006bac20c5d092f729f00b3" /></p>
+<ol>
+<li>
+<p>工作流历史记录队列（队列）：ComfyUI 执行媒体内容生成的所有队列信息</p>
+</li>
+<li>
+<p>节点库：这里可以找到 ComfyUI 中的所有节点，包括 Comfy Core 和你已安装自定义节点</p>
+</li>
+<li>
+<p>模型库：这里可以找到你本地 ComfyUI/models 目录中的模型</p>
+</li>
+<li>
+<p>本地用户工作流（工作流）：这里可以找到你本地保存的工作流</p>
+</li>
+</ol>
+<h1 id="7">7 其他</h1>
+<h2 id="_1">遮罩编辑器</h2>
+<p>ComfyUI 内置的工具，允许你直接在图像上创建和编辑遮罩——无需外部图像编辑器。它支持多种绘图工具、图层管理、撤销/重做、画布变换以及 GPU 加速的画笔渲染。</p>
+<p>打开（三种方式）</p>
+<ul>
+<li>选择工具箱 — 选择一个“加载图像”节点，然后点击该节点上方选择工具栏中的遮罩图标按钮。</li>
+<li>图像叠加层 — 将鼠标悬停在图像预览（画廊模式）上，然后点击出现在左上角的 编辑或遮罩图像 按钮（遮罩图标）。</li>
+<li>右键菜单 — 在“加载图像”节点上右键单击，然后从上下文菜单中选择 在蒙版编辑器中打开。</li>
+</ul>
+<p><img alt="遮罩" src="https://mintcdn.com/dripart/deAUfL_Wa99SBtzt/images/interface/maskeditor/maskeditor_3ways_to_open_maskeditor.png?w=2500&amp;fit=max&amp;auto=format&amp;n=deAUfL_Wa99SBtzt&amp;q=85&amp;s=cfa908afe3351cfb20519f62897a10f5" /></p>
+<p><img alt="界面" src="https://mintcdn.com/dripart/deAUfL_Wa99SBtzt/images/interface/maskeditor/maskeditor_main_editor.jpg?w=2500&amp;fit=max&amp;auto=format&amp;n=deAUfL_Wa99SBtzt&amp;q=85&amp;s=68f9a28cb1bb260e5c4d0b1a52a69f0b" /></p>
+<h2 id="_2">子图</h2>
+<ol>
+<li>
+<p>选择要分组的节点</p>
+</li>
+<li>
+<p>点击子图图标</p>
+</li>
+</ol>
+<p><img alt="子图" src="https://mintcdn.com/dripart/EgZuQyCGLVUEw53Z/images/interface/features/subgraph/subgraph_icon.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=EgZuQyCGLVUEw53Z&amp;q=85&amp;s=d09520a5f62043b0aadd2af169e3cd64" /></p>
+<ol>
+<li>子图已创建</li>
+</ol>
+<p><img alt="创建子图" src="https://mintcdn.com/dripart/EgZuQyCGLVUEw53Z/images/interface/features/subgraph/workflow_using_subgraph.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=EgZuQyCGLVUEw53Z&amp;q=85&amp;s=cb5b011244fb07b78a2711c2331fcb6b" /></p>
+<p>ComfyUI 会根据所选节点的输入和输出自动创建子图</p>
+<ol>
+<li>可以编辑和组织子图以创建一个功能完整的节点</li>
+</ol>
+<p><strong>编辑子图</strong></p>
+<p>子图的操作方式与节点相同。双击子图内部的空白区域（不要在控件上），或者点击子图编辑按钮就可以编辑子图</p>
+<p><img alt="子图编辑" src="https://mintcdn.com/dripart/EgZuQyCGLVUEw53Z/images/interface/features/subgraph/editing_subgraph.jpg?fit=max&amp;auto=format&amp;n=EgZuQyCGLVUEw53Z&amp;q=85&amp;s=4802435f0ede07e1172b9f7fbd459399" /></p>
+<ul>
+<li>导航栏：退出当前子图并返回到父级</li>
+<li>输入槽位：暴露给外部的内部节点输入<ul>
+<li>像普通节点一样将输出连接到槽位</li>
+<li>右键单击连接点以重命名/删除暴露的槽位</li>
+</ul>
+</li>
+<li>输出槽位：暴露给外部的输出（与输入槽位功能相同）</li>
+</ul>
+<p>点击导航栏或按 Esc 键退出当前子图，返回父工作流。</p>
+<p><strong>子图参数</strong></p>
+<p><strong>嵌套子图</strong></p>
+<p><strong>子图解包</strong></p>
+<p><strong>子图蓝图</strong></p>
+<h2 id="_3">节点文档</h2>
+<p><img alt="节点文档" src="https://mintcdn.com/dripart/dqTrh-Pf-n3XjOH5/images/interface/features/nod-docs/node-docs-1.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=dqTrh-Pf-n3XjOH5&amp;q=85&amp;s=5a0a7bc1b150a6a9f0c6b017551b4b09" /></p>
+<p>选择一个节点，在选择工具栏中点击节点信息图标，以打开节点文档页面。点击左上角的箭头图标来退出节点文档。</p>
+<p>也可以通过节点库访问节点文档，将鼠标悬停在某个节点上，然后点击“?”图标以打开节点文档。</p>
+<h2 id="agent-mcp">Agent / MCP</h2>
+<p>通过模型上下文协议（MCP）将 AI 智能体连接到 ComfyUI</p>
+<p>ComfyUI 提供两个 MCP 服务器</p>
+<h1 id="8">8 基本工作流</h1>
+<h2 id="81">8.1 文生图</h2>
+<p>文生图是人工智能艺术生成中的一个基本过程，它通过文本描述来创建图像，其核心是扩散模型。</p>
+<p>需要以下要素：</p>
+<ul>
+<li>图像生成模型</li>
+<li>潜在空间</li>
+<li>
+<p>提示词（正向提示词和负向提示词）</p>
+</li>
+<li>
+<p>在加载检查点节点中，使用箭头或点击文本区域以确保选中v1-5-pruned-emaonly-fp16.safetensors，并且左右箭头不显示null 文本。</p>
+</li>
+<li>
+<p>修改CLIP 文本编码器中的文本</p>
+</li>
+<li>
+<p>连接到 KSampler 节点的 Positive 代表正向提示词，而 Negative 代表负向提示词</p>
+<div class="highlight"><pre><span></span><code>以下是 SD1.5 模型的一些基本提示原则：
+
+- 尽可能使用英文
+- 用英文逗号分隔提示词,
+- 使用短语而非长句
+- 使用具体描述
+- 使用如 (golden hour:1.2) 这样的表达式可增加特定关键词的权重，使其更有可能出现在图像中。1.2 是权重，golden hour 是关键词。
+- 使用如 masterpiece, best quality, 4k 等关键词可提高生成质量。
+</code></pre></div>
+
+</li>
+<li>
+<p>运行：尝试多次运行生成。每次运行时，KSampler 都会基于 seed 参数使用不同的随机种子，因此每次生成的结果都会有所不同。</p>
+</li>
+</ul>
+<h3 id="811">8.1.1 工作原理</h3>
+<p>整个文生图过程可以理解为一种反向扩散过程。我们下载的v1-5-pruned-emaonly-fp16.safetensors是一个预训练模型，能够从纯高斯噪声中生成目标图像。我们只需输入提示词，它就能通过去噪随机噪声来生成目标图像。</p>
+<div class="highlight"><pre><span></span><code>文本提示 → CLIP编码器 → 语义向量
+                            ↓
+                            → 迭代去噪 → 中间潜在表示 → 最终生成图像
+                            ↑ 
+                        纯高斯噪声 
+</code></pre></div>
+
+<p>理解两个概念：</p>
+<ul>
+<li>
+<p>潜在空间：扩散模型中的一种抽象数据表示方法。将图像从像素空间转换为潜在空间可以减少存储空间，使训练扩散模型更容易并降低去噪复杂度。
+这就像建筑师使用蓝图（潜在空间）进行设计，而不是直接在建筑物（像素空间）上设计，在保持结构特征的同时显著降低了修改成本。</p>
+</li>
+<li>
+<p>像素空间：像素空间是图像的存储空间，即我们最终看到的图像，用于存储像素值。</p>
+</li>
+</ul>
+<h3 id="812">8.1.2 工作流节点说明</h3>
+<p><img alt="工作流节点说明" src="https://mintcdn.com/dripart/OltlUSVBSNcJsDMs/images/tutorial/basic/text-image-workflow.jpg?fit=max&amp;auto=format&amp;n=OltlUSVBSNcJsDMs&amp;q=85&amp;s=3e22321faba12644c781cecc5746a71e" /></p>
+<p>A. 加载检查点节点</p>
+<p>通常用于加载图像生成模型。一个checkpoint 通常包含三个组件：MODEL (UNet)、CLIP 和 VAE</p>
+<ul>
+<li>MODEL (UNet): 负责在扩散过程中进行噪声预测和图像生成的 UNet 模型</li>
+<li>CLIP: 文本编码器，将我们的文本提示转换为模型可以理解的向量，因为模型无法直接理解文本提示</li>
+<li>VAE: 变分自编码器，用于在像素空间和潜在空间之间转换图像，因为扩散模型在潜在空间中工作，而我们的图像处于像素空间</li>
+</ul>
+<p>B. 空潜在图像节点</p>
+<p>定义了一个潜在空间，该空间输出到 KSampler 节点。Empty Latent Image 节点构建了一个纯噪声潜在空间</p>
+<p>你可以将其功能理解为定义画布尺寸，这决定了我们最终生成图像的维度。</p>
+<p>C. CLIP 文本编码器节点</p>
+<p>提示词由 Load Checkpoint 节点中的 CLIP 组件编码为语义向量，并作为条件输出到 KSampler 节点</p>
+<p>D. KSampler 采样器节点</p>
+<p>整个流程的核心，负责执行完整的去噪过程，最终输出潜空间图像。</p>
+<div class="mermaid">
+flowchart TD
+    A[扩散模型] --> D[KSampler]
+    B[随机噪声潜在空间] --> D
+    C[CLIP语义向量] --> D
+    D --> E[去噪潜在表示]
+
+</div>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">参数名称</th>
+<th style="text-align: left;">描述</th>
+<th style="text-align: left;">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">model</td>
+<td style="text-align: left;">用于去噪的扩散模型</td>
+<td style="text-align: left;">决定生成图像的风格和质量</td>
+</tr>
+<tr>
+<td style="text-align: left;">正向提示词</td>
+<td style="text-align: left;">正向提示词条件编码</td>
+<td style="text-align: left;">引导生成包含指定元素</td>
+</tr>
+<tr>
+<td style="text-align: left;">负面提示</td>
+<td style="text-align: left;">负面提示条件编码</td>
+<td style="text-align: left;">抑制不需要的内容</td>
+</tr>
+<tr>
+<td style="text-align: left;">潜在图像</td>
+<td style="text-align: left;">需要去噪的潜在空间图像</td>
+<td style="text-align: left;">作为噪声初始化的输入载体</td>
+</tr>
+<tr>
+<td style="text-align: left;">seed</td>
+<td style="text-align: left;">用于生成噪声的随机种子</td>
+<td style="text-align: left;">控制生成的随机性</td>
+</tr>
+<tr>
+<td style="text-align: left;">control_after_generate</td>
+<td style="text-align: left;">生成后的种子控制模式</td>
+<td style="text-align: left;">决定批量生成中的种子变化模式</td>
+</tr>
+<tr>
+<td style="text-align: left;">step</td>
+<td style="text-align: left;">去噪迭代次数</td>
+<td style="text-align: left;">步数越多细节越精细，但处理时间也越长</td>
+</tr>
+<tr>
+<td style="text-align: left;">cfg</td>
+<td style="text-align: left;">分类器自由引导比例</td>
+<td style="text-align: left;">控制提示词约束强度（过高会导致过拟合）</td>
+</tr>
+<tr>
+<td style="text-align: left;">sampler_name</td>
+<td style="text-align: left;">采样算法名称</td>
+<td style="text-align: left;">决定去噪路径的数学方法</td>
+</tr>
+<tr>
+<td style="text-align: left;">scheduler</td>
+<td style="text-align: left;">调度器类型</td>
+<td style="text-align: left;">控制噪声衰减率和步长分配</td>
+</tr>
+<tr>
+<td style="text-align: left;">denoise</td>
+<td style="text-align: left;">去噪强度系数</td>
+<td style="text-align: left;">控制添加到潜在空间的噪声强度，0.0 保留原始输入特征，1.0 为完全噪声</td>
+</tr>
+</tbody>
+</table>
+<p>在 KSampler 节点中，潜在空间使用 seed 作为初始化参数来构建随机噪声，并将语义向量 Positive 和 Negative 作为条件输入到扩散模型中，然后，根据 steps 参数指定的去噪步数执行去噪。每个去噪步骤都会使用 denoise 参数指定的去噪强度系数对潜在空间进行去噪，并生成新的潜在空间图像。</p>
+<p>E. VAE 解码器节点</p>
+<p>将来自 KSampler 的潜在空间图像输出转换为像素空间图像</p>
+<p>F. 保存图像节点</p>
+<h2 id="82">8.2 图生图</h2>
+<p>允许用户输入一张图像并基于它生成新图像。</p>
+<p>图生图的过程与文生图非常相似， 只是多了一个作为条件的参考图像输入。</p>
+<p><img alt="图生图流程" src="https://mintcdn.com/dripart/OltlUSVBSNcJsDMs/images/tutorial/basic/img2img/image-to-image-02-guide.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=OltlUSVBSNcJsDMs&amp;q=85&amp;s=ba9c51655e26715be1b316c307c3a761" /></p>
+<p>关键在于 KSampler 节点中的 denoise 参数，该参数应 小于 1</p>
+<ul>
+<li>denoise值越小，生成图像与参考图像之间的差异就越小</li>
+<li>denoise值越大，生成图像与参考图像之间的差异就越大</li>
+</ul>
+<p>这是因为denoise决定了在将参考图像转换为潜在空间图像后添加噪声的强度。如果denoise为1，潜在空间图像将完全变为随机噪声，与由empty latent image节点生成的潜在空间相同，从而失去参考图像的所有特征。</p>
+<h2 id="83">8.3 重绘</h2>
+<p>们经常会遇到这样的情况：对整体画面感到满意，但其中包含了一些我们不想要或存在错误的元素。如果直接重新生成，可能会产生完全不同的图像，因此使用重绘（inpainting）功能来修正特定部分就变得非常有用。使用 ComfyUI 遮罩编辑器绘制遮罩，需要调整的区域（mask）</p>
+<p><img alt="Inpainting工作流" src="https://mintcdn.com/dripart/OltlUSVBSNcJsDMs/images/tutorial/basic/inpaint/inpaint_workflow.png?w=1100&amp;fit=max&amp;auto=format&amp;n=OltlUSVBSNcJsDMs&amp;q=85&amp;s=e4e471b6cd770836162c82a14c31590f" /></p>
+<p>注意：相比使用 v1-5-pruned-emaonly-fp16.safetensors 等模型。由 512-inpainting-ema.safetensors 模型生成的结果具有更好的修复效果和更自然的过渡。这是因为该模型专为修复功能而设计。因此选择合适的模型可以帮助你获得更好的生成结果。</p>
+<h3 id="831">8.3.1 使用蒙版编辑器</h3>
+<p>右键单击 Save Image 节点，然后选择Copy(Clipspace)</p>
+<p>右键单击 Load Image 节点，并选择Paste（Clipspace）</p>
+<p>再次右键单击 Load Image 节点，并选择在 Open in MaskEditor （蒙版编辑器）中打开</p>
+<ul>
+<li>在右侧面板调整画笔参数</li>
+<li>使用橡皮擦修正错误</li>
+<li>完成后点击保存</li>
+</ul>
+<p>绘制的内容将作为蒙版输入到 VAE Encoder (for Inpainting) 节点中进行编码</p>
+<p>与'文生图'和'图生图'进行比较，主要区别在于 VAE 部分的条件输入。在此工作流中，我们使用 VAE Encoder (for Inpainting) 节点，该节点专为修复功能设计，帮助我们更好地控制生成区域并获得更好的结果。</p>
+<p>原理流程：将原始图像编码为潜在表示，然后利用 mask 填充待修复区域的潜在表示为零，保留未修复区域的原始潜在信息，以供后续修复生成。</p>
+<p>输入类型</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pixels</td>
+<td>要编码为潜在空间的输入图像。</td>
+</tr>
+<tr>
+<td>vae</td>
+<td>用于将图像从像素空间编码到潜在空间的 VAE 模型。</td>
+</tr>
+<tr>
+<td>mask</td>
+<td>指定需要修改区域的图像蒙版。</td>
+</tr>
+<tr>
+<td>grow_mask_by</td>
+<td>用于扩展原始蒙版的像素值，确保蒙版周围存在过渡区域，以避免修复区域与原始区域之间出现生硬的边缘。</td>
+</tr>
+</tbody>
+</table>
+<p>输出类型</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>latent</td>
+<td>图像已通过 VAE 编码为潜在空间。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="84">8.4 扩图</h2>
+<p>我们经常会遇到这样的情况：现有图像的构图很好，但画布区域太小，需要扩展画布以获得更大的场景。这时就需要用到外绘（Outpainting）技术。</p>
+<p>它与 Inpainting 相似，但我们使用不同的节点来构建蒙版。</p>
+<p><img alt="Outpainting工作流" src="https://mintcdn.com/dripart/OltlUSVBSNcJsDMs/images/tutorial/basic/outpaint/outpainting_workflow.jpg?fit=max&amp;auto=format&amp;n=OltlUSVBSNcJsDMs&amp;q=85&amp;s=b56842f634fedc85c66bccd0ead52bb6" /></p>
+<p>Pad Image for outpainting 节点：该节点接受一张输入图像，并输出一张扩展后的图像及相应的蒙版，其中蒙版是根据节点参数构建的</p>
+<p>经过 Pad Image for outpainting 节点处理后，输出图像和蒙版预览如下：</p>
+<p><img alt="节点输出内容" src="https://mintcdn.com/dripart/OltlUSVBSNcJsDMs/images/tutorial/basic/outpaint/pad_Image_for_outpainting_result.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=OltlUSVBSNcJsDMs&amp;q=85&amp;s=c81e37842480fa81ab070d0dcfc24ea4" /></p>
+<p>输入参数</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>image</td>
+<td>输入图像</td>
+</tr>
+<tr>
+<td>left</td>
+<td>左侧填充量</td>
+</tr>
+<tr>
+<td>top</td>
+<td>顶部填充量</td>
+</tr>
+<tr>
+<td>right</td>
+<td>右侧填充量</td>
+</tr>
+<tr>
+<td>bottom</td>
+<td>底部填充量</td>
+</tr>
+<tr>
+<td>feathering</td>
+<td>控制原始图像与添加的填充区域之间的过渡平滑度，数值越高，过渡越平滑。</td>
+</tr>
+</tbody>
+</table>
+<p>输出参数</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>image</td>
+<td>输出 image 表示填充后的图像</td>
+</tr>
+<tr>
+<td>mask</td>
+<td>输出 mask 指示原始图像区域和添加的填充区域</td>
+</tr>
+</tbody>
+</table>
+<h2 id="85">8.5 图像放大</h2>
+<p>Image Upscale：利用算法将低分辨率图像转换为高分辨率图像的过程。与传统插值方法不同，AI 放大模型（如 ESRGAN）能够在保持图像质量的同时智能地重建细节。</p>
+<p>下载并安装放大模型，将模型文件（.pth）保存到 ComfyUI/models/upscale_models。</p>
+<p><img alt="Image Upscale工作流" src="https://mintcdn.com/dripart/OltlUSVBSNcJsDMs/images/tutorial/basic/upscale/upscale_simple_workflow.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=OltlUSVBSNcJsDMs&amp;q=85&amp;s=6f53afad6d2ed56c155aa57d5ea9083e" /></p>
+<p>与文生图结合：</p>
+<p><img alt="与文生图结合" src="https://mintcdn.com/dripart/OltlUSVBSNcJsDMs/images/tutorial/basic/upscale/esrgan_example.png?fit=max&amp;auto=format&amp;n=OltlUSVBSNcJsDMs&amp;q=85&amp;s=98c8d536f0a76025092f8fec157002f8" /></p>
+<p>提示：</p>
+<ul>
+<li>链式放大：组合多个放大节点（例如 2 倍 → 4 倍）以实现超高倍率放大</li>
+<li>混合工作流：在生成后连接放大节点，实现“生成 + 增强”流程</li>
+</ul>
+<h2 id="86-lorra">8.6 LoRRa</h2>
+<p>LoRA（低秩适应）是一种用于微调大型生成模型（如 Stable Diffusion）的高效技术。 它在预训练模型中引入可训练的低秩矩阵，仅调整部分参数而非重新训练整个模型， 从而以较低的计算成本实现特定任务的优化。 与 SD1.5 等基础模型相比，LoRA 模型体积更小且更容易训练。能为你的作品添加独特风格和细节。</p>
+<p>下载 dreamshaper_8.safetensors 文件，并将其放入 ComfyUI/models/checkpoints 文件夹中。<br />
+下载 blindbox_V1Mix.safetensors 文件，并将其放入 ComfyUI/models/loras 文件夹中。</p>
+<p>确保 Load Checkpoint 加载 dreamshaper_8.safetensors，Load LoRA 加载 blindbox_V1Mix.safetensors（Lora在底模之后作用）</p>
+<p>Load LoRA 节点</p>
+<p>输入类型</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>model</td>
+<td>连接到基础模型</td>
+</tr>
+<tr>
+<td>clip</td>
+<td>连接到 CLIP 模型</td>
+</tr>
+<tr>
+<td>lora_name</td>
+<td>选择要加载和使用的 LoRA 模型</td>
+</tr>
+<tr>
+<td>strength_model</td>
+<td>影响 LoRA 对模型权重的影响程度；数值越大，LoRA 风格越强</td>
+</tr>
+<tr>
+<td>strength_clip</td>
+<td>影响 LoRA 对 CLIP 文本嵌入的影响程度</td>
+</tr>
+</tbody>
+</table>
+<p>输出类型</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>model</td>
+<td>输出应用了 LoRA 调整后的模型</td>
+</tr>
+<tr>
+<td>clip</td>
+<td>输出应用了 LoRA 调整后的 CLIP 模型</td>
+</tr>
+</tbody>
+</table>
+<h3 id="861-lora">8.6.1 多LoRa</h3>
+<p>此节点支持链式连接，允许将多个 Load LoRA 节点串联以应用多个 LoRA 模型。从而实现画风 + 人物 + 细节特效的多重叠加。</p>
+<p><img alt="多LoRa" src="https://mintcdn.com/dripart/OltlUSVBSNcJsDMs/images/tutorial/basic/lora/chain_link.png?w=1650&amp;fit=max&amp;auto=format&amp;n=OltlUSVBSNcJsDMs&amp;q=85&amp;s=c4d1622631b43b2605038b768c6f079e" /></p>
+<p><img alt="多LoRa工作流" src="https://mintcdn.com/dripart/OltlUSVBSNcJsDMs/images/tutorial/basic/multiple_loras/flow_diagram.png?w=1100&amp;fit=max&amp;auto=format&amp;n=OltlUSVBSNcJsDMs&amp;q=85&amp;s=b17f140123654a59594acda7fcbd7572" /></p>
+<h1 id="9-controlnet">9 ControlNet</h1>
+<p>在 AI 图像生成中实现对图像创作的精确控制无法仅凭一次点击完成。 通常需要多次生成尝试才能产生令人满意的图像。然而，ControlNet 的出现有效地解决了这一挑战。</p>
+<p>ControlNet 是一种基于扩散模型（如 Stable Diffusion）的条件控制生成模型</p>
+<p>ControlNet 模型通过引入边缘检测图、深度图和姿态关键点等多模态输入条件， 显著增强了图像生成的可控性和细节再现能力。</p>
+<p>这些条件约束使图像生成更具可控性，允许在绘制过程中同时使用多个 ControlNet 模型以获得更好的效果。</p>
+<p>随着 ControlNet 的出现，我们可以通过引入额外的条件来控制图像生成。例如，我们可以使用简单的草图来引导图像生成过程，从而生成与草图高度一致的图像。</p>
+<p>不同类型的 ControlNet 模型通常需要不同类型的参考图像</p>
+<p><img alt="ControlNet工作流" src="https://mintcdn.com/dripart/TwfNQ2dEaWQA7tIL/images/tutorial/controlnet/flow_diagram_scribble.png?fit=max&amp;auto=format&amp;n=TwfNQ2dEaWQA7tIL&amp;q=85&amp;s=d26abbfd1993f28b88efcf6231246945" /></p>
+<p><strong>Load ControlNet 节点</strong></p>
+<p><strong>Apply ControlNet 节点</strong></p>
+<p>接受由 <code>load controlnet</code> 加载的 ControlNet 模型，并根据输入图像生成相应的控制条件。</p>
+<p>输入类型</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>positive</td>
+<td>正向条件</td>
+</tr>
+<tr>
+<td>negative</td>
+<td>负向条件</td>
+</tr>
+<tr>
+<td>control_net</td>
+<td>要应用的 ControlNet 模型</td>
+</tr>
+<tr>
+<td>image</td>
+<td>用作 ControlNet 应用参考的预处理图像</td>
+</tr>
+<tr>
+<td>vae</td>
+<td>VAE 模型输入</td>
+</tr>
+<tr>
+<td>strength</td>
+<td>ControlNet 应用的强度；数值越高，ControlNet 对生成图像的影响越大</td>
+</tr>
+<tr>
+<td>start_percent</td>
+<td>确定以百分比形式开始应用 ControlNet 的时间点；例如，0.2 表示在扩散过程完成 20% 时开始 ControlNet 引导</td>
+</tr>
+<tr>
+<td>end_percent</td>
+<td>确定何时停止应用 ControlNet 的百分比；例如，0.8 表示在扩散完成 80% 时停止 ControlNet 引导</td>
+</tr>
+</tbody>
+</table>
+<p>输出类型</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>positive</td>
+<td>经过 ControlNet 处理的正向条件数据</td>
+</tr>
+<tr>
+<td>negative</td>
+<td>经过 ControlNet 处理的负向条件数据</td>
+</tr>
+</tbody>
+</table>
+<p>可以使用链式连接来应用多个 ControlNet 模型</p>
+<p><img alt="混合 ControlNet 模型" src="https://mintcdn.com/dripart/OltlUSVBSNcJsDMs/images/tutorial/controlnet/apply_controlnet_chain_link.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=OltlUSVBSNcJsDMs&amp;q=85&amp;s=3893bbb66fd156f76713a5d51623cd12" /></p>
+<h2 id="91-pose-controlnet">9.1 Pose ControlNet</h2>
+<p>OpenPose是由卡内基梅隆大学（CMU）开发的开源实时多人姿态估计系统，代表了计算机视觉领域的一项重大突破。该系统能够同时检测图像中的多个人物，并捕捉：身体骨架，面部表情，手部细节，脚部姿态</p>
+<p><img alt="Pose ControlNet工作流" src="https://mintcdn.com/dripart/TwfNQ2dEaWQA7tIL/images/tutorial/controlnet/flow_diagram_pose_controlnet_2_pass.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=TwfNQ2dEaWQA7tIL&amp;q=85&amp;s=9fd99919c6ea83863a61a530ce696148" /></p>
+<p>此工作流程采用双遍图像生成方法</p>
+<ul>
+<li>第一阶段，将majicmixRealistic_v7模型与 Pose ControlNet 结合，生成初始的人物姿势图像</li>
+<li>第二阶段，将第一阶段生成的输出图像将作为参考，由japaneseStyleRealistic_v20模型进行风格化处理和细节增强</li>
+</ul>
+<p>优势：</p>
+<ul>
+<li>更高分辨率：两遍处理可以生成单遍生成无法达到的高分辨率图像</li>
+<li>风格融合：可以结合不同模型的优势，例如在第一阶段使用写实模型，在第二阶段使用风格化模型</li>
+<li>更佳细节：第二阶段可以专注于优化细节，而无需担心整体结构</li>
+<li>精准控制：一旦在第一阶段完成姿态控制，第二阶段即可专注于风格与细节的优化</li>
+<li>降低 GPU 负载：分两遍生成能够在有限的 GPU 资源下实现高质量的大图</li>
+</ul>
+<h2 id="92-depth-controlnet">9.2 Depth ControlNet</h2>
+<p>深度图是一种特殊的图像，它使用灰度值来表示场景中物体与观察者或相机之间的距离。在深度图中，灰度值与距离成反比：较亮的区域（接近白色）表示较近的物体，而较暗的区域（接近黑色）表示较远的物体。</p>
+<p>深度 ControlNet 是一种专门用于理解和利用深度图信息的 ControlNet 模型。它帮助 AI 正确解读空间关系，确保生成的图像符合深度图指定的空间结构，从而实现对三维空间布局的精确控制。</p>
+<p><img alt="Depth ControlNet工作流" src="https://mintcdn.com/dripart/TwfNQ2dEaWQA7tIL/images/tutorial/controlnet/flow_diagram_depth.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=TwfNQ2dEaWQA7tIL&amp;q=85&amp;s=c44b0150592455946dcfa90643a519b6" /></p>
+<h2 id="93-depth-t2i-adapter">9.3 Depth T2I Adapter</h2>
+<p>T2I-Adapter 是由 腾讯 ARC 实验室开发的一款轻量级适配器，旨在增强文本到图像生成模型（如 Stable Diffusion）的结构、颜色和风格控制能力。 它通过将外部条件（例如边缘检测图、深度图、草图、姿态或颜色参考图像）与模型内部特征对齐，在不修改原始模型结构的前提下实现高精度控制。该适配器仅包含约 7700 万参数（大小约为 300MB），其推理速度比 ControlNet 快约三倍，并支持多种条件组合（例如草图 + 颜色网格）。应用场景包括线稿转图像、色彩风格迁移、多元素场景生成等。</p>
+<p>与 ControlNet 的比较</p>
+<ul>
+<li>轻量级设计：T2I Adapter 参数量更少，内存占用更小</li>
+<li>推理速度：T2I Adapter 的推理速度通常比 ControlNet 快约 3 倍</li>
+<li>控制精度：ControlNet 在某些场景下提供更精确的控制，而 T2I Adapter 则更适合轻量级控制。</li>
+<li>多条件组合：当结合多个条件时，T2I Adapter 展现出更显著的资源优势。</li>
+</ul>
+<p><img alt="Depth T2I Adapter工作流" src="https://mintcdn.com/dripart/TwfNQ2dEaWQA7tIL/images/tutorial/controlnet/flow_diagram_depth_ti2_adapter.jpg?fit=max&amp;auto=format&amp;n=TwfNQ2dEaWQA7tIL&amp;q=85&amp;s=3aeec924326e1bda6ff5d1eb390f6d4c" /></p>
+<h2 id="94-mixing-controlnet">9.4 Mixing ControlNet</h2>
+<p>使用多个 ControlNet 模型来控制图像生成。</p>
+<p><img alt="Mixing ControlNet工作流" src="https://mintcdn.com/dripart/TwfNQ2dEaWQA7tIL/images/tutorial/controlnet/flow_diagram_mixing_controlnet.jpg?fit=max&amp;auto=format&amp;n=TwfNQ2dEaWQA7tIL&amp;q=85&amp;s=b839fc78bb316a334a908ff38389a3d0" /></p>
+<p>在控制图像的不同区域时，平衡强度参数尤为重要。如果一个区域的 ControlNet 强度显著高于另一个区域，可能会导致该区域的控制效果压倒并抑制另一个区域。建议为控制不同区域的 ControlNet 设置相似的强度值，例如都设为 1.0。</p>
+<p>对于区域划分混合，提示词需要包含两个区域的描述。</p>
+<p>另一种常见的混合方式是对同一主体施加多维度控制。</p>
+<h1 id="10-3d">10 3D</h1>
+<p>在 ComfyUI 中使用 Hunyuan3D-2 生成 3D 资产。</p>
+<p>Hunyuan3D 2.0 是由腾讯发布的开源 3D 资产生成模型，能够通过文本或图像生成带有高分辨率纹理贴图的高保真 3D 模型。</p>
+<p>Hunyuan3D 2.0 采用两阶段生成方法，首先生成无纹理的几何模型，然后合成高分辨率纹理贴图。这有效地将形状和纹理生成的复杂性分离开来。以下是 Hunyuan3D 2.0 的两个核心组件：</p>
+<ul>
+<li>几何生成模型（Hunyuan3D-DiT）：基于流扩散 Transformer 架构，生成与输入条件精确匹配的无纹理几何模型。</li>
+<li>纹理生成模型（Hunyuan3D-Paint）：结合几何条件和多视图扩散技术，为模型添加高分辨率纹理，支持 PBR 材质。</li>
+</ul>
+<p><strong>ComfyUI Hunyuan3D-2mv 工作流</strong></p>
+<p>此工作流中多视角图像并非必需——您可以仅使用 front 视角图像来生成 3D 模型。</p>
+<p><img alt="Hunyuan3D-2mv工作流" src="https://mintcdn.com/dripart/NmGUk_QSXQXRVtZP/images/tutorial/3d/hunyuan3d-2mv/hunyuan3d_2mv.jpg?fit=max&amp;auto=format&amp;n=NmGUk_QSXQXRVtZP&amp;q=85&amp;s=17e6ac738f0e0133536bceb6e3ea1b56" /></p>
+<p><strong>Hunyuan3D-2mv-turbo 工作流</strong></p>
+<p>在此版本的工作流中，我们将 cfg 设置为 1.0，并添加一个 flux guidance 节点以控制 distilled cfg 的生成。</p>
+<p><img alt="Hunyuan3D-2mv-turbo工作流" src="https://mintcdn.com/dripart/NmGUk_QSXQXRVtZP/images/tutorial/3d/hunyuan3d-2mv/hunyuan3d_2mv_turbo.jpg?fit=max&amp;auto=format&amp;n=NmGUk_QSXQXRVtZP&amp;q=85&amp;s=33bb861fd695fd4b10a53345f004d2cc" /></p>
+<p>Hunyuan3D-2 单视图工作流</p>
+<p>使用 Hunyuan3Dv2Conditioning 节点，而非 Hunyuan3Dv2ConditioningMultiView 节点。</p>
+<p><img alt="Hunyuan3D-2 单视图工作流" src="https://mintcdn.com/dripart/NmGUk_QSXQXRVtZP/images/tutorial/3d/hunyuan3d-2mv/hunyuan3d_2_non_multiview.jpg?w=1100&amp;fit=max&amp;auto=format&amp;n=NmGUk_QSXQXRVtZP&amp;q=85&amp;s=4648a8e392939372cd68cd10de587e8b" /></p>
+<h1 id="11">11 工具</h1>
+<h2 id="111">11.1 预处理器工作流</h2>
+<p>预处理器是用于从图像中提取结构信息的基础工具。它们将图像转换为深度图、线稿、姿态骨架和表面法线等条件信号。这些输出能够在 ControlNet、图生图以及视频工作流中实现更好的控制与一致性。</p>
+<p>将预处理器作为独立工作流使用可以无需重新运行完整图即可实现更快的迭代，预处理与生成清晰分离，更易于调试和调优，图像和视频结果更具可预测性。</p>
+<p>https://docs.comfy.org/tutorials/utility/preprocessors</p>
+<p><strong>深度估计</strong></p>
+<p>深度估计将平面图像转换为表示场景中相对距离的深度图。这种结构信号是可控生成、空间感知编辑和重光照工作流的基础。</p>
+<p><strong>线稿转换</strong></p>
+<p>线稿预处理器将图像提炼为其基本的边缘和轮廓，在保留结构的同时去除纹理和色彩。</p>
+<p><strong>姿态检测</strong></p>
+<p>姿态检测从图像中提取人体关键点和骨骼结构，从而实现对人类姿势和动作的精确控制。</p>
+<p><strong>法线提取</strong></p>
+<p>法线估计将平面图像转换为表面法线图——这是一种逐像素的方向场，用于描述表面各部分的朝向（通常以 RGB 编码）。该信号对于重新打光、基于材质的风格化以及高度结构化的编辑非常有用。</p>
+<h2 id="112">11.2 帧插值工作流 与 视频超分辨率</h2>
+<p>帧插值会在现有帧之间生成中间帧，从而使运动更平滑并提升时间一致性。该技术对于视频后期处理至关重要，可显著提高生成视频的质量。</p>
+<p>https://docs.comfy.org/tutorials/utility/image-upscale</p>
+<p>https://docs.comfy.org/tutorials/utility/video-upscale</p>
+        </article>
+        <footer class="site-footer">
+            <a href="../index.html">&larr; 返回首页</a>
+        </footer>
+    </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 介绍</a></li>
+<li><a href="#2">2 安装</a></li>
+<li><a class="toc-h2" href="#21-comfyui-desktop">2.1 ComfyUI Desktop</a></li>
+<li><a class="toc-h2" href="#22">2.2 便携版</a></li>
+<li><a class="toc-h3" href="#221-readme_very_importanttxt">2.2.1 README_VERY_IMPORTANT.txt</a></li>
+<li><a class="toc-h3" href="#222-添加额外模型路径">2.2.2 添加额外模型路径</a></li>
+<li><a class="toc-h3" href="#223">2.2.3 设置局域网访问</a></li>
+<li><a class="toc-h2" href="#23">2.3 手动安装</a></li>
+<li><a class="toc-h2" href="#24-comfy-cloud">2.4 Comfy Cloud</a></li>
+<li><a href="#3-安装自定义节点">3 安装自定义节点</a></li>
+<li><a class="toc-h2" href="#31-comfyui-manager">3.1 ComfyUI Manager（推荐）</a></li>
+<li><a class="toc-h3" href="#311-comfyui-manager">3.1.1 ComfyUI-Manager 配置</a></li>
+<li><a class="toc-h3" href="#312">3.1.2 常见问题</a></li>
+<li><a href="#4">4 基本流程</a></li>
+<li><a href="#5">5 基本概念</a></li>
+<li><a class="toc-h2" href="#51">5.1 工作流</a></li>
+<li><a class="toc-h2" href="#52">5.2 节点</a></li>
+<li><a class="toc-h3" href="#521">5.2.1 节点状态</a></li>
+<li><a class="toc-h3" href="#522">5.2.2 节点连接</a></li>
+<li><a class="toc-h3" href="#523">5.2.3 节点上下文菜单</a></li>
+<li><a class="toc-h3" href="#524">5.2.4 节点选择工具箱</a></li>
+<li><a class="toc-h3" href="#525">5.2.5 子图</a></li>
+<li><a class="toc-h3" href="#526">5.2.6 自定义节点</a></li>
+<li><a class="toc-h2" href="#53">5.3 参数</a></li>
+<li><a class="toc-h2" href="#54">5.4 链接</a></li>
+<li><a class="toc-h2" href="#55">5.5 模型</a></li>
+<li><a class="toc-h2" href="#56">5.6 依赖项</a></li>
+<li><a href="#6">6 界面概览</a></li>
+<li><a href="#7">7 其他</a></li>
+<li><a class="toc-h2" href="#_1">遮罩编辑器</a></li>
+<li><a class="toc-h2" href="#_2">子图</a></li>
+<li><a class="toc-h2" href="#_3">节点文档</a></li>
+<li><a class="toc-h2" href="#agent-mcp">Agent / MCP</a></li>
+<li><a href="#8">8 基本工作流</a></li>
+<li><a class="toc-h2" href="#81">8.1 文生图</a></li>
+<li><a class="toc-h3" href="#811">8.1.1 工作原理</a></li>
+<li><a class="toc-h3" href="#812">8.1.2 工作流节点说明</a></li>
+<li><a class="toc-h2" href="#82">8.2 图生图</a></li>
+<li><a class="toc-h2" href="#83">8.3 重绘</a></li>
+<li><a class="toc-h3" href="#831">8.3.1 使用蒙版编辑器</a></li>
+<li><a class="toc-h2" href="#84">8.4 扩图</a></li>
+<li><a class="toc-h2" href="#85">8.5 图像放大</a></li>
+<li><a class="toc-h2" href="#86-lorra">8.6 LoRRa</a></li>
+<li><a class="toc-h3" href="#861-lora">8.6.1 多LoRa</a></li>
+<li><a href="#9-controlnet">9 ControlNet</a></li>
+<li><a class="toc-h2" href="#91-pose-controlnet">9.1 Pose ControlNet</a></li>
+<li><a class="toc-h2" href="#92-depth-controlnet">9.2 Depth ControlNet</a></li>
+<li><a class="toc-h2" href="#93-depth-t2i-adapter">9.3 Depth T2I Adapter</a></li>
+<li><a class="toc-h2" href="#94-mixing-controlnet">9.4 Mixing ControlNet</a></li>
+<li><a href="#10-3d">10 3D</a></li>
+<li><a href="#11">11 工具</a></li>
+<li><a class="toc-h2" href="#111">11.1 预处理器工作流</a></li>
+<li><a class="toc-h2" href="#112">11.2 帧插值工作流 与 视频超分辨率</a></li>
+</ul>
+</nav>
+    <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
+    <script>
+        const btn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+        });
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
+    </script>
+</body>
+</html>

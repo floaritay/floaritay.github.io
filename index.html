@@ -757,6 +757,157 @@
             align-self: center;
         }
 
+        /* ========== RECENT UPDATES ========== */
+        .recent-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .recent-section { grid-template-columns: 1fr; }
+        }
+
+        .recent-item {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .recent-item:hover {
+            background: var(--card-opaque);
+            border-color: var(--border);
+            box-shadow: var(--glass-highlight);
+        }
+
+        .recent-date {
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .recent-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--ink-soft);
+            transition: color 0.2s;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .recent-item:hover .recent-title {
+            color: var(--accent);
+        }
+
+        .recent-cat {
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: var(--ink-faint);
+            background: rgba(26, 24, 20, 0.04);
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* ========== BLOG MODULE ========== */
+        .blog-page {
+            padding: 40px 0 60px;
+        }
+
+        .blog-search-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .blog-card {
+            display: block;
+            padding: 20px 24px;
+            background: var(--card-opaque);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .blog-card:hover {
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow);
+            transform: translateY(-1px);
+        }
+
+        .blog-card-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+
+        .blog-card:hover .blog-card-title {
+            color: var(--accent);
+        }
+
+        .blog-card-desc {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--ink-muted);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .blog-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.72rem;
+            color: var(--ink-faint);
+        }
+
+        .blog-card-meta .blog-date {
+            font-weight: 300;
+        }
+
+        .blog-card-meta .blog-read-time {
+            font-weight: 300;
+            opacity: 0.7;
+        }
+
+        .blog-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+        }
+
+        .blog-empty-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
         /* ========== PROJECT MODULE ========== */
         .projects-page {
             padding: 40px 0 60px;
@@ -1084,9 +1235,9 @@
 
         .note-item {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 4px 10px;
             padding: 10px 14px;
             border-radius: var(--radius-sm);
             transition: all 0.2s;
@@ -1108,9 +1259,7 @@
             font-weight: 500;
             color: var(--ink-soft);
             transition: color 0.2s;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            flex: 1 1 100%;
         }
 
         .note-item:hover .note-title { color: var(--accent); }
@@ -1121,7 +1270,6 @@
             font-weight: 300;
             color: var(--ink-faint);
             white-space: nowrap;
-            flex-shrink: 0;
         }
 
         /* Tooltip */
@@ -1177,6 +1325,42 @@
         }
 
         .hidden { display: none !important; }
+
+        /* Note date badge */
+        .note-date {
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            white-space: nowrap;
+        }
+
+        /* Note meta row (date + path) */
+        .note-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1 1 100%;
+        }
+
+        /* Sort toggle */
+        .sort-toggle {
+            padding: 4px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--card-opaque);
+            color: var(--ink-muted);
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .sort-toggle:hover {
+            color: var(--ink-soft);
+            background: rgba(255, 253, 246, 0.95);
+        }
 
         /* ========== FOOTER / BACK TO TOP ========== */
         .back-top {
@@ -1464,7 +1648,7 @@
             .path-section { padding: 24px; }
             .projects-grid { grid-template-columns: 1fr; }
             .note-grid { grid-template-columns: 1fr; }
-            .note-item { flex-direction: column; align-items: flex-start; gap: 2px; }
+            .note-item { gap: 2px; }
             .coverflow-container { height: 260px; }
             .coverflow-card { width: 240px; height: 160px; left: -120px; top: 20px; }
             .coverflow-section { margin: 32px 0; }
@@ -1493,6 +1677,7 @@
                     <button class="nav-link active" data-target="introModule" type="button">介绍</button>
                     <button class="nav-link" data-target="projectModule" type="button">项目</button>
                     <button class="nav-link" data-target="notesModule" type="button">笔记</button>
+                    <button class="nav-link" data-target="blogModule" type="button">博客</button>
                 </div>
             </div>
         </nav>
@@ -1519,15 +1704,15 @@
                     </div>
                     <div class="profile-stats">
                         <div class="stat-cell">
-                            <div class="stat-value" data-count="51">0</div>
+                            <div class="stat-value" data-count="53">0</div>
                             <div class="stat-label">Notes</div>
                         </div>
                         <div class="stat-cell">
-                            <div class="stat-value" data-count="16">0</div>
+                            <div class="stat-value" data-count="15">0</div>
                             <div class="stat-label">Categories</div>
                         </div>
                         <div class="stat-cell">
-                            <div class="stat-value" data-count="6">0</div>
+                            <div class="stat-value" data-count="5">0</div>
                             <div class="stat-label">Projects</div>
                         </div>
                         <div class="stat-cell">
@@ -1664,6 +1849,15 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Recent Updates -->
+                <div class="divider reveal">
+                    <div class="divider-line"></div>
+                    <span class="divider-label">最近更新</span>
+                    <div class="divider-line"></div>
+                </div>
+                <div class="recent-section reveal" id="recentUpdates"></div>
+
             </div>
         </section>
 
@@ -1701,11 +1895,6 @@
                         <h3>buff_web &middot; 自动化脚本</h3>
                         <p>针对网易 buff 平台开发的自动化脚本项目。</p>
                         <a class="project-link" href="https://github.com/floaritay/buff_web" target="_blank" rel="noreferrer">View Repository &rarr;</a>
-                    </article>
-                    <article class="project-card reveal">
-                        <h3>session-manager &middot; 对话记录管理</h3>
-                        <p>管理 Claude Code 和 OpenAI Codex 对话记录的本地 Web 应用。</p>
-                        <a class="project-link" href="https://github.com/floaritay/session-manager" target="_blank" rel="noreferrer">View Repository &rarr;</a>
                     </article>
                 </div>
 
@@ -1818,305 +2007,36 @@
                         <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
                         <input id="searchInput" type="search" placeholder="搜索标题、文件名或分类..." autocomplete="off" />
                     </div>
-                    <div class="result-count" id="resultInfo">50 entries</div>
+                    <button class="sort-toggle" id="sortToggle" title="切换排序">按分类</button>
+                    <div class="result-count" id="resultInfo">--</div>
                 </div>
 
                 <div class="filter-bar" id="categoryFilter"></div>
                 <div id="noResult" class="no-result-msg">没有找到匹配内容，请尝试更短关键词或切换分类。</div>
+                <div id="notesContainer"></div>
 
-                <div class="note-group" data-category="Backend">
-                    <h2 class="note-group-title">Backend</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="FastAPI" data-file="FastAPI.md" data-category="Backend" data-desc="FastAPI框架基础与路由配置" href="Backend/FastAPI.html">
-                            <span class="note-title">FastAPI</span>
-                            <span class="note-path">Backend/FastAPI.md</span>
-                        </a>
-                        <a class="note-item" data-title="RESTFulAPI" data-file="RESTFulAPI.md" data-category="Backend" data-desc="RESTful API设计原则与最佳实践" href="Backend/RESTFulAPI.html">
-                            <span class="note-title">RESTFulAPI</span>
-                            <span class="note-path">Backend/RESTFulAPI.md</span>
-                        </a>
-                    </div>
+            </div>
+        </section>
+
+        <!-- ==================== BLOG ==================== -->
+        <section id="blogModule" class="module">
+            <div class="blog-page">
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <span class="divider-label">Blog & Articles</span>
+                    <div class="divider-line"></div>
                 </div>
 
-                <div class="note-group" data-category="Agent">
-                    <h2 class="note-group-title">Agent</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="Agent" data-file="Agent.md" data-category="Agent" data-desc="AI Agent概念与核心组件" href="Agent/Agent.html">
-                            <span class="note-title">Agent</span>
-                            <span class="note-path">Agent/Agent.md</span>
-                        </a>
-                        <a class="note-item" data-title="LangChain" data-file="LangChain.md" data-category="Agent" data-desc="LangChain大模型应用开发框架" href="Agent/LangChain.html">
-                            <span class="note-title">LangChain</span>
-                            <span class="note-path">Agent/LangChain.md</span>
-                        </a>
-                        <a class="note-item" data-title="prompt" data-file="prompt.md" data-category="Agent" data-desc="提示词工程与Token机制" href="Agent/prompt.html">
-                            <span class="note-title">prompt</span>
-                            <span class="note-path">Agent/prompt.md</span>
-                        </a>
-                        <a class="note-item" data-title="OpenAI" data-file="OpenAI.md" data-category="Agent" data-desc="OpenAI API与Agent开发实践" href="Agent/OpenAI.html">
-                            <span class="note-title">OpenAI</span>
-                            <span class="note-path">Agent/OpenAI.md</span>
-                        </a>
+                <div class="blog-search-bar">
+                    <div class="search-field">
+                        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                        <input id="blogSearchInput" type="search" placeholder="搜索文章标题或摘要..." autocomplete="off" />
                     </div>
+                    <div class="result-count" id="blogResultInfo">--</div>
                 </div>
 
-                <div class="note-group" data-category="CV">
-                    <h2 class="note-group-title">CV</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="dip" data-file="dip.md" data-category="CV" data-desc="图像数字处理运算与PSNR/SSIM" href="CV/dip.html">
-                            <span class="note-title">dip</span>
-                            <span class="note-path">CV/dip.md</span>
-                        </a>
-                        <a class="note-item" data-title="exam" data-file="exam.md" data-category="CV" data-desc="数字图像处理复习笔记" href="CV/exam.html">
-                            <span class="note-title">exam</span>
-                            <span class="note-path">CV/exam.md</span>
-                        </a>
-                        <a class="note-item" data-title="OpenCV" data-file="OpenCV.md" data-category="CV" data-desc="OpenCV基础模块与图像操作" href="CV/OpenCV.html">
-                            <span class="note-title">OpenCV</span>
-                            <span class="note-path">CV/OpenCV.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="DeepLearing">
-                    <h2 class="note-group-title">DeepLearning</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="DeepLearning" data-file="DeepLearning.md" data-category="DeepLearing" data-desc="深度学习基础概念与术语" href="DeepLearing/DeepLearning.html">
-                            <span class="note-title">DeepLearning</span>
-                            <span class="note-path">DeepLearing/DeepLearning.md</span>
-                        </a>
-                        <a class="note-item" data-title="PyTorch" data-file="PyTorch.md" data-category="DeepLearing" data-desc="PyTorch深度学习框架入门" href="DeepLearing/PyTorch.html">
-                            <span class="note-title">PyTorch</span>
-                            <span class="note-path">DeepLearing/PyTorch.md</span>
-                        </a>
-                        <a class="note-item" data-title="TensorFlow" data-file="TensorFlow.md" data-category="DeepLearing" data-desc="TensorFlow基础与张量概念" href="DeepLearing/TensorFlow.html">
-                            <span class="note-title">TensorFlow</span>
-                            <span class="note-path">DeepLearing/TensorFlow.md</span>
-                        </a>
-                        <a class="note-item" data-title="TensorFlow2" data-file="TensorFlow2.md" data-category="DeepLearing" data-desc="TensorFlow模块与线性回归" href="DeepLearing/TensorFlow2.html">
-                            <span class="note-title">TensorFlow2</span>
-                            <span class="note-path">DeepLearing/TensorFlow2.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="MatLab">
-                    <h2 class="note-group-title">MatLab</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="basic" data-file="basic.md" data-category="MatLab" data-desc="MATLAB快捷键与操作指南" href="MatLab/basic.html">
-                            <span class="note-title">basic</span>
-                            <span class="note-path">MatLab/basic.md</span>
-                        </a>
-                        <a class="note-item" data-title="mathematical_modeling" data-file="mathematical_modeling.md" data-category="MatLab" data-desc="数学建模方法与层次分析法" href="MatLab/mathematical_modeling.html">
-                            <span class="note-title">mathematical_modeling</span>
-                            <span class="note-path">MatLab/mathematical_modeling.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="NLP">
-                    <h2 class="note-group-title">NLP</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="NLP" data-file="NLP.md" data-category="NLP" data-desc="自然语言模型与统计原理" href="NLP/NLP.html">
-                            <span class="note-title">NLP</span>
-                            <span class="note-path">NLP/NLP.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="ROS">
-                    <h2 class="note-group-title">ROS</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="ROS2_Introduction" data-file="ROS2_Introduction.md" data-category="ROS" data-desc="ROS2安装与Ubuntu终端指令" href="ROS/ROS2_Introduction.html">
-                            <span class="note-title">ROS2_Introduction</span>
-                            <span class="note-path">ROS/ROS2_Introduction.md</span>
-                        </a>
-                        <a class="note-item" data-title="ROS2_guyue" data-file="ROS2_guyue.md" data-category="ROS" data-desc="ROS2架构与命令行操作" href="ROS/ROS2_guyue.html">
-                            <span class="note-title">ROS2_guyue</span>
-                            <span class="note-path">ROS/ROS2_guyue.md</span>
-                        </a>
-                        <a class="note-item" data-title="ROS2_modeling_simulation" data-file="ROS2_modeling_simulation.md" data-category="ROS" data-desc="ROS2机器人URDF建模与描述" href="ROS/ROS2_modeling_simulation.html">
-                            <span class="note-title">ROS2_modeling_simulation</span>
-                            <span class="note-path">ROS/ROS2_modeling_simulation.md</span>
-                        </a>
-                        <a class="note-item" data-title="ROS2_robotics" data-file="ROS2_robotics.md" data-category="ROS" data-desc="ROS2空间坐标与TF2变换" href="ROS/ROS2_robotics.html">
-                            <span class="note-title">ROS2_robotics</span>
-                            <span class="note-path">ROS/ROS2_robotics.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="SQL">
-                    <h2 class="note-group-title">SQL</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="data_base" data-file="data_base.md" data-category="SQL" data-desc="MySQL数据库与SQL语法基础" href="SQL/data_base.html">
-                            <span class="note-title">data_base</span>
-                            <span class="note-path">SQL/data_base.md</span>
-                        </a>
-                        <a class="note-item" data-title="exam" data-file="exam.md" data-category="SQL" data-desc="数据库设计与多表查询练习" href="SQL/exam.html">
-                            <span class="note-title">exam</span>
-                            <span class="note-path">SQL/exam.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="Vibe_Coding">
-                    <h2 class="note-group-title">Vibe_Coding</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="CC_Switch" data-file="CC_Switch.md" data-category="Vibe_Coding" data-desc="CC Switch多工具API配置管理" href="Vibe_Coding/CC_Switch.html">
-                            <span class="note-title">CC_Switch</span>
-                            <span class="note-path">Vibe_Coding/CC_Switch.md</span>
-                        </a>
-                        <a class="note-item" data-title="Claude" data-file="Claude.md" data-category="Vibe_Coding" data-desc="Claude Code安装与使用指南" href="Vibe_Coding/Claude.html">
-                            <span class="note-title">Claude</span>
-                            <span class="note-path">Vibe_Coding/Claude.md</span>
-                        </a>
-                        <a class="note-item" data-title="OpenClaw" data-file="OpenClaw.md" data-category="Vibe_Coding" data-desc="OpenClaw安装与功能介绍" href="Vibe_Coding/OpenClaw.html">
-                            <span class="note-title">OpenClaw</span>
-                            <span class="note-path">Vibe_Coding/OpenClaw.md</span>
-                        </a>
-                        <a class="note-item" data-title="OpenCode" data-file="OpenCode.md" data-category="Vibe_Coding" data-desc="OpenCode安装与Coding Plan配置" href="Vibe_Coding/OpenCode.html">
-                            <span class="note-title">OpenCode</span>
-                            <span class="note-path">Vibe_Coding/OpenCode.md</span>
-                        </a>
-                        <a class="note-item" data-title="Hermes Agent" data-file="Hermes_Agent.md" data-category="Vibe_Coding" data-desc="Hermes Agent - Nous Research AI Agent" href="Vibe_Coding/Hermes_Agent.html">
-                            <span class="note-title">Hermes Agent</span>
-                            <span class="note-path">Vibe_Coding/Hermes_Agent.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="basic">
-                    <h2 class="note-group-title">Basic</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="Conda" data-file="Conda.md" data-category="basic" data-desc="Conda环境与包管理命令" href="basic/Conda.html">
-                            <span class="note-title">Conda</span>
-                            <span class="note-path">basic/Conda.md</span>
-                        </a>
-                        <a class="note-item" data-title="CUDA" data-file="CUDA.md" data-category="basic" data-desc="CUDA并行计算与GPU加速入门" href="basic/CUDA.html">
-                            <span class="note-title">CUDA</span>
-                            <span class="note-path">basic/CUDA.md</span>
-                        </a>
-                        <a class="note-item" data-title="Docker" data-file="Docker.md" data-category="basic" data-desc="Docker容器技术基础概念" href="basic/Docker.html">
-                            <span class="note-title">Docker</span>
-                            <span class="note-path">basic/Docker.md</span>
-                        </a>
-                        <a class="note-item" data-title="Git" data-file="Git.md" data-category="basic" data-desc="Git版本控制与工作流程" href="basic/Git.html">
-                            <span class="note-title">Git</span>
-                            <span class="note-path">basic/Git.md</span>
-                        </a>
-                        <a class="note-item" data-title="jupyter" data-file="jupyter.md" data-category="basic" data-desc="Jupyter Book安装与配置" href="basic/jupyter.html">
-                            <span class="note-title">jupyter</span>
-                            <span class="note-path">basic/jupyter.md</span>
-                        </a>
-                        <a class="note-item" data-title="Linux" data-file="Linux.md" data-category="basic" data-desc="Linux常用命令行操作" href="basic/Linux.html">
-                            <span class="note-title">Linux</span>
-                            <span class="note-path">basic/Linux.md</span>
-                        </a>
-                        <a class="note-item" data-title="Markdown" data-file="Markdown.md" data-category="basic" data-desc="Markdown语法与编辑器推荐" href="basic/Markdown.html">
-                            <span class="note-title">Markdown</span>
-                            <span class="note-path">basic/Markdown.md</span>
-                        </a>
-                        <a class="note-item" data-title="Obsidian" data-file="Obsidian.md" data-category="basic" data-desc="Obsidian笔记工具使用指南" href="basic/Obsidian.html">
-                            <span class="note-title">Obsidian</span>
-                            <span class="note-path">basic/Obsidian.md</span>
-                        </a>
-                        <a class="note-item" data-title="Ollama" data-file="Ollama.md" data-category="basic" data-desc="Ollama本地大模型运行平台" href="basic/Ollama.html">
-                            <span class="note-title">Ollama</span>
-                            <span class="note-path">basic/Ollama.md</span>
-                        </a>
-                        <a class="note-item" data-title="VsCode" data-file="VsCode.md" data-category="basic" data-desc="VS Code安装与界面功能说明" href="basic/VsCode.html">
-                            <span class="note-title">VsCode</span>
-                            <span class="note-path">basic/VsCode.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="data_analysis">
-                    <h2 class="note-group-title">Data Analysis</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="Matplotlib" data-file="Matplotlib.md" data-category="data_analysis" data-desc="Matplotlib数据可视化绑图示例" href="data_analysis/Matplotlib.html">
-                            <span class="note-title">Matplotlib</span>
-                            <span class="note-path">data_analysis/Matplotlib.md</span>
-                        </a>
-                        <a class="note-item" data-title="Numpy" data-file="Numpy.md" data-category="data_analysis" data-desc="NumPy常用操作与空值处理" href="data_analysis/Numpy.html">
-                            <span class="note-title">Numpy</span>
-                            <span class="note-path">data_analysis/Numpy.md</span>
-                        </a>
-                        <a class="note-item" data-title="Pandas" data-file="Pandas.md" data-category="data_analysis" data-desc="Pandas数据结构与DataFrame" href="data_analysis/Pandas.html">
-                            <span class="note-title">Pandas</span>
-                            <span class="note-path">data_analysis/Pandas.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="machine_learning">
-                    <h2 class="note-group-title">Machine Learning</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="ml" data-file="ml.md" data-category="machine_learning" data-desc="Sklearn数据集划分与训练测试" href="machine_learning/ml.html">
-                            <span class="note-title">ml</span>
-                            <span class="note-path">machine_learning/ml.md</span>
-                        </a>
-                        <a class="note-item" data-title="Sklearn" data-file="Sklearn.md" data-category="machine_learning" data-desc="Sklearn机器学习流程与算法库" href="machine_learning/Sklearn.html">
-                            <span class="note-title">Sklearn</span>
-                            <span class="note-path">machine_learning/Sklearn.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="python">
-                    <h2 class="note-group-title">Python</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="GUI" data-file="GUI.md" data-category="python" data-desc="Python GUI编程基础与布局" href="python/GUI.html">
-                            <span class="note-title">GUI</span>
-                            <span class="note-path">python/GUI.md</span>
-                        </a>
-                        <a class="note-item" data-title="learner" data-file="learner.md" data-category="python" data-desc="Python基础语法与数据结构" href="python/learner.html">
-                            <span class="note-title">learner</span>
-                            <span class="note-path">python/learner.md</span>
-                        </a>
-                        <a class="note-item" data-title="others" data-file="others.md" data-category="python" data-desc="Python常用技巧与代码示例" href="python/others.html">
-                            <span class="note-title">others</span>
-                            <span class="note-path">python/others.md</span>
-                        </a>
-                        <a class="note-item" data-title="question" data-file="question.md" data-category="python" data-desc="Python输入输出与字符串处理" href="python/question.html">
-                            <span class="note-title">question</span>
-                            <span class="note-path">python/question.md</span>
-                        </a>
-                        <a class="note-item" data-title="regular_expression" data-file="regular_expression.md" data-category="python" data-desc="Python正则表达式匹配实践" href="python/regular_expression.html">
-                            <span class="note-title">regular_expression</span>
-                            <span class="note-path">python/regular_expression.md</span>
-                        </a>
-                        <a class="note-item" data-title="Senior_Topic" data-file="Senior_Topic.md" data-category="python" data-desc="Python进阶话题与调试工具" href="python/Senior_Topic.html">
-                            <span class="note-title">Senior_Topic</span>
-                            <span class="note-path">python/Senior_Topic.md</span>
-                        </a>
-                        <a class="note-item" data-title="tkinter" data-file="tkinter.md" data-category="python" data-desc="tkinter实现贪吃蛇小游戏" href="python/tkinter.html">
-                            <span class="note-title">tkinter</span>
-                            <span class="note-path">python/tkinter.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="reptile">
-                    <h2 class="note-group-title">Reptile</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="pachong" data-file="pachong.md" data-category="reptile" data-desc="HTTP协议与爬虫基础入门" href="reptile/pachong.html">
-                            <span class="note-title">pachong</span>
-                            <span class="note-path">reptile/pachong.md</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="note-group" data-category="scrapy">
-                    <h2 class="note-group-title">Scrapy</h2>
-                    <div class="note-grid">
-                        <a class="note-item" data-title="scrapy" data-file="scrapy.md" data-category="scrapy" data-desc="Scrapy爬虫框架架构与数据流" href="scrapy/scrapy.html">
-                            <span class="note-title">scrapy</span>
-                            <span class="note-path">scrapy/scrapy.md</span>
-                        </a>
-                    </div>
-                </div>
+                <div id="blogNoResult" class="no-result-msg">没有找到匹配文章。</div>
+                <div id="blogContainer" class="blog-grid"></div>
             </div>
         </section>
 
@@ -2127,19 +2047,23 @@
     </main>
 
     <button id="backToTopBtn" class="back-top" title="回到顶部" aria-label="回到顶部">&uarr;</button>
-    <div class="kbd-hint"><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> switch sections</div>
+    <div class="kbd-hint"><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> switch sections</div>
 
+    <script src="_notes.js"></script>
+    <script src="_posts.js"></script>
     <script>
         // ========== Core ==========
         const navLinks = Array.from(document.querySelectorAll('.nav-link'));
         const modules = Array.from(document.querySelectorAll('.module'));
         const searchInput = document.getElementById('searchInput');
-        const noteItems = Array.from(document.querySelectorAll('#notesModule .note-item'));
-        const noteGroups = Array.from(document.querySelectorAll('#notesModule .note-group'));
         const resultInfo = document.getElementById('resultInfo');
         const noResult = document.getElementById('noResult');
         const categoryFilter = document.getElementById('categoryFilter');
+        const notesContainer = document.getElementById('notesContainer');
+        const sortToggle = document.getElementById('sortToggle');
         let selectedCategory = 'all';
+        let sortBy = 'category'; // 'category' or 'date'
+        let allNotes = []; // loaded from _notes.json
 
         // ========== Tab switching ==========
         function switchModule(targetId) {
@@ -2168,7 +2092,7 @@
         // ========== Keyboard ==========
         document.addEventListener('keydown', e => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            if (e.key === '1' || e.key === '2' || e.key === '3') {
+            if (e.key === '1' || e.key === '2' || e.key === '3' || e.key === '4') {
                 navLinks[parseInt(e.key) - 1]?.click();
             }
         });
@@ -2186,11 +2110,23 @@
         setTimeout(() => tabHint.style.opacity = '0', 5000);
         setTimeout(() => tabHint.remove(), 6000);
 
-        // ========== Search & filter ==========
+        // ========== Dynamic Notes System ==========
         function norm(t) { return t.toLowerCase().trim(); }
 
-        function buildChips() {
-            const cats = ['all', ...new Set(noteItems.map(i => i.dataset.category))];
+        // Load notes from _notes.js (injected by gen_notes_meta.py)
+        function loadNotes() {
+            if (window.__NOTES_DATA && window.__NOTES_DATA.length) {
+                allNotes = window.__NOTES_DATA;
+                buildCategoryChips();
+                renderNotes();
+            } else {
+                console.warn('Notes metadata not available.');
+                if (notesContainer) notesContainer.innerHTML = '<p style="color:var(--ink-muted);padding:20px 0;">笔记元数据不可用，请运行 gen_notes_meta.py 生成。</p>';
+            }
+        }
+
+        function buildCategoryChips() {
+            const cats = ['all', ...new Set(allNotes.map(n => n.category))];
             const frag = document.createDocumentFragment();
             cats.forEach(cat => {
                 const btn = document.createElement('button');
@@ -2201,35 +2137,174 @@
                 btn.addEventListener('click', () => {
                     selectedCategory = cat;
                     document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.category === selectedCategory));
-                    applyFilters();
+                    renderNotes();
                 });
                 frag.appendChild(btn);
             });
+            categoryFilter.innerHTML = '';
             categoryFilter.appendChild(frag);
         }
 
-        function applyFilters() {
+        function getFilteredNotes() {
             const kw = norm(searchInput?.value || '');
-            let vis = 0;
-            noteItems.forEach(item => {
-                const t = norm(item.dataset.title || '');
-                const f = norm(item.dataset.file || '');
-                const c = norm(item.dataset.category || '');
-                const inCat = selectedCategory === 'all' || item.dataset.category === selectedCategory;
-                const match = inCat && (!kw || t.includes(kw) || f.includes(kw) || c.includes(kw));
-                item.classList.toggle('hidden', !match);
-                if (match) vis++;
+            return allNotes.filter(n => {
+                const inCat = selectedCategory === 'all' || n.category === selectedCategory;
+                const matchKw = !kw || norm(n.title).includes(kw) || norm(n.file).includes(kw) || norm(n.category).includes(kw) || (n.desc || '').toLowerCase().includes(kw);
+                return inCat && matchKw;
             });
-            noteGroups.forEach(g => {
-                g.classList.toggle('hidden', !g.querySelector('.note-item:not(.hidden)'));
-            });
-            resultInfo.textContent = `${vis} / ${noteItems.length} entries`;
-            noResult.style.display = vis === 0 ? 'block' : 'none';
         }
 
-        searchInput?.addEventListener('input', applyFilters);
-        buildChips();
-        applyFilters();
+        function renderNotes() {
+            const filtered = getFilteredNotes();
+            // Sort
+            if (sortBy === 'date') {
+                filtered.sort((a, b) => (b.updated || '').localeCompare(a.updated || ''));
+            } else {
+                filtered.sort((a, b) => {
+                    const cc = a.categoryName.localeCompare(b.categoryName, 'zh');
+                    return cc !== 0 ? cc : a.title.localeCompare(b.title, 'zh');
+                });
+            }
+
+            // Group by category (for category sort) or flat list (for date sort)
+            let html = '';
+            if (sortBy === 'category') {
+                const groups = {};
+                filtered.forEach(n => {
+                    if (!groups[n.category]) groups[n.category] = { name: n.categoryName, items: [] };
+                    groups[n.category].items.push(n);
+                });
+                for (const [cat, group] of Object.entries(groups)) {
+                    html += `<div class="note-group" data-category="${cat}">`;
+                    html += `<h2 class="note-group-title">${group.name}</h2>`;
+                    html += '<div class="note-grid">';
+                    group.items.forEach(n => { html += buildNoteItem(n); });
+                    html += '</div></div>';
+                }
+            } else {
+                // Date sort: flat list with date headers
+                let lastDate = '';
+                filtered.forEach(n => {
+                    const d = n.updated || '未知日期';
+                    if (d !== lastDate) {
+                        if (lastDate) html += '</div></div>';
+                        html += `<div class="note-group"><h2 class="note-group-title">${d}</h2><div class="note-grid">`;
+                        lastDate = d;
+                    }
+                    html += buildNoteItem(n);
+                });
+                if (lastDate) html += '</div></div>';
+            }
+
+            notesContainer.innerHTML = html;
+            resultInfo.textContent = `${filtered.length} / ${allNotes.length} entries`;
+            noResult.style.display = filtered.length === 0 ? 'block' : 'none';
+        }
+
+        function buildNoteItem(n) {
+            const dateStr = n.updated ? `<span class="note-date">${n.updated}</span>` : '';
+            return `<a class="note-item" data-title="${esc(n.title)}" data-file="${esc(n.file)}" data-category="${esc(n.category)}" data-desc="${esc(n.desc || '')}" data-date="${n.updated || ''}" href="${esc(n.path)}">` +
+                `<span class="note-title">${esc(n.title)}</span>` +
+                `<span class="note-meta-row">${dateStr}<span class="note-path">${esc(n.category + '/' + n.file)}</span></span>` +
+                '</a>';
+        }
+
+        function esc(s) {
+            return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        // Sort toggle
+        sortToggle?.addEventListener('click', () => {
+            sortBy = sortBy === 'category' ? 'date' : 'category';
+            sortToggle.textContent = sortBy === 'category' ? '按分类' : '按时间';
+            renderNotes();
+        });
+
+        searchInput?.addEventListener('input', renderNotes);
+        loadNotes();
+
+        // ========== Recent Updates ==========
+        function renderRecentUpdates() {
+            const container = document.getElementById('recentUpdates');
+            if (!container || !window.__NOTES_DATA || !window.__NOTES_DATA.length) return;
+            const sorted = [...window.__NOTES_DATA]
+                .filter(n => n.updated)
+                .sort((a, b) => b.updated.localeCompare(a.updated))
+                .slice(0, 8);
+            container.innerHTML = sorted.map(n =>
+                `<a class="recent-item" href="${esc(n.path)}">` +
+                `<span class="recent-date">${n.updated}</span>` +
+                `<span class="recent-title">${esc(n.title)}</span>` +
+                `<span class="recent-cat">${esc(n.category)}</span>` +
+                '</a>'
+            ).join('');
+        }
+        renderRecentUpdates();
+
+        // ========== Blog Posts ==========
+        (function() {
+            const blogContainer = document.getElementById('blogContainer');
+            const blogSearchInput = document.getElementById('blogSearchInput');
+            const blogResultInfo = document.getElementById('blogResultInfo');
+            const blogNoResult = document.getElementById('blogNoResult');
+            let allPosts = [];
+
+            function escHtml(s) {
+                return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+
+            function estimateReadTime(text) {
+                // Chinese: ~400 chars/min, English: ~200 words/min
+                const chars = text.replace(/\s/g, '').length;
+                const mins = Math.max(1, Math.ceil(chars / 400));
+                return mins + ' 分钟';
+            }
+
+            function loadPosts() {
+                if (window.__POSTS_DATA && window.__POSTS_DATA.length) {
+                    allPosts = window.__POSTS_DATA;
+                    renderPosts();
+                } else {
+                    blogContainer.innerHTML = '<div class="blog-empty"><div class="blog-empty-icon">📝</div><p>还没有文章，敬请期待。</p></div>';
+                    blogResultInfo.textContent = '0 articles';
+                }
+            }
+
+            function getFilteredPosts() {
+                const kw = (blogSearchInput?.value || '').toLowerCase().trim();
+                return allPosts.filter(p => {
+                    if (!kw) return true;
+                    return (p.title || '').toLowerCase().includes(kw) ||
+                           (p.desc || '').toLowerCase().includes(kw);
+                });
+            }
+
+            function renderPosts() {
+                const filtered = getFilteredPosts();
+                if (filtered.length === 0 && allPosts.length > 0) {
+                    blogContainer.innerHTML = '';
+                    blogNoResult.style.display = 'block';
+                } else if (filtered.length === 0) {
+                    blogContainer.innerHTML = '<div class="blog-empty"><div class="blog-empty-icon">📝</div><p>还没有文章，敬请期待。</p></div>';
+                    blogNoResult.style.display = 'none';
+                } else {
+                    blogNoResult.style.display = 'none';
+                    blogContainer.innerHTML = filtered.map(p => {
+                        const dateStr = p.updated ? '<span class="blog-date">' + p.updated + '</span>' : '';
+                        const readTime = '<span class="blog-read-time">⏱ ' + estimateReadTime(p.desc || '') + '</span>';
+                        return '<a class="blog-card" href="' + escHtml(p.path) + '">' +
+                            '<div class="blog-card-title">' + escHtml(p.title) + '</div>' +
+                            (p.desc ? '<div class="blog-card-desc">' + escHtml(p.desc) + '</div>' : '') +
+                            '<div class="blog-card-meta">' + dateStr + readTime + '</div>' +
+                            '</a>';
+                    }).join('');
+                }
+                blogResultInfo.textContent = filtered.length + ' / ' + allPosts.length + ' articles';
+            }
+
+            blogSearchInput?.addEventListener('input', renderPosts);
+            loadPosts();
+        })();
 
         // ========== Scroll reveal ==========
         const revealObserver = new IntersectionObserver(entries => {
@@ -2307,7 +2382,7 @@
             header.addEventListener('mouseleave', () => glow.style.opacity = '0');
         }
 
-        // ========== Note tooltips ==========
+        // ========== Note tooltips (event delegation) ==========
         (function() {
             const tip = document.createElement('div');
             tip.className = 'note-tooltip';
@@ -2319,23 +2394,6 @@
             const pathEl = tip.querySelector('.tip-path');
             let hideTimer = null;
 
-            document.querySelectorAll('.note-item').forEach(item => {
-                item.addEventListener('mouseenter', e => {
-                    clearTimeout(hideTimer);
-                    titleEl.textContent = item.dataset.title || '';
-                    descEl.textContent = item.dataset.desc || '';
-                    pathEl.textContent = item.dataset.file ? 'docs/' + (item.closest('.note-group')?.dataset.category === 'root' ? '' : item.dataset.category + '/') + item.dataset.file : '';
-                    tip.classList.add('visible');
-                    positionTip(e);
-                });
-
-                item.addEventListener('mousemove', positionTip);
-
-                item.addEventListener('mouseleave', () => {
-                    hideTimer = setTimeout(() => tip.classList.remove('visible'), 80);
-                });
-            });
-
             function positionTip(e) {
                 const pad = 14;
                 let x = e.clientX + pad;
@@ -2345,6 +2403,31 @@
                 if (y + rect.height > window.innerHeight - 16) y = e.clientY - rect.height - pad;
                 tip.style.left = x + 'px';
                 tip.style.top = y + 'px';
+            }
+
+            // Use event delegation on notesContainer for dynamic elements
+            const container = document.getElementById('notesContainer');
+            if (container) {
+                container.addEventListener('mouseenter', e => {
+                    const item = e.target.closest('.note-item');
+                    if (!item) return;
+                    clearTimeout(hideTimer);
+                    titleEl.textContent = item.dataset.title || '';
+                    descEl.textContent = item.dataset.desc || '';
+                    pathEl.textContent = item.dataset.file ? 'docs/' + (item.dataset.category || '') + '/' + item.dataset.file : '';
+                    tip.classList.add('visible');
+                    positionTip(e);
+                }, true);
+                container.addEventListener('mousemove', e => {
+                    if (e.target.closest('.note-item')) positionTip(e);
+                });
+                container.addEventListener('mouseleave', e => {
+                    const from = e.target.closest('.note-item');
+                    const to = e.relatedTarget?.closest?.('.note-item');
+                    if (from && !to) {
+                        hideTimer = setTimeout(() => tip.classList.remove('visible'), 80);
+                    }
+                }, true);
             }
         })();
 
@@ -2362,7 +2445,6 @@
                 { name: 'Coze 智能体', desc: '基于 Coze 平台智能体搭建与工作流编排实践。', src: 'images/projects/Coze.png', color: ['#0f766e','#14b8a6'] },
                 { name: 'FastGPT 知识库', desc: '基于 FastGPT 构建私有知识库问答系统，支持文档导入与多轮对话。', src: 'images/projects/FastGPT.png', color: ['#475569','#64748b'] },
                 { name: 'ComfyUI 工作流', desc: 'ComfyUI 节点式 Stable Diffusion 视频生成工作流搭建与调试。', src: 'images/projects/ComfyUI.png', color: ['#7c3aed','#a78bfa'] },
-                { name: 'Session Manager', desc: '管理 Claude Code 与 OpenAI Codex 对话记录的本地 Web 应用。', src: 'images/projects/Session-Manager.png', color: ['#0369a1','#38bdf8'] },
                 { name: 'ROS2 机器人仿真', desc: '基于 ROS2 与 Gazebo 的机器人建模、导航与仿真控制实践。', src: 'images/projects/ROS.png', color: ['#15803d','#4ade80'] },
                 { name: 'SVM 支持向量机', desc: '基于SVM的作物分类，机器学习经典算法实践。', src: 'images/projects/SVM.png', color: ['#9333ea','#c084fc'] },
             ];

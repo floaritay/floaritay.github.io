@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>RESTFulAPI - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,63 +482,9 @@
             <span class="sep">/</span>
             <span>Backend</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-14</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-介绍">1 介绍</a><ul>
-<li><a href="#11-核心原则">1.1 核心原则</a></li>
-</ul>
-</li>
-<li><a href="#2-概念">2 概念</a><ul>
-<li><a href="#21-api">2.1 API</a></li>
-<li><a href="#22-rest">2.2 REST</a></li>
-</ul>
-</li>
-<li><a href="#3-http">3 HTTP</a></li>
-<li><a href="#4-url-设计规范">4 URL 设计规范</a><ul>
-<li><a href="#41-资源导向">4.1 资源导向</a></li>
-<li><a href="#42-命名规范">4.2 命名规范</a></li>
-<li><a href="#43-嵌套资源">4.3 嵌套资源</a></li>
-<li><a href="#44-查询参数">4.4 查询参数</a></li>
-<li><a href="#45-版本控制">4.5 版本控制</a></li>
-</ul>
-</li>
-<li><a href="#5-请求和响应格式">5 请求和响应格式</a><ul>
-<li><a href="#51-请求格式">5.1 请求格式</a></li>
-<li><a href="#52-响应结构设计">5.2 响应结构设计</a></li>
-</ul>
-</li>
-<li><a href="#6-实际应用">6 实际应用</a><ul>
-<li><a href="#61-完整流程">6.1 完整流程</a></li>
-<li><a href="#62-错误处理">6.2 错误处理</a></li>
-</ul>
-</li>
-<li><a href="#7-实践">7 实践</a><ul>
-<li><a href="#71-身份验证和授权">7.1 身份验证和授权</a></li>
-<li><a href="#72-https-和数据加密">7.2 HTTPS 和数据加密</a></li>
-<li><a href="#73-性能优化实践">7.3 性能优化实践</a></li>
-<li><a href="#74-错误处理最佳实践">7.4 错误处理最佳实践</a></li>
-<li><a href="#75-api-文档化">7.5 API 文档化</a></li>
-<li><a href="#76-版本控制策略">7.6 版本控制策略</a></li>
-</ul>
-</li>
-<li><a href="#8-调试">8 调试</a><ul>
-<li><a href="#81-postman">8.1 Postman</a></li>
-<li><a href="#82-curl-命令行测试">8.2 curl 命令行测试</a></li>
-<li><a href="#83-浏览器开发者工具">8.3 浏览器开发者工具</a></li>
-<li><a href="#84-其他问题">8.4 其他问题</a></li>
-<li><a href="#85-自动化测试">8.5 自动化测试</a></li>
-</ul>
-</li>
-<li><a href="#9-curl">9 curl</a><ul>
-<li><a href="#91-选项">9.1 选项</a></li>
-<li><a href="#92-query-参数">9.2 Query 参数</a></li>
-</ul>
-</li>
-<li><a href="#10-进阶">10 进阶</a></li>
-</ul>
-<hr />
-<h1 id="1-介绍">1 介绍</h1>
+<h1 id="1">1 介绍</h1>
 <p>在现代 Web 开发中，RESTful API 已成为应用程序之间通信的标准方式。</p>
 <p>REST（Representational State Transfer，表述性状态转移）是一种软件架构风格</p>
 <p>REST 定义了一组约束条件和原则，用于创建可扩展、松耦合的 Web 服务。</p>
@@ -451,7 +495,7 @@
 <li>资源导向：所有内容都被抽象为资源</li>
 <li>可缓存：响应应明确是否可缓存</li>
 </ul>
-<h2 id="11-核心原则">1.1 核心原则</h2>
+<h2 id="11">1.1 核心原则</h2>
 <p>所有事物都被抽象为资源，每个资源有唯一的标识符（URI）。</p>
 <ul>
 <li>使用名词而非动词表示资源</li>
@@ -520,7 +564,7 @@
 <ul>
 <li>资源可以有多种表述形式（如JSON、XML），客户端通过Accept头指定需要的格式。</li>
 </ul>
-<h1 id="2-概念">2 概念</h1>
+<h1 id="2">2 概念</h1>
 <p>一种基于HTTP协议的软件架构风格，用于构建网络应用程序接口。</p>
 <p><img alt="image.png" src="RESTFulAPI_files/image.png" /></p>
 <h2 id="21-api">2.1 API</h2>
@@ -564,8 +608,8 @@
 </ol>
 <h1 id="3-http">3 HTTP</h1>
 <p>参考<a href="FastAPI.md#http-相关">FastAPI.md 中 HTTP 部分</a></p>
-<h1 id="4-url-设计规范">4 URL 设计规范</h1>
-<h2 id="41-资源导向">4.1 资源导向</h2>
+<h1 id="4-url">4 URL 设计规范</h1>
+<h2 id="41">4.1 资源导向</h2>
 <p>RESTful API 的 URL 应该表示"资源"而不是"动作"。</p>
 <p>例如</p>
 <div class="highlight"><pre><span></span><code>GET /api/users          # 获取所有用户
@@ -575,7 +619,7 @@ PUT /api/users/123      # 更新用户 123
 DELETE /api/users/123   # 删除用户 123
 </code></pre></div>
 
-<h2 id="42-命名规范">4.2 命名规范</h2>
+<h2 id="42">4.2 命名规范</h2>
 <div class="highlight"><pre><span></span><code>使用名词而非动词
 GET /api/books
 
@@ -589,7 +633,7 @@ GET /api/user-orders
 GET /api/user-profiles
 </code></pre></div>
 
-<h2 id="43-嵌套资源">4.3 嵌套资源</h2>
+<h2 id="43">4.3 嵌套资源</h2>
 <p>当资源之间有从属关系时，可以使用嵌套 URL：</p>
 <div class="highlight"><pre><span></span><code>// 获取用户 123 的所有订单
 GET /api/users/123/orders
@@ -601,7 +645,7 @@ GET /api/users/123/orders/456
 POST /api/users/123/orders
 </code></pre></div>
 
-<h2 id="44-查询参数">4.4 查询参数</h2>
+<h2 id="44">4.4 查询参数</h2>
 <div class="highlight"><pre><span></span><code>javascript// 分页
 GET /api/users?page=1&amp;limit=10
 
@@ -615,7 +659,7 @@ GET /api/users?sort=created_at&amp;order=desc
 GET /api/users?search=张三
 </code></pre></div>
 
-<h2 id="45-版本控制">4.5 版本控制</h2>
+<h2 id="45">4.5 版本控制</h2>
 <p>URL 路径版本控制</p>
 <div class="highlight"><pre><span></span><code>GET /api/v1/users
 GET /api/v2/users
@@ -626,9 +670,9 @@ GET /api/v2/users
 Accept: application/vnd.api+json;version=1
 </code></pre></div>
 
-<h1 id="5-请求和响应格式">5 请求和响应格式</h1>
+<h1 id="5">5 请求和响应格式</h1>
 <p>现代 RESTful API 主要使用 JSON（JavaScript Object Notation）格式来传输数据。</p>
-<h2 id="51-请求格式">5.1 请求格式</h2>
+<h2 id="51">5.1 请求格式</h2>
 <div class="highlight"><pre><span></span><code><span class="c1">// 请求</span>
 <span class="nx">GET</span><span class="w"> </span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">users</span><span class="o">/</span><span class="mf">123</span>
 <span class="nx">Accept</span><span class="o">:</span><span class="w"> </span><span class="nx">application</span><span class="o">/</span><span class="nx">json</span>
@@ -661,7 +705,7 @@ Accept: application/vnd.api+json;version=1
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="52-响应结构设计">5.2 响应结构设计</h2>
+<h2 id="52">5.2 响应结构设计</h2>
 <div class="highlight"><pre><span></span><code><span class="c1">// 统一的响应格式</span>
 <span class="p">{</span>
 <span class="w">  </span><span class="s2">&quot;success&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
@@ -743,9 +787,9 @@ Accept: application/vnd.api+json;version=1
 </tr>
 </tbody>
 </table>
-<h1 id="6-实际应用">6 实际应用</h1>
+<h1 id="6">6 实际应用</h1>
 <p>设计一个完整的用户管理系统 API</p>
-<h2 id="61-完整流程">6.1 完整流程</h2>
+<h2 id="61">6.1 完整流程</h2>
 <p>API 端点设计</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// 用户相关操作</span>
 <span class="nx">GET</span><span class="w">    </span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">users</span><span class="w">           </span><span class="err">#</span><span class="w"> </span><span class="nx">获取用户列表</span>
@@ -898,7 +942,7 @@ Accept: application/vnd.api+json;version=1
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="62-错误处理">6.2 错误处理</h2>
+<h2 id="62">6.2 错误处理</h2>
 <p>数据验证错误</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// 请求（邮箱格式错误）</span>
 <span class="nx">POST</span><span class="w"> </span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">users</span>
@@ -946,8 +990,8 @@ Accept: application/vnd.api+json;version=1
 <span class="p">}</span>
 </code></pre></div>
 
-<h1 id="7-实践">7 实践</h1>
-<h2 id="71-身份验证和授权">7.1 身份验证和授权</h2>
+<h1 id="7">7 实践</h1>
+<h2 id="71">7.1 身份验证和授权</h2>
 <div class="highlight"><pre><span></span><code>// 使用 JWT Token 进行身份验证
 GET /api/users/profile
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
@@ -981,9 +1025,9 @@ POST /api/users
 }
 </code></pre></div>
 
-<h2 id="72-https-和数据加密">7.2 HTTPS 和数据加密</h2>
+<h2 id="72-https">7.2 HTTPS 和数据加密</h2>
 <p>使用https如 https://api.example.com/users</p>
-<h2 id="73-性能优化实践">7.3 性能优化实践</h2>
+<h2 id="73">7.3 性能优化实践</h2>
 <div class="highlight"><pre><span></span><code>// 1. 数据分页
 // 避免一次返回大量数据
 GET /api/users?page=1&amp;limit=20
@@ -1024,7 +1068,7 @@ If-None-Match: &quot;etag-value&quot;
 // 304 Not Modified (数据未变化)
 </code></pre></div>
 
-<h2 id="74-错误处理最佳实践">7.4 错误处理最佳实践</h2>
+<h2 id="74">7.4 错误处理最佳实践</h2>
 <div class="highlight"><pre><span></span><code>// 统一错误格式
 {
   &quot;success&quot;: false,
@@ -1051,7 +1095,7 @@ const ERROR_CODES = {
 }
 </code></pre></div>
 
-<h2 id="75-api-文档化">7.5 API 文档化</h2>
+<h2 id="75-api">7.5 API 文档化</h2>
 <div class="highlight"><pre><span></span><code>// 使用标准化文档格式
 // 推荐使用 OpenAPI (Swagger) 规范：
 
@@ -1089,7 +1133,7 @@ paths:
                       $ref: &#39;#/components/schemas/User&#39;
 </code></pre></div>
 
-<h2 id="76-版本控制策略">7.6 版本控制策略</h2>
+<h2 id="76">7.6 版本控制策略</h2>
 <div class="highlight"><pre><span></span><code><span class="nx">URL</span><span class="w"> </span><span class="nx">版本控制</span><span class="err">（</span><span class="nx">推荐</span><span class="err">）</span>
 <span class="c1">// 版本1</span>
 <span class="nx">GET</span><span class="w"> </span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">v1</span><span class="o">/</span><span class="nx">users</span>
@@ -1112,7 +1156,7 @@ paths:
 }
 </code></pre></div>
 
-<h1 id="8-调试">8 调试</h1>
+<h1 id="8">8 调试</h1>
 <h2 id="81-postman">8.1 Postman</h2>
 <p>Postman 是最流行的 API 测试工具 https://www.postman.com/。</p>
 <p>基本测试步骤：</p>
@@ -1150,7 +1194,7 @@ paths:
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="82-curl-命令行测试">8.2 curl 命令行测试</h2>
+<h2 id="82-curl">8.2 curl 命令行测试</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 获取用户列表</span>
 curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;https://api.example.com/users&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span>
@@ -1176,7 +1220,7 @@ curl<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </s
 <span class="w">     </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span>
 </code></pre></div>
 
-<h2 id="83-浏览器开发者工具">8.3 浏览器开发者工具</h2>
+<h2 id="83">8.3 浏览器开发者工具</h2>
 <div class="highlight"><pre><span></span><code><span class="c1">// 在浏览器控制台中测试</span>
 <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/users&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;GET&#39;</span><span class="p">,</span>
@@ -1189,7 +1233,7 @@ curl<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </s
 <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">));</span>
 </code></pre></div>
 
-<h2 id="84-其他问题">8.4 其他问题</h2>
+<h2 id="84">8.4 其他问题</h2>
 <ol>
 <li>
 <p>CORS 跨域问题<br />
@@ -1232,7 +1276,7 @@ next();
 
 </li>
 </ol>
-<h2 id="85-自动化测试">8.5 自动化测试</h2>
+<h2 id="85">8.5 自动化测试</h2>
 <div class="highlight"><pre><span></span><code><span class="c1">// 使用 Jest 测试框架</span>
 <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;用户 API 测试&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;应该能够获取用户列表&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
@@ -1269,7 +1313,7 @@ next();
 
 <h1 id="9-curl">9 curl</h1>
 <p>基本格式 <code>curl [选项] [URL]</code></p>
-<h2 id="91-选项">9.1 选项</h2>
+<h2 id="91">9.1 选项</h2>
 <p>-X：指定 HTTP 方法</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;http://localhost:3000/api/books&quot;</span><span class="w"> </span><span class="c1"># -X GET 可以省略</span>
 curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;http://localhost:3000/api/books&quot;</span>
@@ -1302,20 +1346,61 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
 curl<span class="w"> </span>-v<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;http://localhost:3000/api/books&quot;</span>
 </code></pre></div>
 
-<h2 id="92-query-参数">9.2 Query 参数</h2>
+<h2 id="92-query">9.2 Query 参数</h2>
 <p>GET 请求的问号后面。只能传递扁平的键值对。
 Query 参数是完全暴露的，不要传密码、Token 等敏感信息。
 最常绑定在 GET 和 DELETE 请求上。很多服务器、网关、缓存代理会直接丢弃 GET 请求的 Body，不要在 GET 请求中使用请求体。</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">&quot;http://localhost:3000/api/books?page=1&amp;pageSize=10&amp;keyword=API&quot;</span>
 </code></pre></div>
 
-<h1 id="10-进阶">10 进阶</h1>
+<h1 id="10">10 进阶</h1>
         </article>
         <footer class="site-footer">
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 介绍</a></li>
+<li><a class="toc-h2" href="#11">1.1 核心原则</a></li>
+<li><a href="#2">2 概念</a></li>
+<li><a class="toc-h2" href="#21-api">2.1 API</a></li>
+<li><a class="toc-h2" href="#22-rest">2.2 REST</a></li>
+<li><a href="#3-http">3 HTTP</a></li>
+<li><a href="#4-url">4 URL 设计规范</a></li>
+<li><a class="toc-h2" href="#41">4.1 资源导向</a></li>
+<li><a class="toc-h2" href="#42">4.2 命名规范</a></li>
+<li><a class="toc-h2" href="#43">4.3 嵌套资源</a></li>
+<li><a class="toc-h2" href="#44">4.4 查询参数</a></li>
+<li><a class="toc-h2" href="#45">4.5 版本控制</a></li>
+<li><a href="#5">5 请求和响应格式</a></li>
+<li><a class="toc-h2" href="#51">5.1 请求格式</a></li>
+<li><a class="toc-h2" href="#52">5.2 响应结构设计</a></li>
+<li><a href="#6">6 实际应用</a></li>
+<li><a class="toc-h2" href="#61">6.1 完整流程</a></li>
+<li><a class="toc-h2" href="#62">6.2 错误处理</a></li>
+<li><a href="#7">7 实践</a></li>
+<li><a class="toc-h2" href="#71">7.1 身份验证和授权</a></li>
+<li><a class="toc-h2" href="#72-https">7.2 HTTPS 和数据加密</a></li>
+<li><a class="toc-h2" href="#73">7.3 性能优化实践</a></li>
+<li><a class="toc-h2" href="#74">7.4 错误处理最佳实践</a></li>
+<li><a class="toc-h2" href="#75-api">7.5 API 文档化</a></li>
+<li><a class="toc-h2" href="#76">7.6 版本控制策略</a></li>
+<li><a href="#8">8 调试</a></li>
+<li><a class="toc-h2" href="#81-postman">8.1 Postman</a></li>
+<li><a class="toc-h2" href="#82-curl">8.2 curl 命令行测试</a></li>
+<li><a class="toc-h2" href="#83">8.3 浏览器开发者工具</a></li>
+<li><a class="toc-h2" href="#84">8.4 其他问题</a></li>
+<li><a class="toc-h2" href="#85">8.5 自动化测试</a></li>
+<li><a href="#9-curl">9 curl</a></li>
+<li><a class="toc-h2" href="#91">9.1 选项</a></li>
+<li><a class="toc-h2" href="#92-query">9.2 Query 参数</a></li>
+<li><a href="#10">10 进阶</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1324,6 +1409,45 @@ Query 参数是完全暴露的，不要传密码、Token 等敏感信息。
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

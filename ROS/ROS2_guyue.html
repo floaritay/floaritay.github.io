@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>ROS2_guyue - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,9 +482,8 @@
             <span class="sep">/</span>
             <span>ROS</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
 <h1 id="robot-operating-system"><strong>Robot Operating System</strong></h1>
 <h1 id="ros1-ros2">ROS1 和 ROS2</h1>
 <p><img alt="image.png" src="ROS2_guyue_files/image.png" />
@@ -414,7 +511,7 @@ ROS2把这个最不稳定的角色请走了，节点可以通过另外一套disc
 核心概念没变化<br />
 编程难度有上升  </p>
 <h1 id="ubuntu-ros2">Ubuntu 与 ROS2安装</h1>
-<h1 id="_2">命令行操作</h1>
+<h1 id="_1">命令行操作</h1>
 <p><strong>Terminal，终端</strong><br />
 启动终端的方式有很多种：  </p>
 <ul>
@@ -474,28 +571,28 @@ $<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/turtle1/pose
 </code></pre></div>
 
-<h2 id="_3">发布话题</h2>
+<h2 id="_2">发布话题</h2>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>--rate<span class="w"> </span><span class="m">1</span><span class="w"> </span>/turtle1/cmd_vel<span class="w"> </span>geometry_msgs/msg/Twist<span class="w"> </span><span class="s2">&quot;{linear: {x: 2.0, y: 0.0, </span>
 <span class="s2">z: 0.0}, angular: {x: 0.0, y: 0.0, z: 1.8}}&quot;</span><span class="w"> </span>
 </code></pre></div>
 
-<h2 id="_4">发布服务请求</h2>
+<h2 id="_3">发布服务请求</h2>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/spawn<span class="w"> </span>turtlesim/srv/Spawn<span class="w"> </span><span class="s2">&quot;{x: 2, y: 2, theta: 0.2, name: &#39;&#39;}&quot;</span>
 </code></pre></div>
 
-<h2 id="_5">发送动作目标</h2>
+<h2 id="_4">发送动作目标</h2>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>ros2<span class="w"> </span>action<span class="w"> </span>send_goal<span class="w"> </span>/turtle1/rotate_absolute<span class="w"> </span>turtlesim/action/RotateAbsolute<span class="w"> </span><span class="s2">&quot;theta: 3&quot;</span>
 </code></pre></div>
 
-<h2 id="_6">数据录制与播放</h2>
+<h2 id="_5">数据录制与播放</h2>
 <div class="highlight"><pre><span></span><code><span class="gh">#</span>数据录制 
 $ ros2 bag record /turtle1/cmd_vel 
 <span class="gh">#</span>数据播放 (注意路径和文件名)
 $ ros2 bag play rosbag2_2024_07_06-21_21_23/ rosbag2_2024_07_06-21_21_23_0.mcap
 </code></pre></div>
 
-<h1 id="_7">工作空间</h1>
-<h2 id="_8">定义与结果</h2>
+<h1 id="_6">工作空间</h1>
+<h2 id="_7">定义与结果</h2>
 <p>我们想要编写程序之前，都会在开发环境的工具栏中，点击一个“创建新工程”的选项，此时就产生一个文件夹，后续所有工作产生的文件，都会放置在这个文件夹中，这个文件夹以及里边的内容，就叫做 <strong>工程</strong> 。</p>
 <p>在ROS机器人开发中，我们针对机器人某些功能进行代码开始时，各种编写的代码、参数、脚本等文件，也需要放置在某一个文件夹里进行管理，这个文件夹在ROS系统中就叫做 <strong>工作空间</strong> 。</p>
 <p>所以工作空间是一个存放项目开发相关文件的文件夹，也是开发过程中存放所有资料的大本营。</p>
@@ -508,13 +605,43 @@ $ ros2 bag play rosbag2_2024_07_06-21_21_23/ rosbag2_2024_07_06-21_21_23_0.mcap
 <li>log，日志空间，编译和运行过程中，保存各种警告、错误、信息等日志</li>
 </ul>
 <p>这四个空间的文件夹，我们绝大部分操作都是在src中进行的，编译成功后，就会执行install里边的结果，build和log两个文件夹用的很少。</p>
-<h2 id="_9">创建工作空间</h2>
+<h2 id="_8">创建工作空间</h2>
         </article>
         <footer class="site-footer">
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#robot-operating-system">Robot Operating System</a></li>
+<li><a href="#ros1-ros2">ROS1 和 ROS2</a></li>
+<li><a href="#ubuntu-ros2">Ubuntu 与 ROS2安装</a></li>
+<li><a href="#_1">命令行操作</a></li>
+<li><a class="toc-h2" href="#cd">cd</a></li>
+<li><a class="toc-h2" href="#pwd">pwd</a></li>
+<li><a class="toc-h2" href="#mkdir">mkdir</a></li>
+<li><a class="toc-h2" href="#ls">ls</a></li>
+<li><a class="toc-h2" href="#gedit">gedit</a></li>
+<li><a class="toc-h2" href="#mv">mv</a></li>
+<li><a class="toc-h2" href="#cp">cp</a></li>
+<li><a class="toc-h2" href="#rm">rm</a></li>
+<li><a class="toc-h2" href="#sudo">sudo</a></li>
+<li><a href="#ros2">ROS2命令行</a></li>
+<li><a class="toc-h2" href="#ros2-run">ros2 run 运行节点</a></li>
+<li><a class="toc-h2" href="#ros2-node-list">ros2 node list 查看节点</a></li>
+<li><a class="toc-h2" href="#ros2-topic-list">ros2 topic list 查看话题</a></li>
+<li><a class="toc-h2" href="#_2">发布话题</a></li>
+<li><a class="toc-h2" href="#_3">发布服务请求</a></li>
+<li><a class="toc-h2" href="#_4">发送动作目标</a></li>
+<li><a class="toc-h2" href="#_5">数据录制与播放</a></li>
+<li><a href="#_6">工作空间</a></li>
+<li><a class="toc-h2" href="#_7">定义与结果</a></li>
+<li><a class="toc-h2" href="#_8">创建工作空间</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -523,6 +650,45 @@ $ ros2 bag play rosbag2_2024_07_06-21_21_23/ rosbag2_2024_07_06-21_21_23_0.mcap
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>ROS2_Introduction - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,13 +482,12 @@
             <span class="sep">/</span>
             <span>ROS</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
 <h1 id="ros2">ROS2 介绍与安装</h1>
 <h2 id="linux-ubuntu">Linux 与 Ubuntu</h2>
 <h2 id="ubuntu">Ubuntu 安装</h2>
-<h2 id="_2">常用终端指令</h2>
+<h2 id="_1">常用终端指令</h2>
 <h3 id="ls">ls命令</h3>
 <p>list 的缩写，查看 linux 文件夹包含的文件，而且可以查看文件权限(包括目录、文件夹、文件权限)查看目录信息等等。</p>
 <p>常用参数搭配：</p>
@@ -506,7 +603,7 @@ sudo apt autoremove
 /opt/ros/humble/</p>
 <h2 id="ros2_3">ROS2系统架构</h2>
 <p><img alt="image.png" src="ROS2_Introduction_files/image.png" /></p>
-<h3 id="_3">操作系统层</h3>
+<h3 id="_2">操作系统层</h3>
 <p>基于Linux、Windows或者macOS系统</p>
 <h3 id="dds">DDS实现层</h3>
 <p>DDS，全称 Data Distribution Service (数据分发服务)。是由对象管理组 (OMG) 于 2003 年发布并于 2007 年修订的开分布式系统标准。</p>
@@ -523,11 +620,11 @@ sudo apt autoremove
 <p>rmw（中间件接口）层是对各家DDS的抽象层，基于rmw实现了rclc，有了rclc，我们就可以实现各个语言的库</p>
 <p>基于rclc，ROS2官方实现了rclpy和rclcpp</p>
 <p>基于rclpy和rclcpp就可以实现上层的应用了</p>
-<h3 id="_4">应用层</h3>
+<h3 id="_3">应用层</h3>
 <p>写代码以及ROS2开发的各种常用的机器人相关开发工具所在的层</p>
 <h2 id="ros2-dds">ROS2 中间件 DDS 架构</h2>
 <p>导论：DDS是什么、ROS2使用DDS所带来的优缺点  </p>
-<h3 id="_5">什么是中间件</h3>
+<h3 id="_4">什么是中间件</h3>
 <h3 id="ros1-ros2_1">ROS1 与 ROS2 中间件对比</h3>
 <p><img alt="image.png" src="ROS2_Introduction_files/image.png" /></p>
 <p>ROS1的中间件是ROS组织自己基于TCP/UDP机制建立的</p>
@@ -536,7 +633,7 @@ sudo apt autoremove
 <p>ROS2为每家DDS供应商都开发了对应的DDS_Interface即DDS接口层，然后通过DDS Abstract抽象层来统一DDS的API</p>
 <h3 id="dds_1">DDS通信模型</h3>
 <h3 id="dds_2">DDS优劣势</h3>
-<h1 id="_6">节点</h1>
+<h1 id="_5">节点</h1>
 <p>ROS2中节点是只负责一个单独的模块化的功能（比如一个节点负责控制车轮转动，一个节点负责从激光雷达获取数据等等）  </p>
 <p>节点与节点之间一共四种通信方式:</p>
 <ul>
@@ -545,27 +642,27 @@ sudo apt autoremove
 <li>动作-Action</li>
 <li>参数-parameters</li>
 </ul>
-<h2 id="_7">启动节点</h2>
+<h2 id="_6">启动节点</h2>
 <div class="highlight"><pre><span></span><code><span class="nx">ros2</span><span class="w"> </span><span class="nx">run</span><span class="w"> </span><span class="p">&lt;</span><span class="nx">package_name</span><span class="p">&gt;</span><span class="w"> </span><span class="p">&lt;</span><span class="nx">executable_name</span><span class="p">&gt;</span>
 </code></pre></div>
 
-<h2 id="_8">查看节点列表</h2>
+<h2 id="_7">查看节点列表</h2>
 <div class="highlight"><pre><span></span><code>ros2 node list
 </code></pre></div>
 
-<h2 id="_9">查看节点信息</h2>
+<h2 id="_8">查看节点信息</h2>
 <div class="highlight"><pre><span></span><code>ros2 node info &lt;node_name&gt;
 </code></pre></div>
 
-<h2 id="_10">重映射节点名称</h2>
+<h2 id="_9">重映射节点名称</h2>
 <div class="highlight"><pre><span></span><code><span class="n">ros2</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">turtlesim</span><span class="w"> </span><span class="n">turtlesim_node</span><span class="w"> </span><span class="o">--</span><span class="n">ros</span><span class="o">-</span><span class="n">args</span><span class="w"> </span><span class="o">--</span><span class="n">remap</span><span class="w"> </span><span class="n">__node</span><span class="o">:=</span><span class="n">my_turtle</span>
 </code></pre></div>
 
-<h2 id="_11">运行节点时设置参数</h2>
+<h2 id="_10">运行节点时设置参数</h2>
 <div class="highlight"><pre><span></span><code><span class="n">ros2</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">example_parameters_rclcpp</span><span class="w"> </span><span class="n">parameters_basic</span><span class="w"> </span><span class="o">--</span><span class="n">ros</span><span class="o">-</span><span class="n">args</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">rcl_log_level</span><span class="o">:=</span><span class="mi">10</span>
 </code></pre></div>
 
-<h1 id="_12">功能包与工作空间</h1>
+<h1 id="_11">功能包与工作空间</h1>
 <p>运行一个节点的时候使用的是</p>
 <div class="highlight"><pre><span></span><code>ros2 run 包名字 可执行文件名字
 </code></pre></div>
@@ -573,13 +670,13 @@ sudo apt autoremove
 <p>我们想找到一个节点（可执行文件），就必须要先知道它在哪个包，那问题就来了，想要找到某个包，该去哪里找？</p>
 <p>答案就是：工作空间</p>
 <p>注意：一个工作空间下可以有多个功能包，一个功能包可以有多个节点存在</p>
-<h2 id="_13">工作空间</h2>
+<h2 id="_12">工作空间</h2>
 <p>工作空间是包含若干个功能包的目录，初学者可以把工作空间理解成一个文件夹。这个文件夹包含下有src。所以一般新建一个工作空间的操作就像下面一样</p>
 <div class="highlight"><pre><span></span><code>cd d2lros2/chapt2/
 mkdir -p chapt2_ws/src
 </code></pre></div>
 
-<h2 id="_14">功能包</h2>
+<h2 id="_13">功能包</h2>
 <p>功能包可以理解为存放节点的地方，ROS2中功能包根据编译方式的不同分为三种类型。</p>
 <ul>
 <li>ament_python，适用于python程序</li>
@@ -594,7 +691,7 @@ mkdir -p chapt2_ws/src
 <p>2.手动编译<br />
 下载源码然后进行编译生成相关文件<br />
 之后，需要手动source工作空间的install目录  </p>
-<h2 id="_15">功能包相关命令</h2>
+<h2 id="_14">功能包相关命令</h2>
 <ul>
 <li>创建功能包</li>
 </ul>
@@ -622,14 +719,14 @@ mkdir -p chapt2_ws/src
 
 <h1 id="colcon">Colcon</h1>
 <p>一个功能包构建工具,简单点说就是用来编译代码的</p>
-<h2 id="_16">安装</h2>
+<h2 id="_15">安装</h2>
 <p>如果使用一键安装ROS2，会帮你安装好这个工具
 终端安装</p>
 <div class="highlight"><pre><span></span><code>sudo apt-get install python3-colcon-common-extensions
 </code></pre></div>
 
 <p>安装完成后，打开终端输入colcon即可看到其使用方法</p>
-<h2 id="_17">示例</h2>
+<h2 id="_16">示例</h2>
 <p>创建一个工作区文件夹colcon_test_ws</p>
 <div class="highlight"><pre><span></span><code>cd d2lros2/chapt2/
 mkdir colcon_test_ws &amp;&amp; cd colcon_test_ws
@@ -690,13 +787,13 @@ ros2 run examples_rclcpp_minimal_publisher publisher_member_function
 <div class="highlight"><pre><span></span><code>colcon build --symlink-install
 </code></pre></div>
 
-<h2 id="_18">进阶</h2>
+<h2 id="_17">进阶</h2>
 <p>在之前我们用gcc编译了ROS2节点。其次，使用CMake（GCC或Makefile）和 Python Setup打包工具依然可以完成ROS2代码的编译，那为什么还需要Colcon呢？</p>
 <p>两者的区分点在于针对的对象不同，构建系统针对一个单独的包进行构建，而构建工具重点在于按照依赖关系依次调用构建系统完成一系列功能包的构建。</p>
 <p>ROS中用到的构建系统：CMake、ament_cmake、catkin、Python setuptools。</p>
 <p>ROS中用到的构建工具：colcon、catkin_make、catkin_make_isolated、catkin_tools。</p>
 <p>很明显colcon作为构建工具，通过调用CMake、Python setuptools完成构建。</p>
-<h3 id="_19">常见构建系统</h3>
+<h3 id="_18">常见构建系统</h3>
 <ol>
 <li>
 <p>CMake<br />
@@ -712,7 +809,7 @@ setuptools是Python包的打包常用工具。Python 包使用文件来描述依
 catkin基于CMake，并提供了一组方便的函数，使编写CMake包更容易。它自动生成 CMake 配置文件以及 pkg 配置文件。它还提供了注册不同类型测试的函数。  </p>
 </li>
 </ol>
-<h3 id="_20">常见构建工具</h3>
+<h3 id="_19">常见构建工具</h3>
 <ol>
 <li>
 <p>catkin_make<br />
@@ -905,7 +1002,7 @@ colcon build
 
 <p>4.测试<br />
 当节点运行起来后，可以再尝试使用ros2 node list 指令来查看现有的节点。</p>
-<h1 id="_21">通信原理</h1>
+<h1 id="_20">通信原理</h1>
 <p>通信的目的是在计算机系统中实现不同组件、进程或设备之间的信息和数据传递。通过通信，各个实体可以共享信息、协调行动并实现协同工作。<br />
 在计算机领域，通信是构建分布式系统、网络和协议的基础。</p>
 <p>通信的原理涉及两个主要方面：通信协议和通信方式。<br />
@@ -946,12 +1043,12 @@ colcon build
 <p>话题是ROS2中最常用的通信方式之一，话题通信采取的是订阅发布模型。</p>
 <p>ROS2话题通信可以是，1对1，1对n，n对1，n对n的。</p>
 <p>还有一种就是ROS2节点可以订阅本身发布的话题</p>
-<h2 id="_22">消息接口</h2>
+<h2 id="_21">消息接口</h2>
 <p>为了方便发送者和接收者进行数据的交换，ROS2帮我们在数据传递时做好了消息的序列化和反序列化，而且ROS2的消息序列化与反序列化通信是可以做到跨编程语言、跨平台和跨设备之间的。</p>
 <p>ROS2如何做到跨编程语言、跨平台和跨设备之间的数据收发呢？这就得益于通过定义消息接口文件了。</p>
 <p>当我们定义好消息接口后，ROS2会根据消息接口内容生成不同语言的接口类，在不同编程语言中调用相同的类即可实现无感的消息序列化和反序列化。</p>
 <p>同一个话题，所有的发布者和接收者必须使用相同消息接口。</p>
-<h2 id="_23">常用话题命令行</h2>
+<h2 id="_22">常用话题命令行</h2>
 <div class="highlight"><pre><span></span><code>rqt_graph
 
 ros2 topic -h
@@ -972,7 +1069,7 @@ ros2 interface show std_msgs/msg/String
 </code></pre></div>
 
 <h1 id="rclcpp_1">RCLCPP实现话题</h1>
-<h2 id="_24">创建节点</h2>
+<h2 id="_23">创建节点</h2>
 <p>我们将创建一个控制节点和一个被控节点。</p>
 <p>控制节点创建一个话题发布者，发布控制命令（command）话题，接口类型为字符串（string），控制接点通过发布者发布控制命令（前进、后退、左转、右转、停止）。</p>
 <p>被控节点创建一个订阅者，订阅控制命令，收到控制命令后根据命令内容打印。</p>
@@ -1051,7 +1148,7 @@ install(TARGETS
 <p>source install/setup.bash:加载工作空间的环境变量配置文件。</p>
 <p>编译后生成的可执行文件、功能包路径等信息会写入 install/setup.bash，执行 source 后，系统才能找到这些资源（比如让 ros2 run 命令识别到你编译的节点）。</p>
 <p>注意：每次新开终端或重新编译后，都需要执行该命令才能生效（或配置终端自动加载）。</p>
-<h2 id="_25">编写发布者</h2>
+<h2 id="_24">编写发布者</h2>
 <p>想要创建发布者，只需要调用node的成员函数create_publisher并传入对应的参数即可</p>
 <p>我们至少需要传入消息类型（msgT）、话题名称（topic_name）和 服务指令（qos）</p>
 <p><strong>导入消息接口</strong>  </p>
@@ -1146,7 +1243,7 @@ std::bind(&amp;TopicPublisher01::timer_callback, this)，bind() 函数的意义�
 <span class="nx">ros2</span><span class="w"> </span><span class="nx">run</span><span class="w"> </span><span class="nx">example_topic_rclcpp</span><span class="w"> </span><span class="nx">topic_publisher_01</span>
 </code></pre></div>
 
-<h2 id="_26">编写订阅者</h2>
+<h2 id="_25">编写订阅者</h2>
 <p>创建订阅节点</p>
 <div class="highlight"><pre><span></span><code>cd chapt3_ws/src/example_topic_rclcpp
 touch src/topic_subscribe_01.cpp
@@ -1256,7 +1353,7 @@ topic_subscribe_01
 <div class="highlight"><pre><span></span><code>ros2 topic pub /command std_msgs/msg/String &quot;{data: forward}&quot;
 </code></pre></div>
 
-<h2 id="_27">订阅发布测试</h2>
+<h2 id="_26">订阅发布测试</h2>
 <p>关闭上面启动的终端，重新运行指令</p>
 <div class="highlight"><pre><span></span><code>cd chapt3/chapt3_ws/
 source install/setup.bash
@@ -1390,7 +1487,7 @@ rqt
 <li>同一个服务（名称相同）有且只能有一个节点来提供</li>
 <li>同一个服务可以被多个客户端调用</li>
 </ul>
-<h2 id="_28">示例</h2>
+<h2 id="_27">示例</h2>
 <p>打开终端，运行下面的命令，这个命令用于运行一个服务节点，这个服务的功能是将两个数字相加，给定a，b两个数，返回sum也就是ab之和</p>
 <div class="highlight"><pre><span></span><code>ros2 run examples_rclpy_minimal_service service
 ros2 service list
@@ -1398,7 +1495,7 @@ ros2 service list
 ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts &quot;{a: 5,b: 10}&quot;
 </code></pre></div>
 
-<h2 id="_29">服务常用命令行</h2>
+<h2 id="_28">服务常用命令行</h2>
 <div class="highlight"><pre><span></span><code><span class="nx">ros2</span><span class="w"> </span><span class="nx">service</span><span class="w"> </span><span class="nx">list</span>
 
 <span class="nx">手动调用服务</span>
@@ -1412,7 +1509,7 @@ ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts &quot;{a: 5,b:
 </code></pre></div>
 
 <h1 id="rclcpp_2">RCLCPP实现服务</h1>
-<h2 id="_30">创建功能包和节点</h2>
+<h2 id="_29">创建功能包和节点</h2>
 <div class="highlight"><pre><span></span><code><span class="nx">cd</span><span class="w"> </span><span class="nx">chapt3</span><span class="o">/</span><span class="nx">chapt3_ws</span><span class="o">/</span><span class="nx">src</span>
 <span class="nx">ros2</span><span class="w"> </span><span class="nx">pkg</span><span class="w"> </span><span class="nx">create</span><span class="w"> </span><span class="nx">example_service_rclcpp</span><span class="w"> </span><span class="o">--</span><span class="nx">build</span><span class="o">-</span><span class="k">type</span><span class="w"> </span><span class="nx">ament_cmake</span><span class="w"> </span><span class="o">--</span><span class="nx">dependencies</span><span class="w"> </span><span class="nx">rclcpp</span>
 <span class="nx">touch</span><span class="w"> </span><span class="nx">example_service_rclcpp</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">service_server_01</span><span class="p">.</span><span class="nx">cpp</span>
@@ -1485,7 +1582,7 @@ install(TARGETS
 </code></pre></div>
 
 <p>接下来可以进行测试</p>
-<h2 id="_31">编写服务端</h2>
+<h2 id="_30">编写服务端</h2>
 <p>导入接口的三个步骤</p>
 <p>ament_cmake类型功能包导入消息接口分为三步：</p>
 <ul>
@@ -1565,7 +1662,7 @@ install(TARGETS
 <span class="nx">ros2</span><span class="w"> </span><span class="nx">service</span><span class="w"> </span><span class="nx">call</span><span class="w"> </span><span class="o">/</span><span class="nx">add_two_ints_srv</span><span class="w"> </span><span class="nx">example_interfaces</span><span class="o">/</span><span class="nx">srv</span><span class="o">/</span><span class="nx">AddTwoInts</span><span class="w"> </span><span class="s">&quot;{a: 5,b: 10}&quot;</span>
 </code></pre></div>
 
-<h2 id="_32">编写客户端</h2>
+<h2 id="_31">编写客户端</h2>
 <div class="highlight"><pre><span></span><code><span class="c1">#include &quot;rclcpp/rclcpp.hpp&quot;</span>
 <span class="c1">#include &quot;example_interfaces/srv/add_two_ints.hpp&quot;</span>
 
@@ -1628,7 +1725,7 @@ install(TARGETS
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="_33">测试</h2>
+<h2 id="_32">测试</h2>
 <div class="highlight"><pre><span></span><code><span class="nx">cd</span><span class="w"> </span><span class="nx">chapt3_ws</span><span class="o">/</span>
 <span class="nx">colcon</span><span class="w"> </span><span class="nx">build</span><span class="w"> </span><span class="o">--</span><span class="nx">packages</span><span class="o">-</span><span class="nx">select</span><span class="w"> </span><span class="nx">example_service_rclcpp</span>
 <span class="nx">source</span><span class="w"> </span><span class="nx">install</span><span class="o">/</span><span class="nx">setup</span><span class="p">.</span><span class="nx">bash</span>
@@ -1639,7 +1736,7 @@ install(TARGETS
 </code></pre></div>
 
 <h1 id="rclpy_2">RCLPY实现服务</h1>
-<h2 id="_34">创建功能包和节点</h2>
+<h2 id="_33">创建功能包和节点</h2>
 <div class="highlight"><pre><span></span><code><span class="nx">cd</span><span class="w"> </span><span class="nx">chapt3</span><span class="o">/</span><span class="nx">chapt3_ws</span><span class="o">/</span><span class="nx">src</span>
 <span class="nx">ros2</span><span class="w"> </span><span class="nx">pkg</span><span class="w"> </span><span class="nx">create</span><span class="w"> </span><span class="nx">example_service_rclpy</span><span class="w"> </span><span class="o">--</span><span class="nx">build</span><span class="o">-</span><span class="k">type</span><span class="w"> </span><span class="nx">ament_python</span><span class="w"> </span><span class="o">--</span><span class="nx">dependencies</span><span class="w"> </span><span class="nx">rclpy</span><span class="w"> </span><span class="nx">example_interfaces</span><span class="w">  </span><span class="o">--</span><span class="nx">node</span><span class="o">-</span><span class="nx">name</span><span class="w"> </span><span class="nx">service_server_02</span>
 </code></pre></div>
@@ -1698,7 +1795,7 @@ touch service_client_02.py
     <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span> <span class="c1"># 关闭rclpy</span>
 </code></pre></div>
 
-<h2 id="_35">服务端</h2>
+<h2 id="_34">服务端</h2>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
@@ -1723,7 +1820,7 @@ touch service_client_02.py
     <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span> <span class="c1"># 关闭rclpy</span>
 </code></pre></div>
 
-<h2 id="_36">客户端</h2>
+<h2 id="_35">客户端</h2>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
@@ -1756,7 +1853,7 @@ touch service_client_02.py
     <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span> <span class="c1"># 关闭rclpy</span>
 </code></pre></div>
 
-<h2 id="_37">测试</h2>
+<h2 id="_36">测试</h2>
 <div class="highlight"><pre><span></span><code><span class="nx">colcon</span><span class="w"> </span><span class="nx">build</span><span class="w"> </span><span class="o">--</span><span class="nx">packages</span><span class="o">-</span><span class="nx">select</span><span class="w"> </span><span class="nx">example_service_rclpy</span>
 <span class="nx">source</span><span class="w"> </span><span class="nx">install</span><span class="o">/</span><span class="nx">setup</span><span class="p">.</span><span class="nx">bash</span>
 <span class="nx">ros2</span><span class="w"> </span><span class="nx">run</span><span class="w"> </span><span class="nx">example_service_rclpy</span><span class="w"> </span><span class="nx">service_client_02</span>
@@ -1766,7 +1863,7 @@ touch service_client_02.py
 </code></pre></div>
 
 <h1 id="interface">接口 interface</h1>
-<h2 id="_38">介绍</h2>
+<h2 id="_37">介绍</h2>
 <p>接口其实是一种规范</p>
 <p>我们在代码中使用过这两种接口，这两种数据类型分别代表字符串和32位二进制的整型数据，是ROS2提前定义的一种规范。</p>
 <div class="highlight"><pre><span></span><code>std_msgs/msg/String
@@ -1785,7 +1882,7 @@ sensor_msgs/msg/Imu #加速度传感器<br />
 sensor_msgs/msg/Image #图像<br />
 sensor_msgs/msg/LaserScan #雷达数据<br />
 ......</p>
-<h2 id="_39">接口文件</h2>
+<h2 id="_38">接口文件</h2>
 <p><strong>三种类型</strong><br />
 除了参数之外，话题、服务和动作(Action)都支持自定义接口，每一种通信方式所适用的场景各不相同，所定义的接口也被分为话题接口、服务接口、动作接口三种</p>
 <p>话题接口格式：xxx.msg</p>
@@ -1832,7 +1929,7 @@ sensor_msgs/Image
 这里有一个转换的过程：将msg、srv、action文件转换为Python和C++的头文件。</p>
 <p>msg,srv,action --&gt; ROS2-IDL转换器 --&gt; Python的py,C++的.h头文件</p>
 <p>通过ROS2的IDL模块 产生了头文件，有了头文件，我们就可以在程序里导入并使用这个消息模块。</p>
-<h2 id="_40">接口常用命令</h2>
+<h2 id="_39">接口常用命令</h2>
 <div class="highlight"><pre><span></span><code>查看接口列表
 ros2 interface list
 
@@ -1854,7 +1951,7 @@ ros2 interface show std_msgs/msg/String
 <li>string 和string[]，字符串，可以用来表示雷达控制节点中真实雷达的ip地址</li>
 <li>byte[]，字节数组，这个可以用来表示图片，点云数据等信息</li>
 </ul>
-<h2 id="_41">示例</h2>
+<h2 id="_40">示例</h2>
 <p>运行小乌龟模拟器节点和小乌龟控制节点</p>
 <div class="highlight"><pre><span></span><code>ros2 run turtlesim turtlesim_node
 
@@ -1920,7 +2017,7 @@ ros2 param set /turtlesim background_b 10
 
 <h1 id="rclcpp_4">RCLCPP实现参数</h1>
 <h1 id="rclpy_3">RCLPY实现参数</h1>
-<h1 id="_42">动作</h1>
+<h1 id="_41">动作</h1>
 <p>我们通过服务发送一个目标点给机器人，让机器人移动到该点：</p>
 <ul>
 <li>你不知道机器人有没有处理移动到目标点的请求（不能确认服务端接收并处理目标）</li>
@@ -1938,7 +2035,7 @@ ros2 param set /turtlesim background_b 10
 <p>参数是由服务构建出来的，而Action是由话题和服务共同构建出来的（一个Action = 三个服务+两个话题）
 三个服务分别是：1.目标传递服务 2.结果传递服务 3.取消执行服务 
 两个话题：1.反馈话题（服务端发布，客户端订阅） 2.状态话题（服务端发布，客户端订阅）</p>
-<h2 id="_43">示例</h2>
+<h2 id="_42">示例</h2>
 <p>启动乌龟模拟器和键盘控制节点</p>
 <div class="highlight"><pre><span></span><code>ros2 run turtlesim turtlesim_node
 
@@ -1992,7 +2089,7 @@ float32 remaining
 <div class="highlight"><pre><span></span><code>ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute &quot;{theta: 1.5}&quot; --feedback
 </code></pre></div>
 
-<h2 id="_44">动作常用命令</h2>
+<h2 id="_43">动作常用命令</h2>
 <div class="highlight"><pre><span></span><code>ros2 action list
 ros2 action info
 ros2 action send_goal
@@ -2003,7 +2100,7 @@ ros2 action send_goal
 见"\wsl.localhost\Ubuntu-22.04\home\svikle\chapt4\chapt4_ws\src\example_action_rclcpp"</p>
 <h1 id="rclpy_4">RCLPY实现动作</h1>
 <p>见"\wsl.localhost\Ubuntu-22.04\home\svikle\chapt4\chapt4_ws\src\example_action_rclpy"</p>
-<h1 id="_45">常用工具</h1>
+<h1 id="_44">常用工具</h1>
 <h2 id="-launch">启动管理工具-Launch</h2>
 <p><strong>什么是launch</strong>  </p>
 <p>一个机器人系统往往由很多个不同功能的节点组成，同时根据应用场景和机器人的不同，每个节点还会有不同的配置项。</p>
@@ -2292,7 +2389,7 @@ ros2 bag play rosbag2_2021_10_03-15_31_41_0.db3 --topics /chatter
 <span class="n">ros2</span><span class="w"> </span><span class="n">topic</span><span class="w"> </span><span class="n">pub</span><span class="w"> </span><span class="o">/</span><span class="n">demo</span><span class="o">/</span><span class="n">cmd_demo</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">/</span><span class="n">msg</span><span class="o">/</span><span class="n">Twist</span><span class="w"> </span><span class="ss">&quot;{linear: {x: 0.2,y: 0,z: 0},angular: {x: 0,y: 0,z: 0}}&quot;</span>
 </code></pre></div>
 
-<h1 id="_46">系统文件级</h1>
+<h1 id="_45">系统文件级</h1>
 <p>文件系统级主要由以下几个核心部分构成：</p>
 <ul>
 <li>
@@ -2315,7 +2412,7 @@ ros2 bag play rosbag2_2021_10_03-15_31_41_0.db3 --topics /chatter
 </li>
 </ul>
 <h2 id="ros1">ROS1</h2>
-<h3 id="_47">工作空间</h3>
+<h3 id="_46">工作空间</h3>
 <div class="highlight"><pre><span></span><code><span class="n">my_robot_ws</span><span class="o">/</span><span class="w">       </span><span class="c1"># 工作空间根目录 (名称自定义，通常以 `_ws` 结尾)</span>
 <span class="n">├──</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="w">                   </span><span class="c1"># 源代码空间 (Source Space)</span>
 <span class="n">│</span><span class="w">   </span><span class="n">├──</span><span class="w"> </span><span class="n">CMakeLists</span><span class="p">.</span><span class="n">txt</span><span class="w">     </span><span class="c1"># 顶层CMakeLists.txt (由 `catkin_init_workspace` 生成)</span>
@@ -2331,7 +2428,7 @@ ros2 bag play rosbag2_2021_10_03-15_31_41_0.db3 --topics /chatter
 <p>build：由CMake/Catkin自动生成，存放编译过程中产生的中间文件（如.o目标文件、CMake的缓存等）。通常不需要手动干预此目录。</p>
 <p>devel：编译成功后，生成的可执行文件、库文件、环境变量设置脚本等都会放在这里。在开发过程中，需要通过 source devel/setup.bash 来让终端知道这个工作空间的存在。</p>
 <p>install：当使用 catkin_make install 或 colcon build --symlink-install 时创建，用于将可执行文件和库安装到一个独立的目录，便于发布。</p>
-<h3 id="_48">包</h3>
+<h3 id="_47">包</h3>
 <div class="highlight"><pre><span></span><code><span class="nx">my_package</span><span class="o">/</span><span class="w">                    </span><span class="err">#</span><span class="w"> </span><span class="nx">包目录</span><span class="w"> </span><span class="p">(</span><span class="nx">名称自定义</span><span class="p">)</span>
 <span class="err">├──</span><span class="w"> </span><span class="nx">CMakeLists</span><span class="p">.</span><span class="nx">txt</span><span class="w">             </span><span class="err">#</span><span class="w"> </span><span class="o">**</span><span class="nx">构建系统配置文件</span><span class="o">**</span><span class="err">，</span><span class="nx">指导如何编译本包</span>
 <span class="err">├──</span><span class="w"> </span><span class="kn">package</span><span class="p">.</span><span class="nx">xml</span><span class="w">                </span><span class="err">#</span><span class="w"> </span><span class="o">**</span><span class="nx">包清单文件</span><span class="o">**</span><span class="err">，</span><span class="nx">描述本包的元信息和依赖</span>
@@ -2374,7 +2471,7 @@ roslaunch
 </code></pre></div>
 
 <p>当使用 catkin_make 时，构建系统会遍历整个 src 目录，读取每个包的 package.xml 和 CMakeLists.txt，然后按照依赖关系有序地编译所有包。</p>
-<h3 id="_49">包清单</h3>
+<h3 id="_48">包清单</h3>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
 <span class="nt">&lt;package</span><span class="w"> </span><span class="na">format=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;</span>
 <span class="w"> </span><span class="cm">&lt;!-- 基本信息 --&gt;</span>
@@ -2402,7 +2499,7 @@ roslaunch
 <span class="nt">&lt;/package&gt;</span>
 </code></pre></div>
 
-<h3 id="_50">消息、服务和动作类型</h3>
+<h3 id="_49">消息、服务和动作类型</h3>
 <p>消息：存储在 msg/ 目录下的 .msg 文件。定义了在主题上传输的数据结构。</p>
 <div class="highlight"><pre><span></span><code>string first_name
 string last_name
@@ -2431,7 +2528,7 @@ int32[] partial_sequence
 </code></pre></div>
 
 <p>要使用这些自定义类型，必须在 package.xml 和 CMakeLists.txt 中声明相应的依赖和构建规则。</p>
-<h3 id="_51">功能包集</h3>
+<h3 id="_50">功能包集</h3>
 <p>功能包集是一个包的集合，用于将多个相关的包组织在一起，便于统一管理和编译。它本身不包含任何代码，只有一个特殊的文件。</p>
 <div class="highlight"><pre><span></span><code><span class="nx">my_metapackage</span><span class="o">/</span><span class="w">           </span><span class="err">#</span><span class="w"> </span><span class="nx">功能包集目录</span>
 <span class="err">├──</span><span class="w"> </span><span class="nx">CMakeLists</span><span class="p">.</span><span class="nx">txt</span><span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="nx">一个非常简单的CMakeLists</span><span class="p">.</span><span class="nx">txt</span>
@@ -2440,7 +2537,7 @@ int32[] partial_sequence
 
 <p>它的主要作用是作为一个逻辑分组，例如 navigation 功能包集包含了 amcl, move_base, map_server 等所有与导航相关的包</p>
 <h2 id="ros2_5">ROS2</h2>
-<h3 id="_52">工作空间</h3>
+<h3 id="_51">工作空间</h3>
 <p><code>devel</code> 变为了 <code>install</code></p>
 <div class="highlight"><pre><span></span><code><span class="nx">my_ros2_ws</span><span class="o">/</span><span class="w">                 </span><span class="err">#</span><span class="w"> </span><span class="nx">工作空间根目录</span>
 <span class="err">├──</span><span class="w"> </span><span class="nx">src</span><span class="o">/</span><span class="w">                    </span><span class="err">#</span><span class="w"> </span><span class="nx">源代码空间</span><span class="w"> </span><span class="p">(</span><span class="nx">所有包都在这里</span><span class="p">)</span>
@@ -2706,7 +2803,7 @@ install_scripts=$base/lib/py_package
 </tr>
 </tbody>
 </table>
-<h3 id="_53">包清单</h3>
+<h3 id="_52">包清单</h3>
 <p>采用格式3，语法更简洁，是ROS 2与ROS 1的显著区别之一</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
 <span class="cp">&lt;?xml-model href=&quot;http://download.ros.org/schema/package_format3.xsd&quot; schematypelayout=&quot;1.0&quot;?&gt;</span><span class="w"> </span><span class="cm">&lt;!-- XML模式验证 --&gt;</span>
@@ -2762,7 +2859,7 @@ install_scripts=$base/lib/py_package
 位置和语法基本保持不变，但生成代码的API更现代化。  </p>
 </li>
 </ul>
-<h1 id="_54">消息类型</h1>
+<h1 id="_53">消息类型</h1>
 <p>消息类型是一个数据结构定义，它严格规定了在Topic、Service或Action中传输的数据的格式和类型。</p>
 <p>核心概念：</p>
 <ul>
@@ -2776,7 +2873,7 @@ install_scripts=$base/lib/py_package
 <p>平台无关：消息有标准的序列化机制，确保在不同语言和平台间可靠传输。</p>
 </li>
 </ul>
-<h2 id="_55">常见消息包</h2>
+<h2 id="_54">常见消息包</h2>
 <table>
 <thead>
 <tr>
@@ -2830,7 +2927,7 @@ install_scripts=$base/lib/py_package
 <span class="n">msg</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s2">&quot;rgb8&quot;</span>  <span class="c1"># 图像编码格式</span>
 </code></pre></div>
 
-<h2 id="_56">消息格式</h2>
+<h2 id="_55">消息格式</h2>
 <p>消息使用 .msg 文件定义。<br />
 基本格式：<code>字段类型 字段名称</code></p>
 <table>
@@ -2982,7 +3079,7 @@ float64 z
 <span class="n">msg</span><span class="o">.</span><span class="n">angular</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># 旋转速度 0.5 rad/s</span>
 </code></pre></div>
 
-<h2 id="_57">自定义消息</h2>
+<h2 id="_56">自定义消息</h2>
 <p>1.在包中创建msg/MyCustom.msg</p>
 <div class="highlight"><pre><span></span><code>string first_name
 string last_name
@@ -3069,7 +3166,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
    <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_58">引用资料</h1>
+<h1 id="_57">引用资料</h1>
 <p><a href="https://chat.deepseek.com/share/4puxn6199bjbhfqghb">Node 的讲解</a><br />
 <a href="https://chat.deepseek.com/share/nejevxao832n9gnsfq">Topic 的讲解</a><br />
 <a href="https://chat.deepseek.com/share/c4kwenzifkb8ppndiw">Service 的讲解</a><br />
@@ -3087,7 +3184,123 @@ rosidl_generate_interfaces(${PROJECT_NAME}
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#ros2">ROS2 介绍与安装</a></li>
+<li><a class="toc-h2" href="#linux-ubuntu">Linux 与 Ubuntu</a></li>
+<li><a class="toc-h2" href="#ubuntu">Ubuntu 安装</a></li>
+<li><a class="toc-h2" href="#_1">常用终端指令</a></li>
+<li><a class="toc-h3" href="#ls">ls命令</a></li>
+<li><a class="toc-h3" href="#cd">cd 命令</a></li>
+<li><a class="toc-h3" href="#pwd">pwd 命令</a></li>
+<li><a class="toc-h3" href="#mkdir">mkdir 命令</a></li>
+<li><a class="toc-h3" href="#rm">rm 命令</a></li>
+<li><a class="toc-h3" href="#mv">mv命令</a></li>
+<li><a class="toc-h3" href="#cp">cp 命令</a></li>
+<li><a class="toc-h3" href="#touch">touch命令</a></li>
+<li><a class="toc-h2" href="#ubantu">Ubantu 下载软件</a></li>
+<li><a class="toc-h2" href="#ros2_1">ROS2 介绍</a></li>
+<li><a class="toc-h2" href="#ros1-ros2">ROS1 与 ROS2</a></li>
+<li><a class="toc-h2" href="#ros2_2">ROS2安装</a></li>
+<li><a class="toc-h2" href="#ros2_3">ROS2系统架构</a></li>
+<li><a class="toc-h3" href="#_2">操作系统层</a></li>
+<li><a class="toc-h3" href="#dds">DDS实现层</a></li>
+<li><a class="toc-h3" href="#dds-rmw">抽象DDS层-RMW</a></li>
+<li><a class="toc-h3" href="#-rcl">客户端库-RCL</a></li>
+<li><a class="toc-h3" href="#_3">应用层</a></li>
+<li><a class="toc-h2" href="#ros2-dds">ROS2 中间件 DDS 架构</a></li>
+<li><a class="toc-h3" href="#_4">什么是中间件</a></li>
+<li><a class="toc-h3" href="#ros1-ros2_1">ROS1 与 ROS2 中间件对比</a></li>
+<li><a class="toc-h3" href="#dds_1">DDS通信模型</a></li>
+<li><a class="toc-h3" href="#dds_2">DDS优劣势</a></li>
+<li><a href="#_5">节点</a></li>
+<li><a class="toc-h2" href="#_6">启动节点</a></li>
+<li><a class="toc-h2" href="#_7">查看节点列表</a></li>
+<li><a class="toc-h2" href="#_8">查看节点信息</a></li>
+<li><a class="toc-h2" href="#_9">重映射节点名称</a></li>
+<li><a class="toc-h2" href="#_10">运行节点时设置参数</a></li>
+<li><a href="#_11">功能包与工作空间</a></li>
+<li><a class="toc-h2" href="#_12">工作空间</a></li>
+<li><a class="toc-h2" href="#_13">功能包</a></li>
+<li><a class="toc-h2" href="#_14">功能包相关命令</a></li>
+<li><a href="#colcon">Colcon</a></li>
+<li><a class="toc-h2" href="#_15">安装</a></li>
+<li><a class="toc-h2" href="#_16">示例</a></li>
+<li><a class="toc-h2" href="#build">build参数</a></li>
+<li><a class="toc-h2" href="#_17">进阶</a></li>
+<li><a class="toc-h3" href="#_18">常见构建系统</a></li>
+<li><a class="toc-h3" href="#_19">常见构建工具</a></li>
+<li><a href="#rclcpp">使用RCLCPP编写节点</a></li>
+<li><a href="#rclpy">使用RCLPY编写节点</a></li>
+<li><a href="#_20">通信原理</a></li>
+<li><a href="#topic">话题 Topic</a></li>
+<li><a class="toc-h2" href="#_21">消息接口</a></li>
+<li><a class="toc-h2" href="#_22">常用话题命令行</a></li>
+<li><a href="#rclcpp_1">RCLCPP实现话题</a></li>
+<li><a class="toc-h2" href="#_23">创建节点</a></li>
+<li><a class="toc-h2" href="#_24">编写发布者</a></li>
+<li><a class="toc-h2" href="#_25">编写订阅者</a></li>
+<li><a class="toc-h2" href="#_26">订阅发布测试</a></li>
+<li><a href="#rclpy_1">RCLPY实现话题</a></li>
+<li><a href="#service">服务 Service</a></li>
+<li><a class="toc-h2" href="#_27">示例</a></li>
+<li><a class="toc-h2" href="#_28">服务常用命令行</a></li>
+<li><a href="#rclcpp_2">RCLCPP实现服务</a></li>
+<li><a class="toc-h2" href="#_29">创建功能包和节点</a></li>
+<li><a class="toc-h2" href="#_30">编写服务端</a></li>
+<li><a class="toc-h2" href="#_31">编写客户端</a></li>
+<li><a class="toc-h2" href="#_32">测试</a></li>
+<li><a href="#rclpy_2">RCLPY实现服务</a></li>
+<li><a class="toc-h2" href="#_33">创建功能包和节点</a></li>
+<li><a class="toc-h2" href="#_34">服务端</a></li>
+<li><a class="toc-h2" href="#_35">客户端</a></li>
+<li><a class="toc-h2" href="#_36">测试</a></li>
+<li><a href="#interface">接口 interface</a></li>
+<li><a class="toc-h2" href="#_37">介绍</a></li>
+<li><a class="toc-h2" href="#ros2_4">ROS2接口</a></li>
+<li><a class="toc-h2" href="#_38">接口文件</a></li>
+<li><a class="toc-h2" href="#_39">接口常用命令</a></li>
+<li><a href="#rclcpp_3">RCLCPP实现自定义接口</a></li>
+<li><a href="#param">参数 Param</a></li>
+<li><a class="toc-h2" href="#_40">示例</a></li>
+<li><a href="#rclcpp_4">RCLCPP实现参数</a></li>
+<li><a href="#rclpy_3">RCLPY实现参数</a></li>
+<li><a href="#_41">动作</a></li>
+<li><a class="toc-h2" href="#_42">示例</a></li>
+<li><a class="toc-h2" href="#_43">动作常用命令</a></li>
+<li><a href="#rclcpp_5">RCLCPP实现动作</a></li>
+<li><a href="#rclpy_4">RCLPY实现动作</a></li>
+<li><a href="#_44">常用工具</a></li>
+<li><a class="toc-h2" href="#-launch">启动管理工具-Launch</a></li>
+<li><a class="toc-h3" href="#pythonlaunch">使用Python编写Launch</a></li>
+<li><a class="toc-h2" href="#-rviz">数据可视化工具-RVIZ</a></li>
+<li><a class="toc-h2" href="#-rqt">调试工具-RQT</a></li>
+<li><a class="toc-h2" href="#-rosbag2">数据录播工具-rosbag2</a></li>
+<li><a class="toc-h3" href="#bag">bag工具使用</a></li>
+<li><a class="toc-h2" href="#-gazebo">兼容仿真工具-Gazebo</a></li>
+<li><a href="#_45">系统文件级</a></li>
+<li><a class="toc-h2" href="#ros1">ROS1</a></li>
+<li><a class="toc-h3" href="#_46">工作空间</a></li>
+<li><a class="toc-h3" href="#_47">包</a></li>
+<li><a class="toc-h3" href="#_48">包清单</a></li>
+<li><a class="toc-h3" href="#_49">消息、服务和动作类型</a></li>
+<li><a class="toc-h3" href="#_50">功能包集</a></li>
+<li><a class="toc-h2" href="#ros2_5">ROS2</a></li>
+<li><a class="toc-h3" href="#_51">工作空间</a></li>
+<li><a class="toc-h3" href="#c">C++ 包</a></li>
+<li><a class="toc-h3" href="#python">Python包</a></li>
+<li><a class="toc-h3" href="#_52">包清单</a></li>
+<li><a class="toc-h3" href="#ros1_1">其他与ROS1区别</a></li>
+<li><a href="#_53">消息类型</a></li>
+<li><a class="toc-h2" href="#_54">常见消息包</a></li>
+<li><a class="toc-h2" href="#_55">消息格式</a></li>
+<li><a class="toc-h2" href="#_56">自定义消息</a></li>
+<li><a href="#_57">引用资料</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -3096,6 +3309,45 @@ rosidl_generate_interfaces(${PROJECT_NAME}
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

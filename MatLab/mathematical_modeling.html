@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>mathematical_modeling - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,1246 +482,8 @@
             <span class="sep">/</span>
             <span>MatLab</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
-<h1 id="_2">特征矩阵和特征向量</h1>
-<p>Aa=ra<br />
-A是矩阵，a是特征向量<br />
-r是特征值 </p>
-<table>
-<thead>
-<tr>
-<th>模型分类</th>
-<th>细分</th>
-<th>具体内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>预处理</td>
-<td></td>
-<td>插值拟合、主成分分析、小波分析</td>
-</tr>
-<tr>
-<td>优化模型</td>
-<td>单目标、多目标，线性、非线性、整数规划</td>
-<td>动态规划、图论、网络流模型，最短路、最大流、最小生成树</td>
-</tr>
-<tr>
-<td></td>
-<td>背包、指派、抽屉、旅行商TSP、排队论模型</td>
-<td>遗传算法、蚁群算法、粒子群算法、模拟退火算法等</td>
-</tr>
-<tr>
-<td>预测模型</td>
-<td>微分方程预测</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>线性、非线性回归与拟合，统计回归预测</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>马尔科夫预测，神经网络预测，模糊预测，灰色预测</td>
-<td></td>
-</tr>
-<tr>
-<td>分类模型</td>
-<td></td>
-<td>K-means聚类、层次聚类、模糊聚类、神经网络分类</td>
-</tr>
-<tr>
-<td>评价模型</td>
-<td></td>
-<td>模糊评价，层次分析法，Topsis综合评价模型、主成分分析、数据包络分析模型，神经网络模型</td>
-</tr>
-</tbody>
-</table>
-<h1 id="_3">层次分析法</h1>
-<h3 id="_4"><strong>一、核心思想</strong></h3>
-<p>层次分析法通过以下步骤将复杂问题层次化、模型化：
-1. <strong>分解问题</strong>：将决策目标拆解为多个层次（目标层、准则层、方案层）。
-2. <strong>两两比较</strong>：对同一层次的元素进行两两对比，量化其相对重要性。
-3. <strong>综合权重</strong>：通过数学计算得出各元素对总目标的综合权重，辅助决策。</p>
-<h3 id="_5"><strong>二、实施步骤</strong></h3>
-<h4 id="1"><strong>1. 建立层次结构模型</strong></h4>
-<ul>
-<li><strong>目标层</strong>：最高层，明确决策的最终目标（如“选择最佳供应商”）。</li>
-<li><strong>准则层</strong>：中间层，列出影响目标的子准则（如价格、质量、交货期、服务）。</li>
-<li><strong>方案层</strong>：最底层，列出待评估的方案（如供应商A、B、C）。</li>
-</ul>
-<p><strong>示例</strong>：  </p>
-<div class="highlight"><pre><span></span><code>目标层：选择最佳供应商  
-准则层：价格、质量、交货期、服务  
-方案层：供应商A、供应商B、供应商C
-</code></pre></div>
-
-<h4 id="2"><strong>2. 构造判断矩阵</strong></h4>
-<ul>
-<li><strong>两两比较</strong>：针对每一准则，比较方案层的元素（如比较供应商A和B在价格上的优劣）。</li>
-<li><strong>标度法</strong>：使用1-9标度量化相对重要性（1=同等重要，3=稍重要，5=明显重要，7=强烈重要，9=极端重要，2、4、6、8为中间值）。</li>
-<li><strong>矩阵形式</strong>：以准则层“价格”为例，构造判断矩阵：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>A</th>
-<th>B</th>
-<th>C</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>A</strong></td>
-<td>1</td>
-<td>3</td>
-<td>5</td>
-</tr>
-<tr>
-<td><strong>B</strong></td>
-<td>1/3</td>
-<td>1</td>
-<td>2</td>
-</tr>
-<tr>
-<td><strong>C</strong></td>
-<td>1/5</td>
-<td>1/2</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<h4 id="3"><strong>3. 层次单排序与一致性检验</strong></h4>
-<ul>
-<li><strong>计算权重</strong>：通过特征值法或和积法求出判断矩阵的特征向量，归一化后得到各方案的权重。</li>
-<li><strong>一致性检验</strong>：计算一致性比率（CR），确保判断矩阵的逻辑一致性。若CR&lt;0.1，则通过检验；否则需调整判断矩阵。<ul>
-<li><strong>公式</strong>：<br />
-   CR = CI/RI，其中  CI = （lambda{max} - n）/（n-1）
-   RI为随机一致性指标（查表可得）。</li>
-</ul>
-</li>
-</ul>
-<h4 id="4"><strong>4. 层次总排序与综合决策</strong></h4>
-<ul>
-<li><strong>综合权重</strong>：将准则层的权重与方案层在各准则下的权重相乘，得到各方案对总目标的综合权重。</li>
-<li><strong>排序选择</strong>：根据综合权重排序，选择最优方案。</li>
-</ul>
-<p><strong>示例</strong>：<br />
-若准则层权重为：价格（0.4）、质量（0.3）、交货期（0.2）、服务（0.1），且方案层在各准则下的权重如下：</p>
-<table>
-<thead>
-<tr>
-<th>准则</th>
-<th>A</th>
-<th>B</th>
-<th>C</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>价格</td>
-<td>0.6</td>
-<td>0.3</td>
-<td>0.1</td>
-</tr>
-<tr>
-<td>质量</td>
-<td>0.2</td>
-<td>0.5</td>
-<td>0.3</td>
-</tr>
-<tr>
-<td>交货期</td>
-<td>0.1</td>
-<td>0.2</td>
-<td>0.7</td>
-</tr>
-<tr>
-<td>服务</td>
-<td>0.3</td>
-<td>0.4</td>
-<td>0.3</td>
-</tr>
-</tbody>
-</table>
-<p>则综合权重计算为：<br />
-<span class="math-inline">\( A = 0.4×0.6 + 0.3×0.2 + 0.2×0.1 + 0.1×0.3 = 0.35 \)</span><br />
-<span class="math-inline">\( B = 0.4×0.3 + 0.3×0.5 + 0.2×0.2 + 0.1×0.4 = 0.35 \)</span><br />
-<span class="math-inline">\( C = 0.4×0.1 + 0.3×0.3 + 0.2×0.7 + 0.1×0.3 = 0.30 \)</span>  </p>
-<p><strong>结果</strong>：供应商A和B综合权重相同，需进一步分析或调整准则权重。</p>
-<h1 id="_6">模糊综合评价</h1>
-<p>f分布确定隶属函数    </p>
-<ul>
-<li>一级模糊综合评价    </li>
-<li>
-<ul>
-<li>评语集带有好坏色彩  </li>
-</ul>
-</li>
-<li>
-<ul>
-<li>评语集不带有好坏色彩  </li>
-</ul>
-</li>
-<li>
-<p>多级模糊综合评价    </p>
-</li>
-</ul>
-<p>基本步骤   <br />
-1. 确定因素集（如果因素过多可以用多级，可以用主成分分析法）确定各因素权重，每一级和为1<br />
-    对于已有数据，可以用熵权法的topsis，没有的可以用层次分析法，论文里写上‘根据专家意见’<br />
-2. 确定评语集（有无评价色彩）<br />
-3. 从最后一层开始逐级确定每级因素对评语集的隶属度<br />
-4. 根据隶属度确定相关评语（注意画图，图文并茂效果更好）  </p>
-<h3 id="_7"><strong>一、核心思想</strong></h3>
-<p>模糊综合评价的核心在于利用模糊集合理论处理评价中的模糊性，例如“好”“中”“差”等主观判断。其基本步骤包括：
-1. <strong>确定评价因素集</strong>：明确影响评价目标的所有因素（如指标、准则）。
-2. <strong>建立评价等级集</strong>：定义评价结果的等级（如“优秀”“良好”“一般”“差”）。
-3. <strong>构造模糊评价矩阵</strong>：通过专家打分或统计数据，量化各因素对各等级的隶属度。
-4. <strong>确定权重向量</strong>：分配各因素的权重，反映其相对重要性。
-5. <strong>综合评价</strong>：通过模糊合成运算（如加权平均、最大最小法）得到最终评价结果。</p>
-<h3 id="_8"><strong>二、实施步骤</strong></h3>
-<h4 id="1-u"><strong>1. 确定评价因素集（U）</strong></h4>
-<p>将评价目标分解为多个因素，构成因素集：<br />
-U = {u_1, u_2, ..., u_n} <br />
-<strong>示例</strong>：<br />
-U = {PM2.5浓度, SO_2浓度, NO_2浓度, 空气湿度} </p>
-<h4 id="2-v"><strong>2. 建立评价等级集（V）</strong></h4>
-<p>定义评价结果的等级，构成等级集：<br />
-V = {v_1, v_2, ..., v_m} <br />
-<strong>示例</strong>：<br />
-V ={优, 良, 轻度污染, 重度污染} </p>
-<h4 id="3-r"><strong>3. 构造模糊评价矩阵（R）</strong></h4>
-<p>对每个因素 u_i ，确定其对各等级 v_j  的隶属度 r_ij ，形成矩阵 R ：  </p>
-<p>R = [
-r_11  r_12  ...  r_1m 
-r_21  r_22  ...  r_2m 
-... ... ...  ...
-r_n1  r_n2  ...  r_nm
-]</p>
-<p><strong>隶属度确定方法</strong>：  </p>
-<ul>
-<li><strong>专家打分法</strong>：邀请专家对每个因素在各等级上的隶属度进行评分（如0-1之间）。  </li>
-<li><strong>统计法</strong>：通过问卷调查或历史数据统计隶属度。  </li>
-<li><strong>模糊分布函数</strong>：如三角形、梯形分布量化隶属度。  </li>
-</ul>
-<p><strong>示例</strong>：<br />
-若PM2.5浓度对“优”“良”“轻度污染”“重度污染”的隶属度分别为0.1、0.3、0.5、0.1：<br />
-[0.1, 0.3, 0.5, 0.1] </p>
-<h4 id="4-w"><strong>4. 确定权重向量（W）</strong></h4>
-<p>分配各因素的权重，构成权重向量：<br />
-W = [w_1, w_2, ..., w_n] ，且权重和为1<br />
-<strong>权重确定方法</strong>：  </p>
-<ul>
-<li><strong>层次分析法（AHP）</strong>：通过两两比较计算权重。  </li>
-<li><strong>熵权法</strong>：根据数据离散程度自动分配权重。  </li>
-<li><strong>专家评估法</strong>：直接由专家给出权重。  </li>
-</ul>
-<p><strong>示例</strong>：<br />
-若PM2.5、SO₂、NO₂、湿度的权重分别为0.4、0.3、0.2、0.1，则：<br />
-W = [0.4, 0.3, 0.2, 0.1] </p>
-<h4 id="5"><strong>5. 模糊综合评价</strong></h4>
-<p>通过模糊合成运算将权重向量 W  与模糊评价矩阵 R  相乘，得到综合评价结果 B ：  </p>
-<h4 id="6"><strong>6. 结果分析</strong></h4>
-<ul>
-<li><strong>最大隶属度原则</strong>：选择隶属度最大的等级作为最终评价结果。<br />
-<strong>示例</strong>：若 B  中最大值为0.35（对应“良”），则评价结果为“良”。  </li>
-</ul>
-<h3 id="_9"><strong>案例示例</strong></h3>
-<p><strong>问题</strong>：评估某企业绿色供应链管理水平。<br />
-<strong>步骤</strong>：<br />
-1. <strong>因素集</strong>：U = {环保投入, 能源效率, 废弃物回收, 供应商合作}   <br />
-2. <strong>等级集</strong>：V = {优秀, 良好, 一般, 差}    <br />
-3. <strong>模糊评价矩阵</strong>（通过专家打分）：<br />
-   R = 
-   0.2  0.5  0.2  0.1 
-   0.1  0.3  0.4  0.2 
-   0.3  0.4  0.2  0.1 
-   0.1  0.2  0.3  0.4
-4. <strong>权重向量</strong>（AHP法）：W = [0.3, 0.2, 0.25, 0.25] 。<br />
-5. <strong>综合评价</strong>（加权平均型）：  </p>
-<div class="highlight"><pre><span></span><code> B = W \circ R = [0.185, 0.365, 0.275, 0.175]
-</code></pre></div>
-
-<ol>
-<li><strong>结果</strong>：最大隶属度为0.365（“良好”），评价结果为“良好”。</li>
-</ol>
-<h1 id="_10">熵权法</h1>
-<p>熵权法是一种<strong>客观赋权法</strong>，它基于信息论中的“信息熵”概念来确定评价指标（属性）的权重。  <br />
-其核心思想是：<strong>某个指标的数据变异程度（离散程度）越大，它所包含的信息量就越大，在综合评价中所起的作用（权重）也就应该越大；反之，变异程度越小，信息量越小，权重也应越小。</strong>    </p>
-<ul>
-<li><strong>信息量越大，不确定性越小，熵值越小。</strong>  </li>
-<li><strong>信息量越小，不确定性越大，熵值越大。</strong> (想象一个完全随机的事件，预测它最难，熵最大)。  </li>
-</ul>
-<h3 id="_11">熵权法的核心步骤</h3>
-<ol>
-<li>
-<p><strong>数据标准化：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">由于不同指标通常具有不同的量纲和数量级，需要先将原始数据矩阵转换为无量纲、可比较的标准化矩阵。</span>
-<span class="o">*</span><span class="w">   </span><span class="n">常用方法：</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">正向指标（越大越好）：</span><span class="o">**</span><span class="w"> </span><span class="n n-Quoted">`r_ij = (x_ij - min(x_j)) / (max(x_j) - min(x_j))`</span><span class="w">  </span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">负向指标（越小越好）：</span><span class="o">**</span><span class="w"> </span><span class="n n-Quoted">`r_ij = (max(x_j) - x_ij) / (max(x_j) - min(x_j))`</span><span class="w">  </span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">有时也使用</span><span class="w"> </span><span class="n n-Quoted">`r_ij = x_ij / sqrt(Σ(x_ij²))`</span><span class="w"> </span><span class="p">(</span><span class="n">向量归一化</span><span class="p">)</span><span class="w"> </span><span class="n">或</span><span class="w"> </span><span class="n n-Quoted">`r_ij = x_ij / Σ(x_ij)`</span><span class="w"> </span><span class="p">(</span><span class="n">比重法</span><span class="p">)</span><span class="n">。</span><span class="w">  </span>
-<span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">目标：</span><span class="o">**</span><span class="w"> </span><span class="n">得到一个标准化决策矩阵</span><span class="w"> </span><span class="n n-Quoted">`R = (r_ij)_{m×n}`</span><span class="p">,</span><span class="w"> </span><span class="n">其中</span><span class="w"> </span><span class="n n-Quoted">`m`</span><span class="w"> </span><span class="n">为对象数，</span><span class="n n-Quoted">`n`</span><span class="w"> </span><span class="n">为指标数，</span><span class="n n-Quoted">`0 &lt;= r_ij &lt;= 1`</span><span class="n">。</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算指标的熵值：</strong>  </p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">计算第</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="w"> </span><span class="n">项指标下，第</span><span class="w"> </span><span class="n n-Quoted">`i`</span><span class="w"> </span><span class="n">个对象的特征比重：</span><span class="n n-Quoted">`p_ij = r_ij / Σ(i=1 to m) r_ij`</span><span class="n">。</span><span class="p">(</span><span class="n">这可以理解为第</span><span class="w"> </span><span class="n n-Quoted">`i`</span><span class="w"> </span><span class="n">个对象在第</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="w"> </span><span class="n">项指标上的“贡献”比例</span><span class="p">)</span><span class="w">  </span>
-<span class="o">*</span><span class="w">   </span><span class="n">计算第</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="w"> </span><span class="n">项指标的信息熵：</span><span class="n n-Quoted">`e_j = -k * Σ(i=1 to m) [p_ij * ln(p_ij)]`</span><span class="w">  </span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">其中</span><span class="w"> </span><span class="n n-Quoted">`k = 1 / ln(m)`</span><span class="n">，这是一个标准化常数，确保</span><span class="w"> </span><span class="n n-Quoted">`0 &lt;= e_j &lt;= 1`</span><span class="n">。</span><span class="w">  </span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">当某个</span><span class="w"> </span><span class="n n-Quoted">`p_ij`</span><span class="w"> </span><span class="n">为</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">时，规定</span><span class="w"> </span><span class="n n-Quoted">`p_ij * ln(p_ij) = 0`</span><span class="w"> </span><span class="p">(</span><span class="n">因为</span><span class="w"> </span><span class="n n-Quoted">`lim(x-&gt;0+) x*ln(x) = 0`</span><span class="p">)</span><span class="n">。</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算信息效用值（差异系数）：</strong>  </p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">信息效用值</span><span class="w"> </span><span class="n n-Quoted">`d_j`</span><span class="w"> </span><span class="n">反映指标</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="w"> </span><span class="n">的信息重要性程度：</span><span class="n n-Quoted">`d_j = 1 - e_j`</span><span class="w">  </span>
-<span class="o">*</span><span class="w">   </span><span class="n">熵值</span><span class="w"> </span><span class="n n-Quoted">`e_j`</span><span class="w"> </span><span class="n">越大，说明该指标数据的变异程度越小（数据越趋同），信息效用</span><span class="w"> </span><span class="n n-Quoted">`d_j`</span><span class="w"> </span><span class="n">越小。</span><span class="w">  </span>
-<span class="o">*</span><span class="w">   </span><span class="n">熵值</span><span class="w"> </span><span class="n n-Quoted">`e_j`</span><span class="w"> </span><span class="n">越小，说明该指标数据的变异程度越大（数据越分散），信息效用</span><span class="w"> </span><span class="n n-Quoted">`d_j`</span><span class="w"> </span><span class="n">越大。</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算指标权重：</strong>  </p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   将信息效用值归一化，得到各指标的熵权：`w_j = d_j / Σ(j=1 to n) d_j`  
-<span class="k">*</span>   最终权重向量为 <span class="sb">`W = (w_1, w_2, ..., w_n)`</span>，满足 <span class="sb">`Σ w_j = 1`</span>。
-</code></pre></div>
-
-</li>
-</ol>
-<h3 id="_12">应用例子：电商平台商家综合竞争力评价</h3>
-<p>某大型电商平台希望对其平台上的1000家店铺进行综合竞争力评价，以便进行资源倾斜、活动推荐或制定不同的管理策略。初步筛选出以下6个评价指标：<br />
-1.  <strong>X1：近30天销售额 (万元) - (正向指标)</strong>
-2.  <strong>X2：近30天订单量 (单) - (正向指标)</strong>
-3.  <strong>X3：近30天平均客单价 (元) - (正向指标)</strong>
-4.  <strong>X4：近30天好评率 (%) - (正向指标)</strong>
-5.  <strong>X5：近30天纠纷率 (%) - (负向指标)</strong> (越低越好)
-6.  <strong>X6：店铺商品丰富度 (SKU数量) - (正向指标)</strong></p>
-<p><strong>建模目标：</strong> 计算每家店铺的综合竞争力得分，并进行排名。  </p>
-<h4 id="_13">面临的挑战</h4>
-<ol>
-<li><strong>指标赋权难题：</strong> 6个指标分别代表了销售规模(X1, X2)、盈利能力(X3)、服务质量(X4, X5)、商品能力(X6)。平台运营人员很难<strong>客观</strong>地确定哪个指标更重要，以及它们之间的相对重要性（权重）应该是多少。主观赋权容易引起争议。</li>
-<li><strong>数据量纲差异：</strong> 指标单位不同（万元、单、元、%、%），数值范围差异巨大（销售额可能几万到几千万，纠纷率可能0.1%到5%）。</li>
-<li><strong>指标性质不同：</strong> 有正向指标（越大越好），也有负向指标（越小越好）。</li>
-<li><strong>需要客观评价：</strong> 平台希望评价结果尽可能基于数据本身，减少人为干预。</li>
-</ol>
-<h4 id="_14">应用熵权法的解决方案</h4>
-<ol>
-<li>
-<p><strong>数据收集与标准化：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">收集1000家店铺在X1</span><span class="o">-</span><span class="n">X6这6个指标上的原始数据。</span>
-<span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">正向指标标准化</span><span class="w"> </span><span class="p">(</span><span class="n">X1</span><span class="p">,</span><span class="w"> </span><span class="n">X2</span><span class="p">,</span><span class="w"> </span><span class="n">X3</span><span class="p">,</span><span class="w"> </span><span class="n">X4</span><span class="p">,</span><span class="w"> </span><span class="n">X6</span><span class="p">)</span><span class="n">：</span><span class="o">**</span><span class="w"> </span><span class="n n-Quoted">`r_ij = (x_ij - min(x_j)) / (max(x_j) - min(x_j))`</span>
-<span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">负向指标标准化</span><span class="w"> </span><span class="p">(</span><span class="n">X5：纠纷率</span><span class="p">)</span><span class="n">：</span><span class="o">**</span><span class="w"> </span><span class="n n-Quoted">`r_ij = (max(x_j) - x_ij) / (max(x_j) - min(x_j))`</span>
-<span class="o">*</span><span class="w">   </span><span class="n">得到一个1000行</span><span class="p">(</span><span class="n">店铺</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">6列</span><span class="p">(</span><span class="n">指标</span><span class="p">)</span><span class="n">的标准化矩阵</span><span class="w"> </span><span class="n n-Quoted">`R`</span><span class="n">，所有值在</span><span class="err">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="err">]</span><span class="n">区间内。</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算特征比重 <code>p_ij</code>：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">对于每个指标</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="n">，计算每家店铺</span><span class="w"> </span><span class="n n-Quoted">`i`</span><span class="w"> </span><span class="n">在该指标标准化值占该指标所有店铺标准化值总和的比例：</span><span class="n n-Quoted">`p_ij = r_ij / Σ(i=1 to 1000) r_ij`</span>
-<span class="o">*</span><span class="w">   </span><span class="n">确保每列</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="w"> </span><span class="n">的</span><span class="w"> </span><span class="n n-Quoted">`p_ij`</span><span class="w"> </span><span class="n">之和为1。</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算信息熵 <code>e_j</code>：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n n-Quoted">`k = 1 / ln(1000) ≈ 0.1448`</span><span class="w"> </span><span class="p">(</span><span class="n">因为</span><span class="w"> </span><span class="n">m</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<span class="o">*</span><span class="w">   </span><span class="n">计算每个指标</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="w"> </span><span class="n">的熵值：</span><span class="n n-Quoted">`e_j = -k * Σ(i=1 to 1000) [p_ij * ln(p_ij)]`</span>
-<span class="o">*</span><span class="w">   </span><span class="o">*</span><span class="n">示例结果（假设值）：</span><span class="o">*</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">e_X1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.85</span><span class="w"> </span><span class="p">(</span><span class="n">销售额熵值</span><span class="p">)</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">e_X2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.88</span><span class="w"> </span><span class="p">(</span><span class="n">订单量熵值</span><span class="p">)</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">e_X3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.92</span><span class="w"> </span><span class="p">(</span><span class="n">客单价熵值</span><span class="p">)</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">e_X4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.95</span><span class="w"> </span><span class="p">(</span><span class="n">好评率熵值</span><span class="p">)</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">e_X5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.78</span><span class="w"> </span><span class="p">(</span><span class="n">纠纷率熵值</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="n">注意这是负向指标，但标准化后处理方式已保证一致性</span><span class="o">*</span><span class="p">)</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">e_X6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.90</span><span class="w"> </span><span class="p">(</span><span class="n">SKU数熵值</span><span class="p">)</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算信息效用值 <code>d_j</code>：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   <span class="sb">`d_j = 1 - e_j`</span>
-<span class="k">*</span>   <span class="gs">*示例结果：*</span>
-    <span class="k">*</span>   d_X1 = 1 - 0.85 = 0.15
-    <span class="k">*</span>   d_X2 = 1 - 0.88 = 0.12
-    <span class="k">*</span>   d_X3 = 1 - 0.92 = 0.08
-    <span class="k">*</span>   d_X4 = 1 - 0.95 = 0.05
-    <span class="k">*</span>   d_X5 = 1 - 0.78 = **0.22** (最大)
-    <span class="k">*</span>   d_X6 = 1 - 0.90 = 0.10
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算熵权 <code>w_j</code>：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   总差异系数 <span class="sb">`D = Σ d_j = 0.15 + 0.12 + 0.08 + 0.05 + 0.22 + 0.10 = 0.72`</span>
-<span class="k">*</span>   各指标权重 <span class="sb">`w_j = d_j / D`</span>：
-    <span class="k">*</span>   w_X1 = 0.15 / 0.72 ≈ 0.2083
-    <span class="k">*</span>   w_X2 = 0.12 / 0.72 ≈ 0.1667
-    <span class="k">*</span>   w_X3 = 0.08 / 0.72 ≈ 0.1111
-    <span class="k">*</span>   w_X4 = 0.05 / 0.72 ≈ 0.0694
-    <span class="k">*</span>   w_X5 = **0.22 / 0.72 ≈ 0.3056** (权重最高)
-    <span class="k">*</span>   w_X6 = 0.10 / 0.72 ≈ 0.1389
-<span class="k">*</span>   权重向量 <span class="sb">`W = (0.2083, 0.1667, 0.1111, 0.0694, 0.3056, 0.1389)`</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算店铺综合得分：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">对于每家店铺</span><span class="w"> </span><span class="n n-Quoted">`i`</span><span class="n">，其综合竞争力得分</span><span class="w"> </span><span class="n n-Quoted">`S_i = Σ(j=1 to 6) [w_j * r_ij]`</span>
-<span class="o">*</span><span class="w">   </span><span class="n">即：</span><span class="n n-Quoted">`S_i = 0.2083*r_i1 + 0.1667*r_i2 + 0.1111*r_i3 + 0.0694*r_i4 + 0.3056*r_i5 + 0.1389*r_i6`</span>
-<span class="o">*</span><span class="w">   </span><span class="n">计算所有1000家店铺的</span><span class="w"> </span><span class="n n-Quoted">`S_i`</span><span class="n">。</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>结果分析与应用：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">排名：</span><span class="o">**</span><span class="w"> </span><span class="n">根据</span><span class="w"> </span><span class="n n-Quoted">`S_i`</span><span class="w"> </span><span class="n">对店铺进行从高到低排序，得到综合竞争力排名。</span>
-<span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">权重解读：</span><span class="o">**</span><span class="w"> </span><span class="n">在本例的样本数据中：</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">纠纷率</span><span class="p">(</span><span class="n">X5</span><span class="p">)</span><span class="n">权重最高</span><span class="p">(</span><span class="mf">30.56</span><span class="o">%</span><span class="p">)</span><span class="n">：</span><span class="o">**</span><span class="w"> </span><span class="n">这表明在1000家店铺中，纠纷率这个指标的</span><span class="o">**</span><span class="n">数据差异最大</span><span class="o">**</span><span class="n">（熵值e_X5</span><span class="o">=</span><span class="mf">0.78</span><span class="n">相对最小）。可能的情况是，大部分店铺纠纷率都很低且接近（集中在低值区），少数店铺纠纷率非常高。这个指标在区分“问题店铺”和“正常店铺”方面提供了</span><span class="o">**</span><span class="n">最关键的信息</span><span class="o">**</span><span class="n">。</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">销售额</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span><span class="n">权重次之</span><span class="p">(</span><span class="mf">20.83</span><span class="o">%</span><span class="p">)</span><span class="n">：</span><span class="o">**</span><span class="w"> </span><span class="n">销售额在不同店铺间差异也较大，是区分店铺规模的重要指标。</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">好评率</span><span class="p">(</span><span class="n">X4</span><span class="p">)</span><span class="n">权重最低</span><span class="p">(</span><span class="mf">6.94</span><span class="o">%</span><span class="p">)</span><span class="n">：</span><span class="o">**</span><span class="w"> </span><span class="n">这并不意味着好评率不重要！它仅仅说明在这1000家店铺的样本数据中，好评率这个指标的数据</span><span class="o">**</span><span class="n">非常接近</span><span class="o">**</span><span class="n">（熵值e_X4</span><span class="o">=</span><span class="mf">0.95</span><span class="n">接近最大值1）。可能绝大多数店铺的好评率都在95</span><span class="o">%-</span><span class="mi">99</span><span class="o">%</span><span class="n">之间，差异很小，因此它提供的信息量相对较少，区分度不高。</span>
-<span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">平台决策：</span><span class="o">**</span><span class="w"> </span><span class="n">平台可以根据排名：</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">对排名靠前的优质店铺给予流量扶持、活动优先参与权等奖励。</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">对排名靠后，特别是纠纷率高（即使其他指标好，但因w_X5高会拉低总分）的店铺进行重点监控、辅导或处罚。</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">分析不同类型店铺（如高销售额低好评率、低纠纷率高SKU等）的特征。</span>
-</code></pre></div>
-
-</li>
-</ol>
-<h4 id="_15">熵权法在此例中的价值</h4>
-<ol>
-<li><strong>提供客观权重：</strong> 成功避免了人为设定权重的主观性和争议，权重完全由数据本身的离散程度决定。</li>
-<li><strong>识别关键区分指标：</strong> 清晰地指出在当前样本中，<strong>纠纷率(X5)</strong> 是区分店铺竞争力差异最关键的指标（因为它的数据变异最大），其次是<strong>销售额(X1)</strong>。这为平台管理提供了数据洞察。</li>
-<li><strong>实现综合评价：</strong> 将6个不同量纲、不同性质的指标，通过标准化和熵权法加权求和，得到了一个可比较的综合得分，实现了店铺的综合排序。</li>
-<li><strong>计算高效透明：</strong> 算法步骤清晰，易于编程实现，处理1000家店铺的数据效率很高。</li>
-</ol>
-<h1 id="topsis">Topsis优劣解距离法</h1>
-<p>TOPSIS是一种经典的多属性决策分析（MCDM）或多准则决策（MCDA）方法。它的核心思想非常直观且符合人类常识：<br />
-<strong>最优的方案应该距离“理想中最好的方案”（正理想解）最近，同时距离“理想中最差的方案”（负理想解）最远。</strong>  </p>
-<h3 id="_16">核心思想</h3>
-<ol>
-<li><strong>定义理想解：</strong><div class="highlight"><pre><span></span><code><span class="k">*</span>   **正理想解（PIS, Positive Ideal Solution）：** 这是一个虚拟的“最佳方案”，它在**每个评价指标上都取所有备选方案在该指标上的最优值**。对于正向指标（越大越好），取最大值；对于负向指标（越小越好），取最小值。
-<span class="k">*</span>   **负理想解（NIS, Negative Ideal Solution）：** 这是一个虚拟的“最差方案”，它在**每个评价指标上都取所有备选方案在该指标上的最差值**。对于正向指标，取最小值；对于负向指标，取最大值。
-</code></pre></div>
-
-<ol>
-<li><strong>计算距离：</strong> 计算每个<strong>实际的备选方案</strong>分别到正理想解（<code>D_i+</code>）和到负理想解（<code>D_i-</code>）的距离。通常使用欧几里得距离（欧氏距离）。</li>
-<li>
-<p><strong>计算相对接近度：</strong> 对于每个备选方案 <code>i</code>，计算其与正理想解的<strong>相对接近度</strong> <code>C_i</code>：
-  <code>C_i = D_i- / (D_i+ + D_i-)</code></p>
-<ul>
-<li><code>C_i</code> 的值在 <code>0</code> 到 <code>1</code> 之间。</li>
-<li><code>C_i = 1</code> 表示该方案就是正理想解（完美）。</li>
-<li><code>C_i = 0</code> 表示该方案就是负理想解（最差）。</li>
-<li><strong>排序：</strong> 根据相对接近度 <code>C_i</code> 的大小对所有备选方案进行<strong>降序排序</strong>。<code>C_i</code> 值越大，表明该方案越接近正理想解、同时越远离负理想解，综合表现就<strong>越好</strong>。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="topsis_1">TOPSIS的关键步骤</h3>
-<ol>
-<li>
-<p><strong>构建决策矩阵：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">假设有</span><span class="w"> </span><span class="n n-Quoted">`m`</span><span class="w"> </span><span class="n">个备选方案（A1</span><span class="p">,</span><span class="w"> </span><span class="n">A2</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">Am）。</span>
-<span class="o">*</span><span class="w">   </span><span class="n">假设有</span><span class="w"> </span><span class="n n-Quoted">`n`</span><span class="w"> </span><span class="n">个评价指标（C1</span><span class="p">,</span><span class="w"> </span><span class="n">C2</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">Cn）。</span>
-<span class="o">*</span><span class="w">   </span><span class="n">构建一个</span><span class="w"> </span><span class="n n-Quoted">`m x n`</span><span class="w"> </span><span class="n">的决策矩阵</span><span class="w"> </span><span class="n n-Quoted">`X`</span><span class="n">，其中元素</span><span class="w"> </span><span class="n n-Quoted">`x_ij`</span><span class="w"> </span><span class="n">表示方案</span><span class="w"> </span><span class="n n-Quoted">`i`</span><span class="w"> </span><span class="n">在指标</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="w"> </span><span class="n">上的原始评价值。</span>
-<span class="o">*</span><span class="w">   </span><span class="n">明确每个指标是</span><span class="o">**</span><span class="n">正向指标</span><span class="o">**</span><span class="n">（效益型，越大越好，如利润、效率）还是</span><span class="o">**</span><span class="n">负向指标</span><span class="o">**</span><span class="n">（成本型，越小越好，如成本、污染、耗时）。</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>数据标准化（归一化）：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   消除不同指标量纲和数量级差异的影响。常用方法有向量归一化或极差变换法。这里介绍向量归一化：
-    <span class="sb">`r_ij = x_ij / sqrt(Σ(i=1 to m) x_ij²)`</span> (对所有指标，无论正向负向)
-
-    <span class="k">*</span>   得到一个标准化决策矩阵 <span class="sb">`R = (r_ij)_{m×n}`</span>。
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>构建加权标准化决策矩阵（可选但强烈推荐）：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">如果各指标的重要性不同，需要赋予权重</span><span class="w"> </span><span class="n n-Quoted">`w_j`</span><span class="w"> </span><span class="p">(</span><span class="n">Σ</span><span class="w"> </span><span class="n">w_j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="n">。权重可以通过熵权法、AHP、专家打分等方法确定。</span>
-<span class="o">*</span><span class="w">   </span><span class="n">计算加权标准化值：</span><span class="n n-Quoted">`v_ij = w_j * r_ij`</span>
-<span class="o">*</span><span class="w">   </span><span class="n">得到加权标准化决策矩阵</span><span class="w"> </span><span class="n n-Quoted">`V = (v_ij)_{m×n}`</span><span class="n">。如果所有指标权重相等，则</span><span class="w"> </span><span class="n n-Quoted">`V = R`</span><span class="n">。</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>确定正理想解（PIS）和负理想解（NIS）：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">正理想解（A</span><span class="o">+</span><span class="n">）</span><span class="o">:**</span><span class="w"> </span><span class="n n-Quoted">`A+ = [v1+, v2+, ..., vn+]`</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">其中</span><span class="w"> </span><span class="n n-Quoted">`vj+ = max(v_ij)`</span><span class="w"> </span><span class="n">如果指标</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="w"> </span><span class="n">是正向指标。</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n n-Quoted">`vj+ = min(v_ij)`</span><span class="w"> </span><span class="n">如果指标</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="w"> </span><span class="n">是负向指标。</span>
-<span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">负理想解（A</span><span class="o">-</span><span class="n">）</span><span class="o">:**</span><span class="w"> </span><span class="n n-Quoted">`A- = [v1-, v2-, ..., vn-]`</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n">其中</span><span class="w"> </span><span class="n n-Quoted">`vj- = min(v_ij)`</span><span class="w"> </span><span class="n">如果指标</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="w"> </span><span class="n">是正向指标。</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n n-Quoted">`vj- = max(v_ij)`</span><span class="w"> </span><span class="n">如果指标</span><span class="w"> </span><span class="n n-Quoted">`j`</span><span class="w"> </span><span class="n">是负向指标。</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算各方案到PIS和NIS的距离：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   到正理想解的距离：`D_i+ = sqrt(Σ(j=1 to n) (v_ij - vj+)²)` (i=1, 2, ..., m)
-<span class="k">*</span>   到负理想解的距离：`D_i- = sqrt(Σ(j=1 to n) (v_ij - vj-)²)` (i=1, 2, ..., m)
-<span class="k">*</span>   这里使用的是欧几里得距离（n维空间中的直线距离）。有时也使用曼哈顿距离，但欧氏距离更常用。
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算各方案的相对接近度：</strong>
-    <code>C_i = D_i- / (D_i+ + D_i-)</code> (i=1, 2, ..., m)</p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   <span class="sb">`0 &lt;= C_i &lt;= 1`</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>排序：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">根据</span><span class="w"> </span><span class="n n-Quoted">`C_i`</span><span class="w"> </span><span class="n">的值</span><span class="o">**</span><span class="n">从大到小</span><span class="o">**</span><span class="n">对备选方案进行排序。</span>
-<span class="o">*</span><span class="w">   </span><span class="n n-Quoted">`C_i`</span><span class="w"> </span><span class="n">最大的方案就是最优方案。</span>
-</code></pre></div>
-
-</li>
-</ol>
-<h3 id="_17">应用例子：城市应急医疗中心选址评估</h3>
-<p>某省卫生部门计划在省内5个候选城市（C1, C2, C3, C4, C5）中选择一个建设新的省级应急医疗中心。决策需综合考虑以下关键因素（指标）：</p>
-<ol>
-<li><strong>覆盖人口（万人） - 正向指标 (↑)：</strong> 中心能够辐射服务的核心人口数量。越大越好。</li>
-<li><strong>到达时间（分钟） - 负向指标 (↓)：</strong> 从该城市中心到省内其他主要城市的最大交通时间（考虑高速公路和铁路）。越小越好（响应越快）。</li>
-<li><strong>建设成本（亿元） - 负向指标 (↓)：</strong> 预估的土地、基建、设备等总投入成本。越小越好。</li>
-<li><strong>现有医疗基础（指数 1-10） - 正向指标 (↑)：</strong> 评估该城市现有大型医院、专科医生、医疗设备等资源水平（专家打分）。越高越好。</li>
-<li><strong>灾害风险（等级 1-5） - 负向指标 (↓)：</strong> 评估该城市遭受地震、洪水等重大自然灾害的风险等级（1=很低，5=很高）。越低越好。</li>
-</ol>
-<p><strong>建模目标：</strong> 使用TOPSIS方法对5个候选城市进行综合评估和排序，选出最优选址。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">城市</th>
-<th style="text-align: center;">覆盖人口 (↑)</th>
-<th style="text-align: center;">到达时间 (↓)</th>
-<th style="text-align: center;">建设成本 (↓)</th>
-<th style="text-align: center;">现有医疗基础 (↑)</th>
-<th style="text-align: center;">灾害风险 (↓)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">C1</td>
-<td style="text-align: center;">850</td>
-<td style="text-align: center;">180</td>
-<td style="text-align: center;">42</td>
-<td style="text-align: center;">8</td>
-<td style="text-align: center;">3</td>
-</tr>
-<tr>
-<td style="text-align: left;">C2</td>
-<td style="text-align: center;">720</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">38</td>
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">2</td>
-</tr>
-<tr>
-<td style="text-align: left;">C3</td>
-<td style="text-align: center;">950</td>
-<td style="text-align: center;">210</td>
-<td style="text-align: center;">50</td>
-<td style="text-align: center;">9</td>
-<td style="text-align: center;">4</td>
-</tr>
-<tr>
-<td style="text-align: left;">C4</td>
-<td style="text-align: center;">680</td>
-<td style="text-align: center;">120</td>
-<td style="text-align: center;">35</td>
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">1</td>
-</tr>
-<tr>
-<td style="text-align: left;">C5</td>
-<td style="text-align: center;">780</td>
-<td style="text-align: center;">170</td>
-<td style="text-align: center;">45</td>
-<td style="text-align: center;">8</td>
-<td style="text-align: center;">3</td>
-</tr>
-</tbody>
-</table>
-<ol>
-<li>
-<p><strong>构建决策矩阵 <code>X</code>：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   如上表所示。
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>数据标准化（向量归一化）：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span>   <span class="s s-Atom">计算每个指标列所有数值的平方和，再开方得到分母。</span>
-<span class="o">*</span>   <span class="s s-Atom">例如，覆盖人口列：</span>
-    <span class="o">*</span>   <span class="s s-Atom">平方和</span> <span class="o">=</span> <span class="mi">850</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="mi">720</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="mi">950</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="mi">680</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="mi">780</span><span class="s s-Atom">²</span> <span class="o">=</span> <span class="mi">722500</span> <span class="o">+</span> <span class="mi">518400</span> <span class="o">+</span> <span class="mi">902500</span> <span class="o">+</span> <span class="mi">462400</span> <span class="o">+</span> <span class="mi">608400</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span><span class="mi">214</span><span class="p">,</span><span class="mi">200</span>
-    <span class="o">*</span>   <span class="s s-Atom">分母</span> <span class="o">=</span> <span class="nf">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">214</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span> <span class="s s-Atom">≈</span> <span class="mf">1792.53</span>
-    <span class="o">*</span>   <span class="nv">C1标准化值</span> <span class="s s-Atom">r11</span> <span class="o">=</span> <span class="mi">850</span> <span class="o">/</span> <span class="mf">1792.53</span> <span class="s s-Atom">≈</span> <span class="mf">0.4742</span>
-<span class="o">*</span>   <span class="s s-Atom">对其他指标重复计算，得到标准化矩阵</span> <span class="err">`</span><span class="nv">R</span><span class="err">`</span> <span class="p">(</span><span class="s s-Atom">保留4位小数</span><span class="p">)</span><span class="s s-Atom">：</span>
-
-<span class="p">|</span> <span class="s s-Atom">城市</span> <span class="p">|</span> <span class="s s-Atom">覆盖人口</span> <span class="p">|</span> <span class="s s-Atom">到达时间</span> <span class="p">|</span> <span class="s s-Atom">建设成本</span> <span class="p">|</span> <span class="s s-Atom">现有医疗基础</span> <span class="p">|</span> <span class="s s-Atom">灾害风险</span> <span class="p">|</span>
-<span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">-----:</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">-----:</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">-----:</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">---------:</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">-----:</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">C1</span>   <span class="p">|</span>  <span class="mf">0.4742</span>  <span class="p">|</span>  <span class="mf">0.4674</span>  <span class="p">|</span>  <span class="mf">0.4707</span>  <span class="p">|</span>    <span class="mf">0.4811</span>    <span class="p">|</span>  <span class="mf">0.5000</span>  <span class="p">|</span>
-<span class="p">|</span> <span class="nv">C2</span>   <span class="p">|</span>  <span class="mf">0.4016</span>  <span class="p">|</span>  <span class="mf">0.3895</span>  <span class="p">|</span>  <span class="mf">0.4259</span>  <span class="p">|</span>    <span class="mf">0.4210</span>    <span class="p">|</span>  <span class="mf">0.3333</span>  <span class="p">|</span>
-<span class="p">|</span> <span class="nv">C3</span>   <span class="p">|</span>  <span class="mf">0.5299</span>  <span class="p">|</span>  <span class="mf">0.5453</span>  <span class="p">|</span>  <span class="mf">0.5604</span>  <span class="p">|</span>    <span class="mf">0.5413</span>    <span class="p">|</span>  <span class="mf">0.6667</span>  <span class="p">|</span>
-<span class="p">|</span> <span class="nv">C4</span>   <span class="p">|</span>  <span class="mf">0.3793</span>  <span class="p">|</span>  <span class="mf">0.3116</span>  <span class="p">|</span>  <span class="mf">0.3922</span>  <span class="p">|</span>    <span class="mf">0.3608</span>    <span class="p">|</span>  <span class="mf">0.1667</span>  <span class="p">|</span>
-<span class="p">|</span> <span class="nv">C5</span>   <span class="p">|</span>  <span class="mf">0.4351</span>  <span class="p">|</span>  <span class="mf">0.4415</span>  <span class="p">|</span>  <span class="mf">0.5043</span>  <span class="p">|</span>    <span class="mf">0.4811</span>    <span class="p">|</span>  <span class="mf">0.5000</span>  <span class="p">|</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>确定指标权重（假设使用熵权法或其他方法得到）：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   假设通过熵权法计算，得到各指标权重如下（过程略）：
-    <span class="k">*</span>   覆盖人口 (W1) = 0.25
-    <span class="k">*</span>   到达时间 (W2) = 0.20
-    <span class="k">*</span>   建设成本 (W3) = 0.15
-    <span class="k">*</span>   现有医疗基础 (W4) = 0.30
-    <span class="k">*</span>   灾害风险 (W5) = 0.10
-<span class="k">*</span>   Σ Wj = 1。
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>构建加权标准化决策矩阵 <code>V</code>：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span>   <span class="err">`</span><span class="s s-Atom">v_ij</span> <span class="o">=</span> <span class="s s-Atom">w_j</span> <span class="o">*</span> <span class="s s-Atom">r_ij</span><span class="err">`</span>
-<span class="o">*</span>   <span class="s s-Atom">例如，C1的覆盖人口：v11</span> <span class="o">=</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="mf">0.4742</span> <span class="s s-Atom">≈</span> <span class="mf">0.1186</span>
-<span class="o">*</span>   <span class="s s-Atom">计算所有值，得到矩阵</span> <span class="err">`</span><span class="nv">V</span><span class="err">`</span> <span class="p">(</span><span class="s s-Atom">保留4位小数</span><span class="p">)</span><span class="s s-Atom">：</span>
-
-<span class="p">|</span> <span class="s s-Atom">城市</span> <span class="p">|</span> <span class="s s-Atom">覆盖人口</span> <span class="p">|</span> <span class="s s-Atom">到达时间</span> <span class="p">|</span> <span class="s s-Atom">建设成本</span> <span class="p">|</span> <span class="s s-Atom">现有医疗基础</span> <span class="p">|</span> <span class="s s-Atom">灾害风险</span> <span class="p">|</span>
-<span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">-----:</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">-----:</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">-----:</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">---------:</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">-----:</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">C1</span>   <span class="p">|</span>  <span class="mf">0.1186</span>  <span class="p">|</span>  <span class="mf">0.0935</span>  <span class="p">|</span>  <span class="mf">0.0706</span>  <span class="p">|</span>    <span class="mf">0.1443</span>    <span class="p">|</span>  <span class="mf">0.0500</span>  <span class="p">|</span>
-<span class="p">|</span> <span class="nv">C2</span>   <span class="p">|</span>  <span class="mf">0.1004</span>  <span class="p">|</span>  <span class="mf">0.0779</span>  <span class="p">|</span>  <span class="mf">0.0639</span>  <span class="p">|</span>    <span class="mf">0.1263</span>    <span class="p">|</span>  <span class="mf">0.0333</span>  <span class="p">|</span>
-<span class="p">|</span> <span class="nv">C3</span>   <span class="p">|</span>  <span class="mf">0.1325</span>  <span class="p">|</span>  <span class="mf">0.1091</span>  <span class="p">|</span>  <span class="mf">0.0841</span>  <span class="p">|</span>    <span class="mf">0.1624</span>    <span class="p">|</span>  <span class="mf">0.0667</span>  <span class="p">|</span>
-<span class="p">|</span> <span class="nv">C4</span>   <span class="p">|</span>  <span class="mf">0.0948</span>  <span class="p">|</span>  <span class="mf">0.0623</span>  <span class="p">|</span>  <span class="mf">0.0588</span>  <span class="p">|</span>    <span class="mf">0.1082</span>    <span class="p">|</span>  <span class="mf">0.0167</span>  <span class="p">|</span>
-<span class="p">|</span> <span class="nv">C5</span>   <span class="p">|</span>  <span class="mf">0.1088</span>  <span class="p">|</span>  <span class="mf">0.0883</span>  <span class="p">|</span>  <span class="mf">0.0756</span>  <span class="p">|</span>    <span class="mf">0.1443</span>    <span class="p">|</span>  <span class="mf">0.0500</span>  <span class="p">|</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>确定正理想解（A+）和负理想解（A-）：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   **覆盖人口 (↑)：** 最大值 = max(0.1186, 0.1004, 0.1325, 0.0948, 0.1088) = **0.1325** (C3)
-<span class="k">*</span>   **到达时间 (↓)：** 最小值 = min(0.0935, 0.0779, 0.1091, 0.0623, 0.0883) = **0.0623** (C4)
-<span class="k">*</span>   **建设成本 (↓)：** 最小值 = min(0.0706, 0.0639, 0.0841, 0.0588, 0.0756) = **0.0588** (C4)
-<span class="k">*</span>   **现有医疗基础 (↑)：** 最大值 = max(0.1443, 0.1263, 0.1624, 0.1082, 0.1443) = **0.1624** (C3)
-<span class="k">*</span>   **灾害风险 (↓)：** 最小值 = min(0.0500, 0.0333, 0.0667, 0.0167, 0.0500) = **0.0167** (C4)
-<span class="k">*</span>   **∴ 正理想解 A+ = [0.1325, 0.0623, 0.0588, 0.1624, 0.0167]**
-<span class="k">*</span>   **覆盖人口 (↑)：** 最小值 = min(...) = **0.0948** (C4)
-<span class="k">*</span>   **到达时间 (↓)：** 最大值 = max(...) = **0.1091** (C3)
-<span class="k">*</span>   **建设成本 (↓)：** 最大值 = max(...) = **0.0841** (C3)
-<span class="k">*</span>   **现有医疗基础 (↑)：** 最小值 = min(...) = **0.1082** (C4)
-<span class="k">*</span>   **灾害风险 (↓)：** 最大值 = max(...) = **0.0667** (C3)
-<span class="k">*</span>   **∴ 负理想解 A- = [0.0948, 0.1091, 0.0841, 0.1082, 0.0667]**
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算各方案到PIS (<code>D_i+</code>)和NIS (<code>D_i-</code>)的距离：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span>   <span class="s s-Atom">使用欧几里得距离公式。</span>
-<span class="o">*</span>   <span class="s s-Atom">**</span><span class="nv">C1到A</span><span class="s s-Atom">+</span><span class="nf">的距离</span> <span class="p">(</span><span class="nv">D1</span><span class="s s-Atom">+</span><span class="p">)</span><span class="o">:</span><span class="s s-Atom">**</span>
-    <span class="err">`</span><span class="nf">sqrt</span><span class="p">(</span> <span class="p">(</span><span class="mf">0.1186</span><span class="o">-</span><span class="mf">0.1325</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0935</span><span class="o">-</span><span class="mf">0.0623</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0706</span><span class="o">-</span><span class="mf">0.0588</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.1443</span><span class="o">-</span><span class="mf">0.1624</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0500</span><span class="o">-</span><span class="mf">0.0167</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="p">)</span><span class="err">`</span>  
-    <span class="err">`</span><span class="o">=</span> <span class="nf">sqrt</span><span class="p">(</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.0139</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0312</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0118</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.0181</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0333</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="p">)</span><span class="err">`</span>  
-    <span class="err">`</span><span class="o">=</span> <span class="nf">sqrt</span><span class="p">(</span><span class="mf">0.000193</span> <span class="o">+</span> <span class="mf">0.000973</span> <span class="o">+</span> <span class="mf">0.000139</span> <span class="o">+</span> <span class="mf">0.000328</span> <span class="o">+</span> <span class="mf">0.001109</span><span class="p">)</span> <span class="s s-Atom">≈</span> <span class="nf">sqrt</span><span class="p">(</span><span class="mf">0.002742</span><span class="p">)</span> <span class="s s-Atom">≈</span> <span class="mf">0.0524</span><span class="err">`</span>
-
-<span class="o">*</span>   <span class="s s-Atom">**</span><span class="nv">C1到A</span><span class="s s-Atom">-</span><span class="nf">的距离</span> <span class="p">(</span><span class="nv">D1</span><span class="s s-Atom">-</span><span class="p">)</span><span class="o">:</span><span class="s s-Atom">**</span>
-    <span class="err">`</span><span class="nf">sqrt</span><span class="p">(</span> <span class="p">(</span><span class="mf">0.1186</span><span class="o">-</span><span class="mf">0.0948</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0935</span><span class="o">-</span><span class="mf">0.1091</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0706</span><span class="o">-</span><span class="mf">0.0841</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.1443</span><span class="o">-</span><span class="mf">0.1082</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0500</span><span class="o">-</span><span class="mf">0.0667</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="p">)</span><span class="err">`</span>  
-    <span class="err">`</span><span class="o">=</span> <span class="nf">sqrt</span><span class="p">(</span> <span class="p">(</span><span class="mf">0.0238</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.0156</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.0135</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0361</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.0167</span><span class="p">)</span><span class="s s-Atom">²</span> <span class="p">)</span><span class="err">`</span>  
-    <span class="err">`</span><span class="o">=</span> <span class="nf">sqrt</span><span class="p">(</span><span class="mf">0.000566</span> <span class="o">+</span> <span class="mf">0.000243</span> <span class="o">+</span> <span class="mf">0.000182</span> <span class="o">+</span> <span class="mf">0.001303</span> <span class="o">+</span> <span class="mf">0.000279</span><span class="p">)</span> <span class="s s-Atom">≈</span> <span class="nf">sqrt</span><span class="p">(</span><span class="mf">0.002573</span><span class="p">)</span> <span class="s s-Atom">≈</span> <span class="mf">0.0507</span><span class="err">`</span>
-
-<span class="o">*</span>   <span class="s s-Atom">同理计算其他城市的</span> <span class="err">`</span><span class="nv">D_i</span><span class="s s-Atom">+</span><span class="err">`</span> <span class="s s-Atom">和</span> <span class="err">`</span><span class="nv">D_i</span><span class="s s-Atom">-</span><span class="err">`</span> <span class="p">(</span><span class="s s-Atom">假设结果保留4位小数</span><span class="p">)</span><span class="s s-Atom">：</span>
-    <span class="p">|</span> <span class="s s-Atom">城市</span> <span class="p">|</span> <span class="nv">D_i</span><span class="o">+</span>     <span class="p">|</span> <span class="nv">D_i</span><span class="o">-</span>     <span class="p">|</span>
-    <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">------</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">------</span> <span class="p">|</span>
-    <span class="p">|</span> <span class="nv">C1</span>   <span class="p">|</span> <span class="s s-Atom">**</span><span class="mf">0.0524</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="s s-Atom">**</span><span class="mf">0.0507</span><span class="s s-Atom">**</span> <span class="p">|</span>
-    <span class="p">|</span> <span class="nv">C2</span>   <span class="p">|</span> <span class="mf">0.0482</span>   <span class="p">|</span> <span class="mf">0.0621</span>   <span class="p">|</span>
-    <span class="p">|</span> <span class="nv">C3</span>   <span class="p">|</span> <span class="mf">0.0713</span>   <span class="p">|</span> <span class="mf">0.0421</span>   <span class="p">|</span>
-    <span class="p">|</span> <span class="nv">C4</span>   <span class="p">|</span> <span class="mf">0.0639</span>   <span class="p">|</span> <span class="mf">0.0655</span>   <span class="p">|</span>
-    <span class="p">|</span> <span class="nv">C5</span>   <span class="p">|</span> <span class="mf">0.0393</span>   <span class="p">|</span> <span class="mf">0.0601</span>   <span class="p">|</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算各方案的相对接近度 <code>C_i</code>：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   <span class="sb">`C_i = D_i- / (D_i+ + D_i-)`</span>
-<span class="k">*</span>   **C1:** <span class="sb">`C1 = 0.0507 / (0.0524 + 0.0507) ≈ 0.0507 / 0.1031 ≈ 0.4918`</span>  
-<span class="k">*</span>   **C2:** <span class="sb">`C2 = 0.0621 / (0.0482 + 0.0621) ≈ 0.0621 / 0.1103 ≈ 0.5630`</span>  
-<span class="k">*</span>   **C3:** <span class="sb">`C3 = 0.0421 / (0.0713 + 0.0421) ≈ 0.0421 / 0.1134 ≈ 0.3713`</span>  
-<span class="k">*</span>   **C4:** <span class="sb">`C4 = 0.0655 / (0.0639 + 0.0655) ≈ 0.0655 / 0.1294 ≈ 0.5062`</span>  
-<span class="k">*</span>   **C5:** <span class="sb">`C5 = 0.0601 / (0.0393 + 0.0601) ≈ 0.0601 / 0.0994 ≈ 0.6046`</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>排序：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span>   <span class="s s-Atom">根据</span> <span class="err">`</span><span class="nv">C_i</span><span class="err">`</span> <span class="s s-Atom">**从大到小**排序：</span>
-    <span class="p">|</span> <span class="s s-Atom">排名</span> <span class="p">|</span> <span class="s s-Atom">城市</span> <span class="p">|</span> <span class="nv">C_i</span>     <span class="p">|</span> <span class="s s-Atom">解释</span>                     <span class="p">|</span>
-    <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">-----</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">----------------------</span> <span class="p">|</span>
-    <span class="p">|</span> <span class="s s-Atom">**</span><span class="mi">1</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="s s-Atom">**</span><span class="nv">C5</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="s s-Atom">**</span><span class="mf">0.6046</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="s s-Atom">**最优选择**</span>             <span class="p">|</span>
-    <span class="p">|</span> <span class="mi">2</span>    <span class="p">|</span> <span class="nv">C2</span>   <span class="p">|</span> <span class="mf">0.5630</span>  <span class="p">|</span>                          <span class="p">|</span>
-    <span class="p">|</span> <span class="mi">3</span>    <span class="p">|</span> <span class="nv">C4</span>   <span class="p">|</span> <span class="mf">0.5062</span>  <span class="p">|</span>                          <span class="p">|</span>
-    <span class="p">|</span> <span class="mi">4</span>    <span class="p">|</span> <span class="nv">C1</span>   <span class="p">|</span> <span class="mf">0.4918</span>  <span class="p">|</span>                          <span class="p">|</span>
-    <span class="p">|</span> <span class="mi">5</span>    <span class="p">|</span> <span class="nv">C3</span>   <span class="p">|</span> <span class="mf">0.3713</span>  <span class="p">|</span>                          <span class="p">|</span>
-</code></pre></div>
-
-</li>
-</ol>
-<h4 id="_18">结果分析与决策建议</h4>
-<ul>
-<li><strong>最优方案：</strong> 城市 <strong>C5</strong> 的相对接近度 <code>C_i</code> 最高（0.6046），被TOPSIS方法推荐为<strong>建设省级应急医疗中心的最佳选址</strong>。</li>
-<li><strong>原因分析 (基于原始数据和权重)：</strong>
-    *   C5在覆盖人口（780万，第二）、到达时间（170分钟，中等偏快）、建设成本（45亿，中等偏高）、现有医疗基础（8，良好）、灾害风险（3，中等）方面表现<strong>较为均衡</strong>，没有特别差的短板。
-    *   它成功避开了C3的高成本、高风险和C4的低覆盖人口、较低医疗基础，同时也优于C1和C2的综合表现。
-    *   虽然C4在到达时间（最快）、建设成本（最低）、灾害风险（最低）上表现突出，但其覆盖人口（最低）和现有医疗基础（最低）这两个权重较高的指标（W1=0.25, W4=0.30）严重拖累了它的综合评分。
-    *   虽然C3在覆盖人口（最高）和现有医疗基础（最高）上表现最好，但其高建设成本（最高）、长到达时间（最长）和高灾害风险（最高）带来的巨大劣势（尤其建设成本W3=0.15，灾害风险W5=0.10），使其综合排名垫底。</li>
-<li><strong>决策建议：</strong> 卫生部门应优先考虑在 <strong>C5</strong> 建设省级应急医疗中心。建议进一步对C5进行详细可行性研究，并关注其建设成本控制的优化空间。</li>
-</ul>
-<h1 id="_19">灰色关联分析</h1>
-<p>主要用于<strong>分析系统中各因素之间的关联程度</strong>，特别适合于<strong>“贫信息”、“小样本”</strong> 的不确定系统（即“灰色系统”）</p>
-<ol>
-<li><strong>“灰色”概念：</strong> 在系统论中，“黑”表示信息完全未知，“白”表示信息完全明确，“灰”则表示信息部分已知、部分未知。</li>
-<li><strong>关联度：</strong> GRA的核心是计算<strong>序列之间的关联度</strong>。它认为，如果两个因素（或序列）的变化趋势在系统发展过程中具有相对一致的方向、速度和幅度（即几何形状相似），那么它们之间的关联度就大；反之，关联度就小  </li>
-<li><strong>量化比较：</strong> GRA通过特定的数据处理和公式计算，将这种序列间变化趋势的相似性<strong>量化</strong>为一个介于0到1之间的数值——<strong>灰色关联度</strong>。关联度越接近1，表明两个序列的变化趋势越同步，关联性越强；越接近0，则关联性越弱  </li>
-<li><strong>综合评价与排序：</strong> 在多指标评价问题中，GRA通过计算每个待评价对象（方案）的序列与一个设定的理想参考序列（或负理想序列）之间的关联度，来综合反映该对象与理想状态的接近程度。最后根据关联度大小对所有对象进行排序，关联度最大的被认为是最优的  </li>
-</ol>
-<h3 id="_20">灰色关联分析的关键步骤</h3>
-<ol>
-<li>
-<p><strong>确定分析序列：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   **参考序列（母序列，X0）：** 反映系统行为特征或评价基准的序列。在因素分析中，通常是主行为序列（如总产量）；在综合评价中，通常是由各指标的最优值（正向指标取最大，负向指标取最小）或期望值构成的理想序列。`X0 = (x0(1), x0(2), ..., x0(n))`
-<span class="k">*</span>   **比较序列（子序列，Xi）：** 影响系统行为的因素序列或被评价对象的指标序列。`Xi = (xi(1), xi(2), ..., xi(n))` (i=1, 2, ..., m)。每个比较序列代表一个因素或一个评价对象在所有指标上的值（通常需要先进行指标数据收集和整理）。
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>数据标准化（无量纲化）：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   由于各指标（因素）通常具有不同的量纲和数量级，需要进行标准化处理以消除影响。常用方法：
-    <span class="k">*</span>   **初值化：** 每个序列的所有元素都除以该序列的第一个元素。`xi&#39;(k) = xi(k) / xi(1)`
-    <span class="k">*</span>   **均值化：** 每个序列的所有元素都除以该序列的平均值。`xi&#39;(k) = xi(k) / mean(xi)`
-    <span class="k">*</span>   **区间相对化（常用）：**
-        <span class="k">*</span>   对于正向指标（越大越好）：`xi&#39;(k) = [xi(k) - min(xi)] / [max(xi) - min(xi)]`
-        <span class="k">*</span>   对于负向指标（越小越好）：`xi&#39;(k) = [max(xi) - xi(k)] / [max(xi) - min(xi)]`
-<span class="k">*</span>   得到一个标准化后的参考序列 <span class="sb">`X0&#39;`</span> 和比较序列 <span class="sb">`Xi&#39;`</span>。
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算关联系数：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">计算比较序列</span><span class="w"> </span><span class="n n-Quoted">`Xi&#39;`</span><span class="w"> </span><span class="n">在</span><span class="w"> </span><span class="o">**</span><span class="n">每个点</span><span class="w"> </span><span class="n">k</span><span class="o">**</span><span class="w"> </span><span class="n">上与参考序列</span><span class="w"> </span><span class="n n-Quoted">`X0&#39;`</span><span class="w"> </span><span class="n">的关联系数</span><span class="w"> </span><span class="n n-Quoted">`ξi(k)`</span><span class="n">：</span>
-<span class="w">    </span><span class="n n-Quoted">`ξi(k) = [min min |x0&#39;(k) - xi&#39;(k)| + ρ * max max |x0&#39;(k) - xi&#39;(k)|] / [|x0&#39;(k) - xi&#39;(k)| + ρ * max max |x0&#39;(k) - xi&#39;(k)|]`</span>
-
-<span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">其中：</span><span class="o">**</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n n-Quoted">`|x0&#39;(k) - xi&#39;(k)|`</span><span class="w"> </span><span class="n">是第</span><span class="w"> </span><span class="n n-Quoted">`k`</span><span class="w"> </span><span class="n">个点上两个序列的绝对差。</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n n-Quoted">`min min |x0&#39;(k) - xi&#39;(k)|`</span><span class="w"> </span><span class="n">是两级最小差。第一级最小差指</span><span class="w"> </span><span class="n n-Quoted">`min |x0&#39;(k) - xi&#39;(k)|`</span><span class="n">（固定</span><span class="w"> </span><span class="n n-Quoted">`k`</span><span class="n">，遍历</span><span class="w"> </span><span class="n n-Quoted">`i`</span><span class="w"> </span><span class="n">找最小差），第二级最小差指在</span><span class="w"> </span><span class="n n-Quoted">`k=1 to n`</span><span class="w"> </span><span class="n">上找这些最小差中的最小值。即全局最小绝对差。</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n n-Quoted">`max max |x0&#39;(k) - xi&#39;(k)|`</span><span class="w"> </span><span class="n">是两级最大差。第一级最大差指</span><span class="w"> </span><span class="n n-Quoted">`max |x0&#39;(k) - xi&#39;(k)|`</span><span class="n">（固定</span><span class="w"> </span><span class="n n-Quoted">`k`</span><span class="n">，遍历</span><span class="w"> </span><span class="n n-Quoted">`i`</span><span class="w"> </span><span class="n">找最大差），第二级最大差指在</span><span class="w"> </span><span class="n n-Quoted">`k=1 to n`</span><span class="w"> </span><span class="n">上找这些最大差中的最大值。即全局最大绝对差。</span>
-<span class="w">    </span><span class="o">*</span><span class="w">   </span><span class="n n-Quoted">`ρ`</span><span class="w"> </span><span class="n">是分辨系数，取值在</span><span class="w"> </span><span class="n n-Quoted">`(0, 1)`</span><span class="w"> </span><span class="n">之间，通常取</span><span class="w"> </span><span class="n n-Quoted">`0.5`</span><span class="n">。其作用是调节关联系数之间的差异大小，</span><span class="n n-Quoted">`ρ`</span><span class="w"> </span><span class="n">越小，关联系数间的差异越大，区分能力越强。</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算关联度：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">关联系数</span><span class="w"> </span><span class="n n-Quoted">`ξi(k)`</span><span class="w"> </span><span class="n">反映的是序列</span><span class="w"> </span><span class="n n-Quoted">`Xi&#39;`</span><span class="w"> </span><span class="n">与</span><span class="w"> </span><span class="n n-Quoted">`X0&#39;`</span><span class="w"> </span><span class="n">在</span><span class="w"> </span><span class="o">**</span><span class="n">每个点</span><span class="w"> </span><span class="n n-Quoted">`k`</span><span class="o">**</span><span class="w"> </span><span class="n">上的关联程度。为了得到序列整体的关联程度，需要计算平均值：</span>
-<span class="w">    </span><span class="n n-Quoted">`ri = (1/n) * Σ(k=1 to n) ξi(k)`</span>
-
-<span class="o">*</span><span class="w">   </span><span class="n n-Quoted">`ri`</span><span class="w"> </span><span class="n">就是比较序列</span><span class="w"> </span><span class="n n-Quoted">`Xi`</span><span class="w"> </span><span class="n">与参考序列</span><span class="w"> </span><span class="n n-Quoted">`X0`</span><span class="w"> </span><span class="n">的</span><span class="w"> </span><span class="o">**</span><span class="n">灰色关联度</span><span class="o">**</span><span class="n">。</span><span class="n n-Quoted">`0 &lt; ri &lt;= 1`</span><span class="n">。</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>关联度排序与分析：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w">   </span><span class="n">根据计算出的关联度</span><span class="w"> </span><span class="n n-Quoted">`r1, r2, ..., rm`</span><span class="w"> </span><span class="n">的大小进行排序。</span>
-<span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">在因素分析中：</span><span class="o">**</span><span class="w"> </span><span class="n">关联度越大，表明该因素</span><span class="w"> </span><span class="n n-Quoted">`Xi`</span><span class="w"> </span><span class="n">对参考因素</span><span class="w"> </span><span class="n n-Quoted">`X0`</span><span class="w"> </span><span class="n">的影响越大，是关键因素。</span>
-<span class="o">*</span><span class="w">   </span><span class="o">**</span><span class="n">在综合评价中：</span><span class="o">**</span><span class="w"> </span><span class="n">关联度越大，表明该被评价对象</span><span class="w"> </span><span class="n n-Quoted">`Xi`</span><span class="w"> </span><span class="n">与理想参考对象</span><span class="w"> </span><span class="n n-Quoted">`X0`</span><span class="w"> </span><span class="n">越接近，综合表现越好。</span>
-</code></pre></div>
-
-</li>
-</ol>
-<h3 id="_21">应用例子：区域水资源利用效率综合评价</h3>
-<p>某省水利部门希望对省内7个主要地级市（A1-A7）的水资源利用效率进行综合评价和排序，为制定差异化水资源管理政策提供依据。选取了以下4个关键效率指标：</p>
-<ol>
-<li><strong>X1：万元GDP用水量（立方米/万元） - 负向指标 (↓)：</strong> 创造每万元GDP所消耗的水量，越低越好，反映经济用水效率。</li>
-<li><strong>X2：农业灌溉水有效利用系数 - 正向指标 (↑)：</strong> 衡量农业灌溉用水的有效利用程度，0到1之间，越高越好。</li>
-<li><strong>X3：工业用水重复利用率（%） - 正向指标 (↑)：</strong> 工业用水中重复利用部分所占比例，越高越好。</li>
-<li><strong>X4：管网漏损率（%） - 负向指标 (↓)：</strong> 城市供水管网中损失的水量比例，越低越好。</li>
-</ol>
-<p>收集到的原始数据如下：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">城市</th>
-<th style="text-align: center;">X1: 万元GDP用水量 (↓)</th>
-<th style="text-align: center;">X2: 农业灌溉系数 (↑)</th>
-<th style="text-align: center;">X3: 工业重复利用率 (↑)</th>
-<th style="text-align: center;">X4: 管网漏损率 (↓)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">A1</td>
-<td style="text-align: center;">85</td>
-<td style="text-align: center;">0.52</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">18</td>
-</tr>
-<tr>
-<td style="text-align: left;">A2</td>
-<td style="text-align: center;">68</td>
-<td style="text-align: center;">0.58</td>
-<td style="text-align: center;">82</td>
-<td style="text-align: center;">15</td>
-</tr>
-<tr>
-<td style="text-align: left;">A3</td>
-<td style="text-align: center;">92</td>
-<td style="text-align: center;">0.48</td>
-<td style="text-align: center;">68</td>
-<td style="text-align: center;">22</td>
-</tr>
-<tr>
-<td style="text-align: left;">A4</td>
-<td style="text-align: center;">78</td>
-<td style="text-align: center;">0.55</td>
-<td style="text-align: center;">78</td>
-<td style="text-align: center;">16</td>
-</tr>
-<tr>
-<td style="text-align: left;">A5</td>
-<td style="text-align: center;">105</td>
-<td style="text-align: center;">0.45</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">25</td>
-</tr>
-<tr>
-<td style="text-align: left;">A6</td>
-<td style="text-align: center;">62</td>
-<td style="text-align: center;">0.61</td>
-<td style="text-align: center;">85</td>
-<td style="text-align: center;">12</td>
-</tr>
-<tr>
-<td style="text-align: left;">A7</td>
-<td style="text-align: center;">88</td>
-<td style="text-align: center;">0.50</td>
-<td style="text-align: center;">72</td>
-<td style="text-align: center;">20</td>
-</tr>
-</tbody>
-</table>
-<p><strong>建模目标：</strong> 使用灰色关联分析法计算各城市水资源利用效率的综合得分（关联度），并进行排名。</p>
-<ol>
-<li>
-<p><strong>确定参考序列（理想序列 X0）：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   对于负向指标X1（万元GDP用水量）和X4（管网漏损率），理想值取 **最小值**。
-<span class="k">*</span>   对于正向指标X2（农业灌溉系数）和X3（工业重复利用率），理想值取 **最大值**。
-<span class="k">*</span>   从表中找出各指标的最优值：
-    <span class="k">*</span>   X1_min = min(85, 68, 92, 78, 105, 62, 88) = **62** (A6)
-    <span class="k">*</span>   X2_max = max(0.52, 0.58, 0.48, 0.55, 0.45, 0.61, 0.50) = **0.61** (A6)
-    <span class="k">*</span>   X3_max = max(75, 82, 68, 78, 60, 85, 72) = **85** (A6)
-    <span class="k">*</span>   X4_min = min(18, 15, 22, 16, 25, 12, 20) = **12** (A6)
-<span class="k">*</span>   **∴ 参考序列 X0 = [62, 0.61, 85, 12]**
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>数据标准化（区间相对化）：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span>   <span class="s s-Atom">由于指标有正向有负向，使用区间相对化方法。</span>
-<span class="o">*</span>   <span class="s s-Atom">**公式：**</span>
-    <span class="o">*</span>   <span class="s s-Atom">正向指标：</span><span class="err">`</span><span class="s s-Atom">xi&#39;(k) = [xi(k) - min(xi)] / [max(xi) - min(xi)]`</span>
-<span class="s s-Atom">    *   负向指标：`xi&#39;</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="nf">max</span><span class="p">(</span><span class="s s-Atom">xi</span><span class="p">)</span> <span class="o">-</span> <span class="nf">xi</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">)]</span> <span class="o">/</span> <span class="p">[</span><span class="nf">max</span><span class="p">(</span><span class="s s-Atom">xi</span><span class="p">)</span> <span class="o">-</span> <span class="nf">min</span><span class="p">(</span><span class="s s-Atom">xi</span><span class="p">)]</span><span class="err">`</span>
-<span class="o">*</span>   <span class="s s-Atom">**计算每个指标的最大最小值范围：**</span>
-    <span class="o">*</span>   <span class="nv">X1</span><span class="o">:</span> <span class="s s-Atom">min</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span> <span class="s s-Atom">max</span><span class="o">=</span><span class="mi">105</span> <span class="s s-Atom">→</span> <span class="nv">Range</span> <span class="o">=</span> <span class="mi">43</span>
-    <span class="o">*</span>   <span class="nv">X2</span><span class="o">:</span> <span class="s s-Atom">min</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span> <span class="s s-Atom">max</span><span class="o">=</span><span class="mf">0.61</span> <span class="s s-Atom">→</span> <span class="nv">Range</span> <span class="o">=</span> <span class="mf">0.16</span>
-    <span class="o">*</span>   <span class="nv">X3</span><span class="o">:</span> <span class="s s-Atom">min</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="s s-Atom">max</span><span class="o">=</span><span class="mi">85</span> <span class="s s-Atom">→</span> <span class="nv">Range</span> <span class="o">=</span> <span class="mi">25</span>
-    <span class="o">*</span>   <span class="nv">X4</span><span class="o">:</span> <span class="s s-Atom">min</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="s s-Atom">max</span><span class="o">=</span><span class="mi">25</span> <span class="s s-Atom">→</span> <span class="nv">Range</span> <span class="o">=</span> <span class="mi">13</span>
-<span class="o">*</span>   <span class="s s-Atom">**</span><span class="nf">标准化计算示例</span> <span class="p">(</span><span class="nv">A1</span><span class="p">)</span><span class="o">:</span><span class="s s-Atom">**</span>
-    <span class="o">*</span>   <span class="nv">X1</span><span class="s s-Atom">&#39; (负向) = (105 - 85) / (105 - 62) = 20 / 43 ≈ **0.4651** (注：负向指标公式)</span>
-<span class="s s-Atom">    *   X2&#39;</span> <span class="p">(</span><span class="s s-Atom">正向</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.52</span> <span class="o">-</span> <span class="mf">0.45</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.61</span> <span class="o">-</span> <span class="mf">0.45</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.07</span> <span class="o">/</span> <span class="mf">0.16</span> <span class="o">=</span> <span class="s s-Atom">**</span><span class="mf">0.4375</span><span class="s s-Atom">**</span>
-    <span class="o">*</span>   <span class="nv">X3</span><span class="s s-Atom">&#39; (正向) = (75 - 60) / (85 - 60) = 15 / 25 = **0.6000**</span>
-<span class="s s-Atom">    *   X4&#39;</span> <span class="p">(</span><span class="s s-Atom">负向</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">25</span> <span class="o">-</span> <span class="mi">18</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">25</span> <span class="o">-</span> <span class="mi">12</span><span class="p">)</span> <span class="o">=</span> <span class="mi">7</span> <span class="o">/</span> <span class="mi">13</span> <span class="s s-Atom">≈</span> <span class="s s-Atom">**</span><span class="mf">0.5385</span><span class="s s-Atom">**</span> <span class="p">(</span><span class="s s-Atom">注：负向指标公式</span><span class="p">)</span>
-<span class="o">*</span>   <span class="s s-Atom">同理计算所有城市标准化后的值。**参考序列</span> <span class="nv">X0</span> <span class="s s-Atom">也需要标准化：**</span>
-    <span class="o">*</span>   <span class="nv">X0_X1</span><span class="s s-Atom">&#39; (负向) = (105 - 62) / 43 = 43 / 43 = **1.0000** (理想值是最小值62)</span>
-<span class="s s-Atom">    *   X0_X2&#39;</span> <span class="p">(</span><span class="s s-Atom">正向</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.61</span> <span class="o">-</span> <span class="mf">0.45</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.16</span> <span class="o">=</span> <span class="mf">0.16</span> <span class="o">/</span> <span class="mf">0.16</span> <span class="o">=</span> <span class="s s-Atom">**</span><span class="mf">1.0000</span><span class="s s-Atom">**</span> <span class="p">(</span><span class="s s-Atom">理想值是最大值0</span><span class="mf">.61</span><span class="p">)</span>
-    <span class="o">*</span>   <span class="nv">X0_X3</span><span class="s s-Atom">&#39; (正向) = (85 - 60) / 25 = 25 / 25 = **1.0000** (理想值是最大值85)</span>
-<span class="s s-Atom">    *   X0_X4&#39;</span> <span class="p">(</span><span class="s s-Atom">负向</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">25</span> <span class="o">-</span> <span class="mi">12</span><span class="p">)</span> <span class="o">/</span> <span class="mi">13</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">/</span> <span class="mi">13</span> <span class="o">=</span> <span class="s s-Atom">**</span><span class="mf">1.0000</span><span class="s s-Atom">**</span> <span class="p">(</span><span class="s s-Atom">理想值是最小值12</span><span class="p">)</span>
-<span class="o">*</span>   <span class="s s-Atom">**</span><span class="nf">标准化后的矩阵</span> <span class="p">(</span><span class="s s-Atom">保留4位小数</span><span class="p">)</span><span class="s s-Atom">：**</span>
-
-<span class="p">|</span> <span class="s s-Atom">城市</span> <span class="p">|</span> <span class="nv">X1</span><span class="s s-Atom">&#39; (↓) | X2&#39;</span> <span class="p">(</span><span class="s s-Atom">↑</span><span class="p">)</span> <span class="p">|</span> <span class="nv">X3</span><span class="s s-Atom">&#39; (↑) | X4&#39;</span> <span class="p">(</span><span class="s s-Atom">↓</span><span class="p">)</span> <span class="p">|</span> <span class="s s-Atom">**参考序列</span> <span class="nv">X0</span><span class="s s-Atom">&#39;** |</span>
-<span class="s s-Atom">| :--- | :-----: | :-----: | :-----: | :-----: | :--------------: |</span>
-<span class="s s-Atom">| A1   | 0.4651  | 0.4375  | 0.6000  | 0.5385  |   [1,1,1,1]     |</span>
-<span class="s s-Atom">| A2   | 0.8605  | 0.8125  | 0.8800  | 0.7692  |   [1,1,1,1]     |</span>
-<span class="s s-Atom">| A3   | 0.3023  | 0.1875  | 0.3200  | 0.2308  |   [1,1,1,1]     |</span>
-<span class="s s-Atom">| A4   | 0.6279  | 0.6250  | 0.7200  | 0.6923  |   [1,1,1,1]     |</span>
-<span class="s s-Atom">| A5   | 0.0000  | 0.0000  | 0.0000  | 0.0000  |   [1,1,1,1]     |</span>
-<span class="s s-Atom">| A6   | 1.0000  | 1.0000  | 1.0000  | 1.0000  |   [1,1,1,1]     |</span>
-<span class="s s-Atom">| A7   | 0.3953  | 0.3125  | 0.4800  | 0.3846  |   [1,1,1,1]     |</span>
-
-<span class="s s-Atom">*(注意：A5各项标准化值最低，A6各项标准化值最高且等于参考序列X0&#39;</span><span class="p">)</span><span class="o">*</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算绝对差序列：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span>   <span class="s s-Atom">计算每个比较序列</span> <span class="err">`</span><span class="nv">Ai</span><span class="s s-Atom">&#39;` 在 **每个指标 k** 上与参考序列 `X0&#39;</span><span class="err">`</span> <span class="p">(</span><span class="s s-Atom">即</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span> <span class="s s-Atom">的绝对差：</span><span class="err">`</span><span class="nf">Δi</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">)</span> <span class="o">=</span> <span class="p">|</span><span class="nv">X0</span><span class="s s-Atom">&#39;(k) - Ai&#39;</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">)|</span><span class="err">`</span>
-<span class="o">*</span>   <span class="s s-Atom">**</span><span class="nf">结果</span> <span class="p">(</span><span class="nf">Δi</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">))</span><span class="s s-Atom">：**</span>
-
-<span class="p">|</span> <span class="s s-Atom">城市</span> <span class="p">|</span> <span class="s s-Atom">ΔX1</span>    <span class="p">|</span> <span class="s s-Atom">ΔX2</span>    <span class="p">|</span> <span class="s s-Atom">ΔX3</span>    <span class="p">|</span> <span class="s s-Atom">ΔX4</span>    <span class="p">|</span>
-<span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">----</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">----</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">----</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">----</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A1</span>   <span class="p">|</span> <span class="mf">0.5349</span> <span class="p">|</span> <span class="mf">0.5625</span> <span class="p">|</span> <span class="mf">0.4000</span> <span class="p">|</span> <span class="mf">0.4615</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A2</span>   <span class="p">|</span> <span class="mf">0.1395</span> <span class="p">|</span> <span class="mf">0.1875</span> <span class="p">|</span> <span class="mf">0.1200</span> <span class="p">|</span> <span class="mf">0.2308</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A3</span>   <span class="p">|</span> <span class="mf">0.6977</span> <span class="p">|</span> <span class="mf">0.8125</span> <span class="p">|</span> <span class="mf">0.6800</span> <span class="p">|</span> <span class="mf">0.7692</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A4</span>   <span class="p">|</span> <span class="mf">0.3721</span> <span class="p">|</span> <span class="mf">0.3750</span> <span class="p">|</span> <span class="mf">0.2800</span> <span class="p">|</span> <span class="mf">0.3077</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A5</span>   <span class="p">|</span> <span class="mf">1.0000</span> <span class="p">|</span> <span class="mf">1.0000</span> <span class="p">|</span> <span class="mf">1.0000</span> <span class="p">|</span> <span class="mf">1.0000</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A6</span>   <span class="p">|</span> <span class="mf">0.0000</span> <span class="p">|</span> <span class="mf">0.0000</span> <span class="p">|</span> <span class="mf">0.0000</span> <span class="p">|</span> <span class="mf">0.0000</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A7</span>   <span class="p">|</span> <span class="mf">0.6047</span> <span class="p">|</span> <span class="mf">0.6875</span> <span class="p">|</span> <span class="mf">0.5200</span> <span class="p">|</span> <span class="mf">0.6154</span> <span class="p">|</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>确定两级最小差和最大差：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">*</span>   找出所有 <span class="sb">`Δi(k)`</span> 中的 **最小值 (min min Δ)** 和 **最大值 (max max Δ)**。
-<span class="k">*</span>   从上面表格中：
-    <span class="k">*</span>   全局最小差 <span class="sb">`min min Δ = min(所有值) = 0.0000`</span> (A6的所有指标差)
-    <span class="k">*</span>   全局最大差 <span class="sb">`max max Δ = max(所有值) = 1.0000`</span> (A5的所有指标差)
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算关联系数：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span>   <span class="s s-Atom">取分辨系数</span> <span class="err">`</span><span class="s s-Atom">ρ</span> <span class="o">=</span> <span class="mf">0.5</span><span class="err">`</span><span class="s s-Atom">。</span>
-<span class="o">*</span>   <span class="s s-Atom">关联系数公式：</span><span class="err">`</span><span class="nf">ξi</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="s s-Atom">min</span> <span class="s s-Atom">min</span> <span class="s s-Atom">Δ</span> <span class="o">+</span> <span class="s s-Atom">ρ</span> <span class="o">*</span> <span class="s s-Atom">max</span> <span class="s s-Atom">max</span> <span class="s s-Atom">Δ</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nf">Δi</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">)</span> <span class="o">+</span> <span class="s s-Atom">ρ</span> <span class="o">*</span> <span class="s s-Atom">max</span> <span class="s s-Atom">max</span> <span class="s s-Atom">Δ</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0000</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="mf">1.0000</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nf">Δi</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="mf">1.0000</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">/</span> <span class="p">(</span><span class="nf">Δi</span><span class="p">(</span><span class="s s-Atom">k</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span><span class="err">`</span>
-<span class="o">*</span>   <span class="s s-Atom">**</span><span class="nf">计算示例</span> <span class="p">(</span><span class="nv">A1</span><span class="p">,</span> <span class="nv">X1</span><span class="p">)</span><span class="s s-Atom">：**</span> <span class="err">`</span><span class="nf">ξA1</span><span class="p">(</span><span class="nv">X1</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.5349</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="s s-Atom">≈</span> <span class="mf">0.5</span> <span class="o">/</span> <span class="mf">1.0349</span> <span class="s s-Atom">≈</span> <span class="mf">0.4832</span><span class="err">`</span>
-<span class="o">*</span>   <span class="s s-Atom">**</span><span class="nf">计算所有关联系数</span> <span class="p">(</span><span class="s s-Atom">保留4位小数</span><span class="p">)</span><span class="s s-Atom">：**</span>
-
-<span class="p">|</span> <span class="s s-Atom">城市</span> <span class="p">|</span> <span class="s s-Atom">ξX1</span>    <span class="p">|</span> <span class="s s-Atom">ξX2</span>    <span class="p">|</span> <span class="s s-Atom">ξX3</span>    <span class="p">|</span> <span class="s s-Atom">ξX4</span>    <span class="p">|</span>
-<span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">----</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">----</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">----</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">----</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A1</span>   <span class="p">|</span> <span class="mf">0.4832</span> <span class="p">|</span> <span class="mf">0.4706</span> <span class="p">|</span> <span class="mf">0.5556</span> <span class="p">|</span> <span class="mf">0.5200</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A2</span>   <span class="p">|</span> <span class="mf">0.7819</span> <span class="p">|</span> <span class="mf">0.7273</span> <span class="p">|</span> <span class="mf">0.8065</span> <span class="p">|</span> <span class="mf">0.6842</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A3</span>   <span class="p">|</span> <span class="mf">0.4175</span> <span class="p">|</span> <span class="mf">0.3810</span> <span class="p">|</span> <span class="mf">0.4237</span> <span class="p">|</span> <span class="mf">0.3942</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A4</span>   <span class="p">|</span> <span class="mf">0.5732</span> <span class="p">|</span> <span class="mf">0.5714</span> <span class="p">|</span> <span class="mf">0.6410</span> <span class="p">|</span> <span class="mf">0.6190</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A5</span>   <span class="p">|</span> <span class="mf">0.3333</span> <span class="p">|</span> <span class="mf">0.3333</span> <span class="p">|</span> <span class="mf">0.3333</span> <span class="p">|</span> <span class="mf">0.3333</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A6</span>   <span class="p">|</span> <span class="mf">1.0000</span> <span class="p">|</span> <span class="mf">1.0000</span> <span class="p">|</span> <span class="mf">1.0000</span> <span class="p">|</span> <span class="mf">1.0000</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A7</span>   <span class="p">|</span> <span class="mf">0.4525</span> <span class="p">|</span> <span class="mf">0.4211</span> <span class="p">|</span> <span class="mf">0.4902</span> <span class="p">|</span> <span class="mf">0.4483</span> <span class="p">|</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>计算关联度：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span>   <span class="s s-Atom">关联度</span> <span class="err">`</span><span class="s s-Atom">ri</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="s s-Atom">ξX1</span> <span class="o">+</span> <span class="s s-Atom">ξX2</span> <span class="o">+</span> <span class="s s-Atom">ξX3</span> <span class="o">+</span> <span class="s s-Atom">ξX4</span><span class="p">)</span><span class="err">`</span> <span class="p">(</span><span class="s s-Atom">因为有4个指标</span><span class="p">)</span>
-<span class="o">*</span>   <span class="s s-Atom">**</span><span class="nf">计算示例</span> <span class="p">(</span><span class="nv">A1</span><span class="p">)</span><span class="s s-Atom">：**</span> <span class="err">`</span><span class="s s-Atom">rA1</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.4832</span> <span class="o">+</span> <span class="mf">0.4706</span> <span class="o">+</span> <span class="mf">0.5556</span> <span class="o">+</span> <span class="mf">0.5200</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span> <span class="s s-Atom">≈</span> <span class="mf">2.0294</span> <span class="o">/</span> <span class="mi">4</span> <span class="s s-Atom">≈</span> <span class="mf">0.5074</span><span class="err">`</span>
-<span class="o">*</span>   <span class="s s-Atom">**所有城市关联度：**</span>
-
-<span class="p">|</span> <span class="s s-Atom">城市</span> <span class="p">|</span> <span class="nf">关联度</span> <span class="p">(</span><span class="s s-Atom">ri</span><span class="p">)</span> <span class="p">|</span> <span class="nf">计算过程</span> <span class="p">(</span><span class="s s-Atom">Σξ</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>       <span class="p">|</span>
-<span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--------</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">-------------------</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A1</span>   <span class="p">|</span> <span class="s s-Atom">**</span><span class="mf">0.5074</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="p">(</span><span class="mf">0.4832</span><span class="o">+</span><span class="mf">0.4706</span><span class="o">+</span><span class="mf">0.5556</span><span class="o">+</span><span class="mf">0.5200</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A2</span>   <span class="p">|</span> <span class="s s-Atom">**</span><span class="mf">0.7500</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="p">(</span><span class="mf">0.7819</span><span class="o">+</span><span class="mf">0.7273</span><span class="o">+</span><span class="mf">0.8065</span><span class="o">+</span><span class="mf">0.6842</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A3</span>   <span class="p">|</span> <span class="s s-Atom">**</span><span class="mf">0.4041</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="p">(</span><span class="mf">0.4175</span><span class="o">+</span><span class="mf">0.3810</span><span class="o">+</span><span class="mf">0.4237</span><span class="o">+</span><span class="mf">0.3942</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A4</span>   <span class="p">|</span> <span class="s s-Atom">**</span><span class="mf">0.6012</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="p">(</span><span class="mf">0.5732</span><span class="o">+</span><span class="mf">0.5714</span><span class="o">+</span><span class="mf">0.6410</span><span class="o">+</span><span class="mf">0.6190</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A5</span>   <span class="p">|</span> <span class="s s-Atom">**</span><span class="mf">0.3333</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="p">(</span><span class="mf">0.3333</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>          <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A6</span>   <span class="p">|</span> <span class="s s-Atom">**</span><span class="mf">1.0000</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="p">(</span><span class="mf">1.0000</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span>          <span class="p">|</span>
-<span class="p">|</span> <span class="nv">A7</span>   <span class="p">|</span> <span class="s s-Atom">**</span><span class="mf">0.4530</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="p">(</span><span class="mf">0.4525</span><span class="o">+</span><span class="mf">0.4211</span><span class="o">+</span><span class="mf">0.4902</span><span class="o">+</span><span class="mf">0.4483</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="p">|</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>关联度排序与分析：</strong></p>
-<div class="highlight"><pre><span></span><code><span class="o">*</span>   <span class="s s-Atom">根据关联度</span> <span class="err">`</span><span class="s s-Atom">ri</span><span class="err">`</span> <span class="s s-Atom">**从大到小**排序：</span>
-    <span class="p">|</span> <span class="s s-Atom">排名</span> <span class="p">|</span> <span class="s s-Atom">城市</span> <span class="p">|</span> <span class="nf">关联度</span> <span class="p">(</span><span class="s s-Atom">ri</span><span class="p">)</span> <span class="p">|</span> <span class="s s-Atom">解释</span>                                     <span class="p">|</span>
-    <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--------</span> <span class="p">|</span> <span class="o">:-</span><span class="s s-Atom">--------------------------------------</span> <span class="p">|</span>
-    <span class="p">|</span> <span class="s s-Atom">**</span><span class="mi">1</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="s s-Atom">**</span><span class="nv">A6</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="s s-Atom">**</span><span class="mf">1.0000</span><span class="s s-Atom">**</span> <span class="p">|</span> <span class="s s-Atom">**最优，与理想参考序列X0&#39;完全一致 (所有关联系数=1)** |</span>
-<span class="s s-Atom">    | 2    | A2   | 0.7500     | 综合表现优秀，接近理想状态               |</span>
-<span class="s s-Atom">    | 3    | A4   | 0.6012     | 综合表现良好                             |</span>
-<span class="s s-Atom">    | 4    | A1   | 0.5074     | 综合表现中等                             |</span>
-<span class="s s-Atom">    | 5    | A7   | 0.4530     | 综合表现中等偏下                         |</span>
-<span class="s s-Atom">    | 6    | A3   | 0.4041     | 综合表现较差                             |</span>
-<span class="s s-Atom">    | 7    | A5   | 0.3333     | **最差，与理想参考序列X0&#39;</span><span class="nf">差距最大</span> <span class="p">(</span><span class="s s-Atom">所有关联系数最低</span><span class="p">)</span><span class="s s-Atom">**</span> <span class="p">|</span>
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>最优城市：</strong> <strong>A6</strong> 的关联度高达 <strong>1.0000</strong>，意味着它在所有4个水资源利用效率指标上都达到了样本中的最优值（万元GDP用水量最低62，农业灌溉系数最高0.61，工业重复利用率最高85%，管网漏损率最低12%），是当之无愧的标杆城市。其数据也恰好构成了我们设定的参考序列。</p>
-</li>
-<li><strong>次优城市：</strong> <strong>A2</strong> 排名第二（关联度0.7500），表现也非常出色，尤其在万元GDP用水量（68，仅次于A6）和工业重复利用率（82%）方面接近最优。</li>
-<li><strong>表现尚可城市：</strong> <strong>A4</strong> 排名第三（关联度0.6012），各项指标处于中上水平，没有明显短板。</li>
-<li><strong>中下游城市：</strong> <strong>A1</strong> 和 <strong>A7</strong> 分别排第四、五位，关联度在0.45-0.51之间，存在提升空间。A1主要在农业灌溉系数（0.52）和万元GDP用水量（85）上落后；A7则在所有指标上都表现平平。</li>
-<li><strong>落后城市：</strong> <strong>A3</strong> 和 <strong>A5</strong> 排名垫底（关联度&lt;0.41），水资源利用效率问题突出。<strong>A5</strong> 是所有指标中最差的（万元GDP用水量高达105，农业灌溉系数最低0.45，工业重复利用率最低60%，管网漏损率最高25%），急需重点整治。<strong>A3</strong> 在农业灌溉系数（0.48）和管网漏损率（22%）上尤其薄弱。</li>
-<li><strong>决策建议：</strong>
-    *   推广 <strong>A6</strong> 的成功经验至全省。
-    *   对 <strong>A2</strong>、<strong>A4</strong> 给予鼓励，支持其向A6看齐。
-    *   对 <strong>A1</strong>、<strong>A7</strong> 进行针对性诊断，找出效率瓶颈（如A1的农业灌溉效率、A7的工业用水效率），提供技术和管理支持。
-    *   将 <strong>A3</strong> 和 <strong>A5</strong> 列为水资源管理重点监控和帮扶对象，投入资源进行升级改造（如更新农业灌溉设施、推广工业节水技术、改造老旧管网）。对A5需采取最严厉的管控措施和最优先的改造计划。</li>
-</ol>
-<h1 id="_22">线性规划</h1>
-<p>拉格朗日乘子法<br />
-f(x,y),g(x，y)=c<br />
-F(x,y,r)=f(x,y)+r(g(x,y)-c)<br />
-对xyr分别求导，等于0得驻点，带入目标函数得最值  </p>
-<p>matlab标准型：<br />
-min f(x)<br />
-s.t.{  </p>
-<ul>
-<li>A*x &lt;= b  </li>
-<li>Aeq*x = beq   </li>
-<li>lb&lt;=x&lt;=ub <br />
-}<br />
-<code>[x,val]=linprog(f,A,b,Aeq,beq,lb,ub)</code><br />
-某一项不存在填[]<br />
-无穷+inf,-inf</li>
-</ul>
-<h1 id="_23">整数规划</h1>
-<p><code>[x,val]=intlinprog(f,intcon,A,b,Aeq,beq,lb,ub)</code><br />
-intcon指定哪些参数取整  </p>
-<h2 id="01">01规划</h2>
-<p>单目标，有或无，单下标<br />
-lb=0,ub=1  </p>
-<h2 id="_24">指派问题</h2>
-<p>多目标，先选再干，双下标  </p>
-<h2 id="_25">蒙特卡洛算法</h2>
-<h1 id="_26">非线性规划</h1>
-<p>目标函数或者约束有一个不是线性的（最高次幂不是一次）<br />
-<code>[x,val]=fmincon(@f,x0,A,b,Aeq,beq,lb,ub，@nonlfun,option)</code></p>
-<ul>
-<li>@f 引用定义在外部的目标函数</li>
-<li>x0 初始值x0必须有，因为求出来的是局部最优解</li>
-<li>option 表示求解所用的方法（interior-point 内点法，sqp 序列二次规范法，active-set 有效集法，trust-region-reflective 信赖域反射算法）</li>
-<li>@nonlfun 调用一个定义在外部的非线性部分的约束（也可以定义在脚本内部）  </li>
-</ul>
-<h2 id="_27">示例</h2>
-<p>min f(x) = x(1)^2+x(2)^2+x(3)^2+8<br />
-s.t.{  </p>
-<ul>
-<li>-x(1)+x(2)-x(3) &lt;= 0  </li>
-<li>x(1)+x(2)^2+x(3)^3-20 &lt;= 0  </li>
-<li>-x(1)-x(2)^2+2 = 0   </li>
-</ul>
-<p>}  </p>
-<p>f1.m文件   </p>
-<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span>f<span class="p">=</span><span class="nf">f1</span><span class="p">(</span>x<span class="p">)</span><span class="w">  </span>
-<span class="w">   </span><span class="n">f</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">x</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">8</span><span class="p">;</span><span class="w">  </span>
-<span class="k">end</span><span class="w">  </span>
-</code></pre></div>
-
-<p>nonlfun1.m文件    </p>
-<div class="highlight"><pre><span></span><code><span class="k">function</span>[c,ceq]<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">nonlfun</span><span class="p">(</span>x<span class="p">)</span>
-<span class="w">   </span><span class="c">%c表示非线性不等约束</span>
-<span class="w">   </span><span class="n">c</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">x</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">^</span><span class="mi">3</span><span class="o">-</span><span class="mi">20</span><span class="p">];</span>
-<span class="w">   </span><span class="c">%ceq表示非线性等式约束</span>
-<span class="w">   </span><span class="n">ceq</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">];</span>
-</code></pre></div>
-
-<blockquote>
-<p>[x,val]=fmincon(@f1,x0,A,b,[],[],[],[],@nonlfun1,option)  </p>
-</blockquote>
-<h1 id="_28">图论与最短路径</h1>
-<p>G(v(G),E(G))
-V={},E={}
-邻接矩阵</p>
-<p>迪杰斯特拉算法（贪心）
-对于负权值问题，无法解决，采用贝尔曼福特算法，弗洛伊德算法</p>
-<p><code>[P,d] = shortestpath(G,start,end,['method',algorithm])</code></p>
-<ul>
-<li>G 要求解的图</li>
-<li>start</li>
-<li>end</li>
-<li>['method',algorithm] 求解方法</li>
-<li>
-<ul>
-<li>'auto' 默认自动选择</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>'unweighted' 广度优先求解，适用无权图</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>'positive' 迪杰斯特拉算法</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>'mixed 贝尔曼福特算法</li>
-</ul>
-</li>
-<li>P 最短路径经过的结点序列</li>
-<li>d 最短距离</li>
-</ul>
-<h1 id="_29">网络最大流</h1>
-<p>（最大容量，当前负载）<br />
-可行流（ 0 &lt; x &lt; 最大负载 ， 平衡条件）
-增广链<br />
-可行流是最大流的充要条件是找不到一条增广链  </p>
-<h2 id="ford-fulkerson">最大流解法Ford Fulkerson</h2>
-<p>(+V,∆)<br />
-+表示前向弧，-表示反向弧<br />
-∆表示改变量<br />
-对于发点记作(0,+∞)    </p>
-<p><code>[MaxFlow,FlowMatrix,Cut] = graphmaxflow(matrix,vs,vt)</code></p>
-<ul>
-<li>matrix 要求解的有向图的稀疏矩阵</li>
-<li>vs 起始节点</li>
-<li>vt 目标节点</li>
-<li>MaxFlow 最大流量</li>
-<li>FlowMatrix 包含每条边所有流量值的稀疏矩阵</li>
-<li>Cut 计算发点与终点的最小切割后连接到起点的逻辑行向量，如果有多个解则表示为一个矩阵</li>
-</ul>
-<h1 id="_30">最小费用最大流问题</h1>
-<p>加反向弧  </p>
-<h1 id="tsp">TSP</h1>
-<ul>
-<li>改良圈算法</li>
-<li>整数规划求解</li>
-</ul>
-<h1 id="_31">插值算法</h1>
-<ul>
-<li>分段线性插值</li>
-<li>拉格朗日插值法</li>
-<li>牛顿插值法</li>
-<li>埃尔米特插值法</li>
-<li>样条插值法</li>
-</ul>
-<h2 id="_32">分段三次埃尔米特插值算法</h2>
-<p><code>p = pchip(x,y,new_x)</code></p>
-<ul>
-<li>x 已知样本点横坐标</li>
-<li>y 已知样本点纵坐标</li>
-<li>new_x 要插入处对应的横坐标</li>
-<li>p 与new_x中的插入点对应的插值向量</li>
-</ul>
-<h2 id="_33">三次样条插值法</h2>
-<p><code>p = spline(x,y,new_x)</code></p>
-<h2 id="_34">二维插值</h2>
-<p><code>p = interp2(x,y,z,new_x,new_y,method)</code></p>
-<ul>
-<li>method</li>
-<li>
-<ul>
-<li>'linear'线性插值</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>'cublic'三次插值</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>'spline'三次样条插值</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>'nearest'最近邻插值</li>
-</ul>
-</li>
-</ul>
-<p>n维插值时，把2换成对应的n</p>
-<h1 id="_35">拟合算法</h1>
-<p>不一定要经过所有点，满足某种准则就可以<br />
-拟合工具箱  </p>
-<h1 id="_36">微分方程</h1>
-<p>以最高阶为微分方程的阶
-通解，特解
-根据题目的初始值求特解</p>
-<p><code>dsolve('方程1','方程2',...,'方程n','初始条件')</code></p>
-<ul>
-<li>syms y(x)  </li>
-<li>
-<ul>
-<li>定义符号变量，y(x)是关于x的函数</li>
-</ul>
-</li>
-<li>eq = y-diff(y , x) == 2*x  </li>
-<li>
-<ul>
-<li>diff(y , x)  表示y对x的一阶导数</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>diff(y , x , 2)  表示y对x的二阶导数</li>
-</ul>
-</li>
-<li>dsolve(eq) </li>
-<li>
-<ul>
-<li>求通解</li>
-</ul>
-</li>
-<li>dsolve(eq , y(0) == 3) </li>
-<li>
-<ul>
-<li>求特解</li>
-</ul>
-</li>
-</ul>
-<p>只能求解简单的微分方程</p>
-<p>示例：<br />
-syms y(x);<br />
-eq = diff(y,x,2) + 4 * diff(y,x) + 29 * y == 0;<br />
-Dy = diff(y,x);<br />
-conds = [y(0)==0,Dy(0)==1];<br />
-ySol(x) = dsolve(eq,conds);  </p>
-<p>非刚性问题:未知函数随自变量变化缓慢<br />
-刚性问题:未知函数随自变量变化剧烈<br />
-前者用ode45，后者用ode15s  </p>
-<p><code>[x,y]=ode45('函数名',[求解范围],[初值])</code> 
-通过函数名调用，定义为dydt = odefun(t,y)格式，即使只用了一个参数，也必须定义为接受两个参数的形式 <br />
-微分方程必须定义为 y' = f(y1,y2,...,yn,x)的标准型</p>
-<p>示例：
-y''+y+sin2x = 0 , 其中y在[Π,2Π] , y(Π)=1 , y'(Π)=1</p>
-<p>function dydt = df4(x,y)
-    dydt = zeros(2,1);
-    dydt(1) = y(2);
-    dydt(2) = -y(1)-sin(2<em>x);
-end
-[x,y] = ode('df4',[pi,2</em>pi],[1,1])</p>
-<h2 id="_37">增长阻滞模型</h2>
-<h2 id="_38">鱼饵捕食者模型</h2>
-<h2 id="si-ssi-sir">传染病模型SI SSI SIR</h2>
-<h1 id="_39">时间序列</h1>
-<ul>
-<li>加法模型    </li>
-<li>
-<ul>
-<li>移动平均法MA(求平均值)</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>
-<ul>
-<li>一次移动平均值</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>
-<ul>
-<li>二次移动平均值</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>指数平滑法(越接近当期数据，权重越大) </li>
-</ul>
-</li>
-<li>乘法模型</li>
-<li>
-<ul>
-<li>适用于不含趋势和季节变化的数据</li>
-</ul>
-</li>
-</ul>
-<hr />
 <ul>
 <li>趋势预测 </li>
 <li>
@@ -1692,7 +552,7 @@ end
 </ul>
 </li>
 </ul>
-<h2 id="_40">常见时间序列模型</h2>
+<h2 id="_1">常见时间序列模型</h2>
 <p>时间序列的平稳性：与观测时间无关。周期性也是平稳的，趋势和季节性不是平稳的。满足三个条件。
 平稳性评估：ACF自相关系数，PACF偏自相关系数<br />
 如果平稳，ACF和PCAF应该很快下降到0，并在0附近波动，否则ACF和PCAF会表现出明显的趋势和周期性<br />
@@ -1723,24 +583,24 @@ BIC贝叶斯信息准则 = ln样本个数</em>参数个数-2ln极大似然函数
 BIC的惩罚力度更大，更简洁，二者都是越小越好<br />
 先预设最大阶数的范围，对每个阶数遍历，取AIC或BIC最小时的阶数  </p>
 <p>效果评估：对残差进行白噪声检验</p>
-<h1 id="_41">聚类分析</h1>
+<h1 id="_2">聚类分析</h1>
 <p>最短距离系统聚类法<br />
 kmeans聚类<br />
 kmeans++<br />
 DBSCAN聚类  </p>
 <h1 id="-">----------------</h1>
-<h1 id="_42">非线性规划</h1>
-<h2 id="_43">无约束问题</h2>
-<h3 id="_44">一维搜索</h3>
+<h1 id="_3">非线性规划</h1>
+<h2 id="_4">无约束问题</h2>
+<h3 id="_5">一维搜索</h3>
 <p>裴波那切法<br />
 0.618法（以0.618，代替斐波那契法每次不同的缩短率）  </p>
-<h3 id="_45">二次插值</h3>
-<h3 id="_46">求解极值</h3>
+<h3 id="_6">二次插值</h3>
+<h3 id="_7">求解极值</h3>
 <p>最速下降法 <br />
 牛顿法<br />
 变尺度法
 直接法（powell）</p>
-<h3 id="_47">函数</h3>
+<h3 id="_8">函数</h3>
 <p>[X,FVAL]=FMINUNC(FUN,X0,OPTIONS,P1,P2, ...)  </p>
 <ul>
 <li>X 所求得的极小点</li>
@@ -1751,9 +611,9 @@ DBSCAN聚类  </p>
 <li>P1，P2 是可以传递给 FUN 的一些参数</li>
 </ul>
 <p>[X,FVAL,EXITFLAG,OUTPUT]＝FMINSEARCH(FUN,X0,OPTIONS,P1,P2,...)   </p>
-<h2 id="_48">有约束问题</h2>
+<h2 id="_9">有约束问题</h2>
 <p>库恩—塔克条件，是确定某点为最优点的必要条件，但并不是充分条件  </p>
-<h3 id="_49">二次规划</h3>
+<h3 id="_10">二次规划</h3>
 <p>目标函数为自变量 x 的二次函数，约束条件又全是线性的，就称这种规划为二次规划
 min 1/2xTHx+fTx<br />
 s.t.{
@@ -1766,7 +626,7 @@ H 是实对称矩阵， f ,b 是列向量， A 是相应维数的矩阵<br />
 <ul>
 <li>利用问题中的约束函数作出适当的罚函数，由此构造出带参数的增广目标函数，把问题转化为无约束非线性规划问题。主要有两种形式外罚和内罚</li>
 </ul>
-<h2 id="_50">函数</h2>
+<h2 id="_11">函数</h2>
 <p>[X,FVAL] = FMINBND(FUN,x1,x2,OPTIONS)  </p>
 <p>min {F(x) | C(x) ≤ 0,Ceq(x) = 0, PHI(x,w) ≤ 0}<br />
 s.t.{
@@ -1779,16 +639,16 @@ X=FSEMINF(FUN,X0,NTHETA,SEMINFCON,A,B,Aeq,Beq)</p>
 <li>函数 SEMINFCON 用于定义非线性不等式约束C(x) ，非线性等式约束Ceq(x) 和半无穷约束 PHI(x,w)的每一个分量函数，函数 SEMINFCON 有两个输入参量 X 和 S，S 是推荐的取样步长，也许不被使用</li>
 </ul>
 <p>X=FMINIMAX(FUN,X0,A,B,Aeq,Beq,LB,UB,NONLCON) </p>
-<h1 id="_51">动态规划</h1>
+<h1 id="_12">动态规划</h1>
 <p>在研究多阶段决策过程的优化问题时，把多阶段过程转化为一系列单阶段问题，逐个求解，创立了解决这类过程优化问题的新方法—动态规划<br />
 动态规划问世以来，在经济管理、生产调度、工程技术和最优控制等方面得到了广泛的应用。例如最短路线、库存管理、资源分配、设备更新、排序、装载等问题，用动态规划方法比用其它方法求解更为方便<br />
 虽然动态规划主要用于求解以时间划分阶段的动态过程的优化问题，但是一些与时间无关的静态规划（如线性规划、非线性规划），只要人为地引进时间因素，把它视为多阶段决策过程，也可以用动态规划方法方便地求解<br />
 应指出，动态规划是求解某类问题的一种方法，是考察问题的一种途径，而不是一种特殊算法（如线性规划是一种算法）<br />
 因而，它不象线性规划那样有一个标准的数学表达式和明确定义的一组规则，而必须对具体问题进行具体分析处理<br />
 因此，在学习时，除了要对基本概念和方法正确理解外，应以丰富的想象力去建立模型，用创造性的技巧去求解</p>
-<h1 id="_52">排队论</h1>
+<h1 id="_13">排队论</h1>
 <p>排队过程由输入过程、排队规则、服务过程三部分组成  </p>
-<h2 id="_53">符号表示</h2>
+<h2 id="_14">符号表示</h2>
 <p>X /Y / Z / A/ B /C </p>
 <ul>
 <li>X 表示顾客到达流或顾客到达间隔时间的分布；</li>
@@ -1807,19 +667,19 @@ X=FSEMINF(FUN,X0,NTHETA,SEMINFCON,A,B,Aeq,Beq)</p>
 <li>GI 一般相互独立（General Independent）的时间间隔的分布</li>
 </ul>
 <p>例如， M / M /1表示相继到达间隔时间为指数分布、服务时间为指数分布、单服务台、等待制系统。</p>
-<h2 id="_54">输入过程与服务时间的分布</h2>
+<h2 id="_15">输入过程与服务时间的分布</h2>
 <p>最常用的分布有泊松分布、确定型分布，指数分布和爱尔朗分布  </p>
 <p>泊松流  <br />
 期望和方差分别是 E[N(t)] = λt ； Var[N(t)] = λ
 当输入过程是泊松流时，那么顾客相继到达的时间间隔T 必服从指数分布  </p>
 <p>Weibull 分布是双参数α,β 的非对称分布，记作W(α, β ) 。α = 1时蜕化为指数分布。</p>
 <p>Beta 分布是区间(0,1) 内的双参数、非均匀分布，记作 B(α, β )  </p>
-<h3 id="_55">常用的连续型概率分布</h3>
+<h3 id="_16">常用的连续型概率分布</h3>
 <p>均匀分布 正态分布 指数分布  </p>
-<h3 id="_56">常用的离散型概率分布</h3>
-<h2 id="_57">生灭系统</h2>
-<h1 id="_58">对策论</h1>
-<h2 id="_59">零和对策（矩阵对策）</h2>
+<h3 id="_17">常用的离散型概率分布</h3>
+<h2 id="_18">生灭系统</h2>
+<h1 id="_19">对策论</h1>
+<h2 id="_20">零和对策（矩阵对策）</h2>
 <p>G = {S1,S2;A}  </p>
 <p>A=[<br />
     12 -6 30 -22  <br />
@@ -1844,53 +704,53 @@ G = {S1,S2;A} ，记 μ = maxi minj aij ，ν = −minj maxi aij ，则必有μ 
 当解不唯一时，解之间的关系具有下面两条性质：
 1. 无差别性:
 2. 可交换性:</p>
-<h2 id="_60">零和对策的混合策略</h2>
+<h2 id="_21">零和对策的混合策略</h2>
 <p>μ +ν ≠ 0的情况</p>
-<h2 id="_61">零和对策的线性规划解法</h2>
+<h2 id="_22">零和对策的线性规划解法</h2>
 <p>当m &gt; 2 且n &gt; 2时，通常采用线性规划方法求解零和对策问题  </p>
-<h2 id="_62">二人非常数和对策</h2>
+<h2 id="_23">二人非常数和对策</h2>
 <p>常数和对策是指局中人I和局中人II所赢得的值之和为一常数 <br />
 对于二人常数和对策，有纯策略对策和混合策略对策，其求解方法与二人零和对策是相同的  </p>
-<h1 id="_63">插值与拟合</h1>
+<h1 id="_24">插值与拟合</h1>
 <p>插值：求过已知有限个数据点的近似函数<br />
 拟合：已知有限个数据点，求近似函数，不要求过已知数据点，只要求在某种意义下它在这些点上的总偏差最小  </p>
-<h2 id="_64">插值方法</h2>
+<h2 id="_25">插值方法</h2>
 <p>拉格朗日多项式插值、牛顿插值、分段线性插值、Hermite 插值和三次样条插值</p>
 <h3 id="b">B 样条函数插值方法</h3>
 <p>既要求近似函数（曲线或曲面）有足够的光滑性，又要求与实际函数有相同的凹凸性<br />
 如果对于一个特殊函数进行磨光处理生成磨光函数（多项式），则用磨光函数构造出样条函数作为插值函数，既有足够的光滑性，而且也具有较好的保凹凸性</p>
-<h2 id="_65">二维插值</h2>
+<h2 id="_26">二维插值</h2>
 <p>z=interp2(x0,y0,z0,x,y,'method')<br />
 pp=csape({x0,y0},z0,conds,valconds)，z=fnval(pp,{x,y}) <br />
 插值节点为散乱节点<br />
 ZI = GRIDDATA(X,Y,Z,XI,YI)    </p>
-<h2 id="_66">拟合方法</h2>
+<h2 id="_27">拟合方法</h2>
 <p>线性最小二乘法 多项式拟合方法 
 选取函数，常用的曲线有
 （i）直线 y = a1 x + a2
 （ii）多项式 = a1 * xm + ... + am * x + am+1 （一般m = 2,3，不宜太高）
 （iii）双曲线（一支） y=a1 / x + a2
 （iv）指数曲线 y = a1 * e^(a2 * x)</p>
-<h3 id="_67">最小二乘优化</h3>
+<h3 id="_28">最小二乘优化</h3>
 <p>函数：lsqlin、lsqcurvefit、lsqnonlin、lsqnonneg</p>
-<h2 id="_68">曲线拟合与函数逼近</h2>
+<h2 id="_29">曲线拟合与函数逼近</h2>
 <p>与曲线拟合的最小二乘准则相对应，函数逼近常用的一种准则是最小平方逼近  </p>
-<h1 id="_69">图论</h1>
+<h1 id="_30">图论</h1>
 <p>邻接矩阵表示法 关联矩阵表示法</p>
-<h2 id="_70">最短路问题</h2>
+<h2 id="_31">最短路问题</h2>
 <p>迪克斯特拉（Dijkstra）算法  </p>
-<h2 id="_71">树</h2>
+<h2 id="_32">树</h2>
 <p>连通的无圈图叫做树，记之为T
 若图G 满足V (G) =V (T ) ， E(T ) ⊂ E(G) ，则称T 是G 的生成树。图G 连通的充分必要条件为G 有生成树
 prim 算法构造最小生成树<br />
 Kruskal 算法构造最小生成树  </p>
-<h2 id="_72">匹配问题</h2>
+<h2 id="_33">匹配问题</h2>
 <p>人员分派问题：匈牙利算法
 库恩—曼克莱斯（Kuhn-Munkres）算法</p>
-<h2 id="_73">最大流</h2>
-<h2 id="_74">最小费用流</h2>
-<h2 id="_75">计划评审方法和关键路线法</h2>
-<h1 id="_76">数据统计描述与分析</h1>
+<h2 id="_34">最大流</h2>
+<h2 id="_35">最小费用流</h2>
+<h2 id="_36">计划评审方法和关键路线法</h2>
+<h1 id="_37">数据统计描述与分析</h1>
 <p>握参数估计和假设检验<br />
 Matlab 的统计工具箱(Statistics Toolbox)<br />
 1. 频数表和直方图<br />
@@ -1948,7 +808,7 @@ Matlab 的统计工具箱(Statistics Toolbox)<br />
 当 x 为矩阵时，x 的每一列作为一个样本</li>
 </ul>
 <p>假设检验  </p>
-<h1 id="_77">方差分析</h1>
+<h1 id="_38">方差分析</h1>
 <p>我们已经作过两个总体均值的假设检验，如两台机床生产的零件尺寸是否相等，病人和正常人的某个生理指标是否一样<br />
 如果把这类问题推广一下，要检验两个以上总体的均值彼此是否相等，仍然用以前介绍的方法是很难做到的<br />
 而你在实际生产和生活中可以举出许多这样的问题：从用几种不同工艺制成的灯泡中，各抽取了若干个测量其寿命，要推断这几种工艺制成的灯泡寿命是否有显著差异<br />
@@ -1971,7 +831,7 @@ Matlab 统计工具箱中单因素方差分析的命令是 anoval  <br />
 p=anova2(x,reps)  <br />
 数据非均衡的双因素方差分析的 Matlab 命令要使用多因素方差分析的命令anovan  </p>
 <p>正交试验设计与方差分析  </p>
-<h1 id="_78">回归分析</h1>
+<h1 id="_39">回归分析</h1>
 <p>拟合：我们根据一个样本计算出的那些系数，只是它们的一个（点）估计，应该对它们作区间估计或假设检验，如果置信区间太大，甚至包含了零点，那么系数的估计值是没有多大意义的<br />
 另外也可以用方差分析方法对模型的误差进行分析，对拟合的优劣给出评价<br />
 回归分析就是对拟合问题作的统计分析  </p>
@@ -1981,14 +841,14 @@ p=anova2(x,reps)  <br />
 （iii）判断每个自变量 xi  对 y 的影响是否显著<br />
 （iv）诊断回归模型是否适合这组数据<br />
 （v）利用回归模型对 y 进行预报或控制  </p>
-<h1 id="_79">微分方程</h1>
+<h1 id="_40">微分方程</h1>
 <p>三级火箭模型<br />
 人口模型 <br />
 正规战模型<br />
 游击战模型<br />
 混合战模型<br />
 废料桶模型  </p>
-<h1 id="_80">稳定状态模型</h1>
+<h1 id="_41">稳定状态模型</h1>
 <p>动态过程的变化规律一般要用微分方程建立的动态模型来描述，但是对于某些实际问题，建模的主要目的并不是要寻求动态过程每个瞬时的性态<br />
 而是研究某种意义下稳定状态的特征，特别是当时间充分长以后动态过程的变化趋势<br />
 譬如在什么情况下描述过程的变量会越来越接近某些确定的数值，在什么情况下又会越来越远离这些数值而导致过程不稳定<br />
@@ -2003,7 +863,7 @@ p=anova2(x,reps)  <br />
 经济效益模型<br />
 种群竞争模型<br />
 Volterra 模型  </p>
-<h1 id="_81">常微分方程</h1>
+<h1 id="_42">常微分方程</h1>
 <p>建立微分方程只是解决问题的第一步，通常需要求出方程的解来说明实际现象，并加以检验<br />
 如果能得到解析形式的解固然是便于分析和应用的，但是我们知道，只有线性常系数微分方程，并且自由项是某些特殊类型的函数时，才可以得到这样的解<br />
 而绝大多数变系数方程、非线性方程都是所谓“解不出来”的，即使看起来非常简单的方程<br />
@@ -2026,18 +886,18 @@ ode23采用二三阶 RK 方法<br />
 ode113 采用的是多步法，效率一般比 ode45 高。
 Matlab 的工具箱中没有 Euler 方法的功能函数，自己编写</p>
 <p>Matlab的工具箱提供了几个解刚性常微分方程的功能函数，如ode15s，ode23s，ode23t，ode23tb，这些函数的使用同上述非刚性微分方程的功能函数</p>
-<h1 id="_82">差分方程</h1>
-<h1 id="_83">马氏链模型</h1>
+<h1 id="_43">差分方程</h1>
+<h1 id="_44">马氏链模型</h1>
 <p>随机过程的概念<br />
 一个随机试验的结果有多种可能性，在数学上用一个随机变量（或随机向量）来描述。在许多情况下，人们不仅需要对随机现象进行一次观测，而且要进行多次，甚至接连不断地观测它的变化过程。这就要研究无限多个，即一族随机变量。随机过程理论就是研究随机现象变化过程的概率规律性的。  </p>
 <p>马尔可夫链<br />
 某一系统在已知现在情况的条件下，系统未来时刻的情况只与现在有关，而与过去的历史无直接关系  </p>
-<h1 id="_84">动态优化模型</h1>
+<h1 id="_45">动态优化模型</h1>
 <p>动态过程的另一类问题是所谓的动态优化问题，这类问题一般要归结为求最优控制函数使某个泛函达到极值。<br />
 当控制函数可以事先确定为某种特殊的函数形式时，问题又简化为求普通函数的极值。<br />
 求解泛函极值问题的方法主要有变分法和最优控制理论方法。  </p>
 <p>变分法  </p>
-<h1 id="_85">偏微分方程的数值解</h1>
+<h1 id="_46">偏微分方程的数值解</h1>
 <p>只含有未知多元函数及其偏导数的方程，称之为偏微分方程<br />
 未知函数偏导数的最高阶数称为偏微分方程的阶<br />
 如果方程中对于未知函数和它的所有偏导数都是线性的，这样的方程称为线性偏微分方程，否则称它为非线性偏微分方程   </p>
@@ -2052,7 +912,7 @@ Matlab 的工具箱中没有 Euler 方法的功能函数，自己编写</p>
 <p>一维状态空间的偏微分方程的 MATLAB 解法  </p>
 <p>二维状态空间的偏微分方程的 MATLAB 解法  </p>
 <p>偏微分方程的 pdetool 解法</p>
-<h1 id="_86">多目标规划</h1>
+<h1 id="_47">多目标规划</h1>
 <p>线性规划的局限性<br />
 只能解决一组线性约束条件下，某一目标只能是一个目标的最大或最小值的问题<br />
 多个目标求解思路<br />
@@ -2067,10 +927,10 @@ Matlab 的工具箱中没有 Euler 方法的功能函数，自己编写</p>
 优先因子（优先等级）与权系数  </p>
 <p>求解目标规划的序贯式算法<br />
 序贯式算法是求解目标规划的一种早期算法，其核心是根据优先级的先后次序，将目标规划问题分解成一系列的单目标规划问题，然后再依次求解  </p>
-<h2 id="_87">包络分析</h2>
+<h2 id="_48">包络分析</h2>
 <p>多指标输入和多指标输出的问题<br />
 数据包络分析的(C^2)R模型</p>
-<h1 id="_88">模糊数学</h1>
+<h1 id="_49">模糊数学</h1>
 <p>模糊集和隶属函数<br />
 模糊集的表示方法<br />
 模糊集的运算<br />
@@ -2090,14 +950,14 @@ Matlab 的工具箱中没有 Euler 方法的功能函数，自己编写</p>
 多目标模糊综合评价<br />
 多层次模糊综合评价<br />
 模糊多属性决策  </p>
-<h1 id="_89">现代优化算法</h1>
+<h1 id="_50">现代优化算法</h1>
 <p>模拟退火算法<br />
 遗传算法<br />
 禁忌搜索算法<br />
 改进的遗传算法<br />
 matlab遗传算法工具<br />
 蚁群算法  </p>
-<h1 id="_90">时间序列模型</h1>
+<h1 id="_51">时间序列模型</h1>
 <p>时间序列是按时间顺序排列的、随时间变化且相互关联的数据序列  </p>
 <p>时间序列根据所研究的依据不同，可有不同的分类
 1. 按所研究的对象的多少分，有一元时间序列和多元时间序列
@@ -2179,7 +1039,7 @@ ARMA( p, q) 序列的预报   </p>
 <p><code>ARIMA 序列与季节性序列</code><br />
 趋势性、季节性与非平稳性  </p>
 <p><code>异方差性</code>  </p>
-<h1 id="_91">灰色系统</h1>
+<h1 id="_52">灰色系统</h1>
 <p><code>关联分析</code><br />
 <code>优势分析</code><br />
 <code>生成数</code><br />
@@ -2199,19 +1059,19 @@ GM(1,1)模型适用于具有较强指数规律的序列，只能描述单调的�
 <code>GM(1, N) 和GM(0, N) 模型</code>  </p>
 <p><code>总结</code>
 传统统计方法与灰色预测法的比较   </p>
-<h1 id="_92">多元分析</h1>
-<h2 id="_93">聚类</h2>
+<h1 id="_53">多元分析</h1>
+<h2 id="_54">聚类</h2>
 <p>相似性度量
 系统聚类法
 变量聚类法</p>
-<h2 id="_94">主成分分析</h2>
-<h2 id="_95">因子分析</h2>
-<h2 id="_96">判别分析</h2>
+<h2 id="_55">主成分分析</h2>
+<h2 id="_56">因子分析</h2>
+<h2 id="_57">判别分析</h2>
 <p>根据所研究的个体的观测指标来推断该个体所属类型的一种统计方法  </p>
-<h2 id="_97">典型相关分析</h2>
-<h2 id="_98">对应分析</h2>
-<h2 id="_99">多维标度法</h2>
-<h1 id="_100">偏最小二乘回归分析</h1>
+<h2 id="_58">典型相关分析</h2>
+<h2 id="_59">对应分析</h2>
+<h2 id="_60">多维标度法</h2>
+<h1 id="_61">偏最小二乘回归分析</h1>
 <p>在实际问题中，经常遇到需要研究两组多重相关变量间的相互依赖关系  <br />
 并研究用一组变量（常称为自变量或预测变量）去预测另一组变量（常称为因变量或响应变量）  <br />
 除了最小二乘准则下的经典多元线性回归分析（MLR），提取自变量组主成分的主成分回归分析（PCR）等方法外，还有近年发展起来的偏最小二乘（PLS）回归方法   <br />
@@ -2219,23 +1079,97 @@ GM(1,1)模型适用于具有较强指数规律的序列，只能描述单调的�
 用偏最小二乘回归建立的模型具有传统的经典回归分析等方法所没有的优点  <br />
 偏最小二乘回归分析在建模过程中集中了主成分分析，典型相关分析和线性回归分析方法的特点    <br />
 因此在分析结果中，除了可以提供一个更为合理的回归模型外，还可以同时完成一些类似于主成分分析和典型相关分析的研究内容，提供更丰富、深入的一些信息  </p>
-<h1 id="_101">存贮论</h1>
+<h1 id="_62">存贮论</h1>
 <p><code>无约束的确定型存贮模型</code><br />
 <code>有约束的确定型存贮模型</code><br />
 <code>单周期随机库存模型</code><br />
 需求量是随机的。随机需求模型可以分为周期观测与连续观测两类。周期观测模型又可分为单周期、多周期及无穷周期等模型</p>
-<h1 id="_102">经济与金融中的优化问题</h1>
-<h1 id="_103">生产与服务运作管理中的优化问题</h1>
-<h1 id="_104">支持向量机</h1>
+<h1 id="_63">经济与金融中的优化问题</h1>
+<h1 id="_64">生产与服务运作管理中的优化问题</h1>
+<h1 id="_65">支持向量机</h1>
 <p><code>支持向量分类机的基本原理</code>
 <code>支持向量回归机</code></p>
-<h1 id="_105">作业计划</h1>
+<h1 id="_66">作业计划</h1>
         </article>
         <footer class="site-footer">
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a class="toc-h2" href="#_1">常见时间序列模型</a></li>
+<li><a href="#_2">聚类分析</a></li>
+<li><a href="#-">----------------</a></li>
+<li><a href="#_3">非线性规划</a></li>
+<li><a class="toc-h2" href="#_4">无约束问题</a></li>
+<li><a class="toc-h3" href="#_5">一维搜索</a></li>
+<li><a class="toc-h3" href="#_6">二次插值</a></li>
+<li><a class="toc-h3" href="#_7">求解极值</a></li>
+<li><a class="toc-h3" href="#_8">函数</a></li>
+<li><a class="toc-h2" href="#_9">有约束问题</a></li>
+<li><a class="toc-h3" href="#_10">二次规划</a></li>
+<li><a class="toc-h2" href="#_11">函数</a></li>
+<li><a href="#_12">动态规划</a></li>
+<li><a href="#_13">排队论</a></li>
+<li><a class="toc-h2" href="#_14">符号表示</a></li>
+<li><a class="toc-h2" href="#_15">输入过程与服务时间的分布</a></li>
+<li><a class="toc-h3" href="#_16">常用的连续型概率分布</a></li>
+<li><a class="toc-h3" href="#_17">常用的离散型概率分布</a></li>
+<li><a class="toc-h2" href="#_18">生灭系统</a></li>
+<li><a href="#_19">对策论</a></li>
+<li><a class="toc-h2" href="#_20">零和对策（矩阵对策）</a></li>
+<li><a class="toc-h2" href="#_21">零和对策的混合策略</a></li>
+<li><a class="toc-h2" href="#_22">零和对策的线性规划解法</a></li>
+<li><a class="toc-h2" href="#_23">二人非常数和对策</a></li>
+<li><a href="#_24">插值与拟合</a></li>
+<li><a class="toc-h2" href="#_25">插值方法</a></li>
+<li><a class="toc-h3" href="#b">B 样条函数插值方法</a></li>
+<li><a class="toc-h2" href="#_26">二维插值</a></li>
+<li><a class="toc-h2" href="#_27">拟合方法</a></li>
+<li><a class="toc-h3" href="#_28">最小二乘优化</a></li>
+<li><a class="toc-h2" href="#_29">曲线拟合与函数逼近</a></li>
+<li><a href="#_30">图论</a></li>
+<li><a class="toc-h2" href="#_31">最短路问题</a></li>
+<li><a class="toc-h2" href="#_32">树</a></li>
+<li><a class="toc-h2" href="#_33">匹配问题</a></li>
+<li><a class="toc-h2" href="#_34">最大流</a></li>
+<li><a class="toc-h2" href="#_35">最小费用流</a></li>
+<li><a class="toc-h2" href="#_36">计划评审方法和关键路线法</a></li>
+<li><a href="#_37">数据统计描述与分析</a></li>
+<li><a href="#_38">方差分析</a></li>
+<li><a href="#_39">回归分析</a></li>
+<li><a href="#_40">微分方程</a></li>
+<li><a href="#_41">稳定状态模型</a></li>
+<li><a href="#_42">常微分方程</a></li>
+<li><a href="#_43">差分方程</a></li>
+<li><a href="#_44">马氏链模型</a></li>
+<li><a href="#_45">动态优化模型</a></li>
+<li><a href="#_46">偏微分方程的数值解</a></li>
+<li><a href="#_47">多目标规划</a></li>
+<li><a class="toc-h2" href="#_48">包络分析</a></li>
+<li><a href="#_49">模糊数学</a></li>
+<li><a href="#_50">现代优化算法</a></li>
+<li><a href="#_51">时间序列模型</a></li>
+<li><a href="#_52">灰色系统</a></li>
+<li><a href="#_53">多元分析</a></li>
+<li><a class="toc-h2" href="#_54">聚类</a></li>
+<li><a class="toc-h2" href="#_55">主成分分析</a></li>
+<li><a class="toc-h2" href="#_56">因子分析</a></li>
+<li><a class="toc-h2" href="#_57">判别分析</a></li>
+<li><a class="toc-h2" href="#_58">典型相关分析</a></li>
+<li><a class="toc-h2" href="#_59">对应分析</a></li>
+<li><a class="toc-h2" href="#_60">多维标度法</a></li>
+<li><a href="#_61">偏最小二乘回归分析</a></li>
+<li><a href="#_62">存贮论</a></li>
+<li><a href="#_63">经济与金融中的优化问题</a></li>
+<li><a href="#_64">生产与服务运作管理中的优化问题</a></li>
+<li><a href="#_65">支持向量机</a></li>
+<li><a href="#_66">作业计划</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -2244,6 +1178,45 @@ GM(1,1)模型适用于具有较强指数规律的序列，只能描述单调的�
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

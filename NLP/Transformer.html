@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Transformer - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,56 +482,9 @@
             <span class="sep">/</span>
             <span>NLP</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-介绍与快速开始">1 介绍与快速开始</a><ul>
-<li><a href="#11-transformer架构">1.1 Transformer架构</a></li>
-<li><a href="#12-pipeline">1.2 Pipeline</a></li>
-<li><a href="#13-tokenizer">1.3 Tokenizer</a></li>
-<li><a href="#14-autoclass">1.4 AutoClass</a></li>
-<li><a href="#15-微调fine-tuning">1.5 微调（Fine-tuning）</a><ul>
-<li><a href="#151-lora-参数高效微调">1.5.1 LoRA 参数高效微调</a></li>
-</ul>
-</li>
-<li><a href="#16-模型保存加载与发布">1.6 模型保存、加载与发布</a></li>
-<li><a href="#17-性能优化">1.7 性能优化</a></li>
-<li><a href="#18-常见问题">1.8 常见问题</a></li>
-<li><a href="#19-api">1.9 API</a></li>
-</ul>
-</li>
-<li><a href="#2-安装">2 安装</a><ul>
-<li><a href="#21-配置">2.1 配置</a></li>
-</ul>
-</li>
-<li><a href="#3-核心概念">3 核心概念</a><ul>
-<li><a href="#31-预训练模型">3.1 预训练模型</a></li>
-<li><a href="#32-tokenizer分词器">3.2 Tokenizer（分词器）</a></li>
-</ul>
-</li>
-<li><a href="#4-简单使用示例">4 简单使用示例</a><ul>
-<li><a href="#41-文本分类">4.1 文本分类</a></li>
-<li><a href="#42-文本生成示例">4.2 文本生成示例</a></li>
-</ul>
-</li>
-<li><a href="#5-模型架构">5 模型架构</a><ul>
-<li><a href="#51-transformer架构">5.1 Transformer架构</a></li>
-<li><a href="#52-不同预训练模型架构差异如bert与gpt架构对比">5.2 不同预训练模型架构差异（如BERT与GPT架构对比）</a></li>
-</ul>
-</li>
-<li><a href="#6-预训练">6 预训练</a><ul>
-<li><a href="#61-预训练过程">6.1 预训练过程</a></li>
-</ul>
-</li>
-<li><a href="#7-部署与优化">7 部署与优化</a><ul>
-<li><a href="#71-量化">7.1 量化</a></li>
-<li><a href="#72-剪枝">7.2 剪枝</a></li>
-<li><a href="#73-蒸馏">7.3 蒸馏</a></li>
-</ul>
-</li>
-</ul>
-<hr />
-<h1 id="1-介绍与快速开始">1 介绍与快速开始</h1>
+<h1 id="1">1 介绍与快速开始</h1>
 <p>https://github.com/huggingface/transformers/blob/main/docs/source/zh/quicktour.md</p>
 <p>Hugging Face Transformers 是目前最流行的开源 NLP / AI 库，提供数千个预训练模型，覆盖文本、图像、音频、多模态等几乎所有 AI 任务。</p>
 <table>
@@ -500,7 +551,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="11-transformer架构">1.1 Transformer架构</h2>
+<h2 id="11-transformer">1.1 Transformer架构</h2>
 <p><img alt="image.png" src="Transformer_files/image.png" /></p>
 <table>
 <thead>
@@ -761,7 +812,7 @@ T5ForConditionalGeneration ...
 <span class="nb">print</span><span class="p">(</span><span class="n">vec</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># -&gt; torch.Size([1, 768])</span>
 </code></pre></div>
 
-<h2 id="15-微调fine-tuning">1.5 微调（Fine-tuning）</h2>
+<h2 id="15-fine-tuning">1.5 微调（Fine-tuning）</h2>
 <p>将预训练模型适配到你的特定任务和数据上，是 Transformers 最重要的应用场景。</p>
 <table>
 <thead>
@@ -879,7 +930,7 @@ T5ForConditionalGeneration ...
 <span class="n">tokenizer</span><span class="o">.</span><span class="n">save_pretrained</span><span class="p">(</span><span class="s2">&quot;./my-sentiment-model&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="151-lora-参数高效微调">1.5.1 LoRA 参数高效微调</h3>
+<h3 id="151-lora">1.5.1 LoRA 参数高效微调</h3>
 <p>LoRA 优势：只训练不到 1% 的参数，显存降低 60-70%，速度快 2-3 倍，权重文件仅几 MB，可为同一基础模型保存多个 LoRA 适配器用于不同任务。</p>
 <table>
 <thead>
@@ -940,7 +991,7 @@ T5ForConditionalGeneration ...
 <span class="c1"># -&gt; trainable: 4,194,304 || all: 6,742,609,920 || 0.0622%</span>
 </code></pre></div>
 
-<h2 id="16-模型保存加载与发布">1.6 模型保存、加载与发布</h2>
+<h2 id="16">1.6 模型保存、加载与发布</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 本地保存</span>
 <span class="n">model</span><span class="o">.</span><span class="n">save_pretrained</span><span class="p">(</span><span class="s2">&quot;./my-model&quot;</span><span class="p">)</span>
 <span class="n">tokenizer</span><span class="o">.</span><span class="n">save_pretrained</span><span class="p">(</span><span class="s2">&quot;./my-model&quot;</span><span class="p">)</span>
@@ -962,7 +1013,7 @@ T5ForConditionalGeneration ...
 <span class="p">)</span>
 </code></pre></div>
 
-<h2 id="17-性能优化">1.7 性能优化</h2>
+<h2 id="17">1.7 性能优化</h2>
 <table>
 <thead>
 <tr>
@@ -1018,7 +1069,7 @@ T5ForConditionalGeneration ...
 <span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;reduce-overhead&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="18-常见问题">1.8 常见问题</h2>
+<h2 id="18">1.8 常见问题</h2>
 <table>
 <thead>
 <tr>
@@ -1089,7 +1140,7 @@ T5ForConditionalGeneration ...
 <span class="n">model</span> <span class="o">=</span> <span class="n">get_peft_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="2-安装">2 安装</h1>
+<h1 id="2">2 安装</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># 基础安装</span>
 pip<span class="w"> </span>install<span class="w"> </span>transformers
 
@@ -1191,7 +1242,7 @@ pip<span class="w"> </span>install<span class="w"> </span>sentencepiece<span cla
   <span class="o">==================================================</span>
 </code></pre></div>
 
-<h2 id="21-配置">2.1 配置</h2>
+<h2 id="21">2.1 配置</h2>
 <p>下载加速：</p>
 <div class="highlight"><pre><span></span><code>使用镜像站加速下载（如<span class="w"> </span>hf-mirror.com）
 <span class="nb">export</span><span class="w"> </span><span class="nv">HF_ENDPOINT</span><span class="o">=</span>https://hf-mirror.com
@@ -1218,8 +1269,8 @@ pip<span class="w"> </span>install<span class="w"> </span>sentencepiece<span cla
             └── model.safetensors       ← 模型权重与参数（最重要的，体积最大）
 </code></pre></div>
 
-<h1 id="3-核心概念">3 核心概念</h1>
-<h2 id="31-预训练模型">3.1 预训练模型</h2>
+<h1 id="3">3 核心概念</h1>
+<h2 id="31">3.1 预训练模型</h2>
 <p>常见的预训练模型：</p>
 <ul>
 <li>
@@ -1243,7 +1294,7 @@ pip<span class="w"> </span>install<span class="w"> </span>sentencepiece<span cla
 <p><strong>性能提升显著</strong>：在众多自然语言处理任务上，基于预训练模型微调后的性能比传统从头开始训练的模型有大幅提升。这是因为预训练模型在大规模数据上学习到了丰富的语义、语法等语言知识，这些知识能够帮助模型更好地理解和处理输入文本，从而在各种任务中表现更优。例如在文本分类任务中，使用预训练模型微调后的准确率可能比传统方法提高 10% - 20% 甚至更多。</p>
 </li>
 </ul>
-<h2 id="32-tokenizer分词器">3.2 Tokenizer（分词器）</h2>
+<h2 id="32-tokenizer">3.2 Tokenizer（分词器）</h2>
 <ul>
 <li>
 <p><strong>分词原理</strong>：
@@ -1263,8 +1314,8 @@ pip<span class="w"> </span>install<span class="w"> </span>sentencepiece<span cla
         - <strong>应用场景</strong>：由于GPT系列模型擅长语言生成，GPT2Tokenizer为生成任务优化，能生成更自然流畅的文本序列，在文本生成、对话系统等任务中表现出色。 </p>
 </li>
 </ul>
-<h1 id="4-简单使用示例">4 简单使用示例</h1>
-<h2 id="41-文本分类">4.1 文本分类</h2>
+<h1 id="4">4 简单使用示例</h1>
+<h2 id="41">4.1 文本分类</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoModelForSequenceClassification</span> <span class="c1"># 加载适用于文本分类的预训练模型</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BertTokenizer</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
@@ -1391,9 +1442,9 @@ pip<span class="w"> </span>install<span class="w"> </span>sentencepiece<span cla
 <span class="nb">print</span><span class="p">(</span><span class="n">generated_text</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="5-模型架构">5 模型架构</h1>
-<h2 id="51-transformer架构">5.1 Transformer架构</h2>
-<h2 id="52-不同预训练模型架构差异如bert与gpt架构对比">5.2 不同预训练模型架构差异（如BERT与GPT架构对比）</h2>
+<h1 id="5">5 模型架构</h1>
+<h2 id="51-transformer">5.1 Transformer架构</h2>
+<h2 id="52-bertgpt">5.2 不同预训练模型架构差异（如BERT与GPT架构对比）</h2>
 <p>BERT（Bidirectional Encoder Representations from Transformers）和GPT（Generative Pretrained Transformer）是自然语言处理领域中两款具有代表性的预训练模型，它们都基于Transformer架构，但在具体设计上存在诸多差异：</p>
 <h3 id="1_1">1. 模型架构类型</h3>
 <ul>
@@ -1421,8 +1472,8 @@ pip<span class="w"> </span>install<span class="w"> </span>sentencepiece<span cla
 <li><strong>BERT</strong>：因其双向编码和预训练任务的特点，在自然语言理解任务上效果显著。广泛应用于文本分类（如判断情感倾向、新闻分类等）、命名实体识别（识别文本中的人名、地名、组织名等）、问答系统（根据给定文本回答问题）等场景。</li>
 <li><strong>GPT</strong>：基于自回归的生成方式，在语言生成任务方面优势明显。常用于文本生成（如文章写作、故事生成）、对话系统（生成与用户的交互回复）、自动摘要（生成文本的简短摘要）等领域，能够生成连贯、自然的文本内容。 </li>
 </ul>
-<h1 id="6-预训练">6 预训练</h1>
-<h2 id="61-预训练过程">6.1 预训练过程</h2>
+<h1 id="6">6 预训练</h1>
+<h2 id="61">6.1 预训练过程</h2>
 <ul>
 <li><strong>预训练目标</strong>
     - <strong>BERT的掩码语言模型（Masked Language Model, MLM）</strong>：
@@ -1436,7 +1487,7 @@ pip<span class="w"> </span>install<span class="w"> </span>sentencepiece<span cla
     - <strong>数据规模</strong>：一般来说，预训练数据的规模越大越好。BERT在预训练时使用了海量的数据，通常是数十亿甚至上百亿词的文本量。大规模的数据能够让模型接触到足够多的语言现象和模式，从而学习到更全面、准确的语言表示。大量的数据有助于模型更好地泛化到各种下游任务，因为不同的下游任务可能涉及不同领域和风格的文本，预训练阶段接触到的数据多样性越高，模型在微调时适应新任务的能力就越强。
     - <strong>数据处理</strong>：在将原始文本用于预训练之前，需要进行一系列的数据处理步骤。首先是文本清洗，去除HTML标签、特殊字符、噪声数据等，以保证输入文本的质量。然后进行分词，将文本分割成一个个token，BERT使用的是WordPiece分词方法，这种方法能够有效处理未登录词，将长词分解为合适的子词单元。最后，根据预训练目标（如MLM和NSP）的要求，对数据进行相应的格式化处理，生成模型可以接受的输入格式。 </li>
 </ul>
-<h1 id="7-部署与优化">7 部署与优化</h1>
+<h1 id="7">7 部署与优化</h1>
 <table>
 <thead>
 <tr>
@@ -1468,21 +1519,58 @@ pip<span class="w"> </span>install<span class="w"> </span>sentencepiece<span cla
 </tr>
 </tbody>
 </table>
-<h2 id="71-量化">7.1 量化</h2>
+<h2 id="71">7.1 量化</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
 <span class="n">converter</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">lite</span><span class="o">.</span><span class="n">TFLiteConverter</span><span class="o">.</span><span class="n">from_saved_model</span><span class="p">(</span><span class="n">saved_model_dir</span><span class="p">)</span>
 <span class="n">converter</span><span class="o">.</span><span class="n">optimizations</span> <span class="o">=</span> <span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">lite</span><span class="o">.</span><span class="n">Optimize</span><span class="o">.</span><span class="n">DEFAULT</span><span class="p">]</span>
 <span class="n">tflite_quant_model</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">convert</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="72-剪枝">7.2 剪枝</h2>
-<h2 id="73-蒸馏">7.3 蒸馏</h2>
+<h2 id="72">7.2 剪枝</h2>
+<h2 id="73">7.3 蒸馏</h2>
         </article>
         <footer class="site-footer">
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 介绍与快速开始</a></li>
+<li><a class="toc-h2" href="#11-transformer">1.1 Transformer架构</a></li>
+<li><a class="toc-h2" href="#12-pipeline">1.2 Pipeline</a></li>
+<li><a class="toc-h2" href="#13-tokenizer">1.3 Tokenizer</a></li>
+<li><a class="toc-h2" href="#14-autoclass">1.4 AutoClass</a></li>
+<li><a class="toc-h2" href="#15-fine-tuning">1.5 微调（Fine-tuning）</a></li>
+<li><a class="toc-h3" href="#151-lora">1.5.1 LoRA 参数高效微调</a></li>
+<li><a class="toc-h2" href="#16">1.6 模型保存、加载与发布</a></li>
+<li><a class="toc-h2" href="#17">1.7 性能优化</a></li>
+<li><a class="toc-h2" href="#18">1.8 常见问题</a></li>
+<li><a class="toc-h2" href="#19-api">1.9 API</a></li>
+<li><a href="#2">2 安装</a></li>
+<li><a class="toc-h2" href="#21">2.1 配置</a></li>
+<li><a href="#3">3 核心概念</a></li>
+<li><a class="toc-h2" href="#31">3.1 预训练模型</a></li>
+<li><a class="toc-h2" href="#32-tokenizer">3.2 Tokenizer（分词器）</a></li>
+<li><a href="#4">4 简单使用示例</a></li>
+<li><a class="toc-h2" href="#41">4.1 文本分类</a></li>
+<li><a href="#5">5 模型架构</a></li>
+<li><a class="toc-h2" href="#51-transformer">5.1 Transformer架构</a></li>
+<li><a class="toc-h2" href="#52-bertgpt">5.2 不同预训练模型架构差异（如BERT与GPT架构对比）</a></li>
+<li><a class="toc-h3" href="#1_1">1. 模型架构类型</a></li>
+<li><a class="toc-h3" href="#2_1">2. 预训练任务</a></li>
+<li><a class="toc-h3" href="#3_1">3. 架构细节</a></li>
+<li><a class="toc-h3" href="#4_1">4. 应用场景</a></li>
+<li><a href="#6">6 预训练</a></li>
+<li><a class="toc-h2" href="#61">6.1 预训练过程</a></li>
+<li><a href="#7">7 部署与优化</a></li>
+<li><a class="toc-h2" href="#71">7.1 量化</a></li>
+<li><a class="toc-h2" href="#72">7.2 剪枝</a></li>
+<li><a class="toc-h2" href="#73">7.3 蒸馏</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1491,6 +1579,45 @@ pip<span class="w"> </span>install<span class="w"> </span>sentencepiece<span cla
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

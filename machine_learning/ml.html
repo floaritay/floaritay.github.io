@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>ml - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,17 +482,8 @@
             <span class="sep">/</span>
             <span>machine_learning</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-11</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-scikit-learn-介绍">1 Scikit-learn 介绍</a><ul>
-<li><a href="#11-主要用法">1.1 主要用法</a></li>
-</ul>
-</li>
-<li><a href="#2-基本函数">2 基本函数</a></li>
-<li><a href="#3-数据集划分与基本信息">3 数据集划分与基本信息</a></li>
-</ul>
-<hr />
 <div class="highlight"><pre><span></span><code><span class="c1">#在 Jupyter Notebook 中，使用以下代码来打印当前工作目录：</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
@@ -403,7 +492,7 @@
 <div class="highlight"><pre><span></span><code>  d:\floaritay\machine_learning
 </code></pre></div>
 
-<h1 id="1-scikit-learn-介绍">1 Scikit-learn 介绍</h1>
+<h1 id="1-scikit-learn">1 Scikit-learn 介绍</h1>
 <p>Scikit-learn是基于NumPy、SciPy和Matplotlib的开源Python机器学习包，它封装了一系列数据预处理、机器学习算法、模型选择等工具。</p>
 <p>Scikit-learn简称sklearn，支持包括分类、回归、降维和聚类四大机器学习算法，还包括了特征提取、数据处理和模型评估三大模块。</p>
 <p>Scikit-Learn库的算法主要有四类：分类、回归、聚类、降维。其中：</p>
@@ -424,7 +513,7 @@
 <p>参考 https://github.com/fengdu78/WZU-machine-learning-course</p>
 <p>[1] PEDREGOSA F, VAROQUAUX G, GRAMFORT A, et al. Scikit-learn: Machine Learning in Python[J]. Journal of Machine Learning Research, 2011, 12: 2825–2830.</p>
 <p>[2] Andrew Ng. Machine Learning[EB/OL]. StanfordUniversity,2014.https://www.coursera.org/course/ml</p>
-<h2 id="11-主要用法">1.1 主要用法</h2>
+<h2 id="11">1.1 主要用法</h2>
 <p><strong>建模流程</strong></p>
 <table>
 <thead>
@@ -895,9 +984,9 @@ scaler.fit_transform(X_train)
 
 </li>
 </ol>
-<h1 id="2-基本函数">2 基本函数</h1>
-<h1 id="3-数据集划分与基本信息">3 数据集划分与基本信息</h1>
-<h2 id="_2">留出法</h2>
+<h1 id="2">2 基本函数</h1>
+<h1 id="3">3 数据集划分与基本信息</h1>
+<h2 id="_1">留出法</h2>
 <h3 id="sklearnmodel_selectiontrain_test_split">sklearn.model_selection.train_test_split</h3>
 <p>sklearn.model_selection.train_test_split(*arrays, test_size=None, train_size=None, random_state=None, shuffle=True, stratify=None)<br />
 参数说明：  </p>
@@ -1081,7 +1170,7 @@ stratify：可以为类似数组或None  </p>
     <span class="k">return</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1_score</span>
 </code></pre></div>
 
-<h1 id="_3">线性回归</h1>
+<h1 id="_2">线性回归</h1>
 <h2 id="linearregression">LinearRegression()</h2>
 <p>LinearRegression的构造函数中有两个常用的参数可以设置：<br />
 fit_intercept：是否有截据，如果没有则直线过原点，默认为Ture。<br />
@@ -1123,7 +1212,7 @@ predict = lr.predict(X_test)  </p>
 <span class="c1"># index=False 是一个参数，用于指定是否将DataFrame的索引（行标签）保存到CSV文件中。index=False，意味着不保存</span>
 </code></pre></div>
 
-<h1 id="_4">逻辑回归</h1>
+<h1 id="_3">逻辑回归</h1>
 <p>逻辑回归是通过回归的思想来解决二分类问题的算法。</p>
 <p>sigmoid函数的公式为：
 σ(t)=1/(1+e^−t)</p>
@@ -1156,7 +1245,7 @@ X：大小为<code>样本数量*特征数量</code>的ndarray，存放预测样�
 logreg = LogisticRegression(solver='lbfgs',max_iter =10,C=10)<br />
 logreg.fit(X_train, Y_train)<br />
 result = logreg.predict(X_test)  </p>
-<h2 id="_5">参数选择</h2>
+<h2 id="_4">参数选择</h2>
 <p>Solver 选择：
 liblinear：适用于小数据集，特别是当特征是稀疏的（即大部分特征值为零）时。它也支持 L1 正则化。
 lbfgs、newton-cg 和 sag：这些求解器适用于大数据集，并且支持 L2 正则化。
@@ -1173,7 +1262,7 @@ max_iter 是求解器的最大迭代次数。
 如果模型在达到最大迭代次数之前还没有收敛，可以尝试增加 max_iter 的值。
 一般来说，对于大数据集和复杂的模型，可能需要更多的迭代次数来确保收敛。
 但是，增加迭代次数会增加计算成本和时间。</p>
-<h2 id="_6">手写图像识别</h2>
+<h2 id="_5">手写图像识别</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">digit_predict</span><span class="p">(</span><span class="n">train_image</span><span class="p">,</span> <span class="n">train_label</span><span class="p">,</span> <span class="n">test_image</span><span class="p">):</span>
@@ -1198,7 +1287,7 @@ max_iter 是求解器的最大迭代次数。
     <span class="c1">#************* End **************#</span>
 </code></pre></div>
 
-<h1 id="_7">决策树</h1>
+<h1 id="_6">决策树</h1>
 <h2 id="decisiontreeclassifier">DecisionTreeClassifier()</h2>
 <p>有两个常用的参数可以设置：<br />
 criterion:划分节点时用到的指标。有gini（基尼系数）,entropy(信息增益)。若不设置，默认为gini<br />
@@ -1239,7 +1328,7 @@ result = clf.predict(X_test)   </p>
     <span class="c1"># ************* End **************#</span>
 </code></pre></div>
 
-<h2 id="_8">计算原理</h2>
+<h2 id="_7">计算原理</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
@@ -1344,7 +1433,7 @@ PyTorch 文档中提到，如果 grad 属性不为空，新计算出来的梯度
 <p>为什么不直接覆盖旧的结果呢？这是因为有些 Tensor 可能有多个输出，那么就需要调用多个 backward<br />
 叠加的处理方式使得 backward 不需要考虑之前有没有被计算过导数，只需要加上去就行了，这使得设计变得更简单
 因此我们用户在反向传播之前，常常需要用 zero_grad 函数对导数手动清零，确保计算出来的是正确的结果</p>
-<h3 id="_9">示例</h3>
+<h3 id="_8">示例</h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="c1"># 导入了 PyTorch 库，并将 torch.Tensor 赋值给 Tensor</span>
 <span class="n">Tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
@@ -1371,7 +1460,7 @@ PyTorch 文档中提到，如果 grad 属性不为空，新计算出来的梯度
    <span class="k">return</span> <span class="n">result</span>
 </code></pre></div>
 
-<h2 id="_10">静态图动态图设计</h2>
+<h2 id="_9">静态图动态图设计</h2>
 <p>目前神经网络框架分为静态图框架和动态图框架，PyTorch 和 TensorFlow、Caffe 等框架最大的区别就是他们拥有不同的计算图表现形式<br />
 TensorFlow 使用静态图，这意味着我们先定义计算图，然后不断使用它，而在 PyTorch 中，每次都会重新构建一个新的计算图  </p>
 <p>动态图比较方便 debug，使用者能够用任何他们喜欢的方式进行 debug，同时非常直观<br />
@@ -1445,11 +1534,11 @@ print(w.grad_fn)
 None
 </code></pre></div>
 
-<h2 id="_11">正向反向传播</h2>
+<h2 id="_10">正向反向传播</h2>
 <p>正向传播（forward propagation）是指对神经网络沿着从输入层到输出层的顺序，依次计算并存储模型的中间变量（包括输出）<br />
 反向传播（back-propagation）指的是计算神经网络参数梯度的方法<br />
 总的来说，反向传播依据微积分中的链式法则，沿着从输出层到输入层的顺序，依次计算并存储目标函数有关神经网络各层的中间变量以及参数的梯度  </p>
-<h3 id="_12">示例</h3>
+<h3 id="_11">示例</h3>
 <p>使用神经网络拟合曲线：y=x^2−2x+3，给定 x 的范围为 (0,1)。为了简便起见，该神经网络不加入正则项。</p>
 <p>编程示例</p>
 <p>数据：</p>
@@ -1571,10 +1660,10 @@ for epoch in range(num_epochs):
    <span class="k">return</span> <span class="n">loss</span><span class="o">.</span><span class="n">data</span>
 </code></pre></div>
 
-<h2 id="_13">损失函数</h2>
+<h2 id="_12">损失函数</h2>
 <p>一般来说，我们在进行机器学习任务时，使用的每一个算法都有一个目标函数，算法便是对这个目标函数进行优化<br />
 特别是在分类或者回归任务中，便是使用损失函数(Loss Function)作为其目标函数，又称为代价函数(Cost Function)  </p>
-<h3 id="_14">常见的损失函数</h3>
+<h3 id="_13">常见的损失函数</h3>
 <p>损失函数是用来评价模型的预测值与真实值的不一致程度，它是一个非负实值函数。通常使用 L(Y,f(x)) 来表示，损失函数越小，模型的性能就越好</p>
 <ul>
 <li>
@@ -1598,7 +1687,7 @@ for epoch in range(num_epochs):
     常用于回归中，若加和再求平均即 MSE</p>
 </li>
 </ul>
-<h3 id="_15">示例</h3>
+<h3 id="_14">示例</h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="n">y1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">y2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
@@ -1610,7 +1699,7 @@ for epoch in range(num_epochs):
 <span class="n">MSELoss</span><span class="p">:</span>  <span class="n">tensor</span><span class="p">(</span><span class="mf">1.8335</span><span class="p">,</span> <span class="n">grad_fn</span><span class="o">=&lt;</span><span class="n">MseLossBackward</span><span class="o">&gt;</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_16">支持向量机</h1>
+<h1 id="_15">支持向量机</h1>
 <p>fit() 方法：用于训练 SVM，具体参数已经在定义 SVC对象的时候给出了，这时候只需要给出数据集X和X对应的标签y即可<br />
 predict() 方法: 基于以上的训练，对预测样本T进行类别预测，因此只需要接收一个测试集T，该函数返回一个数组表示个测试样本的类别  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">svm</span> <span class="c1"># 调用sklearn实现svm算法</span>
@@ -1710,7 +1799,7 @@ gamma越小：单个样本影响范围大，决策边界平滑（易欠拟合）
 <span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">)</span>  <span class="c1">#输出当前的支持向量</span>
 </code></pre></div>
 
-<h1 id="_17">朴素贝叶斯</h1>
+<h1 id="_16">朴素贝叶斯</h1>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
@@ -1793,7 +1882,7 @@ result = clf.predict(X_test)  </p>
     <span class="k">return</span> <span class="n">result</span>
 </code></pre></div>
 
-<h2 id="_18">算法流程</h2>
+<h2 id="_17">算法流程</h2>
 <table>
 <thead>
 <tr>
@@ -2008,8 +2097,8 @@ P(纹理模糊|不是好瓜)=1/2  </p>
         <span class="c1">#********* End *********#</span>
 </code></pre></div>
 
-<h1 id="_19">聚类</h1>
-<h2 id="_20">外部指标</h2>
+<h1 id="_18">聚类</h1>
+<h2 id="_19">外部指标</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 导入 numpy 科学计算库</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -2053,7 +2142,7 @@ P(纹理模糊|不是好瓜)=1/2  </p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jaccard 系数为</span><span class="si">{}</span><span class="s2">,FM 指数为</span><span class="si">{}</span><span class="s2">,Rand 指数为</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">JC</span><span class="p">,</span> <span class="n">FM</span><span class="p">,</span> <span class="n">RI</span><span class="p">))</span>
 </code></pre></div>
 
-<h2 id="_21">内部指标</h2>
+<h2 id="_20">内部指标</h2>
 <p>样本内平均距离，最远距离，
 样本间最近距离，中心点距离</p>
 <h2 id="k-means">K-Means算法</h2>
@@ -2084,7 +2173,7 @@ P(纹理模糊|不是好瓜)=1/2  </p>
 <span class="c1"># [0 1 1]</span>
 </code></pre></div>
 
-<h2 id="_22">应用示例</h2>
+<h2 id="_21">应用示例</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
@@ -2143,7 +2232,49 @@ P(纹理模糊|不是好瓜)=1/2  </p>
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1-scikit-learn">1 Scikit-learn 介绍</a></li>
+<li><a class="toc-h2" href="#11">1.1 主要用法</a></li>
+<li><a href="#2">2 基本函数</a></li>
+<li><a href="#3">3 数据集划分与基本信息</a></li>
+<li><a class="toc-h2" href="#_1">留出法</a></li>
+<li><a class="toc-h3" href="#sklearnmodel_selectiontrain_test_split">sklearn.model_selection.train_test_split</a></li>
+<li><a class="toc-h3" href="#stratify">stratify参数</a></li>
+<li><a href="#f1">错误率与精度&查准率、查全率与F1</a></li>
+<li><a href="#_2">线性回归</a></li>
+<li><a class="toc-h2" href="#linearregression">LinearRegression()</a></li>
+<li><a href="#_3">逻辑回归</a></li>
+<li><a class="toc-h2" href="#logisticregression">LogisticRegression()</a></li>
+<li><a class="toc-h2" href="#_4">参数选择</a></li>
+<li><a class="toc-h2" href="#_5">手写图像识别</a></li>
+<li><a href="#_6">决策树</a></li>
+<li><a class="toc-h2" href="#decisiontreeclassifier">DecisionTreeClassifier()</a></li>
+<li><a class="toc-h2" href="#_7">计算原理</a></li>
+<li><a href="#autograd">Autograd</a></li>
+<li><a class="toc-h2" href="#pytorch-autograd">Pytorch 中的 Autograd</a></li>
+<li><a class="toc-h3" href="#requires_grad">requires_grad属性</a></li>
+<li><a class="toc-h3" href="#backward">backward函数</a></li>
+<li><a class="toc-h3" href="#_8">示例</a></li>
+<li><a class="toc-h2" href="#_9">静态图动态图设计</a></li>
+<li><a class="toc-h2" href="#_10">正向反向传播</a></li>
+<li><a class="toc-h3" href="#_11">示例</a></li>
+<li><a class="toc-h2" href="#_12">损失函数</a></li>
+<li><a class="toc-h3" href="#_13">常见的损失函数</a></li>
+<li><a class="toc-h3" href="#_14">示例</a></li>
+<li><a href="#_15">支持向量机</a></li>
+<li><a href="#_16">朴素贝叶斯</a></li>
+<li><a class="toc-h2" href="#_17">算法流程</a></li>
+<li><a href="#_18">聚类</a></li>
+<li><a class="toc-h2" href="#_19">外部指标</a></li>
+<li><a class="toc-h2" href="#_20">内部指标</a></li>
+<li><a class="toc-h2" href="#k-means">K-Means算法</a></li>
+<li><a class="toc-h2" href="#_21">应用示例</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -2152,6 +2283,45 @@ P(纹理模糊|不是好瓜)=1/2  </p>
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

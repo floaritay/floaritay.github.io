@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>FastAPI - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,15 +482,14 @@
             <span class="sep">/</span>
             <span>Backend</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-14</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
-<h1 id="_2">简介</h1>
+<h1 id="_1">简介</h1>
 <p>一个用于构建 API 的现代、快速（高性能）的 web 框架，专为在 Python 中构建 RESTful API 而设计，支持前后端分离的Web应用。</p>
 <p>FastAPI 使用 Python 3.8+ 并基于标准的 Python 类型提示。</p>
 <p>FastAPI 建立在 Starlette 和 Pydantic 之上，利用类型提示进行数据处理，并自动生成API文档。</p>
 <p>FastAPI 支持异步编程，可在生产环境中运行。</p>
-<h1 id="_3">安装</h1>
+<h1 id="_2">安装</h1>
 <p>需要Python 3.8 及更高版本</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>--version
 
@@ -418,7 +515,7 @@ pip<span class="w"> </span>install<span class="w"> </span>fastapi
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;uvicorn[standard]&quot;</span>
 </code></pre></div>
 
-<h2 id="_4">简单实例</h2>
+<h2 id="_3">简单实例</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">uvicorn</span>
 
@@ -442,7 +539,7 @@ pip<span class="w"> </span>install<span class="w"> </span>fastapi
 <li>这将会在 .vscode/launch.json 中创建一个自定义配置文件</li>
 <li>在 "args":[] 中添加如下内容以设置自定义端口："args": ["--port=5000"]</li>
 </ul>
-<h2 id="_5">项目结构建议</h2>
+<h2 id="_4">项目结构建议</h2>
 <div class="highlight"><pre><span></span><code>my_fastapi_project/
 ├── app/
 │   ├── __init__.py
@@ -492,7 +589,7 @@ pip<span class="w"> </span>install<span class="w"> </span>fastapi
 <div class="highlight"><pre><span></span><code>pytest
 </code></pre></div>
 
-<h2 id="_6">部署准备</h2>
+<h2 id="_5">部署准备</h2>
 <p>生产服务器推荐使用：</p>
 <ul>
 <li>Uvicorn + Gunicorn</li>
@@ -661,7 +758,7 @@ docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </sp
 <li>如果参数有默认值（如 skip: int = 0），则该参数是可选的</li>
 <li>参数可以是列表或复杂类型</li>
 </ul>
-<h2 id="_7">查询参数路由</h2>
+<h2 id="_6">查询参数路由</h2>
 <div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="n">skip</span><span class="p">,</span> <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">}</span>
@@ -669,7 +766,7 @@ docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </sp
 
 <p>URL 结构：http://127.0.0.1:8000/items/?skip=1&amp;limit=5<br />
 参数位置：在 ? 之后，以 key=value 形式传递。</p>
-<h2 id="_8">路径参数路由</h2>
+<h2 id="_7">路径参数路由</h2>
 <div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/items/</span><span class="si">{item_id}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># 注意{item_id}</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;item_id&quot;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">q</span><span class="p">}</span>
@@ -680,7 +777,7 @@ docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </sp
 item_id：在路径中（/items/123）。<br />
 q：在查询字符串中（?q=search）。 </p>
 <h1 id="fastapi_2">FastAPI 请求和响应</h1>
-<h2 id="_9">请求体</h2>
+<h2 id="_8">请求体</h2>
 <p>接下来创建一个 /items/ 路由，使用 @app.post 装饰器表示这是一个处理 POST 请求的路由。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
@@ -697,7 +794,7 @@ q：在查询字符串中（?q=search）。 </p>
     <span class="k">return</span> <span class="n">item</span>
 </code></pre></div>
 
-<h2 id="_10">响应体</h2>
+<h2 id="_9">响应体</h2>
 <p>返回 JSON 数据<br />
 路由处理函数返回一个字典，该字典将被 FastAPI 自动转换为 JSON 格式，并作为响应发送给客户端：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 例如之前的</span>
@@ -729,7 +826,7 @@ q：在查询字符串中（?q=search）。 </p>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;user_agent&#39;</span><span class="p">:</span> <span class="n">user_agent</span><span class="p">,</span> <span class="s1">&#39;session_token&#39;</span><span class="p">:</span> <span class="n">session_token</span><span class="p">}</span>
 </code></pre></div>
 
-<h2 id="_11">重定向和状态码</h2>
+<h2 id="_10">重定向和状态码</h2>
 <p>以下代码在浏览器访问 http://127.0.0.1:8000/redirect/ 会自动跳转到 http://127.0.0.1:8000/items/ 页面：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Header</span><span class="p">,</span><span class="n">Cookie</span>
@@ -759,7 +856,7 @@ q：在查询字符串中（?q=search）。 </p>
   <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;item_id&#39;</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
 </code></pre></div>
 
-<h2 id="_12">自定义响应头</h2>
+<h2 id="_11">自定义响应头</h2>
 <p>使用 JSONResponse 自定义响应头:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.reponses</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONResponse</span>
@@ -778,7 +875,7 @@ q：在查询字符串中（?q=search）。 </p>
 <p>它在 FastAPI 中广泛使用，用于定义请求体、响应体和其他数据模型，提供了强大的类型检查和自动文档生成功能。</p>
 <p>使用 Pydantic 定义一个模型非常简单，只需创建一个继承自 pydantic.BaseModel 的类，并在其中定义字段。</p>
 <p>字段的类型可以是任何有效的 Python 类型，也可以是 Pydantic 内置的类型。</p>
-<h2 id="_13">请求体验证</h2>
+<h2 id="_12">请求体验证</h2>
 <p>在 FastAPI 中，可以将 Pydantic 模型用作请求体（Request Body），以自动验证和解析客户端发送的数据。</p>
 <p>create_item 路由处理函数接受一个名为 item 的参数，其类型是 Item 模型。FastAPI 将自动验证传入的 JSON 数据是否符合模型的定义，并将其转换为 Item 类型的实例。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
@@ -800,7 +897,7 @@ q：在查询字符串中（?q=search）。 </p>
 <span class="c1"># curl -X POST &quot;http://127.0.0.1:8000/items/&quot; -H &quot;accept: application/json&quot; -H &quot;Content-Type: application/json&quot; -d &#39;{&quot;name&quot;:&quot;Foo&quot;,&quot;price&quot;:35.5,&quot;description&quot;:&quot;A very nice Item&quot;,&quot;tax&quot;:3.5}&#39;</span>
 </code></pre></div>
 
-<h2 id="_14">查询参数验证</h2>
+<h2 id="_13">查询参数验证</h2>
 <p>read_item 路由处理函数接受一个 Item 模型的实例作为查询参数，以及一个名为 q 的字符串查询参数。通过使用 Query 函数，我们还可以为查询参数指定更多的验证规则，如最大长度限制。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Query</span>
 
@@ -813,7 +910,7 @@ q：在查询字符串中（?q=search）。 </p>
 <p>允许你在路由处理函数执行之前或之后运行一些额外的逻辑。</p>
 <p>依赖项就是一个函数，且可以使用与路径操作函数相同的参数。</p>
 <p>路径操作依赖项提供了一种灵活的方式来组织代码、验证输入、进行身份验证等。</p>
-<h2 id="_15">依赖项</h2>
+<h2 id="_14">依赖项</h2>
 <p>路由操作函数执行前或后运行的可复用的函数或对象。</p>
 <ul>
 <li>预处理（Before）依赖项： 在路由操作函数执行前运行，用于预处理输入数据，验证请求等。</li>
@@ -822,7 +919,7 @@ q：在查询字符串中（?q=search）。 </p>
 <p>依赖注入是将依赖项注入到路由操作函数中的过程。</p>
 <p>在 FastAPI 中，通过在路由操作函数参数中声明依赖项来实现依赖注入。</p>
 <p>FastAPI 将负责解析依赖项的参数，并确保在执行路由操作函数之前将其传递给函数。</p>
-<h2 id="_16">预处理</h2>
+<h2 id="_15">预处理</h2>
 <p>common_parameters 是一个依赖项函数，它接受查询参数 q、skip 和 limit，并返回一个包含这些参数的字典。</p>
 <p>在路由操作函数 read_items 中，通过传入 Depends(common_parameters)，我们使用了这个依赖项函数，实现了在路由执行前预处理输入数据的功能。</p>
 <p>FastAPI 将在执行路由操作函数之前运行 common_parameters 函数，并将其返回的结果传递给 read_items 函数。</p>
@@ -838,7 +935,7 @@ q：在查询字符串中（?q=search）。 </p>
     <span class="k">return</span> <span class="n">commons</span>
 </code></pre></div>
 
-<h2 id="_17">后处理</h2>
+<h2 id="_16">后处理</h2>
 <p>以下例子中，after_request 是一个后处理函数，用于在路由执行后执行一些逻辑。</p>
 <p>在路由操作函数 read_items_after 中，通过传入 Depends(after_request)，我们使用了这个后处理依赖项，实现了在路由执行后进行额外操作的功能。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># -----同上------</span>
@@ -863,7 +960,7 @@ q：在查询字符串中（?q=search）。 </p>
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Items returned successfully&quot;</span><span class="p">}</span>
 </code></pre></div>
 
-<h2 id="_18">多个依赖项的组合</h2>
+<h2 id="_17">多个依赖项的组合</h2>
 <p>common_parameters 和 verify_token 是两个不同的依赖项函数，verify_token 依赖于 common_parameters，</p>
 <p>这种组合依赖项的方式允许我们在路由执行前先验证一些参数，然后在进行身份验证。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">HTTPException</span>
@@ -886,7 +983,7 @@ q：在查询字符串中（?q=search）。 </p>
     <span class="k">return</span> <span class="n">token</span>
 </code></pre></div>
 
-<h2 id="_19">异步依赖项</h2>
+<h2 id="_18">异步依赖项</h2>
 <p>依赖项函数和后处理函数可以是异步的，允许在它们内部执行异步操作。</p>
 <p>以下例子中，get_token 是一个异步的依赖项函数，模拟了一个异步操作。</p>
 <p>在路由操作函数 read_items 中，我们使用了这个异步依赖项函数。</p>
@@ -915,7 +1012,7 @@ q：在查询字符串中（?q=search）。 </p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>python-multipart。
 </code></pre></div>
 
-<h2 id="_20">声明表单数据模型</h2>
+<h2 id="_19">声明表单数据模型</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">Form</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
@@ -935,7 +1032,7 @@ q：在查询字符串中（?q=search）。 </p>
     <span class="n">price</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Item Price&quot;</span><span class="p">,</span> <span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_21">在路由中接收表单数据</h2>
+<h2 id="_20">在路由中接收表单数据</h2>
 <p>在路由操作函数中，可以使用 Form 类型来接收表单数据。</p>
 <p>Form 类型的参数可以与 Pydantic 模型的字段一一对应，以实现表单数据的验证和转换。</p>
 <p>create_item 路由操作函数接收了三个表单字段：name、description 和 price，这些字段与 Item 模型的相应字段一致，FastAPI 将自动根据验证规则验证表单数据。</p>
@@ -953,7 +1050,7 @@ q：在查询字符串中（?q=search）。 </p>
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="n">price</span><span class="p">}</span>
 </code></pre></div>
 
-<h2 id="_22">处理文件上传</h2>
+<h2 id="_21">处理文件上传</h2>
 <p>如果表单包含文件上传，可以使用 UploadFile 类型处理。</p>
 <p>create_file 路由操作函数接收了一个 UploadFile 类型的文件参数。</p>
 <p>FastAPI 将负责处理文件上传，并将文件的相关信息包装在 UploadFile 对象中，可以轻松地获取文件名、内容类型等信息。</p>
@@ -995,7 +1092,7 @@ q：在查询字符串中（?q=search）。 </p>
 <li>HTTP/3：基于 QUIC 协议，旨在减少网络延迟，提高传输速度和安全性。</li>
 </ul>
 <p>Web 服务器有：Nginx 服务器，Apache 服务器，IIS 服务器（Internet Information Services）等。</p>
-<h2 id="_23">消息结构</h2>
+<h2 id="_22">消息结构</h2>
 <p>请求消息结构</p>
 <ul>
 <li>
@@ -1058,7 +1155,7 @@ q：在查询字符串中（?q=search）。 </p>
 </ul>
 </li>
 </ul>
-<h2 id="_24">响应头</h2>
+<h2 id="_23">响应头</h2>
 <table>
 <thead>
 <tr>
@@ -1205,7 +1302,47 @@ q：在查询字符串中（?q=search）。 </p>
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">简介</a></li>
+<li><a href="#_2">安装</a></li>
+<li><a class="toc-h2" href="#_3">简单实例</a></li>
+<li><a class="toc-h2" href="#_4">项目结构建议</a></li>
+<li><a class="toc-h2" href="#fastapi">调试 FastAPI</a></li>
+<li><a class="toc-h2" href="#_5">部署准备</a></li>
+<li><a href="#fast-api">Fast API应用</a></li>
+<li><a href="#fastapi-api">FastAPI 交互式 API 文档</a></li>
+<li><a href="#fastapi_1">FastAPI 基本路由</a></li>
+<li><a class="toc-h2" href="#_6">查询参数路由</a></li>
+<li><a class="toc-h2" href="#_7">路径参数路由</a></li>
+<li><a href="#fastapi_2">FastAPI 请求和响应</a></li>
+<li><a class="toc-h2" href="#_8">请求体</a></li>
+<li><a class="toc-h2" href="#_9">响应体</a></li>
+<li><a class="toc-h2" href="#cookie">请求头和 Cookie</a></li>
+<li><a class="toc-h2" href="#_10">重定向和状态码</a></li>
+<li><a class="toc-h2" href="#_11">自定义响应头</a></li>
+<li><a href="#fastapi-pydantic">FastAPI Pydantic 模型</a></li>
+<li><a class="toc-h2" href="#_12">请求体验证</a></li>
+<li><a class="toc-h2" href="#_13">查询参数验证</a></li>
+<li><a href="#fastapi_3">FastAPI 路径操作依赖项</a></li>
+<li><a class="toc-h2" href="#_14">依赖项</a></li>
+<li><a class="toc-h2" href="#_15">预处理</a></li>
+<li><a class="toc-h2" href="#_16">后处理</a></li>
+<li><a class="toc-h2" href="#_17">多个依赖项的组合</a></li>
+<li><a class="toc-h2" href="#_18">异步依赖项</a></li>
+<li><a href="#fastapi_4">FastAPI 表单数据</a></li>
+<li><a class="toc-h2" href="#_19">声明表单数据模型</a></li>
+<li><a class="toc-h2" href="#_20">在路由中接收表单数据</a></li>
+<li><a class="toc-h2" href="#_21">处理文件上传</a></li>
+<li><a href="#fastapi_5">FastAPI 核心概念</a></li>
+<li><a href="#http">HTTP 相关</a></li>
+<li><a class="toc-h2" href="#_22">消息结构</a></li>
+<li><a class="toc-h2" href="#_23">响应头</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1214,6 +1351,45 @@ q：在查询字符串中（?q=search）。 </p>
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>question - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,90 +482,9 @@
             <span class="sep">/</span>
             <span>python</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#4-17">4 17</a></li>
-<li><a href="#1-3-4-2">1 3 4 2</a></li>
-<li><a href="#253-124">25.3 12.4</a></li>
-<li><a href="#6426-488">64.26 4.88</a></li>
-<li><a href="#3-5-7">3 5 7</a></li>
-<li><a href="#320103200002160776-6-10">320103200002160776 6 10</a></li>
-<li><a href="#19980527-female">19980527 female</a></li>
-<li><a href="#6-2-4-2-1-5">6 2 4 2 1 5</a></li>
-<li><a href="#6-7-2-8-6-6-7-1">6 7 2 8 6 6 7 1</a></li>
-<li><a href="#1-2-4-5-6-7-8">1 2 4 5 6 7 8</a></li>
-<li><a href="#100-200">100 200</a></li>
-<li><a href="#519-894-570-20-926-669-818-811-405">519 894 570 20 926 669 818 811 405</a></li>
-<li><a href="#811-669-519-405-20-570-818-894-926">811 669 519 405 20 570 818 894 926</a></li>
-<li><a href="#1001-古力">1001 古力</a></li>
-<li><a href="#1002-张华东">1002 张华东</a></li>
-<li><a href="#1003-陈鹏程">1003 陈鹏程</a></li>
-<li><a href="#1004-宋连军">1004 宋连军</a></li>
-<li><a href="#1005-张玉顺">1005 张玉顺</a></li>
-<li><a href="#1006-翟鹏展">1006 翟鹏展</a></li>
-<li><a href="#1007-申科">1007 申科</a></li>
-<li><a href="#1008-杨啸天">1008 杨啸天</a></li>
-<li><a href="#1001-8">1001 8</a></li>
-<li><a href="#1002-6">1002 6</a></li>
-<li><a href="#1003-1">1003 1</a></li>
-<li><a href="#1004-2">1004 2</a></li>
-<li><a href="#1005-5">1005 5</a></li>
-<li><a href="#1006-3">1006 3</a></li>
-<li><a href="#1007-4">1007 4</a></li>
-<li><a href="#1008-7">1008 7</a></li>
-<li><a href="#1003-陈鹏程-1">1003 陈鹏程 1</a></li>
-<li><a href="#1004-宋连军-2">1004 宋连军 2</a></li>
-<li><a href="#1006-翟鹏展-3">1006 翟鹏展 3</a></li>
-<li><a href="#1007-申科-4">1007 申科 4</a></li>
-<li><a href="#6-3">6 3</a></li>
-<li><a href="#1001-孙智超">1001 孙智超</a></li>
-<li><a href="#1002-王利彤">1002 王利彤</a></li>
-<li><a href="#1003-吕金富">1003 吕金富</a></li>
-<li><a href="#1004-柯少琦">1004 柯少琦</a></li>
-<li><a href="#1005-沈福麟">1005 沈福麟</a></li>
-<li><a href="#1006-尚日强">1006 尚日强</a></li>
-<li><a href="#1001-1">1001 1</a></li>
-<li><a href="#1002-3">1002 3</a></li>
-<li><a href="#1003-6">1003 6</a></li>
-<li><a href="#1004-4">1004 4</a></li>
-<li><a href="#1005-2">1005 2</a></li>
-<li><a href="#1006-5">1006 5</a></li>
-<li><a href="#1001-孙智超-1">1001 孙智超 1</a></li>
-<li><a href="#1005-沈福麟-2">1005 沈福麟 2</a></li>
-<li><a href="#1002-王利彤-3">1002 王利彤 3</a></li>
-<li><a href="#701-234">7.01 2.34</a></li>
-<li><a href="#301-400">301 400</a></li>
-<li><a href="#519-894-570-20-926-669-818-811-405">519 894 570 20 926 669 818 811 405</a></li>
-<li><a href="#926-894-818-570-20-405-519-669-811">926 894 818 570 20 405 519 669 811</a></li>
-<li><a href="#1-8-9-5-4-7-6-3-2-0-10">1 8 9 5 4 7 6 3 2 0 10</a></li>
-<li><a href="#0-2-1-5-6-3-4-9-8-7-10">0 2 1 5 6 3 4 9 8 7 10</a></li>
-<li><a href="#96-81-40-67-48">96 81 40 67 48</a></li>
-<li><a href="#46-98-65-92-13">46 98 65 92 13</a></li>
-<li><a href="#68-20-25-47-81">68 20 25 47 81</a></li>
-<li><a href="#49-78-73-13-44">49 78 73 13 44</a></li>
-<li><a href="#1-2-79-96-97">1 2 79 96 97</a></li>
-<li><a href="#4-0-1">4 0 1</a></li>
-<li><a href="#14-5-69-51-89-31">14 5 69 51 89 31</a></li>
-<li><a href="#2024-5-27">2024 5 27</a></li>
-<li><a href="#39-52-21-147-86">39  52  21  147  86</a></li>
-<li><a href="#4018224312-418224312-3072-372-42-42-8">4018224312 → 418224312 → 3072 → 372 → 42 → 4*2 → 8</a></li>
-<li><a href="#1-n-m-200-1-x1-x2-n-1-y1-y2-m">1 ≤ n, m ≤ 200 ，1 ≤ x1 ≤ x2 ≤ n ，1 ≤ y1 ≤ y2 ≤ m 。</a></li>
-<li><a href="#3-3">3 3</a></li>
-<li><a href="#1-1-2-2">1 1 2 2</a></li>
-<li><a href="#2-2-3-3">2 2 3 3</a></li>
-<li><a href="#1-1-3-3">1 1 3 3</a></li>
-<li><a href="#6-1-4-2-5-1-7-10-4-1">6 1 4 2 5 1 7 10 4 1</a></li>
-<li><a href="#410-809">4.10 8.09</a></li>
-<li><a href="#6-9-42对于10进制来说是错误的但是对于13进制来说是正确的-即-613-913-4213而-4213-5410">6 × 9 = 42对于10进制来说是错误的，但是对于13进制来说是正确的。 即 6(13)​ × 9(13)​ = 42(13)​，而 42(13)​ = 54(10)。</a></li>
-<li><a href="#12-4-48">12 4 48</a></li>
-<li><a href="#2-1-4-3-5-7-6">2 1 4 3 5 7 6</a></li>
-<li><a href="#1-2-3-4-5-6-7">1 2 3 4 5 6 7</a></li>
-<li><a href="#78532-4">78.532  4</a></li>
-<li><a href="#1-2">1 2</a></li>
-</ul>
-<hr />
-<h1 id="_2">注意</h1>
+<h1 id="_1">注意</h1>
 <p>1 输入输出</p>
 <div class="highlight"><pre><span></span><code><span class="c1">#(1)数据之间有空格，以一行输入</span>
 <span class="c1"># input()函数读取一行输入，数据之间以空格分隔。使用split()方法将字符串分割成一个列表</span>
@@ -555,7 +572,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">cleaned_price</span><span class="p">)</span>  <span class="c1"># 输出: &quot;99.99&quot;</span>
 </code></pre></div>
 
-<h1 id="_3">套一</h1>
+<h1 id="_2">套一</h1>
 <p>1 计算邮资</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 根据邮件的重量和用户是否选择加急计算邮费。</span>
 <span class="c1"># 计算规则：重量在1000克以内(包括1000克), 基本费8元。超过1000克的部分，每500克加收超重费4元，不足500克部分按500克计算；如果用户选择加急，多收5元</span>
@@ -668,7 +685,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="nb">min</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_4">套二</h1>
+<h1 id="_3">套二</h1>
 <p>1 球弹跳高度的计算 *</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 一球从某一高度h落下(单位米，n≤1,000,000)，每次落地后反跳回原来高度的一半，再落下。编程计算气球在第10次落地时，共经过多少米? 第10次反弹多高</span>
 <span class="c1"># 输出包含两行，第1行：到球第10次落地时，一共经过的米数。第2行：第10次弹跳的高度。  </span>
@@ -773,7 +790,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_5">套三</h1>
+<h1 id="_4">套三</h1>
 <p>1 计算2的幂</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 非负整数n，求2^n，即2的n次方</span>
 
@@ -864,7 +881,7 @@
 <span class="c1"># print(s)</span>
 </code></pre></div>
 
-<h1 id="_6">套四</h1>
+<h1 id="_5">套四</h1>
 <p>1 温度表达转化</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 利用公式C = 5*(F-32)/9进行计算转化，其中C表示摄氏温度，F表示华氏温度。  </span>
 <span class="c1"># 题目输入华氏温度F，要求输出对应的摄氏温度C，要求精确到小数点后5位</span>
@@ -1026,7 +1043,7 @@
     <span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">m</span><span class="p">])</span>
 </code></pre></div>
 
-<h1 id="_7">套六</h1>
+<h1 id="_6">套六</h1>
 <p>1 去除重复单词*</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 给定一行由若干单词组成的字符串（总长度不超过1000个字符），单词之间以空格分隔。查找其中所有重复出现过的单词，并将这些单词删除，然后将剩下的单词按照原来的顺序输出。</span>
 <span class="c1"># 题目保证至少有一个单词不重复。</span>
@@ -1178,7 +1195,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_8">更多</h1>
+<h1 id="_7">更多</h1>
 <p>1 A+B</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 输入两个自然数, 输出他们的和</span>
 
@@ -2523,7 +2540,22 @@
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">注意</a></li>
+<li><a href="#_2">套一</a></li>
+<li><a href="#_3">套二</a></li>
+<li><a href="#_4">套三</a></li>
+<li><a href="#_5">套四</a></li>
+<li><a href="#_6">套六</a></li>
+<li><a href="#_7">更多</a></li>
+<li><a href="#1">题库1</a></li>
+<li><a href="#2">题库2</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -2532,6 +2564,45 @@
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

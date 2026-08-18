@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>pachong - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,9 +482,8 @@
             <span class="sep">/</span>
             <span>reptile</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
 <h1 id="http">http协议</h1>
 <p>http超文本传输协议
 html超文本标记语言</p>
@@ -426,7 +523,7 @@ Sources（源代码）：显示网页的源代码文件，包括HTML、CSS、Jav
 编辑元素：找到目标元素后，可以双击其HTML代码或CSS样式进行修改。修改后，网页的显示效果会实时更新。
 查看控制台信息：在“Console”面板中，可以查看网页加载过程中产生的JavaScript错误、警告和日志信息。这些信息有助于开发者定位和解决网页中的问题。
 分析网络请求：在“Network”面板中，可以查看网页加载过程中请求的资源及其加载时间、大小等信息。通过分析这些信息，可以找出影响网页性能的关键因素。</p>
-<h1 id="_2">网络爬虫库</h1>
+<h1 id="_1">网络爬虫库</h1>
 <p>一、HTTP请求库
 urllib：这是Python标准库中的一个模块，提供了一系列用于处理URL的函数，可以方便地进行网页的下载和请求。它支持多种协议，包括HTTP、HTTPS、FTP等。
 requests：这是一个基于urllib编写的HTTP库，提供了更简洁、易用的API。requests库支持GET、POST等多种HTTP请求方法，并且可以方便地设置请求头、cookies等信息。
@@ -506,9 +603,9 @@ wasm是WebAssembly的缩写，它是一种为网络设计的新型代码格式�
 WebAssembly是一种低级字节码格式，可以被现代Web浏览器以接近原生性能的速度执行。
 它允许开发者用多种编程语言编写代码，然后将其编译成WebAssembly格式，从而在Web上实现高效运行。
 综上所述，这些术语在网页开发和网络请求中扮演着重要的角色，它们各自具有特定的含义和用途。</p>
-<h1 id="_3">数据解析方式</h1>
+<h1 id="_2">数据解析方式</h1>
 <h2 id="1re">1.re解析(运行速度快)</h2>
-<h3 id="_4">基础</h3>
+<h3 id="_3">基础</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1.字符匹配：</span>
 <span class="c1">#        . ：匹配 除换行符以外 的 任意字符</span>
 <span class="c1">#    [...] ：匹配 方括号内的任意字符（字符集）   示例：[A-Za-z0-9]</span>
@@ -553,7 +650,7 @@ WebAssembly是一种低级字节码格式，可以被现代Web浏览器以接近
 <span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span><span class="n">text</span><span class="p">))</span><span class="c1">#[&#39;uguiioaifegxihgiohpx&#39;]</span>
 </code></pre></div>
 
-<h3 id="_5">模块</h3>
+<h3 id="_4">模块</h3>
 <div class="highlight"><pre><span></span><code><span class="n">text</span><span class="o">=</span><span class="s2">&quot;uguiioaifegxihgiohpx&quot;</span>
 <span class="n">pattern</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;.*?x&#39;</span><span class="c1">#惰性</span>
 
@@ -576,13 +673,13 @@ WebAssembly是一种低级字节码格式，可以被现代Web浏览器以接近
     <span class="c1"># ihgiohpx</span>
 </code></pre></div>
 
-<h3 id="_6">预加载(适用于表达式较长，且多次使用)</h3>
+<h3 id="_5">预加载(适用于表达式较长，且多次使用)</h3>
 <div class="highlight"><pre><span></span><code><span class="n">pattern</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;.*?x&#39;</span><span class="p">,</span><span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">)</span><span class="c1">#re.S:让表达式能匹配换行符</span>
 <span class="n">text</span><span class="o">=</span><span class="s2">&quot;uguiioaifegxihgiohpx&quot;</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">pattern</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
 </code></pre></div>
 
-<h3 id="_7">分组</h3>
+<h3 id="_6">分组</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># (?P&lt;分组命名&gt;表达式) 单独从匹配内容中进一步提取内容</span>
 </code></pre></div>
 
@@ -1041,7 +1138,26 @@ HTML标签可以包含属性（attributes），这些属性提供了关于标签
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#http">http协议</a></li>
+<li><a href="#web">web请求过程</a></li>
+<li><a href="#_1">网络爬虫库</a></li>
+<li><a href="#network">NetWork</a></li>
+<li><a href="#_2">数据解析方式</a></li>
+<li><a class="toc-h2" href="#1re">1.re解析(运行速度快)</a></li>
+<li><a class="toc-h3" href="#_3">基础</a></li>
+<li><a class="toc-h3" href="#_4">模块</a></li>
+<li><a class="toc-h3" href="#_5">预加载(适用于表达式较长，且多次使用)</a></li>
+<li><a class="toc-h3" href="#_6">分组</a></li>
+<li><a class="toc-h3" href="#csv">csv库</a></li>
+<li><a class="toc-h2" href="#2bs4beautiful-soup-4">2.bs4解析(beautiful soup 4)(写起来简单，效率不高)</a></li>
+<li><a class="toc-h3" href="#html">html的语法</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1050,6 +1166,45 @@ HTML标签可以包含属性（attributes），这些属性提供了关于标签
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Claude - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,185 +482,12 @@
             <span class="sep">/</span>
             <span>Vibe_Coding</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-14</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-简介">1 简介</a></li>
-<li><a href="#2-安装">2 安装</a><ul>
-<li><a href="#21-安装">2.1 安装</a></li>
-<li><a href="#22-跳过登录使用第三方api">2.2 跳过登录（使用第三方API）</a></li>
-</ul>
-</li>
-<li><a href="#3-快速开始">3 快速开始</a><ul>
-<li><a href="#31-开始使用">3.1 开始使用</a><ul>
-<li><a href="#311-常用命令速查表">3.1.1 常用命令速查表</a></li>
-</ul>
-</li>
-<li><a href="#32-交互模式">3.2 交互模式</a></li>
-<li><a href="#33-操作说明">3.3 操作说明</a></li>
-<li><a href="#34-会话管理">3.4 会话管理</a><ul>
-<li><a href="#341-恢复会话">3.4.1 恢复会话</a></li>
-<li><a href="#332-删除会话">3.4.2 删除会话</a></li>
-</ul>
-</li>
-<li><a href="#34-上下文窗口">3.4 上下文窗口</a></li>
-<li><a href="#35-安全机制">3.5 安全机制</a></li>
-</ul>
-</li>
-<li><a href="#4-api-管理">4 API 管理</a></li>
-<li><a href="#5-claude-code-for-vs-code">5 Claude Code for VS Code</a><ul>
-<li><a href="#51-安装">5.1 安装</a></li>
-<li><a href="#52-提示框">5.2 提示框</a></li>
-</ul>
-</li>
-<li><a href="#6-项目结构">6 项目结构</a><ul>
-<li><a href="#61-claudemd">6.1 CLAUDE.md</a></li>
-<li><a href="#62-claudelocalmd">6.2 CLAUDE.local.md</a></li>
-<li><a href="#63-claudesettingsjson">6.3 .claude/settings.json</a></li>
-<li><a href="#64-claudesettingslocaljson">6.4 .claude/settings.local.json</a></li>
-<li><a href="#65-claudecommands-自定义斜杠命令">6.5 .claude/commands/ 自定义斜杠命令</a></li>
-<li><a href="#66-clauderules">6.6 .claude/rules/</a></li>
-<li><a href="#67-claudeskills">6.7 .claude/skills/</a></li>
-<li><a href="#68-claudeagents">6.8 .claude/agents/</a></li>
-</ul>
-</li>
-<li><a href="#7-记忆">7 记忆</a><ul>
-<li><a href="#71-记忆文件的层级结构">7.1 记忆文件的层级结构</a></li>
-<li><a href="#72-claudemd">7.2 claude.md</a></li>
-<li><a href="#73-auto-memory">7.3 Auto Memory</a><ul>
-<li><a href="#731-触发自动记忆">7.3.1 触发自动记忆</a></li>
-<li><a href="#732-开启-关闭-auto-memory">7.3.2 开启 / 关闭 Auto Memory</a></li>
-</ul>
-</li>
-<li><a href="#74-memory-命令与快捷键">7.4 /memory 命令与快捷键</a></li>
-</ul>
-</li>
-<li><a href="#8-skills">8 skills</a><ul>
-<li><a href="#81-工作原理">8.1 工作原理</a></li>
-<li><a href="#82-为什么需要-skills">8.2 为什么需要 Skills？</a></li>
-<li><a href="#83-执行流程">8.3 执行流程</a></li>
-<li><a href="#84-skillmd-基本模板">8.4 SKILL.md 基本模板</a></li>
-<li><a href="#85-详细结构">8.5 详细结构</a></li>
-<li><a href="#86-示例">8.6 示例</a></li>
-<li><a href="#87-市场">8.7 市场</a></li>
-</ul>
-</li>
-<li><a href="#9-skills-使用实例">9 skills 使用实例</a><ul>
-<li><a href="#91-安装">9.1 安装</a></li>
-<li><a href="#92-使用">9.2 使用</a></li>
-</ul>
-</li>
-<li><a href="#10-skill-creator">10 skill-creator</a><ul>
-<li><a href="#101-安装-skill-creator">10.1 安装 skill-creator</a></li>
-<li><a href="#102-用-skill-creator-创建-skill">10.2 用 skill-creator 创建 Skill</a></li>
-</ul>
-</li>
-<li><a href="#11-插件">11 插件</a><ul>
-<li><a href="#111-结构">11.1 结构</a><ul>
-<li><a href="#1111-插件清单pluginjson">11.1.1 插件清单（plugin.json）</a></li>
-<li><a href="#1112-斜杠命令commands">11.1.2 斜杠命令（commands/）</a></li>
-</ul>
-</li>
-<li><a href="#112-本地测试插件">11.2 本地测试插件</a></li>
-<li><a href="#113-插件市场">11.3 插件市场</a></li>
-<li><a href="#114-插件命令">11.4 插件命令</a></li>
-<li><a href="#115-从-claude-迁移到插件">11.5 从 .claude/ 迁移到插件</a></li>
-<li><a href="#116-什么时候用插件">11.6 什么时候用插件？</a></li>
-</ul>
-</li>
-<li><a href="#12-子代理">12 子代理</a><ul>
-<li><a href="#121-内置的子代理">12.1 内置的子代理</a></li>
-<li><a href="#122-创建子代理">12.2 创建子代理</a></li>
-<li><a href="#123-子代理的作用范围">12.3 子代理的作用范围</a></li>
-<li><a href="#124-文件结构">12.4 文件结构</a></li>
-<li><a href="#125-使用子代理">12.5 使用子代理</a></li>
-<li><a href="#126-使用示例">12.6 使用示例</a></li>
-<li><a href="#127-子代理上下文与恢复">12.7 子代理上下文与恢复</a></li>
-<li><a href="#128-什么时候该用子代理">12.8 什么时候该用子代理？</a></li>
-</ul>
-</li>
-<li><a href="#13-mcp">13 MCP</a><ul>
-<li><a href="#131-安装-mcp-服务器">13.1 安装 MCP 服务器</a></li>
-<li><a href="#132-管理-mcp-服务器">13.2 管理 MCP 服务器</a></li>
-<li><a href="#133-配置范围">13.3 配置范围</a></li>
-<li><a href="#134-配置文件示例">13.4 配置文件示例</a></li>
-<li><a href="#135-示例">13.5 示例</a></li>
-<li><a href="#136-在对话中使用-mcp">13.6 在对话中使用 MCP</a></li>
-<li><a href="#137-注意">13.7 注意</a></li>
-</ul>
-</li>
-<li><a href="#14-mcp使用实例">14 MCP使用实例</a><ul>
-<li><a href="#141-github-令牌设置">14.1  GitHub 令牌设置</a></li>
-<li><a href="#142-然后与-github-协作">14.2 然后与 GitHub 协作：</a></li>
-</ul>
-</li>
-<li><a href="#15-钩子">15 钩子</a><ul>
-<li><a href="#151-钩子事件类型说明">15.1 钩子事件类型说明</a></li>
-<li><a href="#152-示例命令日志记录">15.2 示例：命令日志记录</a></li>
-<li><a href="#153-常用钩子示例">15.3 常用钩子示例</a><ul>
-<li><a href="#1531-示例一-自动格式化-typescript-文件">15.3.1 示例一  自动格式化 TypeScript 文件</a></li>
-<li><a href="#1532-示例二-自动修复-markdown-文件格式">15.3.2 示例二  自动修复 Markdown 文件格式</a></li>
-<li><a href="#1533-示例三-禁止修改敏感文件">15.3.3 示例三  禁止修改敏感文件</a></li>
-</ul>
-</li>
-<li><a href="#154-官方示例bash-命令验证器示例">15.4 官方示例：bash 命令验证器示例</a></li>
-</ul>
-</li>
-<li><a href="#16-钩子参考手册">16 钩子参考手册</a><ul>
-<li><a href="#161-配置文件路径">16.1 配置文件路径</a></li>
-<li><a href="#162-配置结构">16.2 配置结构</a></li>
-<li><a href="#163-匹配器规则仅适用于工具类事件">16.3 匹配器规则（仅适用于工具类事件）</a></li>
-<li><a href="#164-特殊配置技巧">16.4 特殊配置技巧</a></li>
-<li><a href="#165-扩展配置skillagent斜杠命令">16.5 扩展配置（Skill/Agent/斜杠命令）</a></li>
-<li><a href="#166-钩子事件--工具类事件支持匹配器">16.6 钩子事件--工具类事件（支持匹配器）</a></li>
-<li><a href="#167-会话任务类事件无匹配器">16.7 会话/任务类事件（无匹配器）</a></li>
-<li><a href="#168-待续">16.8 待续</a></li>
-</ul>
-</li>
-<li><a href="#17-cli-参考手册">17 CLI 参考手册</a><ul>
-<li><a href="#171-核心-cli-命令">17.1 核心 CLI 命令</a></li>
-<li><a href="#172-模型控制与环境配置">17.2 模型控制与环境配置</a></li>
-<li><a href="#173-交互式会话斜杠命令">17.3 交互式会话斜杠命令</a></li>
-<li><a href="#174-效率和快捷键">17.4 效率和快捷键</a></li>
-<li><a href="#175-部分参数讲解">17.5 部分参数讲解</a><ul>
-<li><a href="#1751---agents">17.5.1 --agents</a></li>
-<li><a href="#1752---system-prompt">17.5.2 --system-prompt</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#18-快捷键">18 快捷键</a></li>
-<li><a href="#19-命令">19 /命令</a></li>
-<li><a href="#20-输出样式">20 输出样式</a><ul>
-<li><a href="#201-切换输出样式">20.1 切换输出样式</a></li>
-<li><a href="#202-创建自定义输出样式">20.2 创建自定义输出样式</a></li>
-</ul>
-</li>
-<li><a href="#21-并行任务">21 并行任务</a><ul>
-<li><a href="#211-subagents">21.1 Subagents</a><ul>
-<li><a href="#2111-创建-subagent">21.1.1 创建 Subagent</a></li>
-<li><a href="#2112-调用-subagent">21.1.2 调用 Subagent</a></li>
-</ul>
-</li>
-<li><a href="#212-agent-teams">21.2 Agent Teams</a><ul>
-<li><a href="#2121-启用-agent-teams">21.2.1 启用 Agent Teams</a></li>
-<li><a href="#2122-使用-agent-team">21.2.2 使用 Agent Team</a></li>
-<li><a href="#2123-agent-teams-架构">21.2.3 Agent Teams 架构</a></li>
-</ul>
-</li>
-<li><a href="#213-git-worktree">21.3 Git Worktree</a><ul>
-<li><a href="#2131-使用-git-worktree">21.3.1 使用 Git Worktree</a></li>
-<li><a href="#2132-常用管理命令">21.3.2 常用管理命令</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr />
-<h1 id="1-简介">1 简介</h1>
+<h1 id="1">1 简介</h1>
 <p>...</p>
-<h1 id="2-安装">2 安装</h1>
-<h2 id="21-安装">2.1 安装</h2>
+<h1 id="2">2 安装</h1>
+<h2 id="21">2.1 安装</h2>
 <p>Windows PowerShell:</p>
 <div class="highlight"><pre><span></span><code>irm<span class="w"> </span>https://claude.ai/install.ps1<span class="w"> </span><span class="p">|</span><span class="w"> </span>iex
 </code></pre></div>
@@ -585,7 +510,7 @@
 </code></pre></div>
 
 <p>使用 Claude 订阅账号登录</p>
-<h2 id="22-跳过登录使用第三方api">2.2 跳过登录（使用第三方API）</h2>
+<h2 id="22-api">2.2 跳过登录（使用第三方API）</h2>
 <p>1.定位配置文件：在你的用户目录下找到 .claude.json 文件。  </p>
 <p>Windows: C:\Users\你的用户名.claude.json</p>
 <p>2.编辑文件：用记事本或VS Code打开，如果文件是空的也没关系，直接覆盖写入以下内容：  </p>
@@ -610,11 +535,11 @@
 参考<a href="../Vibe_Coding/CC_Switch.html">cc-switch</a></p>
 <p>方法 3 (使用本地部署的大模型)<br />
 参考<a href="../basic/Ollama.html">ollama</a></p>
-<h1 id="3-快速开始">3 快速开始</h1>
-<h2 id="31-开始使用">3.1 开始使用</h2>
+<h1 id="3">3 快速开始</h1>
+<h2 id="31">3.1 开始使用</h2>
 <p>配置完成后，进入一个您的代码工作目录，在终端中执行 claude 命令即可开始使用 Claude Code</p>
 <p>输入<code>/</code>会列出可用的命令</p>
-<h3 id="311-常用命令速查表">3.1.1 常用命令速查表</h3>
+<h3 id="311">3.1.1 常用命令速查表</h3>
 <p>命令行命令</p>
 <table>
 <thead>
@@ -759,7 +684,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="32-交互模式">3.2 交互模式</h2>
+<h2 id="32">3.2 交互模式</h2>
 <ul>
 <li>Ask 模式：只读分析</li>
 <li>Plan 模式：只规划，不执行</li>
@@ -767,7 +692,7 @@
 </ul>
 <p>在终端中使用 Claude Code 时，你不需要手动切换模式开关，Claude 会根据你的指令内容，自动判断当前应进入哪一种模式。</p>
 <p>不过，作为使用者，你必须在 Prompt 中清楚表达自己的意图，否则 Claude 很容易做出与你预期不一致的行为。</p>
-<h2 id="33-操作说明">3.3 操作说明</h2>
+<h2 id="33">3.3 操作说明</h2>
 <table>
 <thead>
 <tr>
@@ -814,8 +739,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="34-会话管理">3.4 会话管理</h2>
-<h3 id="341-恢复会话">3.4.1 恢复会话</h3>
+<h2 id="34">3.4 会话管理</h2>
+<h3 id="341">3.4.1 恢复会话</h3>
 <p>1、直接恢复会话（最常用）</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 直接恢复最近的一个会话</span>
 claude<span class="w"> </span>--continue
@@ -852,9 +777,9 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 </li>
 <li>推荐做法：使用 --fork-session，给每个终端一个干净独立的新会话。</li>
 </ul>
-<h3 id="332-删除会话">3.4.2 删除会话</h3>
+<h3 id="342">3.4.2 删除会话</h3>
 <p>对话记录保存在 <code>C:\Users\用户\.claude\projects\项目\</code>下，每个会话都是一个jsonl文件，直接删除即可。</p>
-<h2 id="34-上下文窗口">3.4 上下文窗口</h2>
+<h2 id="34_1">3.4 上下文窗口</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 压缩上下文</span>
 /compact<span class="w"> </span>
 <span class="c1"># 查看当前占用情况</span>
@@ -866,7 +791,7 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 <li>重要规则写进 CLAUDE.md</li>
 <li>用 skills 和 subagents 减少不必要的上下文占用</li>
 </ul>
-<h2 id="35-安全机制">3.5 安全机制</h2>
+<h2 id="35">3.5 安全机制</h2>
 <p>1、检查点</p>
 <div class="highlight"><pre><span></span><code>/rewind
 <span class="c1"># 或按两次 Esc 调出回滚界面，选择某次检查点回滚</span>
@@ -879,14 +804,14 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 <li>计划模式：只分析、不动手，先给你完整计划</li>
 </ul>
 <p>还可以在 .claude/settings.json 里白名单信任命令（比如 npm test 永远不用问）</p>
-<h1 id="4-api-管理">4 API 管理</h1>
+<h1 id="4-api">4 API 管理</h1>
 <p>使用第三方工具 CC Switch 可以帮我们轻松管理这几个热门工具的 API 配置：https://github.com/farion1231/cc-switch/</p>
 <p>CC Switch 是一个 Claude Code / Codex / Gemini CLI 的全方位辅助工具,所有的 API 配置都能在它这有序管理。</p>
 <p>各平台安装包下载地址：https://github.com/farion1231/cc-switch/releases。</p>
 <p>使用参考<a href="../Vibe_Coding/CC_Switch.html">cc-switch</a></p>
 <h1 id="5-claude-code-for-vs-code">5 Claude Code for VS Code</h1>
 <p>在 VS Code 编辑器中安装 Claude Code</p>
-<h2 id="51-安装">5.1 安装</h2>
+<h2 id="51">5.1 安装</h2>
 <p>打开 VS Code，进入扩展市场，搜索 Claude Code 安装</p>
 <p>安装完成后，点击右上角 Claude Code 图标，即可进入 Claude Code 页面</p>
 <p>有账号的可以使用 /login 登录</p>
@@ -897,7 +822,7 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 <p><img alt="image.png" src="https://www.runoob.com/wp-content/uploads/2026/03/820b4038-e214-4105-8676-f833833961be.png" /></p>
 <p>当 Claude 需要修改文件时，它会自动打开并排对比视图，左边显示文件原始内容，右边显示建议修改后的内容，然后询问您是否同意修改。
 <img alt="image.png" src="https://www.runoob.com/wp-content/uploads/2026/03/vs-code-edits.png" /></p>
-<h2 id="52-提示框">5.2 提示框</h2>
+<h2 id="52">5.2 提示框</h2>
 <p>1、权限模式：</p>
 <p>点击提示框底部的模式指示器，就可以切换权限模式。（同Claude Code）</p>
 <p>你也可以在 VS Code 设置里搜索 claudeCode.initialPermissionMode 来设置默认模式。</p>
@@ -917,7 +842,7 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 <p>在弹出的"其他"自由文本框里也同样适用。</p>
 <p>6、引用文件和文件夹（@ 提及功能）</p>
 <p>输入 @ 后面跟文件名或文件夹名，Claude 就会自动读取内容，可以回答问题或直接修改。（支持模糊匹配，不用打全名）</p>
-<h1 id="6-项目结构">6 项目结构</h1>
+<h1 id="6">6 项目结构</h1>
 <div class="highlight"><pre><span></span><code>your-project/
 ├── CLAUDE.md                    ← 团队共享指令，提交到 git
 ├── CLAUDE.local.md              ← 个人覆盖，被 git 忽略
@@ -978,7 +903,7 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 <span class="o">-</span> <span class="n">禁止使用</span> <span class="nb">any</span><span class="err">，</span><span class="n">使用</span> <span class="n">unknown</span> <span class="n">替代</span>
 </code></pre></div>
 
-<h3 id="_2">文件位置与层级</h3>
+<h3 id="_1">文件位置与层级</h3>
 <p>项目的核心文件结构如下： </p>
 <div class="highlight"><pre><span></span><code>your-project/
 ├── CLAUDE.md                  # 项目主记忆文件（团队共享）
@@ -1071,7 +996,7 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="65-claudecommands-自定义斜杠命令">6.5 .claude/commands/ 自定义斜杠命令</h2>
+<h2 id="65-claudecommands">6.5 .claude/commands/ 自定义斜杠命令</h2>
 <p>目录下每个 .md 文件自动映射为一条 <code>/project:文件名</code> 命令。</p>
 <p>示例：commands/review.md</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Code Review</span>
@@ -1147,7 +1072,7 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 <span class="n">使用</span> <span class="n">Markdown</span> <span class="n">表格输出</span><span class="err">，</span><span class="n">包含</span><span class="err">：</span><span class="n">问题位置</span><span class="err">、</span><span class="n">严重程度</span><span class="err">、</span><span class="n">建议方案</span><span class="err">。</span>
 </code></pre></div>
 
-<h1 id="7-记忆">7 记忆</h1>
+<h1 id="7">7 记忆</h1>
 <p>Claude Code 没有跨会话的自动记忆——每个新会话都从一个全新的上下文窗口开始。</p>
 <table>
 <thead>
@@ -1176,7 +1101,7 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 </tbody>
 </table>
 <p>输入<code>/memory</code>可以查看与管理这三个文件</p>
-<h2 id="71-记忆文件的层级结构">7.1 记忆文件的层级结构</h2>
+<h2 id="71">7.1 记忆文件的层级结构</h2>
 <table>
 <thead>
 <tr>
@@ -1262,14 +1187,14 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 </code></pre></div>
 
 <p>MEMORY.md 是整个记忆目录的索引，Claude 通过它来追踪各文件中存储的内容。</p>
-<h3 id="731-触发自动记忆">7.3.1 触发自动记忆</h3>
+<h3 id="731">7.3.1 触发自动记忆</h3>
 <p>当你告诉 Claude 某些事情时，它会自动保存到记忆中：</p>
 <div class="highlight"><pre><span></span><code>用户：始终使用 pnpm，不要用 npm
 用户：记住 API 测试需要本地运行 Redis 实例
 用户：我们的日期格式统一用 ISO 8601
 </code></pre></div>
 
-<h3 id="732-开启-关闭-auto-memory">7.3.2 开启 / 关闭 Auto Memory</h3>
+<h3 id="732-auto-memory">7.3.2 开启 / 关闭 Auto Memory</h3>
 <p>方式一：通过 /memory 命令切换（见下节）</p>
 <p>方式二：在项目设置中配置</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// .claude/settings.json</span>
@@ -1283,7 +1208,7 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 </code></pre></div>
 
 <p>注意： Auto Memory 是本地机器级别的，同一 Git 仓库的所有 worktree 和子目录共享一个记忆目录，但不会跨机器或云环境同步。</p>
-<h2 id="74-memory-命令与快捷键">7.4 /memory 命令与快捷键</h2>
+<h2 id="74-memory">7.4 /memory 命令与快捷键</h2>
 <p>在 Claude Code 会话中输入 /memory，可以：
 - 查看当前会话加载的所有 CLAUDE.md 和规则文件列表
 - 切换 Auto Memory 的开启/关闭状态
@@ -1333,12 +1258,12 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 <p>skills 本质上是一个模块化的 Markdown 文件，能教会 AI 工具执行特定任务，且支持自动触发、团队共享与工程化管理，彻底告别重复的提示词输入。</p>
 <p>一个 Skill 就是一个文件夹，里面必须有一个 SKILL.md 文件（包含说明和元数据），可选其他资源文件（如脚本、示例、参考文档）。</p>
 <p>简单来说，过去我们用提示词（prompt）教 AI 做事，现在用 Agent Skills 可以把提示词 + 资源打包成可复用、可共享的技能包，更高效、更可靠。</p>
-<h2 id="81-工作原理">8.1 工作原理</h2>
+<h2 id="81">8.1 工作原理</h2>
 <p>渐进式披露，分三层加载：
 - 层级 1：技能发现 -- AI 先读取所有技能的元数据（name 和 description），判断任务是否相关，这些元数据始终在系统提示中。
 - 层级 2：加载核心指令 -- 如果相关，AI 自动读取 SKILL.md 的正文内容，获取详细指导。
 - 层级 3：加载资源文件 -- 只在需要时读取额外文件（如脚本、示例），或通过工具执行脚本。</p>
-<h2 id="82-为什么需要-skills">8.2 为什么需要 Skills？</h2>
+<h2 id="82-skills">8.2 为什么需要 Skills？</h2>
 <p>普通 AI 代理很聪明，但缺少特定上下文时容易出错。例如：
 - 团队有自己的代码规范，但 AI 每次都要手动提醒。
 - 需要处理 PDF 表单、调试 GitHub Actions 等复杂流程，AI 可能不知道最佳实践。</p>
@@ -1347,14 +1272,14 @@ claude<span class="w"> </span>--resume<span class="w"> </span><span class="s2">&
 - 可复用 &amp; 可共享：一次创建，全团队或社区使用，支持 Git 版本控制。
 - 高效利用上下文：采用渐进式披露（progressive disclosure），只加载需要的部分，避免上下文窗口溢出。
 - 跨平台：同一个 Skill 可以在 Claude、VS Code Copilot、Cursor 等工具中使用。</p>
-<h2 id="83-执行流程">8.3 执行流程</h2>
+<h2 id="83">8.3 执行流程</h2>
 <ol>
 <li>从用户指令开始，先进行 Skill 意图识别，决定是否进入受控执行路径。</li>
 <li>命中 Skill 后，系统加载 SKILL.md，建立工具权限与行为边界，再结合上下文进行推理。</li>
 <li>只有在确实需要时才调用被允许的外部工具，否则在规则内完成逻辑。</li>
 <li>最终结果经过约束整合后输出，用户的下一次输入触发新一轮完整流程。</li>
 </ol>
-<h2 id="84-skillmd-基本模板">8.4 SKILL.md 基本模板</h2>
+<h2 id="84-skillmd">8.4 SKILL.md 基本模板</h2>
 <div class="highlight"><pre><span></span><code>---
 name: your-skill-name
 <span class="gu">description: What it does and when Claude should use it</span>
@@ -1482,7 +1407,7 @@ $ARGUMENTS
 <div class="highlight"><pre><span></span><code>/session-logger<span class="w"> </span>用户登录成功
 </code></pre></div>
 
-<h2 id="85-详细结构">8.5 详细结构</h2>
+<h2 id="85">8.5 详细结构</h2>
 <p>Skills 存放在 ~/.claude/skills/（个人全局）或项目目录下的 .claude/skills/（项目专用）。</p>
 <div class="highlight"><pre><span></span><code>my-skill/
 ├── SKILL.md
@@ -1492,7 +1417,7 @@ $ARGUMENTS
    └── helper.py
 </code></pre></div>
 
-<h2 id="86-示例">8.6 示例</h2>
+<h2 id="86">8.6 示例</h2>
 <p>创建项目目录</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>claude-test
 </code></pre></div>
@@ -1551,7 +1476,7 @@ name: Python 内部命名规范技能
 <li>references/：存放参考文档。</li>
 <li>scripts/：存放可执行脚本（例如 Python 处理 PDF）。</li>
 </ul>
-<h2 id="87-市场">8.7 市场</h2>
+<h2 id="87">8.7 市场</h2>
 <p>官方市场：访问 https://github.com/anthropics/skills 仓库下载预设的技能</p>
 <p>将本仓库注册官方 Skill 市场（只需一次）：</p>
 <div class="highlight"><pre><span></span><code>/plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span>anthropics/skills
@@ -1731,9 +1656,9 @@ name: Python 内部命名规范技能
 </tr>
 </tbody>
 </table>
-<h1 id="9-skills-使用实例">9 skills 使用实例</h1>
+<h1 id="9-skills">9 skills 使用实例</h1>
 <p>本章节我们将介绍一个支持多平台、多框架的专业级 UI/UX SKILL 插件 - UI UX Pro Max。</p>
-<h2 id="91-安装">9.1 安装</h2>
+<h2 id="91">9.1 安装</h2>
 <p>通过 Claude Marketplace 安装</p>
 <p>在 Claude Code 中执行以下两条命令</p>
 <p>注册插件市场源：</p>
@@ -1755,13 +1680,13 @@ name: Python 内部命名规范技能
 <p>安装成功后重启 Claude Code 就可以使用了</p>
 <p>可以使用 /skills 命令查看已经安装的skill。</p>
 <p>通过插件安装的 Skill，目录放在 ～/.claude/plugins/marketplaces。</p>
-<h2 id="92-使用">9.2 使用</h2>
+<h2 id="92">9.2 使用</h2>
 <p>直接输入需求："为宠物美容服务搭建一个着陆页，风格活泼亲和，并设置预约类行动召唤按钮。"</p>
 <p>会提示是否使用我们安装的 skill 来设计，一路回车就好了</p>
 <h1 id="10-skill-creator">10 skill-creator</h1>
 <p>Anthropic 官方提供的 Skill 开发助手，帮助开发者创建、优化和打包技能。</p>
 <p>GitHub 地址：https://github.com/anthropics/skills/tree/main/skills/skill-creator</p>
-<h2 id="101-安装-skill-creator">10.1 安装 skill-creator</h2>
+<h2 id="101-skill-creator">10.1 安装 skill-creator</h2>
 <div class="highlight"><pre><span></span><code>npx<span class="w"> </span>skills<span class="w"> </span>add<span class="w"> </span>https://github.com/anthropics/skills<span class="w"> </span>--skill<span class="w"> </span>skill-creator
 </code></pre></div>
 
@@ -1782,7 +1707,7 @@ name: Python 内部命名规范技能
 <div class="highlight"><pre><span></span><code>/skill-creator
 </code></pre></div>
 
-<h2 id="102-用-skill-creator-创建-skill">10.2 用 skill-creator 创建 Skill</h2>
+<h2 id="102-skill-creator-skill">10.2 用 skill-creator 创建 Skill</h2>
 <p>Claude 会先问你几个问题，帮你把需求想清楚。你不需要一次说完所有细节，像聊天一样回答就行。</p>
 <p>示例：</p>
 <div class="highlight"><pre><span></span><code>你：我想做一个 Skill，把会议录音的文字稿整理成结构化的会议纪要。
@@ -1798,7 +1723,7 @@ Claude：好的，我来问几个问题帮你确认需求：
    有模板，我来上传。
 </code></pre></div>
 
-<h1 id="11-插件">11 插件</h1>
+<h1 id="11">11 插件</h1>
 <p>插件（Plugin）是 Claude Code 中最高级别的扩展机制，用于将命令、代理、Skills、钩子、MCP、LSP 等能力打包、版本化、共享和分发。</p>
 <p>插件 = 一组可复用的 Claude Code 扩展能力集合</p>
 <p>先在 .claude/ 中迭代 → 稳定后打包为插件</p>
@@ -1806,7 +1731,7 @@ Claude：好的，我来问几个问题帮你确认需求：
 - 内置原生命令
 - 插件和技能自带命令
 - 手动装的 Skill 自定义命令</p>
-<h2 id="111-结构">11.1 结构</h2>
+<h2 id="111">11.1 结构</h2>
 <div class="highlight"><pre><span></span><code>my-plugin/
 ├── .claude-plugin/
 │   └── plugin.json     # 插件清单（必需）
@@ -1820,7 +1745,7 @@ Claude：好的，我来问几个问题帮你确认需求：
 
 <p>.claude-plugin/ 目录中只能放 plugin.json</p>
 <p>其他目录必须在插件根目录</p>
-<h3 id="1111-插件清单pluginjson">11.1.1 插件清单（plugin.json）</h3>
+<h3 id="1111-pluginjson">11.1.1 插件清单（plugin.json）</h3>
 <table>
 <thead>
 <tr>
@@ -1855,7 +1780,7 @@ Claude：好的，我来问几个问题帮你确认需求：
 <span class="p">}</span>
 </code></pre></div>
 
-<h3 id="1112-斜杠命令commands">11.1.2 斜杠命令（commands/）</h3>
+<h3 id="1112-commands">11.1.2 斜杠命令（commands/）</h3>
 <p>每个命令 = 一个 Markdown 文件</p>
 <p>示例：commands/hello.md ， 对应命令 /my-first-plugin:hello</p>
 <p>commands/hello.md内容示例:</p>
@@ -1866,7 +1791,7 @@ description: Greet the user with a friendly message
 Greet the user warmly and ask how you can help them today.
 </code></pre></div>
 
-<h2 id="112-本地测试插件">11.2 本地测试插件</h2>
+<h2 id="112">11.2 本地测试插件</h2>
 <ul>
 <li>不需要安装</li>
 <li>修改后需重启 Claude Code</li>
@@ -1874,7 +1799,7 @@ Greet the user warmly and ask how you can help them today.
 </ul>
 <p>使用 --plugin-dir 直接加载插件目录：<code>claude --plugin-dir ./my-plugin</code></p>
 <p>加载多个插件：<code>claude --plugin-dir ./plugin-a --plugin-dir ./plugin-b</code></p>
-<h2 id="113-插件市场">11.3 插件市场</h2>
+<h2 id="113">11.3 插件市场</h2>
 <p>插件通过市场分发，本质是一个插件目录仓库。</p>
 <p>运行 <code>/plugin → Discover</code></p>
 <p>安装 <code>/plugin install plugin-name@claude-plugins-official</code></p>
@@ -1901,7 +1826,7 @@ Greet the user warmly and ask how you can help them today.
 </tr>
 </tbody>
 </table>
-<h2 id="114-插件命令">11.4 插件命令</h2>
+<h2 id="114">11.4 插件命令</h2>
 <div class="highlight"><pre><span></span><code>/plugin<span class="w">                </span><span class="c1"># 打开插件管理器</span>
 /plugin<span class="w"> </span>install<span class="w">         </span><span class="c1"># 安装插件</span>
 /plugin<span class="w"> </span>uninstall<span class="w">       </span><span class="c1"># 卸载</span>
@@ -1910,7 +1835,7 @@ Greet the user warmly and ask how you can help them today.
 /plugin<span class="w"> </span>marketplace<span class="w"> </span>rm<span class="w">  </span><span class="c1"># 移除市场</span>
 </code></pre></div>
 
-<h2 id="115-从-claude-迁移到插件">11.5 从 .claude/ 迁移到插件</h2>
+<h2 id="115-claude">11.5 从 .claude/ 迁移到插件</h2>
 <table>
 <thead>
 <tr>
@@ -1936,14 +1861,14 @@ Greet the user warmly and ask how you can help them today.
 <p>迁移后：
 - 插件版本优先生效
 - 可删除旧 .claude/ 配置避免重复</p>
-<h2 id="116-什么时候用插件">11.6 什么时候用插件？</h2>
+<h2 id="116">11.6 什么时候用插件？</h2>
 <ul>
 <li>已经有稳定的 Claude 工作流</li>
 <li>你在反复复制 .claude/</li>
 <li>团队成员开始问你："这个怎么配置？"</li>
 <li>你希望 Claude 像 IDE 插件一样可控</li>
 </ul>
-<h1 id="12-子代理">12 子代理</h1>
+<h1 id="12">12 子代理</h1>
 <p>子代理（Subagent），用于处理特定类型的任务，从而获得更好的上下文管理、更强的约束控制和更高的执行效率。</p>
 <p>子代理是运行在独立上下文窗口中的专用 AI 助手。每个子代理都可以拥有：
 - 独立的系统提示（System Prompt）
@@ -1955,7 +1880,7 @@ Greet the user warmly and ask how you can help them today.
 - 跨会话持久记忆（Memory）</p>
 <p>当 Claude 判断你的请求符合某个子代理的描述（description）时，就会自动将任务委托给该子代理，由它独立完成并返回结果。</p>
 <p>子代理只接收自身的系统提示和基础环境信息（如工作目录），不会继承完整的 Claude Code 系统提示。这保证了行为的纯净和可控。</p>
-<h2 id="121-内置的子代理">12.1 内置的子代理</h2>
+<h2 id="121">12.1 内置的子代理</h2>
 <p>Claude Code 已内置多种子代理，通常会自动使用，你不需要手动配置。</p>
 <p>1、Explore（探索代理）</p>
 <p>用途：只读搜索与分析代码库
@@ -1997,7 +1922,7 @@ Greet the user warmly and ask how you can help them today.
 </tr>
 </tbody>
 </table>
-<h2 id="122-创建子代理">12.2 创建子代理</h2>
+<h2 id="122">12.2 创建子代理</h2>
 <p>使用 <code>/agents</code> 命令</p>
 <p>1、打开子代理管理界面</p>
 <div class="highlight"><pre><span></span><code>/agents
@@ -2027,7 +1952,7 @@ Greet the user warmly and ask how you can help them today.
 <p>7、保存并使用</p>
 <p>使用 code-improver 子代理为此项目提出改进建议</p>
 <p>子代理会独立运行并返回结果。</p>
-<h2 id="123-子代理的作用范围">12.3 子代理的作用范围</h2>
+<h2 id="123">12.3 子代理的作用范围</h2>
 <p>子代理本质是带 YAML frontmatter 的 Markdown 文件，不同位置代表不同作用范围。</p>
 <p>当同名子代理存在冲突时，优先级高的会覆盖低的。可通过 /agents 查看当前哪个版本生效。</p>
 <table>
@@ -2061,7 +1986,7 @@ Greet the user warmly and ask how you can help them today.
 </tr>
 </tbody>
 </table>
-<h2 id="124-文件结构">12.4 文件结构</h2>
+<h2 id="124">12.4 文件结构</h2>
 <p>两部分组成：YAML frontmatter（元数据与配置）+ Markdown 正文（系统提示）。</p>
 <table>
 <thead>
@@ -2319,7 +2244,7 @@ Greet the user warmly and ask how you can help them today.
 <span class="c1"># Script exits with code 2 to block write operations</span>
 </code></pre></div>
 
-<h2 id="125-使用子代理">12.5 使用子代理</h2>
+<h2 id="125">12.5 使用子代理</h2>
 <ol>
 <li>自动委托
     Claude 会根据 description 字段自动判断，无需你手动指定：</li>
@@ -2334,7 +2259,7 @@ Greet the user warmly and ask how you can help them today.
 <div class="highlight"><pre><span></span><code>   让 code-reviewer 子代理检查最近的改动
 </code></pre></div>
 
-<h2 id="126-使用示例">12.6 使用示例</h2>
+<h2 id="126">12.6 使用示例</h2>
 <p>1、隔离高输出任务</p>
 <div class="highlight"><pre><span></span><code>使用子代理运行测试，只返回失败的测试和根因分析
 </code></pre></div>
@@ -2358,7 +2283,7 @@ Greet the user warmly and ask how you can help them today.
 将审查时间从数分钟压缩到数十秒
 </code></pre></div>
 
-<h2 id="127-子代理上下文与恢复">12.7 子代理上下文与恢复</h2>
+<h2 id="127">12.7 子代理上下文与恢复</h2>
 <p>每次调用 = 新子代理实例（无法感知之前的调用）</p>
 <p>子代理上下文独立存储，不污染主对话</p>
 <p>中间工具调用和结果只留在子代理内部，主对话只收到最终摘要</p>
@@ -2369,7 +2294,7 @@ Greet the user warmly and ask how you can help them today.
 
 <p>存储位置示例：</p>
 <p>~/.claude/projects/{project}/{sessionId}/subagents/</p>
-<h2 id="128-什么时候该用子代理">12.8 什么时候该用子代理？</h2>
+<h2 id="128">12.8 什么时候该用子代理？</h2>
 <p>用主对话，当：
 - 需要频繁来回调整，交互性强
 - 多阶段任务有强依赖关系，上下文需要连续
@@ -2413,7 +2338,7 @@ Greet the user warmly and ask how you can help them today.
 </tr>
 </tbody>
 </table>
-<h2 id="131-安装-mcp-服务器">13.1 安装 MCP 服务器</h2>
+<h2 id="131-mcp">13.1 安装 MCP 服务器</h2>
 <p>MCP 服务器支持 HTTP/stdio 两种接入方式。</p>
 <ol>
 <li>远程 HTTP 服务器（推荐）  <div class="highlight"><pre><span></span><code>适用于云服务类工具，是最通用的方式：
@@ -2447,7 +2372,7 @@ Greet the user warmly and ask how you can help them today.
 </code></pre></div>
 
 <p>注意：--transport/--env 等参数必须放在服务器名称前面，-- 用于分隔Claude参数和服务器命令，避免参数冲突。    </p>
-<h2 id="132-管理-mcp-服务器">13.2 管理 MCP 服务器</h2>
+<h2 id="132-mcp">13.2 管理 MCP 服务器</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 列出所有已配置的服务器</span>
 claude<span class="w"> </span>mcp<span class="w"> </span>list
 
@@ -2461,7 +2386,7 @@ claude<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"> 
 /mcp
 </code></pre></div>
 
-<h2 id="133-配置范围">13.3 配置范围</h2>
+<h2 id="133">13.3 配置范围</h2>
 <table>
 <thead>
 <tr>
@@ -2496,7 +2421,7 @@ claude<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"> 
 </tr>
 </tbody>
 </table>
-<h2 id="134-配置文件示例">13.4 配置文件示例</h2>
+<h2 id="134">13.4 配置文件示例</h2>
 <p>.mcp.json</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w"> </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -2523,7 +2448,7 @@ claude<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"> 
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="135-示例">13.5 示例</h2>
+<h2 id="135">13.5 示例</h2>
 <p>示例 1：GitHub 代码审查</p>
 <div class="highlight"><pre><span></span><code>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>github<span class="w"> </span>https://api.githubcopilot.com/mcp/
 </code></pre></div>
@@ -2551,7 +2476,7 @@ claude<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"> 
 <span class="o">&gt;</span><span class="w"> </span><span class="nv">Which</span><span class="w"> </span><span class="nv">users</span><span class="w"> </span><span class="nv">haven</span><span class="err">&#39;t purchased in 90 days?</span>
 </code></pre></div>
 
-<h2 id="136-在对话中使用-mcp">13.6 在对话中使用 MCP</h2>
+<h2 id="136-mcp">13.6 在对话中使用 MCP</h2>
 <p>1、使用 @ 引用 MCP 资源</p>
 <div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="n">Analyze</span><span class="w"> </span><span class="nv">@github</span><span class="err">:</span><span class="nl">issue</span><span class="p">:</span><span class="o">//</span><span class="mi">123</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">suggest</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">fix</span>
 </code></pre></div>
@@ -2567,21 +2492,21 @@ MCP 可以暴露命令：</p>
 </code></pre></div>
 
 <p>Claude 会像执行内置命令一样执行它们。</p>
-<h2 id="137-注意">13.7 注意</h2>
+<h2 id="137">13.7 注意</h2>
 <ul>
 <li>身份验证：远程MCP服务器（如GitHub/Sentry）需在Claude Code中执行 /mcp 完成OAuth 2.0授权；</li>
 <li>Windows兼容：本地stdio服务器若用npx，需加cmd /c包装（如-- cmd /c npx -y 包名），否则会报"Connection closed"错误；</li>
 <li>第三方风险：使用非官方MCP服务器时，需确认来源可信，避免提示注入/安全风险；</li>
 <li>参数顺序：stdio服务器配置时，-- 前后的参数不可颠倒，否则会执行失败。</li>
 </ul>
-<h1 id="14-mcp使用实例">14 MCP使用实例</h1>
+<h1 id="14-mcp">14 MCP使用实例</h1>
 <p>本章我们连接 GitHub 进行代码审查</p>
-<h2 id="141-github-令牌设置">14.1  GitHub 令牌设置</h2>
+<h2 id="141-github">14.1  GitHub 令牌设置</h2>
 <p>打开您的 <a href="https://github.com/settings/personal-access-tokens">GitHub 令牌设置</a> ，生成一个新的细粒度权限令牌，并授予 Claude 所需访问权限的仓库权限，然后添加服务器：</p>
 <div class="highlight"><pre><span></span><code>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>github<span class="w"> </span>https://api.githubcopilot.com/mcp/<span class="w"> </span>--header<span class="w"> </span><span class="s2">&quot;Authorization: Bearer YOUR_GITHUB_PAT&quot;</span>
 </code></pre></div>
 
-<h2 id="142-然后与-github-协作">14.2 然后与 GitHub 协作：</h2>
+<h2 id="142-github">14.2 然后与 GitHub 协作：</h2>
 <div class="highlight"><pre><span></span><code>审查PR#456并提出改进建议
 
 为我们刚刚发现的bug创建一个新<span class="w"> </span>issue
@@ -2591,10 +2516,10 @@ MCP 可以暴露命令：</p>
 显示分配给我的所有打开的PR
 </code></pre></div>
 
-<h1 id="15-钩子">15 钩子</h1>
+<h1 id="15">15 钩子</h1>
 <p>用户自定义的 Shell 命令，会在 Claude Code 生命周期的特定节点自动执行。</p>
 <p>借助钩子，你可以对 Claude Code 的行为实现精准控制，确保某些操作（如代码格式化、日志记录）必定触发，而非依赖大模型自主选择是否执行。</p>
-<h2 id="151-钩子事件类型说明">15.1 钩子事件类型说明</h2>
+<h2 id="151">15.1 钩子事件类型说明</h2>
 <p>Claude Code 内置了多个生命周期事件，你可以为不同事件绑定钩子命令。每个事件会传递不同的上下文数据，且对 Claude 行为的影响方式不同。</p>
 <table>
 <thead>
@@ -2657,7 +2582,7 @@ MCP 可以暴露命令：</p>
 </tr>
 </tbody>
 </table>
-<h2 id="152-示例命令日志记录">15.2 示例：命令日志记录</h2>
+<h2 id="152">15.2 示例：命令日志记录</h2>
 <p>记录 Claude 执行的所有 Bash 命令</p>
 <p>1.安装 jq 工具（用于命令行解析 JSON 数据）：
   - Linux：sudo apt install jq / sudo yum install jq</p>
@@ -2720,8 +2645,8 @@ MCP 可以暴露命令：</p>
 <blockquote>
 <p>ls - Lists files and directories</p>
 </blockquote>
-<h2 id="153-常用钩子示例">15.3 常用钩子示例</h2>
-<h3 id="1531-示例一-自动格式化-typescript-文件">15.3.1 示例一  自动格式化 TypeScript 文件</h3>
+<h2 id="153">15.3 常用钩子示例</h2>
+<h3 id="1531-typescript">15.3.1 示例一  自动格式化 TypeScript 文件</h3>
 <p>功能：编辑/写入 .ts 文件后，自动用 prettier 格式化代码</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w"> </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -2740,7 +2665,7 @@ MCP 可以暴露命令：</p>
 <span class="p">}</span>
 </code></pre></div>
 
-<h3 id="1532-示例二-自动修复-markdown-文件格式">15.3.2 示例二  自动修复 Markdown 文件格式</h3>
+<h3 id="1532-markdown">15.3.2 示例二  自动修复 Markdown 文件格式</h3>
 <p>功能：为无语言标签的代码块自动补全标签、清理多余空行  </p>
 <p>1.添加钩子配置</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -2834,7 +2759,7 @@ MCP 可以暴露命令：</p>
 <div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>.claude/hooks/markdown_formatter.py
 </code></pre></div>
 
-<h3 id="1533-示例三-禁止修改敏感文件">15.3.3 示例三  禁止修改敏感文件</h3>
+<h3 id="1533">15.3.3 示例三  禁止修改敏感文件</h3>
 <p>功能：阻止 Claude 编辑 .env、package-lock.json 等敏感文件</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w"> </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -2854,10 +2779,10 @@ MCP 可以暴露命令：</p>
 </code></pre></div>
 
 <p>说明：脚本返回状态码 2 时，Claude Code 会拦截此次工具调用，从而阻止文件修改</p>
-<h2 id="154-官方示例bash-命令验证器示例">15.4 官方示例：bash 命令验证器示例</h2>
+<h2 id="154-bash">15.4 官方示例：bash 命令验证器示例</h2>
 <p>https://github.com/anthropics/claude-code/blob/main/examples/hooks/bash_command_validator_example.py</p>
-<h1 id="16-钩子参考手册">16 钩子参考手册</h1>
-<h2 id="161-配置文件路径">16.1 配置文件路径</h2>
+<h1 id="16">16 钩子参考手册</h1>
+<h2 id="161">16.1 配置文件路径</h2>
 <table>
 <thead>
 <tr>
@@ -2889,7 +2814,7 @@ MCP 可以暴露命令：</p>
 </tr>
 </tbody>
 </table>
-<h2 id="162-配置结构">16.2 配置结构</h2>
+<h2 id="162">16.2 配置结构</h2>
 <p>Hooks 按事件+匹配器组织，支持 command（执行 Shell 命令）和 prompt（调用 LLM 决策）两种类型。</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w"> </span><span class="nt">&quot;hooks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -2910,7 +2835,7 @@ MCP 可以暴露命令：</p>
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="163-匹配器规则仅适用于工具类事件">16.3 匹配器规则（仅适用于工具类事件）</h2>
+<h2 id="163">16.3 匹配器规则（仅适用于工具类事件）</h2>
 <table>
 <thead>
 <tr>
@@ -2942,7 +2867,7 @@ MCP 可以暴露命令：</p>
 </tr>
 </tbody>
 </table>
-<h2 id="164-特殊配置技巧">16.4 特殊配置技巧</h2>
+<h2 id="164">16.4 特殊配置技巧</h2>
 <table>
 <thead>
 <tr>
@@ -2969,7 +2894,7 @@ MCP 可以暴露命令：</p>
 </tr>
 </tbody>
 </table>
-<h2 id="165-扩展配置skillagent斜杠命令">16.5 扩展配置（Skill/Agent/斜杠命令）</h2>
+<h2 id="165-skillagent">16.5 扩展配置（Skill/Agent/斜杠命令）</h2>
 <p>扩展配置允许直接在 Skill、Agent 或自定义斜杠命令的定义中内嵌 Hooks 配置，这类 Hooks 仅在对应组件被激活并运行时生效，组件执行完成后会自动清理，不会影响全局会话。</p>
 <p>仅支持 PreToolUse、PostToolUse、Stop 三类事件，与全局 Hooks 功能一致，但作用域仅限当前 Skill/斜杠命令的生命周期。</p>
 <p>特有配置项  once: true（可选）：设置为 true 时，该 Hooks 在整个会话中仅运行一次，首次成功执行后会自动移除，避免重复触发。</p>
@@ -3020,7 +2945,7 @@ hooks:
 - 组件内 Hooks 与全局 Hooks 会并行执行：若全局和组件内同时配置了针对同一事件的 Hooks，触发时两类 Hooks 会一起运行，互不冲突；
 - 配置格式要求：组件内 Hooks 需写在 frontmatter（--- 包裹的区域）中，遵循 YAML 语法，缩进错误会导致配置失效；
 - 脚本路径建议：优先使用相对路径（如 ./scripts/xxx.sh），或借助 $CLAUDE_PROJECT_DIR 环境变量指定绝对路径，确保组件在任意目录下都能找到脚本。</p>
-<h2 id="166-钩子事件--工具类事件支持匹配器">16.6 钩子事件--工具类事件（支持匹配器）</h2>
+<h2 id="166-">16.6 钩子事件--工具类事件（支持匹配器）</h2>
 <table>
 <thead>
 <tr>
@@ -3063,7 +2988,7 @@ hooks:
 </tr>
 </tbody>
 </table>
-<h2 id="167-会话任务类事件无匹配器">16.7 会话/任务类事件（无匹配器）</h2>
+<h2 id="167">16.7 会话/任务类事件（无匹配器）</h2>
 <table>
 <thead>
 <tr>
@@ -3100,9 +3025,9 @@ hooks:
 </tr>
 </tbody>
 </table>
-<h2 id="168-待续">16.8 待续</h2>
-<h1 id="17-cli-参考手册">17 CLI 参考手册</h1>
-<h2 id="171-核心-cli-命令">17.1 核心 CLI 命令</h2>
+<h2 id="168">16.8 待续</h2>
+<h1 id="17-cli">17 CLI 参考手册</h1>
+<h2 id="171-cli">17.1 核心 CLI 命令</h2>
 <table>
 <thead>
 <tr>
@@ -3181,7 +3106,7 @@ hooks:
 </tr>
 </tbody>
 </table>
-<h2 id="172-模型控制与环境配置">17.2 模型控制与环境配置</h2>
+<h2 id="172">17.2 模型控制与环境配置</h2>
 <table>
 <thead>
 <tr>
@@ -3254,7 +3179,7 @@ hooks:
 </tr>
 </tbody>
 </table>
-<h2 id="173-交互式会话斜杠命令">17.3 交互式会话斜杠命令</h2>
+<h2 id="173">17.3 交互式会话斜杠命令</h2>
 <table>
 <thead>
 <tr>
@@ -3309,7 +3234,7 @@ hooks:
 </tr>
 </tbody>
 </table>
-<h2 id="174-效率和快捷键">17.4 效率和快捷键</h2>
+<h2 id="174">17.4 效率和快捷键</h2>
 <table>
 <thead>
 <tr>
@@ -3358,8 +3283,8 @@ hooks:
 </tr>
 </tbody>
 </table>
-<h2 id="175-部分参数讲解">17.5 部分参数讲解</h2>
-<h3 id="1751---agents">17.5.1 --agents</h3>
+<h2 id="175">17.5 部分参数讲解</h2>
+<h3 id="1751-agents">17.5.1 --agents</h3>
 <p>接收 JSON 对象，用于定义一个或多个自定义子代理。每个子代理需配置唯一名称作为键，值为包含以下字段的对象：</p>
 <table>
 <thead>
@@ -3407,7 +3332,7 @@ hooks:
 <span class="p">}</span><span class="err">&#39;</span>
 </code></pre></div>
 
-<h3 id="1752---system-prompt">17.5.2 --system-prompt</h3>
+<h3 id="1752-system-prompt">17.5.2 --system-prompt</h3>
 <table>
 <thead>
 <tr>
@@ -3438,7 +3363,7 @@ hooks:
 </tr>
 </tbody>
 </table>
-<h1 id="18-快捷键">18 快捷键</h1>
+<h1 id="18">18 快捷键</h1>
 <table>
 <thead>
 <tr>
@@ -3604,7 +3529,7 @@ hooks:
 <ul>
 <li><strong>建议</strong>：记住 <code>Ctrl + C</code>（中断）、<code>Ctrl + L</code>（清屏）、<code>Shift + Tab</code>（模式切换）、<code>Esc + Esc</code>（回退）这四个核心快捷键，基本就能覆盖绝大多数场景，帮助提升操作效率。</li>
 </ul>
-<h1 id="19-命令">19 /命令</h1>
+<h1 id="19">19 /命令</h1>
 <table>
 <thead>
 <tr>
@@ -3924,7 +3849,7 @@ hooks:
 </tr>
 </tbody>
 </table>
-<h1 id="20-输出样式">20 输出样式</h1>
+<h1 id="20">20 输出样式</h1>
 <p>定制 Claude Code 的交互风格和响应方式，使其适配软件开发之外的更多使用场景，同时保留运行本地脚本、读写文件、跟踪待办事项等核心功能。</p>
 <p>其本质是通过修改系统提示（System Prompt），改变 Claude Code 的交互逻辑和响应风格。</p>
 <p>内置输出样式</p>
@@ -3959,7 +3884,7 @@ hooks:
 - 自定义样式默认会剔除"用测试验证代码"等编码相关指令（如需保留，可在样式文件中开启 keep-coding-instructions: true）
 - 每种样式会在系统提示末尾追加自定义规则，覆盖默认行为
 - 对话过程中会触发合规检查，确保 Claude 始终遵守当前样式的指令</p>
-<h2 id="201-切换输出样式">20.1 切换输出样式</h2>
+<h2 id="201">20.1 切换输出样式</h2>
 <p>配置保存在项目目录的 .claude/settings.local.json 文件中，仅对当前项目生效：</p>
 <p>方式一：菜单选择——输入命令后，在交互菜单中选择目标样式：</p>
 <div class="highlight"><pre><span></span><code>/output-style
@@ -3972,7 +3897,7 @@ hooks:
 </code></pre></div>
 
 <p>除了使用命令切换，也可以直接修改 .claude/settings.local.json（项目级）或 ~/.claude/settings.json（全局级）文件的 outputStyle 字段的值来切换样式。</p>
-<h2 id="202-创建自定义输出样式">20.2 创建自定义输出样式</h2>
+<h2 id="202">20.2 创建自定义输出样式</h2>
 <p>创建md文件（两部分组成:顶部的 YAML frontmatter（元数据配置）和下方的 Markdown 正文）</p>
 <div class="highlight"><pre><span></span><code>---
 name: data-analyst               # 样式名称，显示在 /output-style 菜单中（未填则使用文件名）
@@ -4006,7 +3931,7 @@ keep-coding-instructions: false  # 是否保留默认编码相关指令
 - 用户级：~/.claude/output-styles/
 - 项目级：.claude/output-styles/（项目根目录下）</p>
 <p>在 Claude Code 中执行 /output-style，即可在菜单中看到并选择新创建的样式</p>
-<h1 id="21-并行任务">21 并行任务</h1>
+<h1 id="21_1">21 并行任务</h1>
 <table>
 <thead>
 <tr>
@@ -4086,7 +4011,7 @@ Subagent 只能与主 Agent 通信，无法直接互相交流，适合任务相�
 </tr>
 </tbody>
 </table>
-<h3 id="2111-创建-subagent">21.1.1 创建 Subagent</h3>
+<h3 id="2111-subagent">21.1.1 创建 Subagent</h3>
 <p>方式一：使用 /agents 命令</p>
 <div class="highlight"><pre><span></span><code>/agents
 </code></pre></div>
@@ -4105,7 +4030,7 @@ Subagent 只能与主 Agent 通信，无法直接互相交流，适合任务相�
 <span class="l l-Scalar l-Scalar-Plain">specific, actionable feedback on quality, security, and best practices.</span>
 </code></pre></div>
 
-<h3 id="2112-调用-subagent">21.1.2 调用 Subagent</h3>
+<h3 id="2112-subagent">21.1.2 调用 Subagent</h3>
 <p>1.使用自然语言</p>
 <p>2.@subagent_name</p>
 <div class="highlight"><pre><span></span><code>@<span class="s2">&quot;code-reviewer (agent)&quot;</span><span class="w"> </span>look<span class="w"> </span>at<span class="w"> </span>the<span class="w"> </span>auth<span class="w"> </span>changes
@@ -4120,7 +4045,7 @@ Subagent 只能与主 Agent 通信，无法直接互相交流，适合任务相�
 <p>存储位置：
 - Team config: ~/.claude/teams/{team-name}/config.json<br />
 - Task list: ~/.claude/tasks/{team-name}/</p>
-<h3 id="2121-启用-agent-teams">21.2.1 启用 Agent Teams</h3>
+<h3 id="2121-agent-teams">21.2.1 启用 Agent Teams</h3>
 <p>在 settings.json 中添加：</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="err"> </span><span class="w"> </span><span class="nt">&quot;env&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -4129,9 +4054,9 @@ Subagent 只能与主 Agent 通信，无法直接互相交流，适合任务相�
 <span class="p">}</span>
 </code></pre></div>
 
-<h3 id="2122-使用-agent-team">21.2.2 使用 Agent Team</h3>
+<h3 id="2122-agent-team">21.2.2 使用 Agent Team</h3>
 <p>用自然语言描述任务和团队结构即可。</p>
-<h3 id="2123-agent-teams-架构">21.2.3 Agent Teams 架构</h3>
+<h3 id="2123-agent-teams">21.2.3 Agent Teams 架构</h3>
 <table>
 <thead>
 <tr>
@@ -4161,7 +4086,7 @@ Subagent 只能与主 Agent 通信，无法直接互相交流，适合任务相�
 <h2 id="213-git-worktree">21.3 Git Worktree</h2>
 <p>允许你在同一个仓库上挂载多个独立的工作目录。每个工作目录有自己的分支、自己的 HEAD、自己的暂存区，但共用同一个 .git 数据库（历史记录、对象存储）。</p>
 <p>位置：<code>&lt;repo&gt;/.claude/worktrees/&lt;name&gt;</code></p>
-<h3 id="2131-使用-git-worktree">21.3.1 使用 Git Worktree</h3>
+<h3 id="2131-git-worktree">21.3.1 使用 Git Worktree</h3>
 <p>输入：</p>
 <div class="highlight"><pre><span></span><code>claude<span class="w"> </span>--worktree<span class="w"> </span>feature-auth
 <span class="c1"># 或简写</span>
@@ -4182,7 +4107,7 @@ claude<span class="w"> </span>-w<span class="w"> </span>refactor-api
 </code></pre></div>
 
 <p>三个会话完全隔离，可同时改代码、运行、提交。</p>
-<h3 id="2132-常用管理命令">21.3.2 常用管理命令</h3>
+<h3 id="2132">21.3.2 常用管理命令</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 查看所有 Worktree</span>
 git<span class="w"> </span>worktree<span class="w"> </span>list
 
@@ -4202,7 +4127,7 @@ claude<span class="w">  </span><span class="c1"># 直接启动，自动关联分
 
 <h1 id="claude-code-github-actions">Claude Code GitHub Actions</h1>
 <p>待续</p>
-<h1 id="_3">参考</h1>
+<h1 id="_2">参考</h1>
 <p>https://code.claude.com/docs/en/overview</p>
 <p>https://github.com/luongnv89/claude-howto</p>
 <p>https://github.com/affaan-m/everything-claude-code</p>
@@ -4212,7 +4137,134 @@ claude<span class="w">  </span><span class="c1"># 直接启动，自动关联分
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 简介</a></li>
+<li><a href="#2">2 安装</a></li>
+<li><a class="toc-h2" href="#21">2.1 安装</a></li>
+<li><a class="toc-h2" href="#22-api">2.2 跳过登录（使用第三方API）</a></li>
+<li><a href="#3">3 快速开始</a></li>
+<li><a class="toc-h2" href="#31">3.1 开始使用</a></li>
+<li><a class="toc-h3" href="#311">3.1.1 常用命令速查表</a></li>
+<li><a class="toc-h2" href="#32">3.2 交互模式</a></li>
+<li><a class="toc-h2" href="#33">3.3 操作说明</a></li>
+<li><a class="toc-h2" href="#34">3.4 会话管理</a></li>
+<li><a class="toc-h3" href="#341">3.4.1 恢复会话</a></li>
+<li><a class="toc-h3" href="#342">3.4.2 删除会话</a></li>
+<li><a class="toc-h2" href="#34_1">3.4 上下文窗口</a></li>
+<li><a class="toc-h2" href="#35">3.5 安全机制</a></li>
+<li><a href="#4-api">4 API 管理</a></li>
+<li><a href="#5-claude-code-for-vs-code">5 Claude Code for VS Code</a></li>
+<li><a class="toc-h2" href="#51">5.1 安装</a></li>
+<li><a class="toc-h2" href="#52">5.2 提示框</a></li>
+<li><a href="#6">6 项目结构</a></li>
+<li><a class="toc-h2" href="#61-claudemd">6.1 CLAUDE.md</a></li>
+<li><a class="toc-h3" href="#_1">文件位置与层级</a></li>
+<li><a class="toc-h2" href="#62-claudelocalmd">6.2 CLAUDE.local.md</a></li>
+<li><a class="toc-h2" href="#63-claudesettingsjson">6.3 .claude/settings.json</a></li>
+<li><a class="toc-h2" href="#64-claudesettingslocaljson">6.4 .claude/settings.local.json</a></li>
+<li><a class="toc-h2" href="#65-claudecommands">6.5 .claude/commands/ 自定义斜杠命令</a></li>
+<li><a class="toc-h2" href="#66-clauderules">6.6 .claude/rules/</a></li>
+<li><a class="toc-h2" href="#67-claudeskills">6.7 .claude/skills/</a></li>
+<li><a class="toc-h2" href="#68-claudeagents">6.8 .claude/agents/</a></li>
+<li><a href="#7">7 记忆</a></li>
+<li><a class="toc-h2" href="#71">7.1 记忆文件的层级结构</a></li>
+<li><a class="toc-h2" href="#72-claudemd">7.2 claude.md</a></li>
+<li><a class="toc-h2" href="#73-auto-memory">7.3 Auto Memory</a></li>
+<li><a class="toc-h3" href="#731">7.3.1 触发自动记忆</a></li>
+<li><a class="toc-h3" href="#732-auto-memory">7.3.2 开启 / 关闭 Auto Memory</a></li>
+<li><a class="toc-h2" href="#74-memory">7.4 /memory 命令与快捷键</a></li>
+<li><a href="#8-skills">8 skills</a></li>
+<li><a class="toc-h2" href="#81">8.1 工作原理</a></li>
+<li><a class="toc-h2" href="#82-skills">8.2 为什么需要 Skills？</a></li>
+<li><a class="toc-h2" href="#83">8.3 执行流程</a></li>
+<li><a class="toc-h2" href="#84-skillmd">8.4 SKILL.md 基本模板</a></li>
+<li><a class="toc-h2" href="#85">8.5 详细结构</a></li>
+<li><a class="toc-h2" href="#86">8.6 示例</a></li>
+<li><a class="toc-h2" href="#87">8.7 市场</a></li>
+<li><a href="#9-skills">9 skills 使用实例</a></li>
+<li><a class="toc-h2" href="#91">9.1 安装</a></li>
+<li><a class="toc-h2" href="#92">9.2 使用</a></li>
+<li><a href="#10-skill-creator">10 skill-creator</a></li>
+<li><a class="toc-h2" href="#101-skill-creator">10.1 安装 skill-creator</a></li>
+<li><a class="toc-h2" href="#102-skill-creator-skill">10.2 用 skill-creator 创建 Skill</a></li>
+<li><a href="#11">11 插件</a></li>
+<li><a class="toc-h2" href="#111">11.1 结构</a></li>
+<li><a class="toc-h3" href="#1111-pluginjson">11.1.1 插件清单（plugin.json）</a></li>
+<li><a class="toc-h3" href="#1112-commands">11.1.2 斜杠命令（commands/）</a></li>
+<li><a class="toc-h2" href="#112">11.2 本地测试插件</a></li>
+<li><a class="toc-h2" href="#113">11.3 插件市场</a></li>
+<li><a class="toc-h2" href="#114">11.4 插件命令</a></li>
+<li><a class="toc-h2" href="#115-claude">11.5 从 .claude/ 迁移到插件</a></li>
+<li><a class="toc-h2" href="#116">11.6 什么时候用插件？</a></li>
+<li><a href="#12">12 子代理</a></li>
+<li><a class="toc-h2" href="#121">12.1 内置的子代理</a></li>
+<li><a class="toc-h2" href="#122">12.2 创建子代理</a></li>
+<li><a class="toc-h2" href="#123">12.3 子代理的作用范围</a></li>
+<li><a class="toc-h2" href="#124">12.4 文件结构</a></li>
+<li><a class="toc-h2" href="#125">12.5 使用子代理</a></li>
+<li><a class="toc-h2" href="#126">12.6 使用示例</a></li>
+<li><a class="toc-h2" href="#127">12.7 子代理上下文与恢复</a></li>
+<li><a class="toc-h2" href="#128">12.8 什么时候该用子代理？</a></li>
+<li><a href="#13-mcp">13 MCP</a></li>
+<li><a class="toc-h2" href="#131-mcp">13.1 安装 MCP 服务器</a></li>
+<li><a class="toc-h2" href="#132-mcp">13.2 管理 MCP 服务器</a></li>
+<li><a class="toc-h2" href="#133">13.3 配置范围</a></li>
+<li><a class="toc-h2" href="#134">13.4 配置文件示例</a></li>
+<li><a class="toc-h2" href="#135">13.5 示例</a></li>
+<li><a class="toc-h2" href="#136-mcp">13.6 在对话中使用 MCP</a></li>
+<li><a class="toc-h2" href="#137">13.7 注意</a></li>
+<li><a href="#14-mcp">14 MCP使用实例</a></li>
+<li><a class="toc-h2" href="#141-github">14.1  GitHub 令牌设置</a></li>
+<li><a class="toc-h2" href="#142-github">14.2 然后与 GitHub 协作：</a></li>
+<li><a href="#15">15 钩子</a></li>
+<li><a class="toc-h2" href="#151">15.1 钩子事件类型说明</a></li>
+<li><a class="toc-h2" href="#152">15.2 示例：命令日志记录</a></li>
+<li><a class="toc-h2" href="#153">15.3 常用钩子示例</a></li>
+<li><a class="toc-h3" href="#1531-typescript">15.3.1 示例一  自动格式化 TypeScript 文件</a></li>
+<li><a class="toc-h3" href="#1532-markdown">15.3.2 示例二  自动修复 Markdown 文件格式</a></li>
+<li><a class="toc-h3" href="#1533">15.3.3 示例三  禁止修改敏感文件</a></li>
+<li><a class="toc-h2" href="#154-bash">15.4 官方示例：bash 命令验证器示例</a></li>
+<li><a href="#16">16 钩子参考手册</a></li>
+<li><a class="toc-h2" href="#161">16.1 配置文件路径</a></li>
+<li><a class="toc-h2" href="#162">16.2 配置结构</a></li>
+<li><a class="toc-h2" href="#163">16.3 匹配器规则（仅适用于工具类事件）</a></li>
+<li><a class="toc-h2" href="#164">16.4 特殊配置技巧</a></li>
+<li><a class="toc-h2" href="#165-skillagent">16.5 扩展配置（Skill/Agent/斜杠命令）</a></li>
+<li><a class="toc-h2" href="#166-">16.6 钩子事件--工具类事件（支持匹配器）</a></li>
+<li><a class="toc-h2" href="#167">16.7 会话/任务类事件（无匹配器）</a></li>
+<li><a class="toc-h2" href="#168">16.8 待续</a></li>
+<li><a href="#17-cli">17 CLI 参考手册</a></li>
+<li><a class="toc-h2" href="#171-cli">17.1 核心 CLI 命令</a></li>
+<li><a class="toc-h2" href="#172">17.2 模型控制与环境配置</a></li>
+<li><a class="toc-h2" href="#173">17.3 交互式会话斜杠命令</a></li>
+<li><a class="toc-h2" href="#174">17.4 效率和快捷键</a></li>
+<li><a class="toc-h2" href="#175">17.5 部分参数讲解</a></li>
+<li><a class="toc-h3" href="#1751-agents">17.5.1 --agents</a></li>
+<li><a class="toc-h3" href="#1752-system-prompt">17.5.2 --system-prompt</a></li>
+<li><a href="#18">18 快捷键</a></li>
+<li><a href="#19">19 /命令</a></li>
+<li><a href="#20">20 输出样式</a></li>
+<li><a class="toc-h2" href="#201">20.1 切换输出样式</a></li>
+<li><a class="toc-h2" href="#202">20.2 创建自定义输出样式</a></li>
+<li><a href="#21_1">21 并行任务</a></li>
+<li><a class="toc-h2" href="#211-subagents">21.1 Subagents</a></li>
+<li><a class="toc-h3" href="#2111-subagent">21.1.1 创建 Subagent</a></li>
+<li><a class="toc-h3" href="#2112-subagent">21.1.2 调用 Subagent</a></li>
+<li><a class="toc-h2" href="#212-agent-teams">21.2 Agent Teams</a></li>
+<li><a class="toc-h3" href="#2121-agent-teams">21.2.1 启用 Agent Teams</a></li>
+<li><a class="toc-h3" href="#2122-agent-team">21.2.2 使用 Agent Team</a></li>
+<li><a class="toc-h3" href="#2123-agent-teams">21.2.3 Agent Teams 架构</a></li>
+<li><a class="toc-h2" href="#213-git-worktree">21.3 Git Worktree</a></li>
+<li><a class="toc-h3" href="#2131-git-worktree">21.3.1 使用 Git Worktree</a></li>
+<li><a class="toc-h3" href="#2132">21.3.2 常用管理命令</a></li>
+<li><a href="#claude-code-github-actions">Claude Code GitHub Actions</a></li>
+<li><a href="#_2">参考</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -4221,6 +4273,45 @@ claude<span class="w">  </span><span class="c1"># 直接启动，自动关联分
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

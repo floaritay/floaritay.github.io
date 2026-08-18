@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Obsidian - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,66 +482,9 @@
             <span class="sep">/</span>
             <span>basic</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-14</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-介绍">1 介绍</a><ul>
-<li><a href="#11-核心概念">1.1 核心概念</a></li>
-</ul>
-</li>
-<li><a href="#2-安装">2 安装</a><ul>
-<li><a href="#21-常用快捷键">2.1 常用快捷键</a></li>
-</ul>
-</li>
-<li><a href="#3-仓库">3 仓库</a><ul>
-<li><a href="#31-目录结构">3.1 目录结构</a></li>
-<li><a href="#32-第一个笔记与链接">3.2 第一个笔记与链接</a></li>
-</ul>
-</li>
-<li><a href="#4-markdown基础">4 Markdown基础</a></li>
-<li><a href="#5-双链与知识图谱">5 双链与知识图谱</a><ul>
-<li><a href="#52-块引用与标题引用">5.2 块引用与标题引用</a></li>
-<li><a href="#53-反向链接面板">5.3 反向链接面板</a></li>
-<li><a href="#54-关系图谱">5.4 关系图谱</a></li>
-<li><a href="#55-标签系统">5.5 标签系统</a></li>
-</ul>
-</li>
-<li><a href="#6-组织与管理">6 组织与管理</a><ul>
-<li><a href="#61-aliases-别名">6.1 Aliases 别名</a></li>
-<li><a href="#62-templates-模板">6.2 Templates 模板</a></li>
-<li><a href="#63-搜索与快速跳转">6.3 搜索与快速跳转</a></li>
-<li><a href="#64-书签">6.4 书签</a></li>
-<li><a href="#65-文件管理">6.5 文件管理</a></li>
-</ul>
-</li>
-<li><a href="#7-插件">7 插件</a><ul>
-<li><a href="#71-安装和管理">7.1 安装和管理</a></li>
-<li><a href="#72-核心插件推荐与使用">7.2 核心插件推荐与使用</a><ul>
-<li><a href="#721-canvas">7.2.1 Canvas</a></li>
-<li><a href="#722-outline大纲面板">7.2.2 Outline：大纲面板</a></li>
-<li><a href="#723-backlinks-与-outgoing-links">7.2.3 Backlinks 与 Outgoing Links</a></li>
-<li><a href="#724-workspaces工作区布局">7.2.4 Workspaces：工作区布局</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#8-同步与导出">8 同步与导出</a><ul>
-<li><a href="#81-obsidian-sync">8.1 Obsidian Sync</a></li>
-<li><a href="#82-git-github-版本管理">8.2 Git + GitHub 版本管理</a></li>
-<li><a href="#83-云盘同步">8.3 云盘同步</a></li>
-<li><a href="#84-zip打包">8.4 zip打包</a></li>
-<li><a href="#85-导出">8.5 导出</a></li>
-</ul>
-</li>
-<li><a href="#9-结合-claude-code-使用">9 结合 Claude Code 使用</a><ul>
-<li><a href="#91-使用obsidian的插件">9.1 使用Obsidian的插件</a></li>
-<li><a href="#92-使用claude的mcp">9.2 使用Claude的MCP</a></li>
-</ul>
-</li>
-<li><a href="#10-obsidian-web-clipper">10 Obsidian Web Clipper</a></li>
-</ul>
-<hr />
-<h1 id="1-介绍">1 介绍</h1>
+<h1 id="1">1 介绍</h1>
 <p>Obsidian 是一款基于 <strong>Markdown</strong> 文件的个人知识库与笔记管理工具，主要用于知识整理、笔记记录和构建个人知识体系。</p>
 <p>采用<strong>本地</strong>文件存储方式，所有笔记都以普通 Markdown 文档形式保存，便于迁移、备份和长期管理。</p>
 <p>和传统笔记软件最大的区别不是能记笔记，而是它把笔记变成一个<strong>可连接（笔记之间可相互引用，形成知识网络）</strong>、<strong>可扩展（丰富的社区插件）</strong>、可计算的知识网络。</p>
@@ -526,7 +567,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="11-核心概念">1.1 核心概念</h2>
+<h2 id="11">1.1 核心概念</h2>
 <p>1、笔记即文件</p>
 <p>在 Obsidian 中创建一篇笔记，实际上就是在某个文件夹中创建了一个 Markdown 文件。每一篇笔记就是你硬盘上的一个 .md 文件。</p>
 <p>你可以在资源管理器中直接看到它，用 cat 命令读取它，用 Git 追踪它。</p>
@@ -542,7 +583,7 @@ Docker 是一种容器化技术，与 [[虚拟机]] 的关键区别在于...
 <p>同时，「Linux 基础」这篇笔记也会显示「有一篇叫 Docker 入门的笔记引用了我」。这就是双向链接。</p>
 <p>3、知识图谱</p>
 <p>图谱是你记笔记、建立链接之后自然生长出来的副产品。</p>
-<h1 id="2-安装">2 安装</h1>
+<h1 id="2">2 安装</h1>
 <p>前往官网下载 <a href="https://obsidian.md/zh/">官网</a></p>
 <p>下载后就可以双击安装，选择语言等配置。</p>
 <p>首次打开 Obsidian 你会看到三个选项：</p>
@@ -560,7 +601,7 @@ Docker 是一种容器化技术，与 [[虚拟机]] 的关键区别在于...
 </ul>
 <p>选择创建新库，为你的知识库起一个名字，选择一个存放位置。</p>
 <p>可以在设置里修改外观，字体，行宽等等。</p>
-<h2 id="21-常用快捷键">2.1 常用快捷键</h2>
+<h2 id="21">2.1 常用快捷键</h2>
 <table>
 <thead>
 <tr>
@@ -607,10 +648,10 @@ Docker 是一种容器化技术，与 [[虚拟机]] 的关键区别在于...
 </tr>
 </tbody>
 </table>
-<h1 id="3-仓库">3 仓库</h1>
+<h1 id="3">3 仓库</h1>
 <p>Vault 是 Obsidian 中最重要的概念。</p>
 <p>Vault = 文件夹： 库其实就是你电脑上的一个普通文件夹，用来存放你所有的笔记文件。</p>
-<h2 id="31-目录结构">3.1 目录结构</h2>
+<h2 id="31">3.1 目录结构</h2>
 <p>当创建一个 Vault 后，文件夹里会出现一个隐藏目录 .obsidian：</p>
 <div class="highlight"><pre><span></span><code>MyVault/
 ├── .obsidian/           ← Obsidian 的配置文件
@@ -624,7 +665,7 @@ Docker 是一种容器化技术，与 [[虚拟机]] 的关键区别在于...
 
 <p>也支持多 Vault</p>
 <p>注意：.obsidian 文件夹推荐纳入 Git 管理。这样你的插件配置、快捷键设置、主题偏好都会被版本控制。唯一的例外是 .obsidian/workspace.json，它记录了当前打开的标签页状态，可以加入 .gitignore。</p>
-<h2 id="32-第一个笔记与链接">3.2 第一个笔记与链接</h2>
+<h2 id="32">3.2 第一个笔记与链接</h2>
 <ol>
 <li>
 <p>按 Cmd/Ctrl + N 新建笔记</p>
@@ -644,9 +685,9 @@ Docker 是一种容器化技术，与 [[虚拟机]] 的关键区别在于...
 
 </li>
 </ol>
-<h1 id="4-markdown基础">4 Markdown基础</h1>
+<h1 id="4-markdown">4 Markdown基础</h1>
 <p>参考<a href="./Markdown.html">Markdown</a>文档。</p>
-<h1 id="5-双链与知识图谱">5 双链与知识图谱</h1>
+<h1 id="5">5 双链与知识图谱</h1>
 <h2 id="51">5.1 [[ ]] 语法</h2>
 <p>用 <code>[[笔记名]]</code> 即可创建指向另一篇笔记的链接。</p>
 <p>输入 <code>[[</code> 后，Obsidian 会自动弹出搜索框，支持模糊匹配笔记名称。</p>
@@ -655,7 +696,7 @@ Docker 是一种容器化技术，与 [[虚拟机]] 的关键区别在于...
 <p>有时候笔记的文件名不够自然。使用 [[文件名|显示文字]] 语法，可以让链接文字更符合上下文。</p>
 <p>更好的做法是在目标笔记的 Front Matter 中设置 aliases，之后所有指向该笔记的链接都可以使用别名。</p>
 <p>参考<a href="#61-aliases-别名">6.1 Aliases别名</a>章节。</p>
-<h2 id="52-块引用与标题引用">5.2 块引用与标题引用</h2>
+<h2 id="52">5.2 块引用与标题引用</h2>
 <p><strong>标题引用</strong></p>
 <p>使用 [[笔记名#标题]] 直接链接到笔记中的某个标题位置。</p>
 <p>例如</p>
@@ -685,7 +726,7 @@ Docker 是一种容器化技术，与 [[虚拟机]] 的关键区别在于...
 ![[环境搭建#环境变量配置]]
 </code></pre></div>
 
-<h2 id="53-反向链接面板">5.3 反向链接面板</h2>
+<h2 id="53">5.3 反向链接面板</h2>
 <p>当打开一篇笔记，右侧面板的「反向链接」区域会列出所有引用了当前笔记的其他笔记。</p>
 <p>不需要你手动记、不需要维护索引。</p>
 <p>反向链接面板分为两个区域：</p>
@@ -697,7 +738,7 @@ Docker 是一种容器化技术，与 [[虚拟机]] 的关键区别在于...
 <p>Unlinked Mentions：虽然提到了当前笔记的标题文字，但没有加上 [[ ]] 链接的地方</p>
 </li>
 </ul>
-<h2 id="54-关系图谱">5.4 关系图谱</h2>
+<h2 id="54">5.4 关系图谱</h2>
 <p><strong>局部图谱</strong></p>
 <p>在任意笔记中点击右上角的「更多选项 → 打开局部图谱」，会显示以当前笔记为中心的链接网络。</p>
 <p>局部图谱的默认显示深度是 1 层（直接邻居），可以调整为 2-5 层来看到更广的关联。</p>
@@ -726,7 +767,7 @@ Group <span class="ni">#3:</span> 日记
 
 <p>通过分组，图谱能一目了然地展示不同领域的规模大小和交叉关系。</p>
 <p>过滤器可以按关键词、标签或文件路径隐藏不需要显示的节点，避免图谱过于密集。</p>
-<h2 id="55-标签系统">5.5 标签系统</h2>
+<h2 id="55">5.5 标签系统</h2>
 <p>标签是跨文件夹组织内容的重要手段。</p>
 <p>标签写在正文或 Front Matter 中，用 # 标签名 的格式。</p>
 <p>基础写法</p>
@@ -742,8 +783,8 @@ Group <span class="ni">#3:</span> 日记
 </code></pre></div>
 
 <p>标签表示「是什么属性」（语言、状态、类型），文件夹表示「在哪个项目或领域」。两者互补而非互斥。</p>
-<h1 id="6-组织与管理">6 组织与管理</h1>
-<h2 id="61-aliases-别名">6.1 Aliases 别名</h2>
+<h1 id="6">6 组织与管理</h1>
+<h2 id="61-aliases">6.1 Aliases 别名</h2>
 <p>同一篇笔记可以有多个名称入口，在 Front Matter 中设置 aliases 即可</p>
 <p>在文件的最顶部（必须是第一行）输入三条横线 ---，然后在中间写入 aliases 属性，最后再以三条横线 --- 结束：</p>
 <div class="highlight"><pre><span></span><code><span class="gu">单个别名</span>
@@ -766,7 +807,7 @@ aliases:
 </code></pre></div>
 
 <p>在笔记 Front Matter 中定义标准别名，而不是每次用管道符 | 临时改写。这样别名统一管理，修改一次全库生效。</p>
-<h2 id="62-templates-模板">6.2 Templates 模板</h2>
+<h2 id="62-templates">6.2 Templates 模板</h2>
 <p>Templates 是 Obsidian 的核心插件（内置但需手动启用），让你可以为常见类型的笔记定义模板。</p>
 <p><strong>启用和配置</strong></p>
 <p>在设置 → 核心插件中开启「模板」。</p>
@@ -804,7 +845,7 @@ tags:
 <p><strong>插入模板</strong></p>
 <p>新建笔记后，点击左侧边栏的「插入模板」按钮（或使用 Ctrl+P 搜索「模板：插入模板」），选择对应模板。</p>
 <p>模板中的 {{title}} 会自动替换为笔记名称，{{date}} 替换为当前日期。</p>
-<h2 id="63-搜索与快速跳转">6.3 搜索与快速跳转</h2>
+<h2 id="63">6.3 搜索与快速跳转</h2>
 <p><strong>快速切换（Ctrl+O）</strong></p>
 <p>最常用的跳转方式，输入关键词即可搜索所有笔记文件名和别名，回车直接打开。</p>
 <p><strong>全局搜索（Ctrl+Shift+F）</strong></p>
@@ -854,7 +895,7 @@ tags:
 <li>默认情况下，普通关键词搜索会同时匹配文件名和内容；使用运算符可以更精细地限定搜索范围。  </li>
 <li>空格表示“AND”，大写 <code>OR</code> 表示“或”， <code>-</code> 表示排除，如 <code>meeting -work</code>。</li>
 </ul>
-<h2 id="64-书签">6.4 书签</h2>
+<h2 id="64">6.4 书签</h2>
 <p>书签功能让你可以收藏常用笔记、搜索条件或文件夹。</p>
 <p>右键点击任何文件、文件夹或搜索结果，选择「添加到书签」。</p>
 <p>所有书签显示在左侧边栏的书签面板中，支持拖拽排序和分组。</p>
@@ -864,7 +905,7 @@ tags:
 <li>收藏高频笔记：主页索引、项目仪表盘、每日日记入口</li>
 <li>按工作流分组：写作组、学习组、项目管理组各自独立</li>
 </ul>
-<h2 id="65-文件管理">6.5 文件管理</h2>
+<h2 id="65">6.5 文件管理</h2>
 <p>示例</p>
 <div class="highlight"><pre><span></span><code>Vault/
 ├── 00-日记/              # Daily Notes 自动存放
@@ -879,7 +920,7 @@ tags:
 
 <p>文件夹名前的数字前缀确保在文件列表中按你想要的顺序排列，而不是按拼音排序。</p>
 <p>随着笔记积累，你对组织方式的偏好会变得更明确，届时再调整也不迟。</p>
-<h1 id="7-插件">7 插件</h1>
+<h1 id="7">7 插件</h1>
 <p>Obsidian 的强大之处，很大程度上来自于其插件市场。</p>
 <p>Obsidian 的插件分为两大类：<strong>核心插件</strong>和<strong>社区插件</strong>，可以在设置选择打开查看。</p>
 <p><strong>核心插件</strong></p>
@@ -932,7 +973,7 @@ tags:
 </tr>
 </tbody>
 </table>
-<h2 id="71-安装和管理">7.1 安装和管理</h2>
+<h2 id="71">7.1 安装和管理</h2>
 <ol>
 <li>
 <p>进入插件设置</p>
@@ -954,7 +995,7 @@ tags:
 </li>
 </ol>
 <p>插件安装后，通常会在左侧栏、右侧栏或通过命令面板 (Ctrl + P) 来调用其功能。</p>
-<h2 id="72-核心插件推荐与使用">7.2 核心插件推荐与使用</h2>
+<h2 id="72">7.2 核心插件推荐与使用</h2>
 <h3 id="721-canvas">7.2.1 Canvas</h3>
 <p>Obsidian 内置的无限画布工具，用卡片和连线来组织思想、规划项目、绘制图表。</p>
 <p>在文件列表中右键选择「新建画布」，或在命令面板搜索「Canvas」。</p>
@@ -968,7 +1009,7 @@ tags:
 <p>鼠标悬停在卡片边缘会出现连接点，拖拽到另一张卡片即可创建连线。</p>
 <p>连线可以添加文字标签（如「依赖于」「导致」「参考」），并选择颜色和线型。</p>
 <p>框选多张卡片后右键选择「创建分组」，可以为它们添加背景色和标题。</p>
-<h3 id="722-outline大纲面板">7.2.2 Outline：大纲面板</h3>
+<h3 id="722-outline">7.2.2 Outline：大纲面板</h3>
 <p>大纲插件在右侧边栏显示当前文档的标题树。对于长文档的导航尤其有用</p>
 <ul>
 <li>自动解析文档中的 # ## ### 标题，生成层级树</li>
@@ -976,7 +1017,7 @@ tags:
 <li>当前正在阅读的标题会高亮显示</li>
 <li>拖拽标题可以在文档中重新排列章节顺序</li>
 </ul>
-<h3 id="723-backlinks-与-outgoing-links">7.2.3 Backlinks 与 Outgoing Links</h3>
+<h3 id="723-backlinks-outgoing-links">7.2.3 Backlinks 与 Outgoing Links</h3>
 <p>双链功能的核心 UI 呈现。</p>
 <p><strong>Backlinks（反向链接）</strong></p>
 <p>显示哪些笔记链接到了当前笔记。</p>
@@ -991,7 +1032,7 @@ tags:
 <li>按路径过滤：只显示特定文件夹内的反向链接</li>
 <li>按关键词过滤：只显示包含特定文字的反向链接</li>
 </ul>
-<h3 id="724-workspaces工作区布局">7.2.4 Workspaces：工作区布局</h3>
+<h3 id="724-workspaces">7.2.4 Workspaces：工作区布局</h3>
 <p>不同任务需要不同的面板布局。</p>
 <p>写作时你可能希望收起所有侧边栏只留编辑区，整理笔记时你需要文件列表和标签面板同时可见。</p>
 <p>例如</p>
@@ -1026,11 +1067,11 @@ tags:
 <p><strong>切换工作区</strong></p>
 <p>在工作区面板中点击已保存的布局，一键切换。</p>
 <p>也可以通过 Ctrl+P 搜索「工作区：加载工作区」来切换。</p>
-<h1 id="8-同步与导出">8 同步与导出</h1>
+<h1 id="8">8 同步与导出</h1>
 <h2 id="81-obsidian-sync">8.1 Obsidian Sync</h2>
 <p>Obsidian Sync 是官方提供的端对端加密云同步服务。是付费服务，按年订阅。</p>
 <p>在'设置'-'同步'中配置</p>
-<h2 id="82-git-github-版本管理">8.2 Git + GitHub 版本管理</h2>
+<h2 id="82-git-github">8.2 Git + GitHub 版本管理</h2>
 <p>将 Vault 初始化为 Git 仓库，推送到 GitHub 私有仓库。</p>
 <div class="highlight"><pre><span></span><code><span class="gh"># 进入你的 Vault 目录</span>
 cd ~/Documents/我的知识库
@@ -1055,19 +1096,19 @@ git push -u origin main
 </code></pre></div>
 
 <p>更多参考<a href="./Git.html">Git</a>文档。</p>
-<h2 id="83-云盘同步">8.3 云盘同步</h2>
+<h2 id="83">8.3 云盘同步</h2>
 <p>将 Vault 文件夹放在 iCloud Drive 或 OneDrive 中</p>
-<h2 id="84-zip打包">8.4 zip打包</h2>
+<h2 id="84-zip">8.4 zip打包</h2>
 <p>同步不等于备份——同步会把你误删的文件也同步删除。</p>
 <p>可以定期将整个 Vault 打包为 .zip，存到外接硬盘或云盘</p>
-<h2 id="85-导出">8.5 导出</h2>
+<h2 id="85">8.5 导出</h2>
 <p>打开笔记，点击右上角「更多选项 → 导出 PDF」。</p>
 <p>导出的 PDF 会保留当前的 Obsidian 主题样式。</p>
 <p>安装 Pandoc 社区插件后，可以将笔记导出为 Word、HTML、LaTeX 等多种格式。</p>
 <p>Obsidian Publish 是官方付费服务，可以将选定的笔记发布为网站。</p>
 <p>发布的网站保留双链、图谱、搜索等 Obsidian 核心功能。</p>
-<h1 id="9-结合-claude-code-使用">9 结合 Claude Code 使用</h1>
-<h2 id="91-使用obsidian的插件">9.1 使用Obsidian的插件</h2>
+<h1 id="9-claude-code">9 结合 Claude Code 使用</h1>
+<h2 id="91-obsidian">9.1 使用Obsidian的插件</h2>
 <p>参考<a href="../Vibe_Coding/Claude.html">Claude Code</a>文档安装使用Claude。</p>
 <p>从 GitHub Release https://github.com/YishenTu/claudian/releases/latest 下载 main.js、manifest.json 和 styles.css 这三个文件。</p>
 <p>在你的 Obsidian 库的插件文件夹 plugins 中（如果没有创建一个），新建一个名为 claudian 的文件夹。</p>
@@ -1083,7 +1124,7 @@ git push -u origin main
 <p>在 Obsidian 中启用该插件：设置 → 社区插件 → 开启「Claudian」插件开关。通过设置，可以设置为中文语言。</p>
 <p>打开任意笔记，左侧边栏会出现一个 机器人图标（或用命令面板 Ctrl+P 输入 Claudian: Open Chat）即可使用。</p>
 <p>第一次打开会提示你选择 Claude 模型（可以设置国内的大模型），输入框打 / 会出现所有可用技能（skills）。</p>
-<h2 id="92-使用claude的mcp">9.2 使用Claude的MCP</h2>
+<h2 id="92-claudemcp">9.2 使用Claude的MCP</h2>
 <p>在 claude 中对话让它安装</p>
 <p>需要启用 obsidian 第三方插件 Local REST API with MCP 。还需要它的key</p>
 <p>端口 https://127.0.0.1:27124/</p>
@@ -1237,7 +1278,50 @@ git push -u origin main
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 介绍</a></li>
+<li><a class="toc-h2" href="#11">1.1 核心概念</a></li>
+<li><a href="#2">2 安装</a></li>
+<li><a class="toc-h2" href="#21">2.1 常用快捷键</a></li>
+<li><a href="#3">3 仓库</a></li>
+<li><a class="toc-h2" href="#31">3.1 目录结构</a></li>
+<li><a class="toc-h2" href="#32">3.2 第一个笔记与链接</a></li>
+<li><a href="#4-markdown">4 Markdown基础</a></li>
+<li><a href="#5">5 双链与知识图谱</a></li>
+<li><a class="toc-h2" href="#51">5.1 [[ ]] 语法</a></li>
+<li><a class="toc-h2" href="#52">5.2 块引用与标题引用</a></li>
+<li><a class="toc-h2" href="#53">5.3 反向链接面板</a></li>
+<li><a class="toc-h2" href="#54">5.4 关系图谱</a></li>
+<li><a class="toc-h2" href="#55">5.5 标签系统</a></li>
+<li><a href="#6">6 组织与管理</a></li>
+<li><a class="toc-h2" href="#61-aliases">6.1 Aliases 别名</a></li>
+<li><a class="toc-h2" href="#62-templates">6.2 Templates 模板</a></li>
+<li><a class="toc-h2" href="#63">6.3 搜索与快速跳转</a></li>
+<li><a class="toc-h2" href="#64">6.4 书签</a></li>
+<li><a class="toc-h2" href="#65">6.5 文件管理</a></li>
+<li><a href="#7">7 插件</a></li>
+<li><a class="toc-h2" href="#71">7.1 安装和管理</a></li>
+<li><a class="toc-h2" href="#72">7.2 核心插件推荐与使用</a></li>
+<li><a class="toc-h3" href="#721-canvas">7.2.1 Canvas</a></li>
+<li><a class="toc-h3" href="#722-outline">7.2.2 Outline：大纲面板</a></li>
+<li><a class="toc-h3" href="#723-backlinks-outgoing-links">7.2.3 Backlinks 与 Outgoing Links</a></li>
+<li><a class="toc-h3" href="#724-workspaces">7.2.4 Workspaces：工作区布局</a></li>
+<li><a href="#8">8 同步与导出</a></li>
+<li><a class="toc-h2" href="#81-obsidian-sync">8.1 Obsidian Sync</a></li>
+<li><a class="toc-h2" href="#82-git-github">8.2 Git + GitHub 版本管理</a></li>
+<li><a class="toc-h2" href="#83">8.3 云盘同步</a></li>
+<li><a class="toc-h2" href="#84-zip">8.4 zip打包</a></li>
+<li><a class="toc-h2" href="#85">8.5 导出</a></li>
+<li><a href="#9-claude-code">9 结合 Claude Code 使用</a></li>
+<li><a class="toc-h2" href="#91-obsidian">9.1 使用Obsidian的插件</a></li>
+<li><a class="toc-h2" href="#92-claudemcp">9.2 使用Claude的MCP</a></li>
+<li><a href="#10-obsidian-web-clipper">10 Obsidian Web Clipper</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1246,6 +1330,45 @@ git push -u origin main
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>VsCode - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,82 +482,17 @@
             <span class="sep">/</span>
             <span>basic</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-14</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-vscode-简介">1 VsCode 简介</a></li>
-<li><a href="#2-vscode-安装">2 VsCode 安装</a><ul>
-<li><a href="#21-安装汉化包扩展">2.1 安装汉化包扩展</a></li>
-</ul>
-</li>
-<li><a href="#3-界面说明">3 界面说明</a></li>
-<li><a href="#4-活动栏">4 活动栏</a><ul>
-<li><a href="#41-自定义活动栏">4.1 自定义活动栏</a></li>
-</ul>
-</li>
-<li><a href="#5-终端">5 终端</a><ul>
-<li><a href="#51-与命令输出交互">5.1 与命令输出交互：</a></li>
-</ul>
-</li>
-<li><a href="#6-设置">6 设置</a><ul>
-<li><a href="#61-切换用户设置与工作区设置">6.1 切换用户设置与工作区设置</a></li>
-</ul>
-</li>
-<li><a href="#7-代码">7 代码</a><ul>
-<li><a href="#71-light-bulb">7.1 Light Bulb:</a></li>
-<li><a href="#72-语义化标识">7.2 语义化标识</a></li>
-</ul>
-</li>
-<li><a href="#8-版本控制">8 版本控制</a></li>
-<li><a href="#9-扩展安装">9 扩展安装</a></li>
-<li><a href="#10-运行与调试">10 运行与调试</a></li>
-<li><a href="#11-code-命令">11 code 命令</a></li>
-<li><a href="#12-快捷键">12 快捷键</a><ul>
-<li><a href="#121-通用操作快捷键">12.1 通用操作快捷键</a></li>
-<li><a href="#122-文件与编辑器操作">12.2 文件与编辑器操作</a></li>
-<li><a href="#123-代码编辑快捷键">12.3 代码编辑快捷键</a></li>
-<li><a href="#124-多光标操作">12.4 多光标操作</a></li>
-<li><a href="#125-调试快捷键">12.5 调试快捷键</a></li>
-<li><a href="#126-搜索和导航">12.6 搜索和导航</a></li>
-<li><a href="#127-版本控制">12.7 版本控制</a></li>
-<li><a href="#128-终端操作">12.8 终端操作</a></li>
-<li><a href="#129-命令面板">12.9 命令面板</a></li>
-<li><a href="#1210-显示">12.10 显示</a></li>
-<li><a href="#1211-扩展操作">12.11 扩展操作</a></li>
-<li><a href="#1212-其他">12.12 其他</a></li>
-</ul>
-</li>
-<li><a href="#13-ai扩展">13 AI扩展</a></li>
-<li><a href="#14-github-copilot">14 GitHub Copilot</a><ul>
-<li><a href="#141-介绍与安装">14.1 介绍与安装</a></li>
-<li><a href="#142-设置">14.2 设置</a></li>
-<li><a href="#143-快捷键">14.3 快捷键</a></li>
-<li><a href="#144-使用技巧">14.4 使用技巧</a></li>
-<li><a href="#145-聊天模式">14.5 聊天模式</a></li>
-</ul>
-</li>
-<li><a href="#15-接入deepseek">15 接入DeepSeek</a><ul>
-<li><a href="#151-安装-roo-code-扩展">15.1 安装 Roo Code 扩展</a></li>
-<li><a href="#152-设置-api-key">15.2 设置 API Key</a></li>
-</ul>
-</li>
-<li><a href="#16-数据库扩展">16 数据库扩展</a></li>
-<li><a href="#17-mcp">17 MCP</a><ul>
-<li><a href="#171-配置-mcp-服务器">17.1 配置 MCP 服务器</a></li>
-<li><a href="#172-示例">17.2 示例</a></li>
-</ul>
-</li>
-</ul>
-<hr />
-<h1 id="1-vscode-简介">1 VsCode 简介</h1>
-<h1 id="2-vscode-安装">2 VsCode 安装</h1>
+<h1 id="1-vscode">1 VsCode 简介</h1>
+<h1 id="2-vscode">2 VsCode 安装</h1>
 <p>官网下载链接 https://code.visualstudio.com/Download<br />
 默认情况下访问 VS Code 官网 https://code.visualstudio.com/  页面会根据你的系统自动匹配安装包  </p>
-<h2 id="21-安装汉化包扩展">2.1 安装汉化包扩展</h2>
-<h1 id="3-界面说明">3 界面说明</h1>
+<h2 id="21">2.1 安装汉化包扩展</h2>
+<h1 id="3">3 界面说明</h1>
 <p><img alt="image.png" src="../images/Interface_Instructions.png" />  </p>
 <p><img alt="image.png" src="../images/Edit_Page.png" /></p>
-<h1 id="4-活动栏">4 活动栏</h1>
+<h1 id="4">4 活动栏</h1>
 <ol>
 <li>文件资源管理器（Explorer）</li>
 <li>搜索（Search）<br />
@@ -468,9 +501,9 @@
 <li>调试（Debug）</li>
 <li>扩展（Extensions）</li>
 </ol>
-<h2 id="41-自定义活动栏">4.1 自定义活动栏</h2>
+<h2 id="41">4.1 自定义活动栏</h2>
 <p>可以右击状态栏，控制功能图标是否显示，打勾☑️的表示显示，反之，不显示：</p>
-<h1 id="5-终端">5 终端</h1>
+<h1 id="5">5 终端</h1>
 <p>快捷键：</p>
 <p>显示集成终端 <code>Ctrl + `</code>  </p>
 <p>新建终端  <code>Ctrl+Shift+"</code>  </p>
@@ -478,10 +511,10 @@
 <p>关闭终端  <code>Ctrl+Shift+W</code>   </p>
 <p>浏览历史命令 <code>Ctrl + ↑</code></p>
 <p>可以选择和切换不同终端</p>
-<h2 id="51-与命令输出交互">5.1 与命令输出交互：</h2>
+<h2 id="51">5.1 与命令输出交互：</h2>
 <p>打开你之前运行过 ls 或 dir 命令的终端。<br />
 在终端中，按住 Ctrl/Cmd 键，将鼠标悬停在文件名上，然后可以直接打开。  </p>
-<h1 id="6-设置">6 设置</h1>
+<h1 id="6">6 设置</h1>
 <p>配置 VS Code 的两种方式：  </p>
 <ul>
 <li>使用设置编辑器（Settings Editor） 修改设置。  </li>
@@ -490,18 +523,18 @@
 <p>Windows/Linux 快捷键: <code>Ctrl + ,</code></p>
 <p>要将某项设置恢复为默认值，将鼠标移动到设置项旁边，会显示齿轮图标，点击它然后选择重置此设置</p>
 <p>要想快速找到所有已修改的设置，可以在搜索框中输入 @modified：</p>
-<h2 id="61-切换用户设置与工作区设置">6.1 切换用户设置与工作区设置</h2>
+<h2 id="61">6.1 切换用户设置与工作区设置</h2>
 <ul>
 <li>用户设置（User settings）：对所有工作区生效。  </li>
 <li>工作区设置（Workspace settings）：仅适用于当前工作区，并会覆盖用户设置。  </li>
 </ul>
-<h1 id="7-代码">7 代码</h1>
+<h1 id="7">7 代码</h1>
 <h2 id="71-light-bulb">7.1 Light Bulb:</h2>
 <p>在 VS Code 中编写代码时出现的「小灯泡」（Light Bulb）是快速修复 / 代码操作提示图标，核心作用是为当前代码位置的问题（语法错误、格式不规范、可优化点等）或可执行的代码操作（重构、补全、导入等）提供一键式解决方案，大幅提升编码效率。</p>
 <p>快捷键 <code>Ctrl+.</code></p>
 <p>操作流程：<br />
 点击小灯泡（或按快捷键）→ 弹出下拉菜单 → 选择对应的修复 / 操作选项 → VS Code 自动修改代码。</p>
-<h2 id="72-语义化标识">7.2 语义化标识</h2>
+<h2 id="72">7.2 语义化标识</h2>
 <p>VS Code 代码提示（补全 / 建议列表）前的各类图形（图标）是语义化标识，核心作用是快速区分提示项的「类型」</p>
 <table>
 <thead>
@@ -619,10 +652,10 @@
 </tbody>
 </table>
 <p>鼠标悬浮在提示项上，会弹出完整类型说明</p>
-<h1 id="8-版本控制">8 版本控制</h1>
+<h1 id="8">8 版本控制</h1>
 <p>见'Git.md'</p>
-<h1 id="9-扩展安装">9 扩展安装</h1>
-<h1 id="10-运行与调试">10 运行与调试</h1>
+<h1 id="9">9 扩展安装</h1>
+<h1 id="10">10 运行与调试</h1>
 <ol>
 <li>设置断点  </li>
 </ol>
@@ -644,7 +677,7 @@
 <li>继续执行程序</li>
 </ol>
 <p>在调试工具栏中，点击 Continue（继续） 按钮，或再次按下 F5，以继续执行程序。</p>
-<h1 id="11-code-命令">11 code 命令</h1>
+<h1 id="11-code">11 code 命令</h1>
 <p>启用 VSCode 的 code 命令 非常简单，先打开命令面板：</p>
 <p>macOS 系统快捷键：<code>⇧⌘P</code>
 Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
@@ -704,9 +737,9 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 <li>命令中的 <code>&lt;路径&gt;</code> <code>&lt;扩展名&gt;</code> 为占位符，使用时需替换为实际内容（如 <code>code ~/projects/my-app</code>、<code>code --install-extension ms-python.python</code>）；</li>
 <li>部分命令支持组合使用，例如 <code>code --new-window --disable-extensions .</code> 表示「在新窗口以纯净模式打开当前目录」。</li>
 </ul>
-<h1 id="12-快捷键">12 快捷键</h1>
+<h1 id="12">12 快捷键</h1>
 <p>快捷键的设置可以通过菜单栏的<code>Code &gt; 首选项 &gt; 键盘快捷方式</code>查看</p>
-<h2 id="121-通用操作快捷键">12.1 通用操作快捷键</h2>
+<h2 id="121">12.1 通用操作快捷键</h2>
 <table>
 <thead>
 <tr>
@@ -757,7 +790,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="122-文件与编辑器操作">12.2 文件与编辑器操作</h2>
+<h2 id="122">12.2 文件与编辑器操作</h2>
 <table>
 <thead>
 <tr>
@@ -816,7 +849,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="123-代码编辑快捷键">12.3 代码编辑快捷键</h2>
+<h2 id="123">12.3 代码编辑快捷键</h2>
 <table>
 <thead>
 <tr>
@@ -931,7 +964,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="124-多光标操作">12.4 多光标操作</h2>
+<h2 id="124">12.4 多光标操作</h2>
 <table>
 <thead>
 <tr>
@@ -974,7 +1007,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="125-调试快捷键">12.5 调试快捷键</h2>
+<h2 id="125">12.5 调试快捷键</h2>
 <table>
 <thead>
 <tr>
@@ -1009,7 +1042,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="126-搜索和导航">12.6 搜索和导航</h2>
+<h2 id="126">12.6 搜索和导航</h2>
 <table>
 <thead>
 <tr>
@@ -1048,7 +1081,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="127-版本控制">12.7 版本控制</h2>
+<h2 id="127">12.7 版本控制</h2>
 <table>
 <thead>
 <tr>
@@ -1071,7 +1104,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="128-终端操作">12.8 终端操作</h2>
+<h2 id="128">12.8 终端操作</h2>
 <table>
 <thead>
 <tr>
@@ -1098,7 +1131,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="129-命令面板">12.9 命令面板</h2>
+<h2 id="129">12.9 命令面板</h2>
 <table>
 <thead>
 <tr>
@@ -1117,7 +1150,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="1210-显示">12.10 显示</h2>
+<h2 id="1210">12.10 显示</h2>
 <table>
 <thead>
 <tr>
@@ -1160,7 +1193,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="1211-扩展操作">12.11 扩展操作</h2>
+<h2 id="1211">12.11 扩展操作</h2>
 <table>
 <thead>
 <tr>
@@ -1179,7 +1212,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="1212-其他">12.12 其他</h2>
+<h2 id="1212">12.12 其他</h2>
 <table>
 <thead>
 <tr>
@@ -1198,7 +1231,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h1 id="13-ai扩展">13 AI扩展</h1>
+<h1 id="13-ai">13 AI扩展</h1>
 <p>包括Cline、Roo Code、Continue、Codeium、通义灵码、GitHub Copilot等等  </p>
 <p><strong>Qoder</strong>  </p>
 <p>Qoder 是阿里推出的一款面向开发者的 AI 驱动的集成开发环境（IDE），可以直接下载安装，基于 VS Code，用起来更 VS Code 差不多。</p>
@@ -1212,17 +1245,17 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 <p>Cursor 操作界面类似 VSCode，是个付费开发工具，免费使用的有限制。</p>
 <p>Cursor 教程：https://www.runoob.com/cursor/cursor-intro.html</p>
 <h1 id="14-github-copilot">14 GitHub Copilot</h1>
-<h2 id="141-介绍与安装">14.1 介绍与安装</h2>
+<h2 id="141">14.1 介绍与安装</h2>
 <p>...</p>
 <p>启用 GitHub Copilot：在 VS Code 中按下 Ctrl + Shift + P，输入 Copilot: Enable。</p>
-<h2 id="142-设置">14.2 设置</h2>
+<h2 id="142">14.2 设置</h2>
 <p>打开 VS Code 的设置，搜索 Copilot,在这里我们可以在 VS Code 设置中调整：</p>
 <ul>
 <li>建议触发方式（自动或手动）</li>
 <li>建议显示位置</li>
 <li>语言偏好设置</li>
 </ul>
-<h2 id="143-快捷键">14.3 快捷键</h2>
+<h2 id="143">14.3 快捷键</h2>
 <table>
 <thead>
 <tr>
@@ -1261,10 +1294,10 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h2 id="144-使用技巧">14.4 使用技巧</h2>
+<h2 id="144">14.4 使用技巧</h2>
 <p>直接写注释，Copilot 会帮你实现</p>
 <p>可以在编辑器中右击鼠标，选择 Copilot，调出需要的功能：</p>
-<h2 id="145-聊天模式">14.5 聊天模式</h2>
+<h2 id="145">14.5 聊天模式</h2>
 <p>根据你的具体需求，你可以选择不同的聊天模式：</p>
 <table>
 <thead>
@@ -1292,21 +1325,21 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </tr>
 </tbody>
 </table>
-<h1 id="15-接入deepseek">15 接入DeepSeek</h1>
+<h1 id="15-deepseek">15 接入DeepSeek</h1>
 <p>以 Roo Code 为例演示如何接入 DeepSeek。</p>
-<h2 id="151-安装-roo-code-扩展">15.1 安装 Roo Code 扩展</h2>
+<h2 id="151-roo-code">15.1 安装 Roo Code 扩展</h2>
 <p>Roo Code（前身为 Roo Cline）是一款基于 VS Code 的 AI 编程助手插件，通过集成多种 AI 模型和强大的自动化功能，为开发者提供高效、智能的编程体验。</p>
 <p>Roo Code 可与 OpenAI、DeepSeek、Anthropic、Google Gemini 等主流 API 无缝对接，还支持通过 Ollama 使用本地模型，开发者能根据需求和预算灵活切换。</p>
 <p>Roo Code 提供了多种预设模式，包括 Code（代码模式）、Architect（架构模式）和 Ask（问答模式），并支持用户自定。例如，用户可以创建一个专注于编写测试用例的 QA 工程师角色。</p>
 <p>扩展搜索关键词：<code>Roo Code</code></p>
-<h2 id="152-设置-api-key">15.2 设置 API Key</h2>
+<h2 id="152-api-key">15.2 设置 API Key</h2>
 <p>安装扩展后在左侧活动栏会有个小火箭的图标，打开就可以看到支持的大模型，我们可以选择 DeepSeek：</p>
 <p>填写我们申请的 API Key：</p>
 <p>我们可以在 DeepSeek 官网 API 开放平台 https://platform.deepseek.com/usage 申请 API Key：</p>
 <p>安装成功后，我们就可以点击扩展右上角的加号 +，开启对话窗口：</p>
 <p>也可以选择文件中的一小段代码，让大模型帮我们解析或修正：</p>
 <p>使用 @ 符号为 AI 提供上下文。输入 @ 即可查看文件夹中所有文件和代码符号的列表。</p>
-<h1 id="16-数据库扩展">16 数据库扩展</h1>
+<h1 id="16">16 数据库扩展</h1>
 <p>1、SQLTools</p>
 <p>SQLTools 是一款开源的数据库管理扩展，支持多种常用数据库，包括MySQL、PostgreSQL、Microsoft SQL Server、SQLite 等。</p>
 <p>SQLTools 以轻量和高效著称，提供数据库连接、查询执行和结果展示等功能。</p>
@@ -1354,7 +1387,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 <p>在使用 VS Code MCP 服务前，确保安装最新版的 Visual Studio Code。</p>
 <p>然后还要安装相关的 VS Code 的 AI 扩展，我们可以使用微软的 GitHub Copilot，登录账号（包括 Free、Business 或 Enterprise 计划）即可。</p>
 <p>从 VS Code 1.102 版本开始，VS Code 中的 MCP 支持已全面可用，可以在设置中看是否启用。</p>
-<h2 id="171-配置-mcp-服务器">17.1 配置 MCP 服务器</h2>
+<h2 id="171-mcp">17.1 配置 MCP 服务器</h2>
 <p>在 VS Code 中添加 MCP 服务器有多种方式：</p>
 <ul>
 <li>
@@ -1371,7 +1404,7 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
 </li>
 </ul>
 <p>这里使用工作区设置的方法。</p>
-<h2 id="172-示例">17.2 示例</h2>
+<h2 id="172">17.2 示例</h2>
 <p>我们先创建一个 python 文件 test.py，代码如下：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -1414,7 +1447,57 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1-vscode">1 VsCode 简介</a></li>
+<li><a href="#2-vscode">2 VsCode 安装</a></li>
+<li><a class="toc-h2" href="#21">2.1 安装汉化包扩展</a></li>
+<li><a href="#3">3 界面说明</a></li>
+<li><a href="#4">4 活动栏</a></li>
+<li><a class="toc-h2" href="#41">4.1 自定义活动栏</a></li>
+<li><a href="#5">5 终端</a></li>
+<li><a class="toc-h2" href="#51">5.1 与命令输出交互：</a></li>
+<li><a href="#6">6 设置</a></li>
+<li><a class="toc-h2" href="#61">6.1 切换用户设置与工作区设置</a></li>
+<li><a href="#7">7 代码</a></li>
+<li><a class="toc-h2" href="#71-light-bulb">7.1 Light Bulb:</a></li>
+<li><a class="toc-h2" href="#72">7.2 语义化标识</a></li>
+<li><a href="#8">8 版本控制</a></li>
+<li><a href="#9">9 扩展安装</a></li>
+<li><a href="#10">10 运行与调试</a></li>
+<li><a href="#11-code">11 code 命令</a></li>
+<li><a href="#12">12 快捷键</a></li>
+<li><a class="toc-h2" href="#121">12.1 通用操作快捷键</a></li>
+<li><a class="toc-h2" href="#122">12.2 文件与编辑器操作</a></li>
+<li><a class="toc-h2" href="#123">12.3 代码编辑快捷键</a></li>
+<li><a class="toc-h2" href="#124">12.4 多光标操作</a></li>
+<li><a class="toc-h2" href="#125">12.5 调试快捷键</a></li>
+<li><a class="toc-h2" href="#126">12.6 搜索和导航</a></li>
+<li><a class="toc-h2" href="#127">12.7 版本控制</a></li>
+<li><a class="toc-h2" href="#128">12.8 终端操作</a></li>
+<li><a class="toc-h2" href="#129">12.9 命令面板</a></li>
+<li><a class="toc-h2" href="#1210">12.10 显示</a></li>
+<li><a class="toc-h2" href="#1211">12.11 扩展操作</a></li>
+<li><a class="toc-h2" href="#1212">12.12 其他</a></li>
+<li><a href="#13-ai">13 AI扩展</a></li>
+<li><a href="#14-github-copilot">14 GitHub Copilot</a></li>
+<li><a class="toc-h2" href="#141">14.1 介绍与安装</a></li>
+<li><a class="toc-h2" href="#142">14.2 设置</a></li>
+<li><a class="toc-h2" href="#143">14.3 快捷键</a></li>
+<li><a class="toc-h2" href="#144">14.4 使用技巧</a></li>
+<li><a class="toc-h2" href="#145">14.5 聊天模式</a></li>
+<li><a href="#15-deepseek">15 接入DeepSeek</a></li>
+<li><a class="toc-h2" href="#151-roo-code">15.1 安装 Roo Code 扩展</a></li>
+<li><a class="toc-h2" href="#152-api-key">15.2 设置 API Key</a></li>
+<li><a href="#16">16 数据库扩展</a></li>
+<li><a href="#17-mcp">17 MCP</a></li>
+<li><a class="toc-h2" href="#171-mcp">17.1 配置 MCP 服务器</a></li>
+<li><a class="toc-h2" href="#172">17.2 示例</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1423,6 +1506,45 @@ Windows/Linux 快捷键: <code>Ctrl + Shift + P</code>
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

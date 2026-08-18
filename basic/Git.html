@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Git - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,124 +482,12 @@
             <span class="sep">/</span>
             <span>basic</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-18</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-git-简介">1 Git 简介</a><ul>
-<li><a href="#11-git-与-svn-区别">1.1 Git 与 SVN 区别</a></li>
-<li><a href="#12-git-与-github">1.2 Git 与 Github</a></li>
-</ul>
-</li>
-<li><a href="#2-git-安装配置">2 Git 安装配置</a><ul>
-<li><a href="#21-git-配置">2.1 Git 配置</a></li>
-</ul>
-</li>
-<li><a href="#3-git-工作流程">3 Git 工作流程</a></li>
-<li><a href="#4-git-工作区暂存区和版本库">4 Git 工作区、暂存区和版本库</a><ul>
-<li><a href="#41-工作区暂存区和版本库之间的关系">4.1 工作区、暂存区和版本库之间的关系</a></li>
-</ul>
-</li>
-<li><a href="#5-git-创建仓库">5 Git 创建仓库</a></li>
-<li><a href="#6-git-基本命令">6 Git 基本命令</a><ul>
-<li><a href="#61-创建仓库">6.1 创建仓库</a></li>
-<li><a href="#62-提交与修改">6.2 提交与修改</a></li>
-<li><a href="#63-提交日志">6.3 提交日志</a></li>
-<li><a href="#64-远程操作">6.4 远程操作</a></li>
-</ul>
-</li>
-<li><a href="#65-git-文件状态">6.5 Git 文件状态</a></li>
-<li><a href="#7-git-分支管理">7 Git 分支管理</a><ul>
-<li><a href="#71-创建与切换分支">7.1 创建与切换分支</a></li>
-<li><a href="#72-查看分支">7.2 查看分支</a></li>
-<li><a href="#73-合并分支">7.3 合并分支</a></li>
-<li><a href="#74-删除分支">7.4 删除分支</a></li>
-<li><a href="#75-最常用分支命令">7.5 最常用分支命令</a></li>
-<li><a href="#76-完整工作流程">7.6 完整工作流程</a><ul>
-<li><a href="#761-永远从最新主分支开新功能">7.6.1 永远从最新主分支开新功能</a></li>
-<li><a href="#762-创建你的功能分支">7.6.2 创建你的功能分支</a></li>
-<li><a href="#763-在分支上正常写代码提交">7.6.3 在分支上正常写代码、提交</a></li>
-<li><a href="#764-写完了合并回主分支">7.6.4 写完了，合并回主分支</a></li>
-<li><a href="#765-合并完删除旧分支">7.6.5 合并完，删除旧分支</a></li>
-</ul>
-</li>
-<li><a href="#77-主分支被改怎么同步到你的分支">7.7 主分支被改，怎么同步到你的分支？</a></li>
-<li><a href="#78-遇到冲突怎么办">7.8 遇到冲突怎么办？</a></li>
-<li><a href="#79-远程分支操作">7.9 远程分支操作</a><ul>
-<li><a href="#791-把本地分支发到远程">7.9.1 把本地分支发到远程</a></li>
-<li><a href="#792-拉取别人创建的远程分支">7.9.2 拉取别人创建的远程分支</a></li>
-<li><a href="#793-删除远程分支">7.9.3 删除远程分支</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#8-git-查看提交历史">8 Git 查看提交历史</a><ul>
-<li><a href="#81-git-log">8.1 git log</a></li>
-<li><a href="#82-git-blame">8.2 git blame</a></li>
-</ul>
-</li>
-<li><a href="#9-git-恢复和回退">9 Git 恢复和回退</a><ul>
-<li><a href="#91-git-checkout">9.1 git checkout</a></li>
-<li><a href="#92-git-reset">9.2 git reset</a></li>
-<li><a href="#93-git-revert">9.3 git revert</a></li>
-<li><a href="#94-git-reflog">9.4 git reflog</a></li>
-<li><a href="#95-示例">9.5 示例</a></li>
-</ul>
-</li>
-<li><a href="#10-git-标签">10 Git 标签</a></li>
-<li><a href="#10-git-flow">10 Git Flow</a><ul>
-<li><a href="#101-git-flow-安装">10.1 Git Flow 安装</a></li>
-<li><a href="#102-git-flow-工作流程">10.2 Git Flow 工作流程</a></li>
-</ul>
-</li>
-<li><a href="#11-git-进阶操作">11 Git 进阶操作</a><ul>
-<li><a href="#111-git-stash">11.1 Git Stash</a></li>
-<li><a href="#112-git-rebase">11.2 Git Rebase</a></li>
-<li><a href="#113-git-cherry-pick">11.3 Git Cherry-Pick</a></li>
-</ul>
-</li>
-<li><a href="#12-git-远程仓库">12 Git 远程仓库</a><ul>
-<li><a href="#121-关联远程仓库">12.1 <strong>关联远程仓库</strong></a></li>
-<li><a href="#122-验证是否关联成功">12.2 <strong>验证是否关联成功</strong></a></li>
-<li><a href="#123-常见问题解决">12.3 <strong>常见问题解决</strong></a></li>
-<li><a href="#124-提取远程仓库">12.4 <strong>提取远程仓库</strong></a></li>
-</ul>
-</li>
-<li><a href="#13-git-服务器搭建">13 Git 服务器搭建</a><ul>
-<li><a href="#131-使用裸存储库bare-repository">13.1 使用裸存储库（Bare Repository）</a></li>
-</ul>
-</li>
-<li><a href="#14-sourcetree">14 Sourcetree</a></li>
-<li><a href="#15-vscode中操作gui操作">15 VSCode中操作（GUI操作）</a>
-    - <a href="#151-初始化或打开-git-仓库">15.1 <strong>初始化或打开 Git 仓库</strong></a>
-    - <a href="#152-基本操作流程">15.2 <strong>基本操作流程</strong></a>
-    - <a href="#153-其他常用操作">15.3 <strong>其他常用操作</strong></a>
-    - <a href="#154-配置-git-信息">15.4 <strong>配置 Git 信息</strong></a></li>
-<li><a href="#16-gui图标">16 GUI图标</a></li>
-<li><a href="#17-分支">17 分支</a></li>
-<li><a href="#18-gui分支">18 GUI分支</a></li>
-<li><a href="#19-常用命令">19 常用命令</a><ul>
-<li><a href="#191-仓库初始化与配置">19.1 <strong>仓库初始化与配置</strong></a></li>
-<li><a href="#192-文件暂存与提交">19.2 <strong>文件暂存与提交</strong></a></li>
-<li><a href="#193-分支管理">19.3 <strong>分支管理</strong></a></li>
-<li><a href="#194-远程仓库操作">19.4 <strong>远程仓库操作</strong></a></li>
-<li><a href="#195-版本回退与历史查看">19.5 <strong>版本回退与历史查看</strong></a></li>
-<li><a href="#196-标签管理用于版本发布">19.6 <strong>标签管理（用于版本发布）</strong></a></li>
-<li><a href="#197-其他常用命令">19.7 <strong>其他常用命令</strong></a></li>
-<li><a href="#198-使用建议">19.8 <strong>使用建议</strong></a></li>
-</ul>
-</li>
-<li><a href="#20-gitignore">20 .gitignore</a><ul>
-<li><a href="#201-基础语法规则">20.1 <strong>基础语法规则</strong></a></li>
-<li><a href="#202-通用模板">20.2 <strong>通用模板</strong></a></li>
-<li><a href="#203-其他">20.3 <strong>其他</strong></a></li>
-</ul>
-</li>
-</ul>
-<hr />
-<h1 id="1-git-简介">1 Git 简介</h1>
+<h1 id="1-git">1 Git 简介</h1>
 <p>Git 是一个开源的分布式版本控制系统。</p>
 <p>Git 与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持。</p>
-<h2 id="11-git-与-svn-区别">1.1 Git 与 SVN 区别</h2>
+<h2 id="11-git-svn">1.1 Git 与 SVN 区别</h2>
 <p>Git 不仅仅是个版本控制系统，它也是个内容管理系统(CMS)，工作管理系统等。</p>
 <ol>
 <li>
@@ -520,8 +506,8 @@
 <p><strong>Git 的内容完整性要优于 SVN</strong>：Git 的内容存储使用的是 SHA-1 哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。</p>
 </li>
 </ol>
-<p><img alt="image.png" src="../images/Git_SVN.png" /></p>
-<h2 id="12-git-与-github">1.2 Git 与 Github</h2>
+<p><img alt="image.png" src="../docs/images/Git_SVN.png" /></p>
+<h2 id="12-git-github">1.2 Git 与 Github</h2>
 <p>Git是个版本控制的工具，用来管理本地的代码工程，它可以记录代码内容的变更；而Github是一个代码托管平台，我们可以使用Git将本地代码上传到Github。</p>
 <p><strong>Git工作流程</strong><br />
 <img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/013351ded9e12029049ff949cbb40260.png" /></p>
@@ -531,7 +517,7 @@
 <li>本地仓库(Repository)：存放所有提交的版本数据</li>
 <li>远程仓库(Remote)：托管代码的服务器，比如我们经常用的Github就是个代码托管平台</li>
 </ul>
-<h1 id="2-git-安装配置">2 Git 安装配置</h1>
+<h1 id="2-git">2 Git 安装配置</h1>
 <p>跳过</p>
 <p>检查git安装是否成功，请在cmd中键入以下内容</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>-version
@@ -542,7 +528,7 @@
 git<span class="w"> </span>config<span class="w"> </span>–-global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;Email&quot;</span>
 </code></pre></div>
 
-<h2 id="21-git-配置">2.1 Git 配置</h2>
+<h2 id="21-git">2.1 Git 配置</h2>
 <p>Git 提供了一个叫做 <code>git config</code> 的命令，用来配置或读取相应的工作环境变量。</p>
 <p>这些环境变量，决定了 Git 在各个环节的具体工作方式和行为。</p>
 <p>这些变量可以存放在以下三个不同的地方：</p>
@@ -607,8 +593,8 @@ git<span class="w"> </span>config<span class="w"> </span>-e<span class="w"> </sp
 git<span class="w"> </span>config<span class="w"> </span>--list
 </code></pre></div>
 
-<h1 id="3-git-工作流程">3 Git 工作流程</h1>
-<p><img alt="image.png" src="../images/Git工作流程.png" /></p>
+<h1 id="3-git">3 Git 工作流程</h1>
+<p><img alt="image.png" src="../docs/images/Git工作流程.png" /></p>
 <ol>
 <li>克隆仓库<br />
 如果你要参与一个已有的项目，首先需要将远程仓库克隆到本地：</li>
@@ -686,7 +672,7 @@ git<span class="w"> </span>config<span class="w"> </span>--list
 <span class="w">  </span>&gt;git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>new-feature
 </code></pre></div>
 
-<h1 id="4-git-工作区暂存区和版本库">4 Git 工作区、暂存区和版本库</h1>
+<h1 id="4-git">4 Git 工作区、暂存区和版本库</h1>
 <ul>
 <li>
 <p><strong>工作区</strong>：就是你在电脑里能看到的目录，当前项目的所有文件和子目录都属于工作区。</p>
@@ -714,7 +700,7 @@ git<span class="w"> </span>config<span class="w"> </span>--list
 </ul>
 </li>
 </ul>
-<p><img alt="image.png" src="../images/Git工作区.png" /></p>
+<p><img alt="image.png" src="../docs/images/Git工作区.png" /></p>
 <ul>
 <li>
 <p>图中左侧为工作区，右侧为版本库。在版本库中标记为 "index" 的区域是暂存区（stage/index），标记为 "master" 的是 master 分支所代表的目录树。</p>
@@ -744,7 +730,7 @@ git<span class="w"> </span>config<span class="w"> </span>--list
 <p>当执行 <code>git checkout HEAD .</code> 或者 <code>git checkout HEAD &lt;file&gt;</code> 命令时，会用 HEAD 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。</p>
 </li>
 </ul>
-<h2 id="41-工作区暂存区和版本库之间的关系">4.1 工作区、暂存区和版本库之间的关系</h2>
+<h2 id="41">4.1 工作区、暂存区和版本库之间的关系</h2>
 <ol>
 <li>工作区 -&gt; 暂存区
 使用 git add 命令将工作区中的修改添加到暂存区。</li>
@@ -776,7 +762,7 @@ git<span class="w"> </span>config<span class="w"> </span>--list
 <span class="w">  </span>&gt;<span class="w">    </span>git<span class="w"> </span>merge<span class="w"> </span>origin/branch-name
 </code></pre></div>
 
-<h1 id="5-git-创建仓库">5 Git 创建仓库</h1>
+<h1 id="5-git">5 Git 创建仓库</h1>
 <p>三种方式</p>
 <p>1、 从创建一个新的目录开始</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>my-project
@@ -811,8 +797,8 @@ git<span class="w"> </span>clone<span class="w"> </span>&lt;repo&gt;<span class=
 <li>repo：Git 仓库。</li>
 <li>directory：本地目录。</li>
 </ul>
-<h1 id="6-git-基本命令">6 Git 基本命令</h1>
-<h2 id="61-创建仓库">6.1 创建仓库</h2>
+<h1 id="6-git">6 Git 基本命令</h1>
+<h2 id="61">6.1 创建仓库</h2>
 <table>
 <thead>
 <tr>
@@ -831,7 +817,7 @@ git<span class="w"> </span>clone<span class="w"> </span>&lt;repo&gt;<span class=
 </tr>
 </tbody>
 </table>
-<h2 id="62-提交与修改">6.2 提交与修改</h2>
+<h2 id="62">6.2 提交与修改</h2>
 <table>
 <thead>
 <tr>
@@ -898,7 +884,7 @@ git<span class="w"> </span>clone<span class="w"> </span>&lt;repo&gt;<span class=
 </tr>
 </tbody>
 </table>
-<h2 id="63-提交日志">6.3 提交日志</h2>
+<h2 id="63">6.3 提交日志</h2>
 <table>
 <thead>
 <tr>
@@ -925,7 +911,7 @@ git<span class="w"> </span>clone<span class="w"> </span>&lt;repo&gt;<span class=
 </tr>
 </tbody>
 </table>
-<h2 id="64-远程操作">6.4 远程操作</h2>
+<h2 id="64">6.4 远程操作</h2>
 <table>
 <thead>
 <tr>
@@ -956,17 +942,17 @@ git<span class="w"> </span>clone<span class="w"> </span>&lt;repo&gt;<span class=
 </tr>
 </tbody>
 </table>
-<h1 id="65-git-文件状态">6.5 Git 文件状态</h1>
+<h1 id="65-git">6.5 Git 文件状态</h1>
 <p><strong>未跟踪（Untracked）</strong>：新创建的文件，未被 Git 记录。</p>
 <p><strong>已跟踪（Tracked）</strong>： 通过 git add 命令将未跟踪的文件添加到暂存区后，文件变为已跟踪状态。</p>
 <p><strong>已修改（Modified）</strong>：已被 Git 跟踪的文件发生了更改，但这些更改还没有被提交到 Git 记录中。</p>
 <p><strong>已暂存（Staged）</strong>： 使用 git add 命令将修改过的文件添加到暂存区后，文件进入已暂存状态，等待提交。</p>
 <p><strong>已提交（Committed）</strong>： 使用 git commit 命令将暂存区的更改提交到本地仓库后，这些更改被记录下来，文件状态返回为已跟踪状态。</p>
-<h1 id="7-git-分支管理">7 Git 分支管理</h1>
+<h1 id="7-git">7 Git 分支管理</h1>
 <p>能够让多个开发人员并行工作，开发新功能、修复 bug 或进行实验，而不会影响主代码库。</p>
 <p>Git 分支实际上是指向更改快照的指针。</p>
 <p><img alt="image.png" src="https://static.jyshare.com/images/svg/git-brance.svg" /></p>
-<h2 id="71-创建与切换分支">7.1 创建与切换分支</h2>
+<h2 id="71">7.1 创建与切换分支</h2>
 <p>创建新分支：<br />
 <code>git branch &lt;branch_name&gt;</code></p>
 <p>创建新分支并切换到该分支：(checkout 是老版本，新版switch)<br />
@@ -974,25 +960,25 @@ git<span class="w"> </span>clone<span class="w"> </span>&lt;repo&gt;<span class=
 <p>切换分支：<br />
 <code>git checkout &lt;branch_name&gt;</code></p>
 <p>注：当你切换分支的时候，Git 会用该分支的最后提交的快照替换你的工作目录的内容， 所以多个分支不需要多个目录。</p>
-<h2 id="72-查看分支">7.2 查看分支</h2>
+<h2 id="72">7.2 查看分支</h2>
 <p>查看所有分支：  <br />
 <code>git branch</code></p>
 <p>查看远程分支：<br />
 <code>git branch -r</code></p>
 <p>查看所有本地和远程分支：<br />
 <code>git branch -a</code></p>
-<h2 id="73-合并分支">7.3 合并分支</h2>
+<h2 id="73">7.3 合并分支</h2>
 <p>将其他分支合并到当前分支：<br />
 <code>git merge &lt;branch_name&gt;</code></p>
 <p><code>git merge [被合并的分支] -&gt; 合并到 [你当前的分支] 上</code>  </p>
-<h2 id="74-删除分支">7.4 删除分支</h2>
+<h2 id="74">7.4 删除分支</h2>
 <p>删除本地分支：<br />
 <code>git branch -d &lt;branch_name&gt;</code></p>
 <p>强制删除未合并的分支：<br />
 <code>git branch -D &lt;branch_name&gt;</code></p>
 <p>删除远程分支：<br />
 <code>git push origin --delete &lt;branch_name&gt;</code></p>
-<h2 id="75-最常用分支命令">7.5 最常用分支命令</h2>
+<h2 id="75">7.5 最常用分支命令</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. 查看所有分支（当前分支前面有 *）</span>
 git<span class="w"> </span>branch
 
@@ -1018,8 +1004,8 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 git<span class="w"> </span>branch<span class="w"> </span>-a
 </code></pre></div>
 
-<h2 id="76-完整工作流程">7.6 完整工作流程</h2>
-<h3 id="761-永远从最新主分支开新功能">7.6.1 永远从最新主分支开新功能</h3>
+<h2 id="76">7.6 完整工作流程</h2>
+<h3 id="761">7.6.1 永远从最新主分支开新功能</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 切到主分支</span>
 git<span class="w"> </span>switch<span class="w"> </span>main
 
@@ -1027,17 +1013,17 @@ git<span class="w"> </span>switch<span class="w"> </span>main
 git<span class="w"> </span>pull
 </code></pre></div>
 
-<h3 id="762-创建你的功能分支">7.6.2 创建你的功能分支</h3>
+<h3 id="762">7.6.2 创建你的功能分支</h3>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>switch<span class="w"> </span>-c<span class="w"> </span>feature-login
 </code></pre></div>
 
 <p>现在你进入独立开发空间，<strong>随便写代码，不影响主分支</strong>。</p>
-<h3 id="763-在分支上正常写代码提交">7.6.3 在分支上正常写代码、提交</h3>
+<h3 id="763">7.6.3 在分支上正常写代码、提交</h3>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;完成登录功能&quot;</span>
 </code></pre></div>
 
-<h3 id="764-写完了合并回主分支">7.6.4 写完了，合并回主分支</h3>
+<h3 id="764">7.6.4 写完了，合并回主分支</h3>
 <p>先切回主分支</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>switch<span class="w"> </span>main
 </code></pre></div>
@@ -1050,11 +1036,11 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>push
 </code></pre></div>
 
-<h3 id="765-合并完删除旧分支">7.6.5 合并完，删除旧分支</h3>
+<h3 id="765">7.6.5 合并完，删除旧分支</h3>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature-login
 </code></pre></div>
 
-<h2 id="77-主分支被改怎么同步到你的分支">7.7 主分支被改，怎么同步到你的分支？</h2>
+<h2 id="77">7.7 主分支被改，怎么同步到你的分支？</h2>
 <p>场景：
 你在写分支，同事更新了 main 分支，你想<strong>把最新主分支代码拿到你的分支里</strong>。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. 切到 main，拉最新</span>
@@ -1069,7 +1055,7 @@ git<span class="w"> </span>merge<span class="w"> </span>main
 </code></pre></div>
 
 <p>你的分支就变成<strong>最新代码 + 你的新功能</strong>了。</p>
-<h2 id="78-遇到冲突怎么办">7.8 遇到冲突怎么办？</h2>
+<h2 id="78">7.8 遇到冲突怎么办？</h2>
 <p>Git 提示：
 <code>Automatic merge failed; fix conflicts and then commit the result.</code></p>
 <p>解决方法：
@@ -1089,17 +1075,17 @@ git<span class="w"> </span>merge<span class="w"> </span>main
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;解决冲突&quot;</span>
 </code></pre></div>
 
-<h2 id="79-远程分支操作">7.9 远程分支操作</h2>
-<h3 id="791-把本地分支发到远程">7.9.1 把本地分支发到远程</h3>
+<h2 id="79">7.9 远程分支操作</h2>
+<h3 id="791">7.9.1 把本地分支发到远程</h3>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature-login
 </code></pre></div>
 
-<h3 id="792-拉取别人创建的远程分支">7.9.2 拉取别人创建的远程分支</h3>
+<h3 id="792">7.9.2 拉取别人创建的远程分支</h3>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>fetch
 git<span class="w"> </span>switch<span class="w"> </span>分支名
 </code></pre></div>
 
-<h3 id="793-删除远程分支">7.9.3 删除远程分支</h3>
+<h3 id="793">7.9.3 删除远程分支</h3>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>分支名
 </code></pre></div>
 
@@ -1129,7 +1115,7 @@ git<span class="w"> </span>push
 git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature-login
 </code></pre></div>
 
-<h1 id="8-git-查看提交历史">8 Git 查看提交历史</h1>
+<h1 id="8-git">8 Git 查看提交历史</h1>
 <p>查看 Git 提交历史可以帮助你了解代码的变更情况和开发进度。</p>
 <p>Git 提供了多种命令和选项来查看提交历史，从简单的日志到详细的差异对比。</p>
 <ul>
@@ -1166,7 +1152,7 @@ git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </sp
 <li>-C -C 或 -M -M：对于较多改动的代码行，进行更进一步的溯源。</li>
 <li>--show-stats：显示包含每个作者的行数统计信息。</li>
 </ul>
-<h1 id="9-git-恢复和回退">9 Git 恢复和回退</h1>
+<h1 id="9-git">9 Git 恢复和回退</h1>
 <p>Git 提供了多种方式来恢复和回退到之前的版本，不同的命令适用于不同的场景和需求。</p>
 <p>以下是几种常见的方法：</p>
 <ul>
@@ -1229,7 +1215,7 @@ git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </sp
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">3</span><span class="o">}</span>
 </code></pre></div>
 
-<h2 id="95-示例">9.5 示例</h2>
+<h2 id="95">9.5 示例</h2>
 <p>查看提交历史：</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>log<span class="w"> </span>--oneline
 </code></pre></div>
@@ -1268,7 +1254,7 @@ ghi9012<span class="w"> </span>Commit<span class="w"> </span><span class="m">3</
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">3</span><span class="o">}</span>
 </code></pre></div>
 
-<h1 id="10-git-标签">10 Git 标签</h1>
+<h1 id="10-git">10 Git 标签</h1>
 <p>如果你达到一个重要的阶段，并希望永远记住提交的快照，你可以使用 git tag 给它打上标签。  </p>
 <p>比如说，我们想为我们的 test 项目发布一个 "1.0" 版本，我们可以用 git tag -a v1.0 命令给最新一次提交打上（HEAD） "v1.0" 的标签。  </p>
 <p>-a 选项意为"创建一个带注解的标签"，它会记录这标签是啥时候打的，谁打的。不用 -a 选项也可以执行，但我们推荐一直创建带注解的标签。  </p>
@@ -1340,10 +1326,10 @@ ghi9012<span class="w"> </span>Commit<span class="w"> </span><span class="m">3</
 <p>Feature 分支完成后合并回 Develop 分支，并通常删除该分支。</p>
 <p>Release 分支基于 Develop 创建，用于测试和修复 Bug，发布后合并回 Master 和 Develop，并打 Tag 标记版本号。</p>
 <p>Hotfix 分支基于 Master 创建，完成后合并回 Master 和 Develop，并打 Tag。</p>
-<h2 id="101-git-flow-安装">10.1 Git Flow 安装</h2>
+<h2 id="101-git-flow">10.1 Git Flow 安装</h2>
 <p>在 Windows 上，你可以通过以下方式安装 Git Flow：</p>
 <p>使用 Git for Windows: 其中包含了 Git Flow。你可以从 Git for Windows 安装 Git，然后使用 Git Bash 来使用 Git Flow。</p>
-<h2 id="102-git-flow-工作流程">10.2 Git Flow 工作流程</h2>
+<h2 id="102-git-flow">10.2 Git Flow 工作流程</h2>
 <p>1.初始化 Git Flow  </p>
 <p>首先，在项目中初始化 Git Flow。可以使用 Git Flow 插件（例如 git-flow）来简化操作。</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>flow<span class="w"> </span>init
@@ -1377,7 +1363,7 @@ ghi9012<span class="w"> </span>Commit<span class="w"> </span><span class="m">3</
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>flow<span class="w"> </span>hotfix<span class="w"> </span>finish<span class="w"> </span>hotfix-name
 </code></pre></div>
 
-<h1 id="11-git-进阶操作">11 Git 进阶操作</h1>
+<h1 id="11-git">11 Git 进阶操作</h1>
 <h2 id="111-git-stash">11.1 Git Stash</h2>
 <p>允许你临时保存当前工作目录的更改，以便你可以切换到其他分支或处理其他任务。</p>
 <p>保存当前工作进度：
@@ -1418,7 +1404,7 @@ ghi9012<span class="w"> </span>Commit<span class="w"> </span><span class="m">3</
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>cherry-pick<span class="w"> </span>abc123
 </code></pre></div>
 
-<h1 id="12-git-远程仓库">12 Git 远程仓库</h1>
+<h1 id="12-git">12 Git 远程仓库</h1>
 <p>常用远程仓库及简单教程<br />
 GitHub：https://www.runoob.com/w3cnote/git-guide.html<br />
 GitLab：https://about.gitlab.com/<br />
@@ -1488,9 +1474,9 @@ origin<span class="w">  </span>https://github.com/你的用户名/仓库名.git<
 
 <p>该命令就是在执行 git fetch 之后紧接着执行 git merge 远程分支到你所在的任意分支。</p>
 <p><img alt="image.png" src="https://www.runoob.com/wp-content/uploads/2015/03/main-qimg-00a6b5a8ec82400657444504c4d4d1a7.png" /></p>
-<h1 id="13-git-服务器搭建">13 Git 服务器搭建</h1>
+<h1 id="13-git">13 Git 服务器搭建</h1>
 <p>Github 公开的项目是免费的，2019 年开始 Github 私有存储库也可以无限制使用。我们也可以自己搭建一台 Git 服务器作为私有仓库使用。</p>
-<h2 id="131-使用裸存储库bare-repository">13.1 使用裸存储库（Bare Repository）</h2>
+<h2 id="131-bare-repository">13.1 使用裸存储库（Bare Repository）</h2>
 <p>1、安装Git</p>
 <p>接下来我们 创建一个 git 用户组和用户，用来运行git服务：</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>groupadd<span class="w"> </span>git
@@ -1542,7 +1528,7 @@ Checking<span class="w"> </span>connectivity...<span class="w"> </span><span cla
 <p>可以通过界面菜单很方便的处理 Git 操作，而不需要通过命令。</p>
 <p>通过 SourceTree，我们可以管理所有的 Git 库，无论是远程还是本地的。SourceTree 支持 Bitbucket、GitHub 以及 Gitlab 等远程仓库。</p>
 <h1 id="-">-----------------------------------------</h1>
-<h1 id="15-vscode中操作gui操作">15 VSCode中操作（GUI操作）</h1>
+<h1 id="15-vscodegui">15 VSCode中操作（GUI操作）</h1>
 <p>在 VS Code 中使用 Git 非常方便，它内置了对 Git 的集成支持，无需额外安装插件即可完成大部分 Git 操作。</p>
 <h3 id="151-git">15.1 <strong>初始化或打开 Git 仓库</strong></h3>
 <ul>
@@ -1627,7 +1613,7 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;你的邮箱&quot;</span>
 </code></pre></div>
 
-<h1 id="16-gui图标">16 GUI图标</h1>
+<h1 id="16-gui">16 GUI图标</h1>
 <p>左下角的main说明处在main这个分支</p>
 <p>'*' 代表当前分支有未提交的修改</p>
 <p>'+' 代表有已添加未提交的修改</p>
@@ -1761,7 +1747,7 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 <p>功能：打开 Git 命令的<strong>详细日志窗口</strong>，方便排查拉取、推送、提交时的错误。</p>
 </li>
 </ol>
-<h1 id="17-分支">17 分支</h1>
+<h1 id="17">17 分支</h1>
 <p>分支管理是版本控制中一个很重要的内容，在Git中主要有切换/创建分支(checkout)、合并分支(merge)两个指令。下面是部分分支操作的指令和图示</p>
 <ul>
 <li>圆圈表示一个提交(commit)记录</li>
@@ -1795,7 +1781,7 @@ git<span class="w"> </span>merge<span class="w"> </span>master
 </code></pre></div>
 
 <p><img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/3a37bdb6325970925bb34907b6a76ac7.png" /></p>
-<h1 id="18-gui分支">18 GUI分支</h1>
+<h1 id="18-gui">18 GUI分支</h1>
 <p>点击左下角图标</p>
 <p>三个选项</p>
 <ul>
@@ -1805,7 +1791,7 @@ git<span class="w"> </span>merge<span class="w"> </span>master
 </ul>
 <p>命名建议：<br />
 feature/功能名（新功能）、fix/问题描述（修复bug）、docs/文档说明（文档更新）</p>
-<h1 id="19-常用命令">19 常用命令</h1>
+<h1 id="19">19 常用命令</h1>
 <h2 id="191">19.1 <strong>仓库初始化与配置</strong></h2>
 <table>
 <thead>
@@ -2199,12 +2185,684 @@ feature/功能名（新功能）、fix/问题描述（修复bug）、docs/文档
 <div class="highlight"><pre><span></span><code><span class="w"> </span>&gt;<span class="w">   </span>git<span class="w"> </span>rm<span class="w"> </span>--cached<span class="w"> </span>文件名<span class="w">  </span><span class="c1"># 移除跟踪（本地文件保留）</span>
 <span class="w"> </span>&gt;<span class="w">   </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;停止跟踪 xxx 文件&quot;</span>
 </code></pre></div>
+
+<h1 id="21-github-issue-pr">21 GitHub Issue 与 PR 协作流程</h1>
+<p>在实际团队开发中，GitHub 的 <strong>Issue</strong> 和 <strong>Pull Request（PR）</strong> 是最核心的协作工具。Issue 用于追踪任务和讨论，PR 用于代码审查和合并。</p>
+<h2 id="211-issue">21.1 Issue 使用流程</h2>
+<p>Issue 是 GitHub 上的「议题/工单」，用于描述一个 <strong>要开发的功能</strong>、<strong>需要修复的 Bug</strong> 或 <strong>待办事项</strong>。</p>
+<h3 id="2111-issue">21.1.1 创建 Issue</h3>
+<p>在仓库页面点击 <strong>Issues</strong> → <strong>New Issue</strong>，填写：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Title</strong></td>
+<td>简明扼要的标题，如 <code>添加用户登录功能</code></td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>详细描述问题/功能，可使用 Markdown 格式</td>
+</tr>
+<tr>
+<td><strong>Assignees</strong></td>
+<td>指定负责人（谁来做）</td>
+</tr>
+<tr>
+<td><strong>Labels</strong></td>
+<td>打标签分类（<code>bug</code>、<code>feature</code>、<code>enhancement</code> 等）</td>
+</tr>
+<tr>
+<td><strong>Projects</strong></td>
+<td>关联项目看板（用于进度追踪）</td>
+</tr>
+<tr>
+<td><strong>Milestone</strong></td>
+<td>关联里程碑（用于版本规划）</td>
+</tr>
+</tbody>
+</table>
+<p>好的 Issue 描述模板示例：</p>
+<div class="highlight"><pre><span></span><code><span class="gu">### 功能描述</span>
+作为用户，我希望能够通过邮箱登录，以便快速访问系统。
+
+<span class="gu">### 验收标准</span>
+<span class="k">- [ ]</span> 用户输入邮箱和密码后点击登录
+<span class="k">- [ ]</span> 验证邮箱格式是否正确
+<span class="k">- [ ]</span> 登录成功后跳转到首页
+<span class="k">- [ ]</span> 登录失败时显示错误提示
+
+<span class="gu">### 技术要求</span>
+<span class="k">-</span><span class="w"> </span>使用 JWT Token 进行身份验证
+<span class="k">-</span><span class="w"> </span>密码使用 bcrypt 加密存储
+
+<span class="gu">### 相关资源</span>
+<span class="k">-</span><span class="w"> </span>UI 设计稿: [链接]
+<span class="k">-</span><span class="w"> </span>API 文档: [链接]
+</code></pre></div>
+
+<h3 id="2112-labelsmilestoneassignees">21.1.2 使用 Labels、Milestone、Assignees</h3>
+<ul>
+<li>
+<p><strong>Labels（标签）</strong>：用于分类 Issue，常见的标签有：
+  | 标签 | 含义 |
+  |------|------|
+  | <code>bug</code> | 程序缺陷 |
+  | <code>feature</code> | 新功能请求 |
+  | <code>enhancement</code> | 功能改进 |
+  | <code>documentation</code> | 文档相关 |
+  | <code>help wanted</code> | 寻求帮助 |
+  | <code>good first issue</code> | 适合新手 |</p>
+</li>
+<li>
+<p><strong>Milestone（里程碑）</strong>：将 Issue 组织到版本发布计划中，如 <code>v1.0</code>、<code>v2.0</code></p>
+</li>
+<li>
+<p><strong>Assignees（指派人员）</strong>：明确指定谁负责处理这个 Issue</p>
+</li>
+</ul>
+<h3 id="2113-projects">21.1.3 使用 Projects（看板）</h3>
+<p>GitHub Projects 提供看板视图追踪进度，通常包含以下列：</p>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>To do</strong></td>
+<td>待办事项</td>
+</tr>
+<tr>
+<td><strong>In progress</strong></td>
+<td>开发中</td>
+</tr>
+<tr>
+<td><strong>In review</strong></td>
+<td>代码审查中</td>
+</tr>
+<tr>
+<td><strong>Done</strong></td>
+<td>已完成</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2114-pull-request">21.1.4 关联 Pull Request</h3>
+<p>在 PR 描述或提交信息中使用关键词可以自动关联和关闭 Issue：</p>
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>close #123</code></td>
+<td>合并 PR 时关闭 Issue #123</td>
+</tr>
+<tr>
+<td><code>closes #123</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td><code>closed #123</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td><code>fix #123</code></td>
+<td>合并 PR 时关闭 Issue #123</td>
+</tr>
+<tr>
+<td><code>fixes #123</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td><code>fixed #123</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td><code>resolve #123</code></td>
+<td>合并 PR 时关闭 Issue #123</td>
+</tr>
+<tr>
+<td><code>resolves #123</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td><code>resolved #123</code></td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code><span class="gu">## 描述</span>
+实现了用户邮箱登录功能。
+
+Closes <span class="ni">#123</span>
+</code></pre></div>
+
+<h2 id="212-pull-request">21.2 Pull Request 流程</h2>
+<p>Pull Request 是通知团队成员「代码已准备好，请审查」的机制。</p>
+<h3 id="2121-issue">21.2.1 从 Issue 创建分支</h3>
+<p>在开始开发前，先从主分支创建新分支：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 确保主分支最新</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull
+
+<span class="c1"># 2. 创建功能分支（建议分支名包含 Issue 编号）</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/issue-123-login
+</code></pre></div>
+
+<h3 id="2122">21.2.2 开发并提交</h3>
+<p>开发过程中，在 commit message 中关联 Issue：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: 添加邮箱登录功能</span>
+
+<span class="s2">fix #123: 实现用户邮箱密码登录&quot;</span>
+</code></pre></div>
+
+<p>推荐的 commit message 格式：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feat:</code></td>
+<td>新功能</td>
+<td><code>feat: 添加用户登录页面</code></td>
+</tr>
+<tr>
+<td><code>fix:</code></td>
+<td>Bug 修复</td>
+<td><code>fix: 修复登录按钮无法点击</code></td>
+</tr>
+<tr>
+<td><code>docs:</code></td>
+<td>文档更新</td>
+<td><code>docs: 更新 API 文档</code></td>
+</tr>
+<tr>
+<td><code>refactor:</code></td>
+<td>代码重构</td>
+<td><code>refactor: 重构登录逻辑</code></td>
+</tr>
+<tr>
+<td><code>test:</code></td>
+<td>测试相关</td>
+<td><code>test: 添加登录功能单元测试</code></td>
+</tr>
+<tr>
+<td><code>chore:</code></td>
+<td>杂项（构建、依赖等）</td>
+<td><code>chore: 更新依赖版本</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2123-pr">21.2.3 创建 PR</h3>
+<p>开发完成后推送分支并创建 PR：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 推送分支到远程</span>
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>feature/issue-123-login
+</code></pre></div>
+
+<p>在 GitHub 页面点击 <strong>Compare &amp; pull request</strong>，填写 PR 信息：</p>
+<div class="highlight"><pre><span></span><code><span class="gu">## 描述</span>
+实现了用户邮箱登录功能。
+
+Closes <span class="ni">#123</span>
+
+<span class="gu">## 变更内容</span>
+<span class="k">-</span><span class="w"> </span>添加登录页面 UI
+<span class="k">-</span><span class="w"> </span>实现邮箱格式验证
+<span class="k">-</span><span class="w"> </span>集成 JWT 身份验证
+
+<span class="gu">## 检查清单</span>
+<span class="k">- [ ]</span> 代码已自测
+<span class="k">- [ ]</span> 已添加单元测试
+<span class="k">- [ ]</span> 文档已更新
+<span class="k">- [ ]</span> 无 lint 错误
+
+<span class="gu">## 截图</span>
+![<span class="nt">登录页面截图</span>](<span class="na">URL</span>)
+</code></pre></div>
+
+<h3 id="2124-code-review">21.2.4 Code Review 流程</h3>
+<p>PR 创建后，需要团队成员进行 Code Review：</p>
+<ol>
+<li><strong>添加 Reviewers</strong>：在 PR 右侧面板添加审查人员</li>
+<li><strong>审查反馈</strong>：审查者会在代码行上留下评论</li>
+<li><strong>修改代码</strong>：根据反馈修改代码并推送新提交</li>
+<li><strong>重新审查</strong>：修改完成后通知审查者再次审查</li>
+<li><strong>批准合并</strong>：审查通过后点击 <strong>Approve</strong></li>
+</ol>
+<p>处理审查意见：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 根据反馈修改代码</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;fix: 根据 review 建议优化登录验证逻辑&quot;</span>
+git<span class="w"> </span>push
+</code></pre></div>
+
+<p>新提交会自动更新到 PR 中，无需重新创建 PR。</p>
+<h3 id="2125">21.2.5 合并策略</h3>
+<p>GitHub 提供三种合并方式：</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Merge Commit</strong></td>
+<td>保留所有提交历史，生成一个合并提交</td>
+<td>需要保留完整开发细节</td>
+</tr>
+<tr>
+<td><strong>Squash and Merge</strong></td>
+<td>将所有提交压缩成一个提交再合并</td>
+<td>功能分支，保持主分支历史整洁</td>
+</tr>
+<tr>
+<td><strong>Rebase and Merge</strong></td>
+<td>将提交变基到主分支顶部，避免合并节点</td>
+<td>希望保持线性历史</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># 合并后的主分支更新</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull
+</code></pre></div>
+
+<h3 id="2126">21.2.6 合并后清理分支</h3>
+<p>PR 合并后，删除本地和远程的功能分支：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 删除本地分支</span>
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/issue-123-login
+
+<span class="c1"># 删除远程分支</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>feature/issue-123-login
+
+<span class="c1"># 或者使用 GitHub 页面上的 &quot;Delete branch&quot; 按钮</span>
+</code></pre></div>
+
+<h2 id="213">21.3 完整协作流程示例</h2>
+<p>从 Issue 到 PR 合并的完整流程：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. 同步主分支</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull
+
+<span class="c1"># 2. 基于 Issue 创建功能分支</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/issue-456-register
+
+<span class="c1"># 3. 开发功能，多次提交</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: 添加注册页面 UI&quot;</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;fix #456: 实现用户注册功能&quot;</span>
+
+<span class="c1"># 4. 推送分支到远程</span>
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>feature/issue-456-register
+
+<span class="c1"># 5. 在 GitHub 创建 PR，链接 Issue</span>
+<span class="c1">#    PR 描述中写 &quot;Closes #456&quot;</span>
+
+<span class="c1"># 6. 根据 Code Review 反馈修改</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;fix: 修复注册表单验证逻辑&quot;</span>
+git<span class="w"> </span>push
+
+<span class="c1"># 7. PR 合并后（在 GitHub 上点击 Merge）</span>
+
+<span class="c1"># 8. 清理分支</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/issue-456-register
+</code></pre></div>
+
+<h2 id="214">21.4 最佳实践</h2>
+<h3 id="2141">21.4.1 分支命名规范</h3>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>用途</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feature/</code></td>
+<td>新功能</td>
+<td><code>feature/user-login</code></td>
+</tr>
+<tr>
+<td><code>bugfix/</code></td>
+<td>Bug 修复</td>
+<td><code>bugfix/login-button-crash</code></td>
+</tr>
+<tr>
+<td><code>hotfix/</code></td>
+<td>紧急修复</td>
+<td><code>hotfix/security-vulnerability</code></td>
+</tr>
+<tr>
+<td><code>release/</code></td>
+<td>发布准备</td>
+<td><code>release/v1.2.0</code></td>
+</tr>
+<tr>
+<td><code>docs/</code></td>
+<td>文档更新</td>
+<td><code>docs/update-readme</code></td>
+</tr>
+<tr>
+<td><code>refactor/</code></td>
+<td>代码重构</td>
+<td><code>refactor/auth-module</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="2142-pr">21.4.2 PR 大小控制</h3>
+<ul>
+<li><strong>单一职责</strong>：一个 PR 只做一件事（一个功能或一个修复）</li>
+<li><strong>控制行数</strong>：建议每个 PR 不超过 300-500 行变更</li>
+<li><strong>及时提交</strong>：大功能拆分成多个小 PR 逐步合并</li>
+<li><strong>避免混合</strong>：不要在同个 PR 中混合重构和新功能</li>
+</ul>
+<h3 id="2143-code-review">21.4.3 Code Review 礼仪</h3>
+<p><strong>提交者（Author）</strong>：</p>
+<ul>
+<li>PR 描述清晰，说明改动原因和影响范围</li>
+<li>自测通过后再请求审查</li>
+<li>及时回应评论，不拖延</li>
+<li>每个 Review 意见都回复（Resolve 或回复理由）</li>
+</ul>
+<p><strong>审查者（Reviewer）</strong>：</p>
+<ul>
+<li>尽快审查，避免阻塞进度</li>
+<li>评论对事不对人，语气友善</li>
+<li>区分「必须修改」和「建议修改」</li>
+<li>使用 GitHub 的「Request changes」和「Comment」区分严重程度</li>
+</ul>
+<h3 id="2144-github-cli-gh">21.4.4 使用 GitHub CLI (<code>gh</code>)</h3>
+<p>GitHub CLI 可以在终端中完成 Issue 和 PR 操作：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 安装 gh（Windows）</span>
+winget<span class="w"> </span>install<span class="w"> </span>--id<span class="w"> </span>GitHub.cli
+
+<span class="c1"># 登录 GitHub</span>
+gh<span class="w"> </span>auth<span class="w"> </span>login
+
+<span class="c1"># 创建 Issue</span>
+gh<span class="w"> </span>issue<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--title<span class="w"> </span><span class="s2">&quot;添加用户登录功能&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--body<span class="w"> </span><span class="s2">&quot;实现邮箱密码登录&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--assignee<span class="w"> </span>@me<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--label<span class="w"> </span>feature<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--milestone<span class="w"> </span><span class="s2">&quot;v1.0&quot;</span>
+
+<span class="c1"># 查看 Issue 列表</span>
+gh<span class="w"> </span>issue<span class="w"> </span>list
+
+<span class="c1"># 查看 Issue 详情</span>
+gh<span class="w"> </span>issue<span class="w"> </span>view<span class="w"> </span><span class="m">123</span>
+
+<span class="c1"># 创建 PR</span>
+gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--title<span class="w"> </span><span class="s2">&quot;feat: 添加用户登录功能&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--body<span class="w"> </span><span class="s2">&quot;Closes #123&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--assignee<span class="w"> </span>@me<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reviewer<span class="w"> </span>teammate
+
+<span class="c1"># 查看 PR 列表</span>
+gh<span class="w"> </span>pr<span class="w"> </span>list
+
+<span class="c1"># 查看 PR 详情</span>
+gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span><span class="m">456</span>
+
+<span class="c1"># 检出 PR 到本地</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checkout<span class="w"> </span><span class="m">456</span>
+
+<span class="c1"># 审查 PR（Approve）</span>
+gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span><span class="m">456</span><span class="w"> </span>--approve
+
+<span class="c1"># 合并 PR</span>
+gh<span class="w"> </span>pr<span class="w"> </span>merge<span class="w"> </span><span class="m">456</span><span class="w"> </span>--squash
+
+<span class="c1"># 查看 CI 状态</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checks<span class="w"> </span><span class="m">456</span>
+</code></pre></div>
+
+<h2 id="215-issue-pr">21.5 Issue 与 PR 速查表</h2>
+<h3 id="issue">Issue 管理</h3>
+<table>
+<thead>
+<tr>
+<th>命令 / 操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gh issue create</code></td>
+<td>创建 Issue</td>
+</tr>
+<tr>
+<td><code>gh issue list</code></td>
+<td>列出 Issue</td>
+</tr>
+<tr>
+<td><code>gh issue view &lt;id&gt;</code></td>
+<td>查看 Issue 详情</td>
+</tr>
+<tr>
+<td><code>gh issue close &lt;id&gt;</code></td>
+<td>关闭 Issue</td>
+</tr>
+<tr>
+<td><code>gh issue reopen &lt;id&gt;</code></td>
+<td>重新打开 Issue</td>
+</tr>
+<tr>
+<td>在 PR 描述中写 <code>Closes #123</code></td>
+<td>合并时自动关闭 Issue</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pr">PR 管理</h3>
+<table>
+<thead>
+<tr>
+<th>命令 / 操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gh pr create</code></td>
+<td>创建 PR</td>
+</tr>
+<tr>
+<td><code>gh pr list</code></td>
+<td>列出 PR</td>
+</tr>
+<tr>
+<td><code>gh pr view &lt;id&gt;</code></td>
+<td>查看 PR 详情</td>
+</tr>
+<tr>
+<td><code>gh pr checkout &lt;id&gt;</code></td>
+<td>在本地检出 PR</td>
+</tr>
+<tr>
+<td><code>gh pr review &lt;id&gt; --approve</code></td>
+<td>批准 PR</td>
+</tr>
+<tr>
+<td><code>gh pr merge &lt;id&gt; --squash</code></td>
+<td>squash 合并 PR</td>
+</tr>
+</tbody>
+</table>
+<h3 id="git">常见 Git 命令</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git checkout -b feature/xxx</code></td>
+<td>创建并切换分支</td>
+</tr>
+<tr>
+<td><code>git push -u origin feature/xxx</code></td>
+<td>首次推送分支</td>
+</tr>
+<tr>
+<td><code>git push origin --delete feature/xxx</code></td>
+<td>删除远程分支</td>
+</tr>
+<tr>
+<td><code>git branch -d feature/xxx</code></td>
+<td>删除本地分支</td>
+</tr>
+<tr>
+<td><code>git commit -m "fix #123: 描述"</code></td>
+<td>提交时关联 Issue</td>
+</tr>
+</tbody>
+</table>
         </article>
         <footer class="site-footer">
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1-git">1 Git 简介</a></li>
+<li><a class="toc-h2" href="#11-git-svn">1.1 Git 与 SVN 区别</a></li>
+<li><a class="toc-h2" href="#12-git-github">1.2 Git 与 Github</a></li>
+<li><a href="#2-git">2 Git 安装配置</a></li>
+<li><a class="toc-h2" href="#21-git">2.1 Git 配置</a></li>
+<li><a href="#3-git">3 Git 工作流程</a></li>
+<li><a href="#4-git">4 Git 工作区、暂存区和版本库</a></li>
+<li><a class="toc-h2" href="#41">4.1 工作区、暂存区和版本库之间的关系</a></li>
+<li><a href="#5-git">5 Git 创建仓库</a></li>
+<li><a href="#6-git">6 Git 基本命令</a></li>
+<li><a class="toc-h2" href="#61">6.1 创建仓库</a></li>
+<li><a class="toc-h2" href="#62">6.2 提交与修改</a></li>
+<li><a class="toc-h2" href="#63">6.3 提交日志</a></li>
+<li><a class="toc-h2" href="#64">6.4 远程操作</a></li>
+<li><a href="#65-git">6.5 Git 文件状态</a></li>
+<li><a href="#7-git">7 Git 分支管理</a></li>
+<li><a class="toc-h2" href="#71">7.1 创建与切换分支</a></li>
+<li><a class="toc-h2" href="#72">7.2 查看分支</a></li>
+<li><a class="toc-h2" href="#73">7.3 合并分支</a></li>
+<li><a class="toc-h2" href="#74">7.4 删除分支</a></li>
+<li><a class="toc-h2" href="#75">7.5 最常用分支命令</a></li>
+<li><a class="toc-h2" href="#76">7.6 完整工作流程</a></li>
+<li><a class="toc-h3" href="#761">7.6.1 永远从最新主分支开新功能</a></li>
+<li><a class="toc-h3" href="#762">7.6.2 创建你的功能分支</a></li>
+<li><a class="toc-h3" href="#763">7.6.3 在分支上正常写代码、提交</a></li>
+<li><a class="toc-h3" href="#764">7.6.4 写完了，合并回主分支</a></li>
+<li><a class="toc-h3" href="#765">7.6.5 合并完，删除旧分支</a></li>
+<li><a class="toc-h2" href="#77">7.7 主分支被改，怎么同步到你的分支？</a></li>
+<li><a class="toc-h2" href="#78">7.8 遇到冲突怎么办？</a></li>
+<li><a class="toc-h2" href="#79">7.9 远程分支操作</a></li>
+<li><a class="toc-h3" href="#791">7.9.1 把本地分支发到远程</a></li>
+<li><a class="toc-h3" href="#792">7.9.2 拉取别人创建的远程分支</a></li>
+<li><a class="toc-h3" href="#793">7.9.3 删除远程分支</a></li>
+<li><a class="toc-h2" href="#710">7.10分支模板</a></li>
+<li><a href="#8-git">8 Git 查看提交历史</a></li>
+<li><a class="toc-h2" href="#81-git-log">8.1 git log</a></li>
+<li><a class="toc-h2" href="#82-git-blame">8.2 git blame</a></li>
+<li><a href="#9-git">9 Git 恢复和回退</a></li>
+<li><a class="toc-h2" href="#91-git-checkout">9.1 git checkout</a></li>
+<li><a class="toc-h2" href="#92-git-reset">9.2 git reset</a></li>
+<li><a class="toc-h2" href="#93-git-revert">9.3 git revert</a></li>
+<li><a class="toc-h2" href="#94-git-reflog">9.4 git reflog</a></li>
+<li><a class="toc-h2" href="#95">9.5 示例</a></li>
+<li><a href="#10-git">10 Git 标签</a></li>
+<li><a href="#10-git-flow">10 Git Flow</a></li>
+<li><a class="toc-h2" href="#101-git-flow">10.1 Git Flow 安装</a></li>
+<li><a class="toc-h2" href="#102-git-flow">10.2 Git Flow 工作流程</a></li>
+<li><a href="#11-git">11 Git 进阶操作</a></li>
+<li><a class="toc-h2" href="#111-git-stash">11.1 Git Stash</a></li>
+<li><a class="toc-h2" href="#112-git-rebase">11.2 Git Rebase</a></li>
+<li><a class="toc-h2" href="#113-git-cherry-pick">11.3 Git Cherry-Pick</a></li>
+<li><a href="#12-git">12 Git 远程仓库</a></li>
+<li><a class="toc-h2" href="#121">12.1 关联远程仓库</a></li>
+<li><a class="toc-h2" href="#122">12.2 验证是否关联成功</a></li>
+<li><a class="toc-h2" href="#123">12.3 常见问题解决</a></li>
+<li><a class="toc-h2" href="#124">12.4 提取远程仓库</a></li>
+<li><a href="#13-git">13 Git 服务器搭建</a></li>
+<li><a class="toc-h2" href="#131-bare-repository">13.1 使用裸存储库（Bare Repository）</a></li>
+<li><a href="#14-sourcetree">14 Sourcetree</a></li>
+<li><a href="#-">-----------------------------------------</a></li>
+<li><a href="#15-vscodegui">15 VSCode中操作（GUI操作）</a></li>
+<li><a class="toc-h3" href="#151-git">15.1 初始化或打开 Git 仓库</a></li>
+<li><a class="toc-h3" href="#152">15.2 基本操作流程</a></li>
+<li><a class="toc-h3" href="#153">15.3 其他常用操作</a></li>
+<li><a class="toc-h3" href="#154-git">15.4 配置 Git 信息</a></li>
+<li><a href="#16-gui">16 GUI图标</a></li>
+<li><a href="#17">17 分支</a></li>
+<li><a href="#18-gui">18 GUI分支</a></li>
+<li><a href="#19">19 常用命令</a></li>
+<li><a class="toc-h2" href="#191">19.1 仓库初始化与配置</a></li>
+<li><a class="toc-h2" href="#192">19.2 文件暂存与提交</a></li>
+<li><a class="toc-h2" href="#193">19.3 分支管理</a></li>
+<li><a class="toc-h2" href="#194">19.4 远程仓库操作</a></li>
+<li><a class="toc-h2" href="#195">19.5 版本回退与历史查看</a></li>
+<li><a class="toc-h2" href="#196">19.6 标签管理（用于版本发布）</a></li>
+<li><a class="toc-h2" href="#197">19.7 其他常用命令</a></li>
+<li><a class="toc-h2" href="#198">19.8 使用建议</a></li>
+<li><a href="#20-gitignore">20 .gitignore</a></li>
+<li><a class="toc-h2" href="#201">20.1 基础语法规则</a></li>
+<li><a class="toc-h2" href="#202">20.2 通用模板</a></li>
+<li><a class="toc-h2" href="#203">20.3 其他</a></li>
+<li><a href="#21-github-issue-pr">21 GitHub Issue 与 PR 协作流程</a></li>
+<li><a class="toc-h2" href="#211-issue">21.1 Issue 使用流程</a></li>
+<li><a class="toc-h3" href="#2111-issue">21.1.1 创建 Issue</a></li>
+<li><a class="toc-h3" href="#2112-labelsmilestoneassignees">21.1.2 使用 Labels、Milestone、Assignees</a></li>
+<li><a class="toc-h3" href="#2113-projects">21.1.3 使用 Projects（看板）</a></li>
+<li><a class="toc-h3" href="#2114-pull-request">21.1.4 关联 Pull Request</a></li>
+<li><a class="toc-h2" href="#212-pull-request">21.2 Pull Request 流程</a></li>
+<li><a class="toc-h3" href="#2121-issue">21.2.1 从 Issue 创建分支</a></li>
+<li><a class="toc-h3" href="#2122">21.2.2 开发并提交</a></li>
+<li><a class="toc-h3" href="#2123-pr">21.2.3 创建 PR</a></li>
+<li><a class="toc-h3" href="#2124-code-review">21.2.4 Code Review 流程</a></li>
+<li><a class="toc-h3" href="#2125">21.2.5 合并策略</a></li>
+<li><a class="toc-h3" href="#2126">21.2.6 合并后清理分支</a></li>
+<li><a class="toc-h2" href="#213">21.3 完整协作流程示例</a></li>
+<li><a class="toc-h2" href="#214">21.4 最佳实践</a></li>
+<li><a class="toc-h3" href="#2141">21.4.1 分支命名规范</a></li>
+<li><a class="toc-h3" href="#2142-pr">21.4.2 PR 大小控制</a></li>
+<li><a class="toc-h3" href="#2143-code-review">21.4.3 Code Review 礼仪</a></li>
+<li><a class="toc-h3" href="#2144-github-cli-gh">21.4.4 使用 GitHub CLI (gh)</a></li>
+<li><a class="toc-h2" href="#215-issue-pr">21.5 Issue 与 PR 速查表</a></li>
+<li><a class="toc-h3" href="#issue">Issue 管理</a></li>
+<li><a class="toc-h3" href="#pr">PR 管理</a></li>
+<li><a class="toc-h3" href="#git">常见 Git 命令</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -2213,6 +2871,45 @@ feature/功能名（新功能）、fix/问题描述（修复bug）、docs/文档
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

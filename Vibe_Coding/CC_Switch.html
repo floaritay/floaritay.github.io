@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>CC_Switch - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,10 +482,9 @@
             <span class="sep">/</span>
             <span>Vibe_Coding</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
-<h1 id="_2">简介</h1>
+<h1 id="_1">简介</h1>
 <p>CC Switch 提供一个统一的图形界面，让你可以：</p>
 <ul>
 <li>保存多套 API 配置，点一下即可切换，无需手动编辑 JSON</li>
@@ -397,7 +494,7 @@
 <li>实时查看 Token 消耗与 API 费用</li>
 <li>自动备份配置，防止误操作导致数据丢失</li>
 </ul>
-<h1 id="_3">安装</h1>
+<h1 id="_2">安装</h1>
 <p>GitHub Releases: https://github.com/farion1231/cc-switch/releases/latest 下载对应平台的安装包。</p>
 <table>
 <thead>
@@ -417,7 +514,7 @@
 </tr>
 </tbody>
 </table>
-<h1 id="_4">开始</h1>
+<h1 id="_3">开始</h1>
 <p>首次启动时，CC Switch 会自动检测已安装的 CLI 工具并尝试导入现有配置，系统托盘中会出现 CC Switch 图标。</p>
 <p><img alt="image.png" src="https://www.runoob.com/wp-content/uploads/2026/03/3f634726-617d-43a7-9040-a4acaaca9433.png" /></p>
 <p>点击右上角的 + ，从内置预设中选择（如官方 Anthropic API、DeepSeek、阿里百炼等），或手动填写以下信息：</p>
@@ -437,9 +534,9 @@
 </ul>
 <h1 id="session-manager">会话管理器（Session Manager）</h1>
 <p>在「会话」页面，可浏览全部五个应用的历史对话记录，支持目录导航和会话内搜索，并自动按当前应用过滤显示。</p>
-<h1 id="_5">备份管理</h1>
+<h1 id="_4">备份管理</h1>
 <p>CC Switch 会定期自动备份数据库，在数据库迁移前也会自动备份。在「设置 → 备份管理」中可以：查看所有备份、重命名、删除，以及手动创建备份。</p>
-<h1 id="_6">用量统计与计费</h1>
+<h1 id="_5">用量统计与计费</h1>
 <p>「用量」页面展示 Token 消耗统计，支持自动刷新、缓存命中率分析，以及按模型和 Provider 分类查看费用，帮助掌控 API 开支。</p>
 <h1 id="claude-rectifier">Claude Rectifier（思考签名修复）</h1>
 <p>当使用某些第三方 API 网关时，Claude 的 thinking block 格式可能不兼容。开启 Rectifier 后，代理层会自动修复此问题。可在「设置 → 高级」中开关。</p>
@@ -450,7 +547,23 @@
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">简介</a></li>
+<li><a href="#_2">安装</a></li>
+<li><a href="#_3">开始</a></li>
+<li><a href="#mcp">MCP 服务器管理</a></li>
+<li><a href="#skills">Skills 管理</a></li>
+<li><a href="#session-manager">会话管理器（Session Manager）</a></li>
+<li><a href="#_4">备份管理</a></li>
+<li><a href="#_5">用量统计与计费</a></li>
+<li><a href="#claude-rectifier">Claude Rectifier（思考签名修复）</a></li>
+<li><a href="#webdav">WebDAV 自动同步</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -459,6 +572,45 @@
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

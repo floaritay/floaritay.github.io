@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Senior_Topic - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,31 +482,8 @@
             <span class="sep">/</span>
             <span>python</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<div class="highlight"><pre><span></span><code><span class="k">-</span> [1 add_argument()](#1-add_argument)
-<span class="k">-</span> [2 示例与使用方法](#2-示例与使用方法)
-<span class="k">-</span> [1 XML](#1-xml)
-<span class="k">-</span> [2 JSON](#2-json)
-<span class="k">-</span> [3 YAML](#3-yaml)
-<span class="k">-</span> [1 基础](#1-基础)
-<span class="k">-</span> [2 示例](#2-示例)
-</code></pre></div>
-
-<ul>
-<li><a href="#1-匹配邮箱地址">1 匹配邮箱地址：</a></li>
-<li><a href="#2-替换文本">2 替换文本：</a></li>
-<li><a href="#3-查找并提取数字">3 查找并提取数字：</a></li>
-<li><a href="#4-分组提取信息">4 分组提取信息:</a><ul>
-<li><a href="#3-转义">3 转义</a></li>
-<li><a href="#4-示例">4 示例</a></li>
-</ul>
-</li>
-<li><a href="#1-匹配点">1 匹配点.:</a></li>
-<li><a href="#2-匹配星号">2 匹配星号*：</a></li>
-<li><a href="#3-匹配反斜杠">3 匹配反斜杠\:</a></li>
-</ul>
-<hr />
 <h1 id="jupyter-notebook">Jupyter Notebook</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># Jupyter Notebook（此前被称为 IPython notebook）是一个交互式笔记本，支持运行 40 多种编程语言。安装 Anaconda 后就自带了。</span>
 <span class="c1"># 扩展名：.ipynb</span>
@@ -417,7 +492,7 @@
 </code></pre></div>
 
 <h2 id="markdown">Markdown</h2>
-<h3 id="_2">标题·区块·列表</h3>
+<h3 id="_1">标题·区块·列表</h3>
 <blockquote>
 <p>区块引用中也可以包含列表：
 - 项目一
@@ -580,7 +655,7 @@
 </code></pre></div>
 
 <h2 id="2-json">2 JSON</h2>
-<h3 id="_3">基础</h3>
+<h3 id="_2">基础</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># JSON（JavaScript Object Notation）是一种轻量级的数据交换格式，在Python中使用 json 模块可以方便地进行JSON数据的解析和生成</span>
 
 <span class="c1"># 将Python数据结构转换为JSON格式：</span>
@@ -627,7 +702,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">parsed_date</span><span class="p">[</span><span class="s2">&quot;city&quot;</span><span class="p">])</span>
 </code></pre></div>
 
-<h3 id="_4">数据类型对应</h3>
+<h3 id="_3">数据类型对应</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 数据类型对应</span>
 <span class="c1"># |    JSON    |    Python  |</span>
 <span class="c1"># |object      |dict        |</span>
@@ -641,7 +716,7 @@
 <span class="c1"># 它还将“NaN”、“Infinity”和“-Infinity”理解为它们对应的“float”值。</span>
 </code></pre></div>
 
-<h3 id="_5">编码</h3>
+<h3 id="_4">编码</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 编码：重写 default 方法 或 给个子类(cls)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -703,7 +778,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">ComplexEncoder</span><span class="p">))</span>  <span class="c1"># 输出: [2.0, 1.0]</span>
 </code></pre></div>
 
-<h3 id="_6">解码</h3>
+<h3 id="_5">解码</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 重写 object_hook，有两种方式：子类或直接重写方法</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -742,7 +817,7 @@
 <span class="c1"># 但json.loads函数会将其正确解析为布尔值True，因此代码能够按预期工作。然而，为了代码的清晰性和避免混淆，最好在注释中明确指出这一点。</span>
 </code></pre></div>
 
-<h3 id="_7">日期序列化</h3>
+<h3 id="_6">日期序列化</h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">json</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONEncoder</span>
@@ -821,7 +896,7 @@
 <span class="c1">#     - 对于嵌套数据的处理较为繁琐。</span>
 </code></pre></div>
 
-<h3 id="_8">应用场景</h3>
+<h3 id="_7">应用场景</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># - XML 适用于描述复杂的文档结构和包含大量元数据的文档，具有强大的约束和验证机制，适合于应用于复杂文档的表示和处理。</span>
 <span class="c1"># - JSON 适用于网络传输和数据交换，具有简洁、易于理解和编写的语法，被广泛用于前后端数据交互、API 数据传输等。</span>
 <span class="c1"># - YAML 适用于配置文件，具有简洁、可读性高的语法和支持多种数据类型和结构的特点，被广泛用于各种应用程序、脚本和工具的配置文件。</span>
@@ -829,8 +904,8 @@
 <span class="c1"># 请注意，这只是对它们的常见用途进行概括，并不意味着它们仅限于这些场景。实际使用时，应根据具体需求、项目要求和技术栈来选择适合的格式。</span>
 </code></pre></div>
 
-<h3 id="_9">示例</h3>
-<h1 id="_10">正则表达式</h1>
+<h3 id="_8">示例</h3>
+<h1 id="_9">正则表达式</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># 正则表达式（Regular Expression）是用于处理字符串的强大工具，它在自然语言处理中有着广泛的应用，如文本搜索、数据提取和清洗等。</span>
 <span class="c1"># Python中的正则表达式模块是re。</span>
 </code></pre></div>
@@ -931,7 +1006,7 @@
 <span class="c1"># 输出：名字：张三, 年龄：28</span>
 </code></pre></div>
 
-<h2 id="3-转义">3 转义</h2>
+<h2 id="3">3 转义</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 在正则表达式中，转义是指对某些特殊字符进行特殊处理，使其被视为普通字符。</span>
 <span class="c1"># 这些特殊字符包括各种元字符（如`.`、`*`、`+`、`?`、`^`、`$`、`[`、`}`、`(`、`)`、`|`等）和转义字符本身（`\`）。</span>
 <span class="c1"># 当你在模式中想要匹配这些字符本身而不是它们的特殊功能时，就需要使用转义。</span>
@@ -942,7 +1017,7 @@
 <span class="c1"># 原始字符串通过在字符串前加上`r`或`R`来表示，例如 `r&#39;\n&#39;` 表示一个包含字面反斜杠和`n`的字符串，而不是一个换行符。</span>
 </code></pre></div>
 
-<h2 id="4-示例">4 示例</h2>
+<h2 id="4">4 示例</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1 匹配点.:</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
@@ -987,7 +1062,7 @@
 </code></pre></div>
 
 <h1 id="tkinter">tkinter</h1>
-<h1 id="_11">泛型</h1>
+<h1 id="_10">泛型</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># 泛型的含义是在运行时才确定真正的数据类型。</span>
 
 <span class="c1">#泛型用于函数</span>
@@ -1037,7 +1112,7 @@
 <span class="n">q</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>  <span class="c1"># 也不会报错</span>
 </code></pre></div>
 
-<h1 id="_12">内嵌类</h1>
+<h1 id="_11">内嵌类</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># 在你自己的框架中实现类似于 Peewee 中的元数据配置机制，可以考虑创建一个基类，该基类包含一个内嵌的 Meta 类用于配置类的元数据。</span>
 <span class="c1"># 然后，让你的其他类继承这个基类，并使用内嵌的 Meta 类来配置各个类的元数据信息。</span>
 
@@ -1129,8 +1204,8 @@
 <span class="c1"># 集合数据类型如list，dict，str等是Iterable但不是Iterator，不过可以通过iter()函数获得一个Iterator对象。</span>
 </code></pre></div>
 
-<h1 id="_13">生成注释文档</h1>
-<h1 id="_14">源代码保护</h1>
+<h1 id="_12">生成注释文档</h1>
+<h1 id="_13">源代码保护</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># - 生成.pyc文件：这是最基础的加密方法，利用Python自带的编译器将源代码文件.py编译得到的二进制的字节码文件.pyc。</span>
 <span class="c1"># 这种方法简单方便，但是也很容易被反编译，有现成的工具如uncompyle6可以一键还原源代码。</span>
 
@@ -1145,7 +1220,7 @@
 </code></pre></div>
 
 <h2 id="py2exe">py2exe</h2>
-<h3 id="_15">基础</h3>
+<h3 id="_14">基础</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># - 安装py2exe：使用pip命令来安装py2exe，例如：`pip install py2exe`</span>
 <span class="c1"># - 编写Python脚本：使用你喜欢的文本编辑器编写Python脚本。确保你的脚本以.py为扩展名</span>
 <span class="c1"># - 编写设置脚本：你需要编写一个用于发布程序的设置脚本，例如mysetup.py，在其中的setup函数前插入语句`import py2exe`。</span>
@@ -1171,7 +1246,7 @@
 <span class="c1"># - 运行或分发可执行文件：你可以在Windows环境下直接运行dist目录中的可执行文件，或者将dist目录中的所有内容一起分发给其他用户。</span>
 </code></pre></div>
 
-<h3 id="_16">引入文件</h3>
+<h3 id="_15">引入文件</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># ## 如果你的hello.py包含了其他的Python模块或包，py2exe会尝试自动检测并打包进来。但是有些情况下，py2exe可能无法正确识别你的依赖，比如你使用了动态导入或者第三方库。</span>
 <span class="c1"># 这时候，你可以在设置脚本中使用includes或packages选项来强制包含你需要的模块或包。例如：</span>
 
@@ -1226,7 +1301,7 @@
 <span class="c1"># )</span>
 </code></pre></div>
 
-<h3 id="_17">启动前处理</h3>
+<h3 id="_16">启动前处理</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 如果你想在运行可执行文件之前执行一些动作、脚本或命令</span>
 <span class="c1"># 1.使用批处理文件：你可以编写一个批处理文件（.bat），在其中写入你想要执行的动作、脚本或命令，然后调用你的可执行文件。例如：(Batch语言)</span>
 
@@ -1272,7 +1347,7 @@
 <span class="c1"># )</span>
 </code></pre></div>
 
-<h3 id="_18">环境</h3>
+<h3 id="_17">环境</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># py2exe会将Python运行环境的一部分打包进exe文件中：</span>
 <span class="c1"># - 你的Python脚本和它依赖的Python模块或包（如果py2exe能自动检测到的话）</span>
 <span class="c1"># - 一些必要的Python库文件，如python**.dll，加上其它的.dll文件</span>
@@ -1286,7 +1361,7 @@
 <span class="c1"># - 一些难以检测或导入的模块或包，如numpy、scipy等，你需要在设置脚本中用includes或packages选项来强制包含那些模块或包</span>
 </code></pre></div>
 
-<h3 id="_19">命令行参数</h3>
+<h3 id="_18">命令行参数</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 如果你的hello.py是接受命令行参数的，那么打包为exe之后，也可以接受命令行参数。你只需要在命令行中调用exe文件，并传入相应的参数即可。例如，如果你的hello.py是这样的：</span>
 
 
@@ -1300,7 +1375,7 @@
 <span class="c1"># 那么你可以在命令行中运行`hello.exe Alice`，就会输出`Hello, Alice`。</span>
 </code></pre></div>
 
-<h3 id="_20">设定图标</h3>
+<h3 id="_19">设定图标</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># 在py2exe中添加图标的方法是在设置脚本中使用icon_resources选项来指定图标文件的路径和资源ID。例如：</span>
 
 <span class="c1"># from distutils.core import setup</span>
@@ -1313,7 +1388,7 @@
 <span class="c1"># 另外，如果想要打包GUI形式的exe文件，可以使用windows选项代替console选项。</span>
 </code></pre></div>
 
-<h3 id="_21">打包文件查看</h3>
+<h3 id="_20">打包文件查看</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># py2exe打包后会在当前目录下生成一个dist文件夹，里面包含了exe文件和一些依赖的文件。你可以查看dist文件夹的内容来了解py2exe打包了哪些文件。一般来说，dist文件夹中会有以下这些文件：</span>
 
 <span class="c1"># - 一个或多个exe文件，这是你的程序的可执行文件。</span>
@@ -1325,16 +1400,16 @@
 <span class="c1"># 如果你在设置脚本中使用了data_files选项来指定一些额外的文件，比如配置文件、图片、音频等，那么py2exe也会将这些文件拷贝到dist子目录中。你可以在dist子目录中找到这些额外的文件。</span>
 </code></pre></div>
 
-<h3 id="_22">常见错误</h3>
-<h1 id="_23">变量的作用域</h1>
-<h2 id="_24">分类</h2>
+<h3 id="_21">常见错误</h3>
+<h1 id="_22">变量的作用域</h1>
+<h2 id="_23">分类</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. 局部作用域（Local Scope）：变量在函数内部定义，只在函数内部可见。</span>
 <span class="c1"># 2. 嵌套作用域（Enclosing Scope）：变量在嵌套的函数内部定义，可以在外层函数以及内部函数中访问。</span>
 <span class="c1"># 3. 全局作用域（Global Scope）：变量在函数外部定义，对整个模块都可见。</span>
 <span class="c1"># 4. 内置作用域（Built-in Scope）：变量是 Python 内置的，在整个程序中都可见。</span>
 </code></pre></div>
 
-<h2 id="_25">示例</h2>
+<h2 id="_24">示例</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 全局作用域</span>
 <span class="n">global_a</span> <span class="o">=</span> <span class="mi">10</span>
 
@@ -1359,7 +1434,7 @@
 <span class="c1"># nested_a 是在 nested_function 函数内部定义的，可以在嵌套作用域和外层函数的作用域中访问</span>
 </code></pre></div>
 
-<h2 id="_26">修改作用域的变量</h2>
+<h2 id="_25">修改作用域的变量</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 全局作用域</span>
 <span class="n">global_a</span> <span class="o">=</span> <span class="mi">10</span>
 
@@ -1384,7 +1459,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Global variable after modification:&quot;</span><span class="p">,</span> <span class="n">global_a</span><span class="p">)</span>  <span class="c1"># 输出 15</span>
 </code></pre></div>
 
-<h2 id="_27">声明</h2>
+<h2 id="_26">声明</h2>
 <div class="highlight"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">fun1</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -1412,7 +1487,7 @@
 <span class="c1"># 3</span>
 </code></pre></div>
 
-<h2 id="_28">示例</h2>
+<h2 id="_27">示例</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># x = 5</span>
 <span class="c1"># def fun1():</span>
 <span class="c1">#     x = x+1</span>
@@ -1449,7 +1524,7 @@
 <span class="c1"># `Counter` 类非常适用于需要统计元素出现次数的场景，尤其是当你处理的是可哈希对象（比如整数、字符串）的时候。它比使用内置的 `dict` 更高效，因为 `Counter` 专门为计数而优化。</span>
 </code></pre></div>
 
-<h2 id="_29">基础</h2>
+<h2 id="_28">基础</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
 
 <span class="c1"># 1. 创建 Counter 对象：</span>
@@ -1492,14 +1567,14 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>  <span class="c1"># 输出：Counter()</span>
 </code></pre></div>
 
-<h1 id="_30">多线程</h1>
+<h1 id="_29">多线程</h1>
 <h1 id="server">Server</h1>
 <h1 id="asynico">asynico</h1>
-<h1 id="_31">其他</h1>
-<h1 id="_32">性能优化</h1>
-<h1 id="_33">单分派泛函数</h1>
-<h1 id="_34">函数可变默认参数问题</h1>
-<h2 id="_35">可变默认参数问题</h2>
+<h1 id="_30">其他</h1>
+<h1 id="_31">性能优化</h1>
+<h1 id="_32">单分派泛函数</h1>
+<h1 id="_33">函数可变默认参数问题</h1>
+<h2 id="_34">可变默认参数问题</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># - 当定义函数（包括类的方法，如`__init__`方法）时，默认参数只在函数定义时被创建一次。</span>
 <span class="c1"># - 在你的`__init__(type,points = [])`这个构造函数中，`points`是一个默认参数，并且它是一个可变对象（列表）。当第一次调用构造函数并且没有传递`points`参数时，会使用默认的空列表。</span>
 <span class="c1"># - 但是，下次再调用构造函数（同样没有传递`points`参数）时，仍然会使用最初定义函数时创建的那个列表对象。这就导致如果之前对这个列表进行了修改，修改后的状态会被保留。</span>
@@ -1520,7 +1595,7 @@
 <span class="c1"># 当创建`obj2`时，由于`points`默认参数是在函数定义时创建的同一个列表对象，所以`obj2.points`也包含了之前添加的元素1。</span>
 </code></pre></div>
 
-<h2 id="_36">解决方法相关知识</h2>
+<h2 id="_35">解决方法相关知识</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># - 一种常见的解决方法是使用`None`作为默认参数，然后在函数内部根据参数是否为`None`来创建可变对象。例如：</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MyClass</span><span class="p">:</span>
@@ -1535,14 +1610,14 @@
 <span class="c1"># - 或者每次都传递一个[]进去，这样默认参数的含义就不大了，但也可以达成不共享的问题</span>
 </code></pre></div>
 
-<h1 id="_37">面对对象编程</h1>
+<h1 id="_36">面对对象编程</h1>
 <p>计算机编程经过多年的发展，演变出了三种不同且常用的编程思想，分别是：</p>
 <ul>
 <li>面向过程编程思想（POP）</li>
 <li>面向对象编程思想（OOP）</li>
 <li>函数式思想（FP）</li>
 </ul>
-<h2 id="_38">解释</h2>
+<h2 id="_37">解释</h2>
 <p>比如我们想把一只大象装进冰箱，分别用三种思想，我们看看有什么不一样。</p>
 <ol>
 <li>
@@ -1597,7 +1672,7 @@
 定义关进（冰箱，大象）函数<br />
 实现函数：关门(放入(开门(冰箱)，大象))  </li>
 </ol>
-<h2 id="_39">重要概念</h2>
+<h2 id="_38">重要概念</h2>
 <p>面向对象中有五个重要的概念</p>
 <ol>
 <li>类与对象（抽象与具体）</li>
@@ -1614,7 +1689,71 @@
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#jupyter-notebook">Jupyter Notebook</a></li>
+<li><a class="toc-h2" href="#markdown">Markdown</a></li>
+<li><a class="toc-h3" href="#_1">标题·区块·列表</a></li>
+<li><a href="#argumemtparser">ArgumemtParser*</a></li>
+<li><a class="toc-h2" href="#1-add_argument">1 add_argument()</a></li>
+<li><a class="toc-h2" href="#2">2 示例与使用方法</a></li>
+<li><a href="#xmljsonyaml">xml/json/yaml</a></li>
+<li><a class="toc-h2" href="#1-xml">1 XML</a></li>
+<li><a class="toc-h2" href="#2-json">2 JSON</a></li>
+<li><a class="toc-h3" href="#_2">基础</a></li>
+<li><a class="toc-h3" href="#_3">数据类型对应</a></li>
+<li><a class="toc-h3" href="#_4">编码</a></li>
+<li><a class="toc-h3" href="#_5">解码</a></li>
+<li><a class="toc-h3" href="#_6">日期序列化</a></li>
+<li><a class="toc-h2" href="#3-yaml">3 YAML</a></li>
+<li><a class="toc-h3" href="#xmljsonyaml_1">XML，JSON，YAML 比较</a></li>
+<li><a class="toc-h3" href="#_7">应用场景</a></li>
+<li><a class="toc-h3" href="#_8">示例</a></li>
+<li><a href="#_9">正则表达式</a></li>
+<li><a class="toc-h2" href="#1">1 基础</a></li>
+<li><a class="toc-h2" href="#2_1">2 示例</a></li>
+<li><a class="toc-h2" href="#3">3 转义</a></li>
+<li><a class="toc-h2" href="#4">4 示例</a></li>
+<li><a href="#tkinter">tkinter</a></li>
+<li><a href="#_10">泛型</a></li>
+<li><a href="#_11">内嵌类</a></li>
+<li><a href="#iterable-iterator">Iterable 和 Iterator</a></li>
+<li><a href="#_12">生成注释文档</a></li>
+<li><a href="#_13">源代码保护</a></li>
+<li><a class="toc-h2" href="#py2exe">py2exe</a></li>
+<li><a class="toc-h3" href="#_14">基础</a></li>
+<li><a class="toc-h3" href="#_15">引入文件</a></li>
+<li><a class="toc-h3" href="#_16">启动前处理</a></li>
+<li><a class="toc-h3" href="#_17">环境</a></li>
+<li><a class="toc-h3" href="#_18">命令行参数</a></li>
+<li><a class="toc-h3" href="#_19">设定图标</a></li>
+<li><a class="toc-h3" href="#_20">打包文件查看</a></li>
+<li><a class="toc-h3" href="#_21">常见错误</a></li>
+<li><a href="#_22">变量的作用域</a></li>
+<li><a class="toc-h2" href="#_23">分类</a></li>
+<li><a class="toc-h2" href="#_24">示例</a></li>
+<li><a class="toc-h2" href="#_25">修改作用域的变量</a></li>
+<li><a class="toc-h2" href="#_26">声明</a></li>
+<li><a class="toc-h2" href="#_27">示例</a></li>
+<li><a href="#counter">Counter类</a></li>
+<li><a class="toc-h2" href="#_28">基础</a></li>
+<li><a href="#_29">多线程</a></li>
+<li><a href="#server">Server</a></li>
+<li><a href="#asynico">asynico</a></li>
+<li><a href="#_30">其他</a></li>
+<li><a href="#_31">性能优化</a></li>
+<li><a href="#_32">单分派泛函数</a></li>
+<li><a href="#_33">函数可变默认参数问题</a></li>
+<li><a class="toc-h2" href="#_34">可变默认参数问题</a></li>
+<li><a class="toc-h2" href="#_35">解决方法相关知识</a></li>
+<li><a href="#_36">面对对象编程</a></li>
+<li><a class="toc-h2" href="#_37">解释</a></li>
+<li><a class="toc-h2" href="#_38">重要概念</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1623,6 +1762,45 @@
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

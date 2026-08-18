@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Ollama - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,45 +482,12 @@
             <span class="sep">/</span>
             <span>basic</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-简介">1 简介</a></li>
-<li><a href="#2-安装">2 安装</a><ul>
-<li><a href="#21-windows-系统安装">2.1 Windows 系统安装</a></li>
-</ul>
-</li>
-<li><a href="#3-模型运行">3 模型运行</a><ul>
-<li><a href="#31-命令行运行">3.1 命令行运行</a></li>
-<li><a href="#32-直接运行exe文件">3.2 直接运行exe文件</a></li>
-</ul>
-</li>
-<li><a href="#4-相关命令">4 相关命令</a><ul>
-<li><a href="#41-完整示例">4.1 完整示例</a></li>
-<li><a href="#42-自定义模型">4.2 自定义模型</a></li>
-<li><a href="#43-服务管理">4.3 服务管理</a></li>
-</ul>
-</li>
-<li><a href="#5-模型交互">5 模型交互</a></li>
-<li><a href="#6-api-交互">6 API 交互</a></li>
-<li><a href="#7-python-使用">7 python 使用</a><ul>
-<li><a href="#71-常用-api-方法">7.1 常用 API 方法</a></li>
-</ul>
-</li>
-<li><a href="#8-接入vibe_coding">8 接入Vibe_Coding</a></li>
-<li><a href="#9-模型导入">9 模型导入</a><ul>
-<li><a href="#91-从魔搭社区导入模型">9.1 从魔搭社区导入模型</a></li>
-</ul>
-</li>
-<li><a href="#10-ollama-open-webui">10 Ollama Open WebUI</a></li>
-<li><a href="#11-ollama-page-assist">11 Ollama Page Assist</a></li>
-<li><a href="#12-vllm">12 VLLM</a></li>
-</ul>
-<hr />
-<h1 id="1-简介">1 简介</h1>
+<h1 id="1">1 简介</h1>
 <p>Ollama 是一个开源的大型语言模型（LLM）平台，旨在让用户能够轻松地在本地运行、管理和与大型语言模型进行交互<br />
 Ollama 支持多种操作系统，包括 macOS、Windows、Linux 以及通过 Docker 容器运行</p>
-<h1 id="2-安装">2 安装</h1>
+<h1 id="2">2 安装</h1>
 <ul>
 <li>CPU：多核处理器（推荐 4 核或以上）。</li>
 <li>GPU：如果你计划运行大型模型或进行微调，推荐使用具有较高计算能力的 GPU（如 NVIDIA 的 CUDA 支持）。</li>
@@ -430,7 +495,7 @@ Ollama 支持多种操作系统，包括 macOS、Windows、Linux 以及通过 Do
 <li>存储：需要足够的硬盘空间来存储预训练模型，通常需要 10GB 至数百 GB 的空间，具体取决于模型的大小。</li>
 <li>软件要求：确保系统上安装了最新版本的 Python（如果打算使用 Python SDK）。</li>
 </ul>
-<h2 id="21-windows-系统安装">2.1 Windows 系统安装</h2>
+<h2 id="21-windows">2.1 Windows 系统安装</h2>
 <p>打开浏览器，访问 Ollama 官方网站：https://ollama.com/download 下载适用于 Windows 的安装程序<br />
 下载地址为：https://ollama.com/download/OllamaSetup.exe  </p>
 <p>打开命令提示符或 PowerShell，输入以下命令验证安装是否成功：<br />
@@ -439,8 +504,8 @@ ollama --version <br />
 <div class="highlight"><pre><span></span><code>OllamaSetup.exe<span class="w"> </span>/DIR<span class="o">=</span><span class="s2">&quot;d:\Ollama&quot;</span><span class="w">  </span>
 </code></pre></div>
 
-<h1 id="3-模型运行">3 模型运行</h1>
-<h2 id="31-命令行运行">3.1 命令行运行</h2>
+<h1 id="3">3 模型运行</h1>
+<h2 id="31">3.1 命令行运行</h2>
 <p><code>ollama run &lt;model&gt;</code>或<code>ollama</code>启动后会让你选择模型</p>
 <p>例如我们要运行 Llama 3.2 并与该模型对话可以在终端使用以下命令：</p>
 <div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>llama3.2<span class="w">    </span>
@@ -467,9 +532,9 @@ Hello
 <li>/bye：退出对话。</li>
 </ul>
 <p>结束对话可以输入 /bye 或按 Ctrl+d 按键来结束。</p>
-<h2 id="32-直接运行exe文件">3.2 直接运行exe文件</h2>
+<h2 id="32-exe">3.2 直接运行exe文件</h2>
 <p>Ollama 支持的模型可以访问：https://ollama.com/library 并查看下载命令</p>
-<h1 id="4-相关命令">4 相关命令</h1>
+<h1 id="4">4 相关命令</h1>
 <p>基本格式：<code>ollama &lt;command&gt; [args]</code></p>
 <p>可以用 <code>ollama --help</code> 查看包含有哪些命令</p>
 <ol>
@@ -509,7 +574,7 @@ Hello
 </li>
 <li>-v, --version：显示版本信息。</li>
 </ol>
-<h2 id="41-完整示例">4.1 完整示例</h2>
+<h2 id="41">4.1 完整示例</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. 拉取与删除模型</span>
 <span class="c1"># pull</span>
 <span class="c1"># 拉取远端模型到本地。</span>
@@ -617,14 +682,14 @@ ollama<span class="w"> </span>run<span class="w"> </span>&lt;model&gt;<span clas
 <span class="c1"># 会话由模型内部缓存自动管理，无需额外命令。</span>
 </code></pre></div>
 
-<h2 id="42-自定义模型">4.2 自定义模型</h2>
+<h2 id="42">4.2 自定义模型</h2>
 <p>基于现有模型创建自定义模型<br />
 ollama create &lt; custom-model-name &gt; -f &lt; Modelfile &gt; <br />
 复制模型<br />
 ollama cp &lt; source-model-name &gt; &lt; new-model-name &gt;<br />
 推送自定义模型到模型库<br />
 ollama push &lt; model-name &gt;</p>
-<h2 id="43-服务管理">4.3 服务管理</h2>
+<h2 id="43">4.3 服务管理</h2>
 <p>启动 Ollama 服务以在后台运行：<br />
 ollama serve  </p>
 <p>停止正在运行的 Ollama 服务：<br />
@@ -661,7 +726,7 @@ ollama perf &lt; model-name &gt;   </p>
 ollama history &lt; model-name &gt;  </p>
 <p>检查指定模型的状态：<br />
 ollama status &lt; model-name &gt;    </p>
-<h1 id="5-模型交互">5 模型交互</h1>
+<h1 id="5">5 模型交互</h1>
 <p><strong>命令行交互</strong><br />
 见“模型运行”</p>
 <p><strong>单次命令交互</strong><br />
@@ -702,7 +767,7 @@ Ollama 会记录交互日志，方便调试和分析   </p>
 ollama<span class="w"> </span>logs<span class="w">   </span>
 </code></pre></div>
 
-<h1 id="6-api-交互">6 API 交互</h1>
+<h1 id="6-api">6 API 交互</h1>
 <p>Ollama 提供了基于 HTTP 的 API，允许开发者通过编程方式与模型进行交互。<br />
 在使用 API 之前，需要确保 Ollama 服务正在运行。可以通过以下命令启动服务：</p>
 <div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>serve
@@ -795,7 +860,7 @@ ollama<span class="w"> </span>logs<span class="w">   </span>
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="_2">示例</h2>
+<h2 id="_1">示例</h2>
 <p><strong>生成文本</strong><br />
 使用 curl 发送请求  </p>
 <div class="highlight"><pre><span></span><code>curl http://localhost:11434/api/generate -d &#39;{
@@ -869,7 +934,7 @@ ollama<span class="w"> </span>logs<span class="w">   </span>
 <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
 </code></pre></div>
 
-<h1 id="7-python-使用">7 python 使用</h1>
+<h1 id="7-python">7 python 使用</h1>
 <p>首先，我们需要安装 Ollama 的 Python SDK  </p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ollama
 </code></pre></div>
@@ -953,7 +1018,7 @@ ollama<span class="w"> </span>logs<span class="w">   </span>
 <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">chat</span><span class="p">())</span>
 </code></pre></div>
 
-<h2 id="71-常用-api-方法">7.1 常用 API 方法</h2>
+<h2 id="71-api">7.1 常用 API 方法</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. chat 方法</span>
 <span class="c1"># 与模型进行对话生成，发送用户消息并获取模型响应：</span>
 <span class="n">ollama</span><span class="o">.</span><span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;llama3.2&#39;</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;Why is the sky blue?&#39;</span><span class="p">}])</span>
@@ -999,14 +1064,14 @@ ollama<span class="w"> </span>logs<span class="w">   </span>
 <span class="n">ollama</span><span class="o">.</span><span class="n">ps</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="8-接入vibe_coding">8 接入Vibe_Coding</h1>
+<h1 id="8-vibe_coding">8 接入Vibe_Coding</h1>
 <div class="highlight"><pre><span></span><code>ollama
 <span class="c1"># 选择启动方式 或</span>
 ollama<span class="w"> </span>launch<span class="w"> </span>claude<span class="w"> </span>--model<span class="w"> </span>qwen3-coder
 </code></pre></div>
 
-<h1 id="9-模型导入">9 模型导入</h1>
-<h2 id="91-从魔搭社区导入模型">9.1 从魔搭社区导入模型</h2>
+<h1 id="9">9 模型导入</h1>
+<h2 id="91">9.1 从魔搭社区导入模型</h2>
 <ol>
 <li>下载模型</li>
 </ol>
@@ -1107,7 +1172,34 @@ Open WebUI 支持桌面、笔记本电脑和移动设备，并提供移动设备
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 简介</a></li>
+<li><a href="#2">2 安装</a></li>
+<li><a class="toc-h2" href="#21-windows">2.1 Windows 系统安装</a></li>
+<li><a href="#3">3 模型运行</a></li>
+<li><a class="toc-h2" href="#31">3.1 命令行运行</a></li>
+<li><a class="toc-h2" href="#32-exe">3.2 直接运行exe文件</a></li>
+<li><a href="#4">4 相关命令</a></li>
+<li><a class="toc-h2" href="#41">4.1 完整示例</a></li>
+<li><a class="toc-h2" href="#42">4.2 自定义模型</a></li>
+<li><a class="toc-h2" href="#43">4.3 服务管理</a></li>
+<li><a href="#5">5 模型交互</a></li>
+<li><a href="#6-api">6 API 交互</a></li>
+<li><a class="toc-h2" href="#_1">示例</a></li>
+<li><a href="#7-python">7 python 使用</a></li>
+<li><a class="toc-h2" href="#71-api">7.1 常用 API 方法</a></li>
+<li><a href="#8-vibe_coding">8 接入Vibe_Coding</a></li>
+<li><a href="#9">9 模型导入</a></li>
+<li><a class="toc-h2" href="#91">9.1 从魔搭社区导入模型</a></li>
+<li><a href="#10-ollama-open-webui">10 Ollama Open WebUI</a></li>
+<li><a href="#11-ollama-page-assist">11 Ollama Page Assist</a></li>
+<li><a href="#12-vllm">12 VLLM</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1116,6 +1208,45 @@ Open WebUI 支持桌面、笔记本电脑和移动设备，并提供移动设备
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

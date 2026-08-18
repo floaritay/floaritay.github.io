@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>TensorFlow - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,10 +482,9 @@
             <span class="sep">/</span>
             <span>DeepLearing</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
-<h1 id="_2">包与模块</h1>
+<h1 id="_1">包与模块</h1>
 <p>这里面最重要的是keras模块
 1. api-keras:可以看到里面有我们最需要的一些模块
 2. activations ：可以 看到最常用的一些激活函数
@@ -401,7 +498,7 @@
 <span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">regularizers</span><span class="err">：最常用的正则化：</span><span class="n">L1</span><span class="err">，</span><span class="n">L2</span>
 </code></pre></div>
 
-<h1 id="_3">框架模型</h1>
+<h1 id="_2">框架模型</h1>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="c1"># 定义正确的权重和偏置</span>
@@ -483,7 +580,7 @@
 <p>一切皆函数，无须手动搭建tensorflow数据结构。</p>
 </li>
 </ol>
-<h2 id="_4">即刻输出</h2>
+<h2 id="_3">即刻输出</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w">  </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span><span class="c1"># 导入TensorFlow</span>
 <span class="n">scalar_tf</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">3.14</span><span class="p">)</span><span class="c1">#创建张量</span>
 <span class="n">m</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">scalar_tf</span><span class="p">,</span><span class="n">scalar_tf</span><span class="p">)</span><span class="c1">#执行操作</span>
@@ -496,7 +593,7 @@
 <span class="c1"># 6.28000020980835</span>
 </code></pre></div>
 
-<h2 id="_5">状态查看和启动</h2>
+<h2 id="_4">状态查看和启动</h2>
 <p>默认情况下，Eager execution处于启用状态<br />
 可以用tf.executing_eargerly()查看Eager Execution当前的启动状态，返回True则是开启，False是关闭<br />
 可以用tf.compat.v1.enable_eager_execution()启动eager模式。</p>
@@ -507,7 +604,7 @@
 <span class="c1"># tf.compat.v1.executing_eagerly() # 查看状态</span>
 </code></pre></div>
 
-<h1 id="_6">计算图</h1>
+<h1 id="_5">计算图</h1>
 <p>图是TensorFlow最基本的结构，一切计算都是基于图结构运行的，图结构包含张量（Tensor）和操作（Operation）<br />
 TensorFlow1.x采用的是静态计算图，需要先创建计算图，然后再开启会话Session，显式执行计算图<br />
 在TensorFlow2.0中，采用的是动态计算图，即每使用一个算子后，该算子会被动态加入到默认计算图中即即执行，无需开启Session  </p>
@@ -522,7 +619,7 @@ TensorFlow1.x采用的是静态计算图，需要先创建计算图，然后再�
 节点表示操作符Operator，线表示计算间的依赖关系<br />
 实线表示有数据传递依赖，传递的数据即张量<br />
 虚线通常可以表示控制依赖，即执行先后顺序</p>
-<h2 id="_7">静态计算图：</h2>
+<h2 id="_6">静态计算图：</h2>
 <p>静态计算则意味着程序在编译执行时将先生成神经网络的结构，然后再执行相应操作<br />
 从理论上讲，静态计算这样的机制允许编译器进行更大程度的优化，但是这也意味 着你所期望的程序与编译器实际执行之间存在着更多的代沟<br />
 这也意味着，代码中的错误将 更加难以发现（比如，如果计算图的结构出现问题，你可能只有在代码执行到相应操作的时 候才能发现它）</p>
@@ -540,7 +637,7 @@ TensorFlow1.x采用的是静态计算图，需要先创建计算图，然后再�
     <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_8">动态计算图：</h2>
+<h2 id="_7">动态计算图：</h2>
 <p>动态计算意味着程序将按照我们编写命令的顺序进行执行<br />
 这种机制将使得调试更加容易，并且也使得我们将大脑中的想法转化为实际代码变得更加容易</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 动态计算图在每个算子处都进行构建，构建后立即执行</span>
@@ -604,7 +701,22 @@ AutoGraph将Python控制流转换为TensorFlow表达式，允许用户在装饰�
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">包与模块</a></li>
+<li><a href="#_2">框架模型</a></li>
+<li><a href="#eager-execution">Eager execution</a></li>
+<li><a class="toc-h2" href="#_3">即刻输出</a></li>
+<li><a class="toc-h2" href="#_4">状态查看和启动</a></li>
+<li><a href="#_5">计算图</a></li>
+<li><a class="toc-h2" href="#_6">静态计算图：</a></li>
+<li><a class="toc-h2" href="#_7">动态计算图：</a></li>
+<li><a class="toc-h2" href="#autograph">AutoGraph</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -613,6 +725,45 @@ AutoGraph将Python控制流转换为TensorFlow表达式，允许用户在装饰�
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Agent - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,92 +482,17 @@
             <span class="sep">/</span>
             <span>Agent</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-14</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#1-介绍">1 介绍</a></li>
-<li><a href="#2-核心组件与工作原理">2 核心组件与工作原理</a></li>
-<li><a href="#3-大语言模型">3 大语言模型</a><ul>
-<li><a href="#31-transfomer-架构">3.1 Transfomer 架构</a></li>
-<li><a href="#32-api调用">3.2 API调用</a></li>
-</ul>
-</li>
-<li><a href="#4-提示词与token">4 提示词与token</a></li>
-<li><a href="#5-推理与规划">5 推理与规划</a><ul>
-<li><a href="#51-思维链-cotchain-of-thought">5.1 思维链 CoT（Chain of Thought）</a></li>
-<li><a href="#52-reactreasoning-acting">5.2 ReAct（Reasoning + Acting）</a></li>
-<li><a href="#53-plan-and-execute规划先行执行模式">5.3 Plan-and-Execute（规划先行执行模式）</a></li>
-<li><a href="#54-tot-tree-of-thoughts-与树状多路径探索">5.4 ToT (Tree of Thoughts) 与树状多路径探索</a></li>
-<li><a href="#55-任务规划-mcts-蒙特卡洛树搜索">5.5 任务规划 &amp; MCTS (蒙特卡洛树搜索)</a></li>
-<li><a href="#56-reflexion自我反思与纠错">5.6 Reflexion：自我反思与纠错</a></li>
-<li><a href="#57-任务分解策略与工程化实践">5.7 任务分解策略与工程化实践</a></li>
-</ul>
-</li>
-<li><a href="#6-rag">6 RAG</a><ul>
-<li><a href="#61-文档切分">6.1 文档切分</a></li>
-<li><a href="#62-向量检索">6.2 向量检索</a></li>
-<li><a href="#63-advanced-rag">6.3 Advanced RAG</a></li>
-<li><a href="#64-self-rag-与-crag">6.4 Self-RAG 与 CRAG</a></li>
-<li><a href="#65-graphrag知识图谱-检索融合">6.5 GraphRAG：知识图谱 + 检索融合</a></li>
-<li><a href="#66-技术与数据库选型">6.6 技术与数据库选型</a></li>
-<li><a href="#67-评估指标">6.7 评估指标</a></li>
-</ul>
-</li>
-<li><a href="#7-agent架构">7 Agent架构</a><ul>
-<li><a href="#71-单-agent-循环single-agent-loop">7.1 单 Agent 循环（Single Agent Loop）</a></li>
-<li><a href="#72-规划-执行plan-execute">7.2 规划 + 执行（Plan &amp; Execute）</a></li>
-<li><a href="#73-多-agent-协作multi-agent">7.3 多 Agent 协作（Multi-Agent）</a></li>
-<li><a href="#74-反思与修正reflection">7.4 反思与修正（Reflection）</a></li>
-<li><a href="#75-rag-agent检索增强型智能体">7.5 RAG + Agent（检索增强型智能体）</a></li>
-<li><a href="#76-工作流编排workflow-dag-有向无环图">7.6 工作流编排（Workflow / DAG 有向无环图）</a></li>
-</ul>
-</li>
-<li><a href="#8-skills">8 skills</a></li>
-<li><a href="#9-function-calling">9 Function Calling</a><ul>
-<li><a href="#91-工具定义">9.1 工具定义</a></li>
-<li><a href="#92-参数提取与验证">9.2 参数提取与验证</a></li>
-<li><a href="#93-错误处理与重试机制">9.3 错误处理与重试机制</a></li>
-</ul>
-</li>
-<li><a href="#10-记忆系统">10 记忆系统</a><ul>
-<li><a href="#101-短期记忆同一会话内多轮之间">10.1 短期记忆（同一会话内、多轮之间）</a></li>
-<li><a href="#102-长期记忆可以跨轮次跨会话跨天跨设备">10.2 长期记忆（可以跨轮次、跨会话、跨天、跨设备）</a></li>
-<li><a href="#103-对话历史">10.3 对话历史</a><ul>
-<li><a href="#1031-基本管理">10.3.1 基本管理</a></li>
-<li><a href="#1032-基于时间的衰减">10.3.2 基于时间的衰减</a></li>
-<li><a href="#1033-基于相关性的选择">10.3.3 基于相关性的选择</a></li>
-<li><a href="#1034-混合选择策略">10.3.4 混合选择策略</a></li>
-</ul>
-</li>
-<li><a href="#104-对话历史压缩">10.4 对话历史压缩</a></li>
-<li><a href="#105-向量数据库">10.5 向量数据库</a></li>
-<li><a href="#106-记忆压缩与总结策略">10.6 记忆压缩与总结策略</a><ul>
-<li><a href="#1061-基于重要性的压缩">10.6.1 基于重要性的压缩</a></li>
-<li><a href="#1062-基于聚类的压缩">10.6.2 基于聚类的压缩</a></li>
-<li><a href="#1063-增量总结策略">10.6.3 增量总结策略</a></li>
-</ul>
-</li>
-<li><a href="#107-记忆生命周期管理">10.7 记忆生命周期管理</a></li>
-</ul>
-</li>
-<li><a href="#11-智能体通信协议">11 智能体通信协议</a><ul>
-<li><a href="#111-mcp">11.1 MCP</a></li>
-<li><a href="#112-a2a">11.2 A2A</a></li>
-<li><a href="#113-anp">11.3 ANP</a></li>
-</ul>
-</li>
-<li><a href="#12-ai-agent-简单实现">12 AI Agent 简单实现</a></li>
-</ul>
-<hr />
-<h1 id="1-介绍">1 介绍</h1>
+<h1 id="1">1 介绍</h1>
 <p>智能体，本质是自动执行任务的程序，核心在于让模型不只回答问题，而是按步骤完成动作。  </p>
 <p>Agent = LLM (大脑) + Planning (规划) + Tool use (执行) + Memory (记忆)。</p>
-<h1 id="2-核心组件与工作原理">2 核心组件与工作原理</h1>
+<h1 id="2">2 核心组件与工作原理</h1>
 <p><img alt="image.png" src="../images/Agent3.png" /></p>
-<h1 id="3-大语言模型">3 大语言模型</h1>
-<h2 id="31-transfomer-架构">3.1 Transfomer 架构</h2>
+<h1 id="3">3 大语言模型</h1>
+<h2 id="31-transfomer">3.1 Transfomer 架构</h2>
 <p>参考<a href="../NLP/NLP.html">NLP.md</a></p>
-<h2 id="32-api调用">3.2 API调用</h2>
+<h2 id="32-api">3.2 API调用</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
@@ -512,10 +535,10 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">choice</span><span class="o">.</span><span class="n">delta</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="4-提示词与token">4 提示词与token</h1>
+<h1 id="4-token">4 提示词与token</h1>
 <p>参考<a href="../Agent/prompt.html">prompt</a></p>
-<h1 id="5-推理与规划">5 推理与规划</h1>
-<h2 id="51-思维链-cotchain-of-thought">5.1 思维链 CoT（Chain of Thought）</h2>
+<h1 id="5">5 推理与规划</h1>
+<h2 id="51-cotchain-of-thought">5.1 思维链 CoT（Chain of Thought）</h2>
 <p>传统 LLM 生成答案时往往是直觉式的一步到位。</p>
 <p>CoT 核心思想是：强制要求模型在输出最终答案前，先显式地输出中间的推理步骤。这种做法能显著激活模型在复杂数学、逻辑推理和常识问答中的潜力。</p>
 <p>CoT 不仅让模型有了更多的计算时间（token 数量代表计算量），还让后续的生成能建立在前面正确的逻辑基础上。</p>
@@ -558,24 +581,24 @@ flowchart LR
 </div>
 <p>局限性： ReAct 在短期的、步骤清晰的任务中表现优异。<br />
 但由于整个思维和动作历史都积压在同一个上下文窗口中，当任务链条过长时，极易陷入死循环或因为上下文超载而遗忘初始目标。</p>
-<h2 id="53-plan-and-execute规划先行执行模式">5.3 Plan-and-Execute（规划先行执行模式）</h2>
+<h2 id="53-plan-and-execute">5.3 Plan-and-Execute（规划先行执行模式）</h2>
 <div class="highlight"><pre><span></span><code><span class="err">复杂目标</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Plan规划</span><span class="p">(</span><span class="mf">1.</span><span class="w"> </span><span class="err">抓取网页</span><span class="w"> </span><span class="mf">2.</span><span class="w"> </span><span class="err">提取数据</span><span class="w"> </span><span class="mf">3.</span><span class="w"> </span><span class="err">生成报告</span><span class="p">)</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Executor执行</span><span class="p">(</span><span class="err">逐个处理子任务，每次独立上下文</span><span class="p">)</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="err">最终交付</span>
 </code></pre></div>
 
-<h2 id="54-tot-tree-of-thoughts-与树状多路径探索">5.4 ToT (Tree of Thoughts) 与树状多路径探索</h2>
+<h2 id="54-tot-tree-of-thoughts">5.4 ToT (Tree of Thoughts) 与树状多路径探索</h2>
 <p><strong>树状多路径探索</strong></p>
 <p>无论是 CoT 还是 Plan-and-Execute，本质上都是线性的路径探索。但在写代码、解数学题或创意写作时，人类往往会设想多种方案，评估后选择最佳的，甚至在发现错误时回溯。</p>
 <p><strong>ToT（思维树）</strong></p>
 <p>将推理过程建模为一棵树：节点是当前的思维状态。<br />
 模型会在每一个分支点生成多个候选 Thought，然后通过内部的 Evaluator（评估器）对这些节点进行打分（如：可行、可能有风险、不可行）。<br />
 结合 BFS（广度优先搜索） 或 DFS（深度优先搜索） 算法，决定是继续深入还是回溯重试。  </p>
-<h2 id="55-任务规划-mcts-蒙特卡洛树搜索">5.5 任务规划 &amp; MCTS (蒙特卡洛树搜索)</h2>
+<h2 id="55-mcts">5.5 任务规划 &amp; MCTS (蒙特卡洛树搜索)</h2>
 <p>在涉及战略游戏或极高难度的推理任务（如前沿的数学验证、复杂的代码仓库重构）时，简单的 ToT 仍不够高效。</p>
 <p>业界开始将 LLM 与传统的强化学习搜索算法 MCTS（Monte Carlo Tree Search） 结合（类似 AlphaGo 的核心逻辑）。</p>
 <p>LLM 作为策略网络（Policy Network）：提供启发式的下一步行动建议，减少无意义的分支扩展。</p>
 <p>LLM/代码环境作为价值网络（Value Network）：通过仿真执行（Rollout）预判某个行动序列的最终胜率或成功率。</p>
 <p>优势：在庞大的解空间中，能够找到最具有全局最优潜力的规划路径。</p>
-<h2 id="56-reflexion自我反思与纠错">5.6 Reflexion：自我反思与纠错</h2>
+<h2 id="56-reflexion">5.6 Reflexion：自我反思与纠错</h2>
 <p>Reflexion 框架赋予了 Agent 自我反思与纠错的能力。</p>
 <p>在 Reflexion 闭环中，当 Agent 的输出被判定为失败（例如：测试用例未通过、API 报错）时，会触发一个 Reviewer 机制。</p>
 <p>LLM 被要求根据"历史动作"和"失败的反馈"写一段口语化的反思（Reflection），例如："我刚才使用了错误的 API 参数格式，下一次我应该查阅文档后再传递 JSON"。</p>
@@ -593,7 +616,7 @@ flowchart LR
 &quot;&quot;&quot;
 </code></pre></div>
 
-<h2 id="57-任务分解策略与工程化实践">5.7 任务分解策略与工程化实践</h2>
+<h2 id="57">5.7 任务分解策略与工程化实践</h2>
 <p>在实际生产级的 AI 智能体开发中，纯靠 LLM "零样本"进行复杂规划是不稳定的。常用的混合干预策略包括：</p>
 <table>
 <thead>
@@ -625,7 +648,7 @@ flowchart LR
 <p>检索增强生成:让 LLM 在回答问题时，先从外部知识库中检索相关内容，再基于检索结果生成回答</p>
 <p>解决了 LLM 的两个核心痛点：知识截止日期（模型不知道训练后发生的事）和幻觉问题（模型在不确定时会编造答案）。</p>
 <p><img alt="image.png" src="../images/Agent4.png" /></p>
-<h2 id="61-文档切分">6.1 文档切分</h2>
+<h2 id="61">6.1 文档切分</h2>
 <p><strong>文档解析</strong></p>
 <p>在切分时往往面临着格式解析的挑战。特别是 PDF、Word 或扫描件中的表格、图片和多栏排版，普通的文本提取极易造成语义错乱。</p>
 <p>目前行业主流方案是引入 文档解析引擎（如 LlamaParse、Unstructured）或多模态大模型，将复杂图文转换为结构化的 Markdown，为后续高质量切分打下基础。</p>
@@ -679,7 +702,7 @@ flowchart LR
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;切分为 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span><span class="si">}</span><span class="s2"> 个文档块&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="62-向量检索">6.2 向量检索</h2>
+<h2 id="62">6.2 向量检索</h2>
 <p><strong>Embedding模型</strong></p>
 <p>Embedding 模型负责将文本转换为稠密向量（通常是 768 或 1536 维的浮点数数组）。语义相近的文本在向量空间中距离更近，这正是相似度检索的数学基础。</p>
 <p><strong>距离度量</strong></p>
@@ -720,11 +743,11 @@ flowchart LR
 <span class="n">final_docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">ranked_docs</span><span class="p">[:</span><span class="mi">5</span><span class="p">]]</span>
 </code></pre></div>
 
-<h2 id="64-self-rag-与-crag">6.4 Self-RAG 与 CRAG</h2>
+<h2 id="64-self-rag-crag">6.4 Self-RAG 与 CRAG</h2>
 <p>加入自我反思机制。<br />
 例如 CRAG（Corrective RAG）在拿到检索结果后，先由 LLM 充当"评委"打分。<br />
 如果本地知识库查无此文或质量极低，系统会自动触发 Web Search（如 Google API）作为补充，大幅降低幻觉。</p>
-<h2 id="65-graphrag知识图谱-检索融合">6.5 GraphRAG：知识图谱 + 检索融合</h2>
+<h2 id="65-graphrag">6.5 GraphRAG：知识图谱 + 检索融合</h2>
 <p>传统 RAG 将知识库当作独立的文本碎片，无法回答诸如"找到所有同时由现任 CEO 创办且市值超千亿的公司"这类需要跨文档、多跳推理的复杂问题。<br />
 GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建模。</p>
 <p><img alt="image.png" src="../images/Agent5.png" /></p>
@@ -734,7 +757,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 <li>双路检索：针对提问中的实体，不仅做传统的向量检索，同时在图谱中触发图遍历（Graph Traversal），提取多跳关系链。</li>
 <li>图文融合生成：将向量检索找回的"片段"与图检索找回的"路径结构"拼装进 Prompt，使得 LLM 既具备全局视野又掌握具体细节。</li>
 </ul>
-<h2 id="66-技术与数据库选型">6.6 技术与数据库选型</h2>
+<h2 id="66">6.6 技术与数据库选型</h2>
 <table>
 <thead>
 <tr>
@@ -771,7 +794,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 </tr>
 </tbody>
 </table>
-<h2 id="67-评估指标">6.7 评估指标</h2>
+<h2 id="67">6.7 评估指标</h2>
 <p>主流使用 RAGAS 框架，从"检索"和"生成"两个维度进行自动化量化测试：</p>
 <ul>
 <li>Context Recall（检索召回率）：标准答案中的信息有多少比例能被检索到。</li>
@@ -779,8 +802,8 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 <li>Faithfulness（忠实度/幻觉指标）：生成的答案是否都有检索出的文档支撑。</li>
 <li>Answer Relevance（答案相关性）：生成的答案是否真正回答了用户的问题，避免答非所问。</li>
 </ul>
-<h1 id="7-agent架构">7 Agent架构</h1>
-<h2 id="71-单-agent-循环single-agent-loop">7.1 单 Agent 循环（Single Agent Loop）</h2>
+<h1 id="7-agent">7 Agent架构</h1>
+<h2 id="71-agent-single-agent-loop">7.1 单 Agent 循环（Single Agent Loop）</h2>
 <p>单 Agent 循环直接体现了 ReAct 模式</p>
 <p><img alt="image-2.png" src="../images/Agent6.png" /></p>
 <p>每次工具调用的结果都会回写到上下文。因此随着任务推进，上下文会不断增长，直到触达 LLM 的上下文窗口限制——这是单 Agent 循环最主要的瓶颈。</p>
@@ -830,7 +853,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 <span class="n">result</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;修复项目中 user.py 的类型错误&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="72-规划-执行plan-execute">7.2 规划 + 执行（Plan &amp; Execute）</h2>
+<h2 id="72-plan-execute">7.2 规划 + 执行（Plan &amp; Execute）</h2>
 <p><img alt="image.png" src="../images/Agent7.png" /></p>
 <table>
 <thead>
@@ -905,7 +928,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 <span class="n">result</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">plan</span><span class="p">,</span> <span class="n">dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="73-多-agent-协作multi-agent">7.3 多 Agent 协作（Multi-Agent）</h2>
+<h2 id="73-agent-multi-agent">7.3 多 Agent 协作（Multi-Agent）</h2>
 <p><img alt="image.png" src="../images/Agent8.png" /></p>
 <p>每个子 Agent 拥有独立的上下文窗口。</p>
 <p>子 Agent（Subagent）是短暂的、隔离的——完成一个任务后即销毁。Agent 团队（Agent Teams）则是多个独立 Agent 实例长时间协作、互相发消息，更像一个真实的团队。</p>
@@ -960,7 +983,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 <span class="n">report</span> <span class="o">=</span> <span class="n">orch</span><span class="o">.</span><span class="n">handle_task</span><span class="p">(</span><span class="s2">&quot;审查PR #42&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="74-反思与修正reflection">7.4 反思与修正（Reflection）</h2>
+<h2 id="74-reflection">7.4 反思与修正（Reflection）</h2>
 <p><img alt="image.png" src="../images/Agent9.png" /></p>
 <table>
 <thead>
@@ -1038,7 +1061,7 @@ GraphRAG 引入知识图谱（Knowledge Graph），将实体和关系显式建�
 <span class="c1"># 发现漏洞后自动修正，确保输出安全可靠</span>
 </code></pre></div>
 
-<h2 id="75-rag-agent检索增强型智能体">7.5 RAG + Agent（检索增强型智能体）</h2>
+<h2 id="75-rag-agent">7.5 RAG + Agent（检索增强型智能体）</h2>
 <p><img alt="image.png" src="../images/Agent10.png" /></p>
 <p>与一般RAG不同： <br />
 一般 RAG 是用户提问时固定检索一次，将结果塞入 Prompt。<br />
@@ -1102,7 +1125,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
 <span class="c1"># 最终综合多轮检索结果给出完整回答</span>
 </code></pre></div>
 
-<h2 id="76-工作流编排workflow-dag-有向无环图">7.6 工作流编排（Workflow / DAG 有向无环图）</h2>
+<h2 id="76-workflow-dag">7.6 工作流编排（Workflow / DAG 有向无环图）</h2>
 <p>把 Agent 行为固化为一张有向无环图（DAG），每个节点是一个 LLM 调用或工具调用，边表示数据依赖关系，由框架驱动执行。</p>
 <p>这是最接近传统软件工程的一种 Agent 架构。与前面几种架构的最大区别在于：<code>Agent 的自主决策空间被限制在单个节点内部，节点之间的流转是预先定义好的，不可更改。</code></p>
 <p><img alt="image.png" src="../images/Agent11.png" /></p>
@@ -1173,7 +1196,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
 <h1 id="9-function-calling">9 Function Calling</h1>
 <p>工具调用是让 LLM 能够使用外部工具的核心机制</p>
 <p><img alt="image.png" src="Agent_files/image.png" /></p>
-<h2 id="91-工具定义">9.1 工具定义</h2>
+<h2 id="91">9.1 工具定义</h2>
 <p>工具定义示例结构</p>
 <div class="highlight"><pre><span></span><code><span class="n">weather_tool</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;get_weather&quot;</span><span class="p">,</span>  <span class="c1"># 工具名称</span>
@@ -1229,7 +1252,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="92-参数提取与验证">9.2 参数提取与验证</h2>
+<h2 id="92">9.2 参数提取与验证</h2>
 <p>当 LLM 决定调用工具时，它会分析用户输入，提取出工具所需的参数</p>
 <div class="highlight"><pre><span></span><code>用户输入: &quot;查询北京明天的天气温度&quot;
 工具: get_weather
@@ -1368,7 +1391,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
     <span class="k">return</span> <span class="n">fixed_params</span>
 </code></pre></div>
 
-<h2 id="93-错误处理与重试机制">9.3 错误处理与重试机制</h2>
+<h2 id="93">9.3 错误处理与重试机制</h2>
 <ul>
 <li>网络错误：API 调用超时、连接失败</li>
 <li>参数错误：参数验证失败、格式不正确</li>
@@ -1490,7 +1513,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
 <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="10-记忆系统">10 记忆系统</h1>
+<h1 id="10">10 记忆系统</h1>
 <p>一轮：一次问答</p>
 <p>会话：包含多轮</p>
 <p>上下文窗口 ： 大模型一次性能吃下的最大 Token 容量</p>
@@ -1499,7 +1522,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
 <li>用户新建会话</li>
 <li>程序主动清空上下文、重置会话</li>
 </ul>
-<h2 id="101-短期记忆同一会话内多轮之间">10.1 短期记忆（同一会话内、多轮之间）</h2>
+<h2 id="101">10.1 短期记忆（同一会话内、多轮之间）</h2>
 <ul>
 <li>通常只能保存最近的几次对话</li>
 <li>快速访问：读取和写入速度很快</li>
@@ -1541,7 +1564,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
         <span class="bp">self</span><span class="o">.</span><span class="n">temporary_data</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="102-长期记忆可以跨轮次跨会话跨天跨设备">10.2 长期记忆（可以跨轮次、跨会话、跨天、跨设备）</h2>
+<h2 id="102">10.2 长期记忆（可以跨轮次、跨会话、跨天、跨设备）</h2>
 <ul>
 <li>容量大：可以存储大量信息</li>
 <li>持久化：信息会长期保存，不会自动清除</li>
@@ -1583,12 +1606,12 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
         <span class="bp">self</span><span class="o">.</span><span class="n">memories</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">memories</span> <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">memory_id</span><span class="p">]</span>
 </code></pre></div>
 
-<h2 id="103-对话历史">10.3 对话历史</h2>
+<h2 id="103">10.3 对话历史</h2>
 <p>LLM 的上下文长度有限。</p>
 <p>多轮对话不是每轮新开窗口，是把历史 + 当前问题一起塞进同一个窗口。</p>
 <p>窗口有上限，塞不下就会被截断，需要智能地管理哪些历史信息应该保留、哪些可以丢弃。</p>
 <p>不是所有历史对话都同样重要。智能的历史选择可以提高上下文的使用效率.</p>
-<h3 id="1031-基本管理">10.3.1 基本管理</h3>
+<h3 id="1031">10.3.1 基本管理</h3>
 <p>采用「从最新对话往回倒序填充、按 Token 估算限制长度」的滑动窗口策略，只保留最近 N 轮完整原始对话，直到触达最大 Token 上限，更早历史直接丢弃。</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ConversationManager</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;对话管理器&quot;&quot;&quot;</span>
@@ -1657,7 +1680,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
         <span class="bp">self</span><span class="o">.</span><span class="n">active_context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </code></pre></div>
 
-<h3 id="1032-基于时间的衰减">10.3.2 基于时间的衰减</h3>
+<h3 id="1032">10.3.2 基于时间的衰减</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">time_based_selection</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">current_time</span><span class="p">,</span> <span class="n">max_items</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;基于时间的选择：越近的对话权重越高&quot;&quot;&quot;</span>
     <span class="n">scored_items</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1677,7 +1700,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
     <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">score</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">scored_items</span><span class="p">[:</span><span class="n">max_items</span><span class="p">]]</span>
 </code></pre></div>
 
-<h3 id="1033-基于相关性的选择">10.3.3 基于相关性的选择</h3>
+<h3 id="1033">10.3.3 基于相关性的选择</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">relevance_based_selection</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">current_query</span><span class="p">,</span> <span class="n">embedding_model</span><span class="p">,</span> <span class="n">max_items</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;基于与当前查询相关性的选择&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">history</span><span class="p">:</span>
@@ -1703,7 +1726,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
     <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">similarity</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">scored_items</span><span class="p">[:</span><span class="n">max_items</span><span class="p">]]</span>
 </code></pre></div>
 
-<h3 id="1034-混合选择策略">10.3.4 混合选择策略</h3>
+<h3 id="1034">10.3.4 混合选择策略</h3>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SmartHistorySelector</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;智能历史选择器&quot;&quot;&quot;</span>
 
@@ -1767,7 +1790,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">exchange</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">exchange</span><span class="p">[</span><span class="s2">&quot;assistant&quot;</span><span class="p">])</span>
 </code></pre></div>
 
-<h2 id="104-对话历史压缩">10.4 对话历史压缩</h2>
+<h2 id="104">10.4 对话历史压缩</h2>
 <p>当对话历史太长时，可以对其进行压缩，保留核心信息</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">HistoryCompressor</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;对话历史压缩器&quot;&quot;&quot;</span>
@@ -1827,7 +1850,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="105-向量数据库">10.5 向量数据库</h2>
+<h2 id="105">10.5 向量数据库</h2>
 <p>向量数据库是长期记忆系统的核心技术，它允许 Agent 基于语义相似度检索相关信息，而不仅仅是关键词匹配。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">chromadb</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceTransformer</span>
@@ -2030,9 +2053,9 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
     <span class="k">return</span> <span class="n">final_results</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
 </code></pre></div>
 
-<h2 id="106-记忆压缩与总结策略">10.6 记忆压缩与总结策略</h2>
+<h2 id="106">10.6 记忆压缩与总结策略</h2>
 <p>随着对话的进行，记忆会不断累积。为了避免信息过载和减少资源消耗，需要定期对记忆进行压缩和总结。</p>
-<h3 id="1061-基于重要性的压缩">10.6.1 基于重要性的压缩</h3>
+<h3 id="1061">10.6.1 基于重要性的压缩</h3>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImportanceBasedCompressor</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;基于重要性的记忆压缩器&quot;&quot;&quot;</span>
 
@@ -2100,7 +2123,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
         <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">importance_score</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># 归一化到0-1</span>
 </code></pre></div>
 
-<h3 id="1062-基于聚类的压缩">10.6.2 基于聚类的压缩</h3>
+<h3 id="1062">10.6.2 基于聚类的压缩</h3>
 <p>将相似记忆聚类，然后总结每个聚类</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -2176,7 +2199,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
         <span class="p">}</span>
 </code></pre></div>
 
-<h3 id="1063-增量总结策略">10.6.3 增量总结策略</h3>
+<h3 id="1063">10.6.3 增量总结策略</h3>
 <p>在对话过程中逐步总结，而不是一次性处理所有历史</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">IncrementalSummarizer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;增量总结器&quot;&quot;&quot;</span>
@@ -2258,7 +2281,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
         <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">context_parts</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="107-记忆生命周期管理">10.7 记忆生命周期管理</h2>
+<h2 id="107">10.7 记忆生命周期管理</h2>
 <p><img alt="image.png" src="Agent_files/image.png" /></p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MemoryLifecycleManager</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;记忆生命周期管理器&quot;&quot;&quot;</span>
@@ -2331,7 +2354,7 @@ RAG + Agent 中 Agent 自主判断在推理的哪个环节需要补充知识、�
                 <span class="bp">self</span><span class="o">.</span><span class="n">long_term</span><span class="o">.</span><span class="n">delete_memory</span><span class="p">(</span><span class="n">memory</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
 </code></pre></div>
 
-<h1 id="11-智能体通信协议">11 智能体通信协议</h1>
+<h1 id="11">11 智能体通信协议</h1>
 <p>如何让智能体与外部世界高效交互？如何让多个智能体相互协作？</p>
 <p>这正是智能体通信协议要解决的核心问题。</p>
 <p>三种通信协议：</p>
@@ -2442,7 +2465,7 @@ A2A 的设计哲学是"对等通信"。如图 10.2 所示，在 A2A 网络中，
 <p>ANP：智能体网络的基础设施</p>
 <p>ANP（Agent Network Protocol）是一个概念性的协议框架3，目前由开源社区维护，还没有成熟的生态，其核心设计理念是构建大规模智能体网络的基础设施。如果说 MCP 解决的是"如何访问工具"，A2A 解决的是"如何与其他智能体对话"，那么 ANP 解决的是"如何在大规模网络中发现和连接智能体"。<br />
 ANP 的设计哲学是"去中心化服务发现"。在一个包含成百上千个智能体的网络中，如何让智能体能够找到它需要的服务？ANP 提供了服务注册、发现和路由机制，让智能体能够动态地发现网络中的其他服务，而不需要预先配置所有的连接关系。</p>
-<h1 id="12-ai-agent-简单实现">12 AI Agent 简单实现</h1>
+<h1 id="12-ai-agent">12 AI Agent 简单实现</h1>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Callable</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
@@ -2606,7 +2629,67 @@ ANP 的设计哲学是"去中心化服务发现"。在一个包含成百上千�
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#1">1 介绍</a></li>
+<li><a href="#2">2 核心组件与工作原理</a></li>
+<li><a href="#3">3 大语言模型</a></li>
+<li><a class="toc-h2" href="#31-transfomer">3.1 Transfomer 架构</a></li>
+<li><a class="toc-h2" href="#32-api">3.2 API调用</a></li>
+<li><a href="#4-token">4 提示词与token</a></li>
+<li><a href="#5">5 推理与规划</a></li>
+<li><a class="toc-h2" href="#51-cotchain-of-thought">5.1 思维链 CoT（Chain of Thought）</a></li>
+<li><a class="toc-h2" href="#52-reactreasoning-acting">5.2 ReAct（Reasoning + Acting）</a></li>
+<li><a class="toc-h2" href="#53-plan-and-execute">5.3 Plan-and-Execute（规划先行执行模式）</a></li>
+<li><a class="toc-h2" href="#54-tot-tree-of-thoughts">5.4 ToT (Tree of Thoughts) 与树状多路径探索</a></li>
+<li><a class="toc-h2" href="#55-mcts">5.5 任务规划 & MCTS (蒙特卡洛树搜索)</a></li>
+<li><a class="toc-h2" href="#56-reflexion">5.6 Reflexion：自我反思与纠错</a></li>
+<li><a class="toc-h2" href="#57">5.7 任务分解策略与工程化实践</a></li>
+<li><a href="#6-rag">6 RAG</a></li>
+<li><a class="toc-h2" href="#61">6.1 文档切分</a></li>
+<li><a class="toc-h2" href="#62">6.2 向量检索</a></li>
+<li><a class="toc-h2" href="#63-advanced-rag">6.3 Advanced RAG</a></li>
+<li><a class="toc-h2" href="#64-self-rag-crag">6.4 Self-RAG 与 CRAG</a></li>
+<li><a class="toc-h2" href="#65-graphrag">6.5 GraphRAG：知识图谱 + 检索融合</a></li>
+<li><a class="toc-h2" href="#66">6.6 技术与数据库选型</a></li>
+<li><a class="toc-h2" href="#67">6.7 评估指标</a></li>
+<li><a href="#7-agent">7 Agent架构</a></li>
+<li><a class="toc-h2" href="#71-agent-single-agent-loop">7.1 单 Agent 循环（Single Agent Loop）</a></li>
+<li><a class="toc-h2" href="#72-plan-execute">7.2 规划 + 执行（Plan & Execute）</a></li>
+<li><a class="toc-h2" href="#73-agent-multi-agent">7.3 多 Agent 协作（Multi-Agent）</a></li>
+<li><a class="toc-h2" href="#74-reflection">7.4 反思与修正（Reflection）</a></li>
+<li><a class="toc-h2" href="#75-rag-agent">7.5 RAG + Agent（检索增强型智能体）</a></li>
+<li><a class="toc-h2" href="#76-workflow-dag">7.6 工作流编排（Workflow / DAG 有向无环图）</a></li>
+<li><a href="#8-skills">8 skills</a></li>
+<li><a href="#9-function-calling">9 Function Calling</a></li>
+<li><a class="toc-h2" href="#91">9.1 工具定义</a></li>
+<li><a class="toc-h2" href="#92">9.2 参数提取与验证</a></li>
+<li><a class="toc-h2" href="#93">9.3 错误处理与重试机制</a></li>
+<li><a href="#10">10 记忆系统</a></li>
+<li><a class="toc-h2" href="#101">10.1 短期记忆（同一会话内、多轮之间）</a></li>
+<li><a class="toc-h2" href="#102">10.2 长期记忆（可以跨轮次、跨会话、跨天、跨设备）</a></li>
+<li><a class="toc-h2" href="#103">10.3 对话历史</a></li>
+<li><a class="toc-h3" href="#1031">10.3.1 基本管理</a></li>
+<li><a class="toc-h3" href="#1032">10.3.2 基于时间的衰减</a></li>
+<li><a class="toc-h3" href="#1033">10.3.3 基于相关性的选择</a></li>
+<li><a class="toc-h3" href="#1034">10.3.4 混合选择策略</a></li>
+<li><a class="toc-h2" href="#104">10.4 对话历史压缩</a></li>
+<li><a class="toc-h2" href="#105">10.5 向量数据库</a></li>
+<li><a class="toc-h2" href="#106">10.6 记忆压缩与总结策略</a></li>
+<li><a class="toc-h3" href="#1061">10.6.1 基于重要性的压缩</a></li>
+<li><a class="toc-h3" href="#1062">10.6.2 基于聚类的压缩</a></li>
+<li><a class="toc-h3" href="#1063">10.6.3 增量总结策略</a></li>
+<li><a class="toc-h2" href="#107">10.7 记忆生命周期管理</a></li>
+<li><a href="#11">11 智能体通信协议</a></li>
+<li><a class="toc-h2" href="#111-mcp">11.1 MCP</a></li>
+<li><a class="toc-h2" href="#112-a2a">11.2 A2A</a></li>
+<li><a class="toc-h2" href="#113-anp">11.3 ANP</a></li>
+<li><a href="#12-ai-agent">12 AI Agent 简单实现</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -2615,6 +2698,45 @@ ANP 的设计哲学是"去中心化服务发现"。在一个包含成百上千�
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>Numpy - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,25 +482,9 @@
             <span class="sep">/</span>
             <span>data_analysis</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<ul>
-<li><a href="#11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33-34-35">11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35</a></li>
-<li><a href="#98017920-1764322560--837609728-427674624-391232512-17180672">98017920  1764322560  -837609728   427674624   391232512    17180672</a></li>
-<li><a href="#395155456-893796352-870072320-1147043840-905412608--418250752">395155456   893796352   870072320  1147043840   905412608  -418250752</a></li>
-<li><a href="#755630080-1194065920--1638662144--897581056-444596224--2063597568">755630080  1194065920 -1638662144  -897581056   444596224 -2063597568</a></li>
-<li><a href="#24-25-26-27-28-29-30-31-32-33-34-35-36-37-38-39-40-41-42-43-44-45-46-47">24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47</a></li>
-<li><a href="#00-02-10">0.0 &lt;= 0.2 &lt; 1.0</a></li>
-<li><a href="#40-64-100">4.0 &lt;= 6.4 &lt; 10.0</a></li>
-<li><a href="#25-30-40">2.5 &lt;= 3.0 &lt; 4.0</a></li>
-<li><a href="#10-16-25">1.0 &lt;= 1.6 &lt; 2.5</a></li>
-<li><a href="#100-123410">10.0  |1|+|2|+|3|+|4|=10</a></li>
-<li><a href="#5477225575051661-根号下平方和">5.477225575051661 根号下平方和</a></li>
-<li><a href="#10-min12341">1.0   min(|1|,|2|,|3|,|4|)=1</a></li>
-<li><a href="#40-max12344">4.0    max(|1|,|2|,|3|,|4|)=4</a></li>
-</ul>
-<hr />
-<h1 id="_2">常量</h1>
+<h1 id="_1">常量</h1>
 <h2 id="npnan">np.nan</h2>
 <p>表示空值<br />
 nan = NaN = NAN<br />
@@ -442,8 +524,8 @@ pi = 3.1415926535897932384626433...</p>
 <h2 id="npe">np.e</h2>
 <p>表示自然常数
 e = 2.71828182845904523536028747135266249775724709369995...</p>
-<h1 id="_3">数据类型</h1>
-<h2 id="_4">常见数据类型</h2>
+<h1 id="_2">数据类型</h1>
+<h2 id="_3">常见数据类型</h2>
 <p>为了加以区分 numpy 在这些类型名称末尾都加了“_”</p>
 <table>
 <thead>
@@ -678,7 +760,7 @@ e = 2.71828182845904523536028747135266249775724709369995...</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">ff32</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>  <span class="c1"># 1.1920929e-07</span>
 </code></pre></div>
 
-<h1 id="_5">时间日期和时间增量</h1>
+<h1 id="_4">时间日期和时间增量</h1>
 <h2 id="npdatetime64">np.datetime64</h2>
 <p>在 numpy 中，我们很方便的将字符串转换成时间日期类型 datetime64（datetime 已被 python 包含的日期时间库所占用）。</p>
 <p>datatime64是带单位的日期时间类型，其单位如下：</p>
@@ -1117,7 +1199,7 @@ numpy.random.rand() 返回一个由[0,1)内的随机数组成的数组  </p>
 <span class="c1"># [0.19817739 0.19836231 0.13301785]]</span>
 </code></pre></div>
 
-<h2 id="_6">结构数组的创建</h2>
+<h2 id="_5">结构数组的创建</h2>
 <p>结构数组，首先需要定义结构，然后利用np.array()来创建数组，其参数dtype为定义的结构 </p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 利用字典来定义结构</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -1163,7 +1245,7 @@ numpy.random.rand() 返回一个由[0,1)内的随机数组成的数组  </p>
 <span class="c1"># [63.9 67.  45.8]</span>
 </code></pre></div>
 
-<h2 id="_7">数组的属性</h2>
+<h2 id="_6">数组的属性</h2>
 <p>numpy.ndarray.ndim      返回数组的维数<br />
 numpy.ndarray.shape   <br />
 numpy.ndarray.size      数组中所有元素的个数
@@ -1227,7 +1309,7 @@ numpy.ndarray.itemsize  以字节的形式返回数组中每一个元素的大�
 <span class="c1"># [-1  2  3  4  5  6  7  8]</span>
 </code></pre></div>
 
-<h2 id="_8">索引与切片</h2>
+<h2 id="_7">索引与切片</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># 索引</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -1452,7 +1534,7 @@ x[4,...,5,:] 等于 x[4,:,:,5,:]
 <span class="c1">#False</span>
 </code></pre></div>
 
-<h2 id="_9">布尔索引</h2>
+<h2 id="_8">布尔索引</h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
@@ -1557,8 +1639,8 @@ x[4,...,5,:] 等于 x[4,:,:,5,:]
 <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># [13. 18. 23. 28. 33.]</span>
 </code></pre></div>
 
-<h1 id="_10">数组操作</h1>
-<h2 id="_11">更改形状</h2>
+<h1 id="_9">数组操作</h1>
+<h2 id="_10">更改形状</h2>
 <h3 id="shape">.shape</h3>
 <p>numpy.ndarray.shape表示数组的维度，返回一个元组，这个元组的长度就是维度的数目，即 ndim 属性(秩)</p>
 <div class="highlight"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
@@ -1689,7 +1771,7 @@ x[4,...,5,:] 等于 x[4,:,:,5,:]
 <span class="c1"># [ 0 10  2  3  4  5  6  7  8  9 10 11]</span>
 </code></pre></div>
 
-<h2 id="_12">数组转置</h2>
+<h2 id="_11">数组转置</h2>
 <h3 id="nptransposea">np.transpose(a)</h3>
 <p>np.transpose(a, axes=None)
 对数组的维度进行置换(重排)</p>
@@ -1721,7 +1803,7 @@ x[4,...,5,:] 等于 x[4,:,:,5,:]
 <span class="c1">#  [1.25 9.92 0.43 7.65 4.14]]</span>
 </code></pre></div>
 
-<h2 id="_13">更改维度</h2>
+<h2 id="_12">更改维度</h2>
 <h3 id="npnewaxis">np.newaxis</h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
@@ -1807,7 +1889,7 @@ axis用于指定需要删除的维度，但是指定的维度必须为单维度�
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_14">数组组合</h2>
+<h2 id="_13">数组组合</h2>
 <h3 id="npconcatenatea1-a2">np.concatenate((a1, a2, ...))</h3>
 <p>np.concatenate((a1, a2, ...), axis=0, out=None)
 沿现有轴连接一系列数组</p>
@@ -2021,7 +2103,7 @@ hstack(),vstack()在数据维度等于1时，比较特殊
 <span class="c1">#  [ 4  5  6 10 11 12]]</span>
 </code></pre></div>
 
-<h2 id="_15">数组拆分</h2>
+<h2 id="_14">数组拆分</h2>
 <h3 id="npsplit">np.split()</h3>
 <p>numpy.split(ary, indices_or_sections, axis)：将一个数组沿指定轴分割为多个子数组，是原数组的视图
 indices_or_sections:索引或段数  [1, 3] 表示在索引 1 和 3 处进行分割     3表示将数组分割成 3 个子数组</p>
@@ -2078,7 +2160,7 @@ indices_or_sections:索引或段数  [1, 3] 表示在索引 1 和 3 处进行分
 <span class="c1">#        [24]])]</span>
 </code></pre></div>
 
-<h2 id="_16">数组平铺</h2>
+<h2 id="_15">数组平铺</h2>
 <h3 id="nptile">np.tile()</h3>
 <p>numpy.tile(A, reps)：通过将数组 A 按照 reps 指定的次数进行重复，构造一个新的数组<br />
 reps:(1,3)表示在第一个轴（行）上重复 1 次，在第二个轴（列）上重复 3 次  </p>
@@ -2157,7 +2239,7 @@ axis=None时就会flatten当前矩阵，实际上就是变成了一个行向量 
 <span class="c1">#  [3 3 4 4 4]]</span>
 </code></pre></div>
 
-<h2 id="_17">数组比较</h2>
+<h2 id="_16">数组比较</h2>
 <h3 id="npallclosea-b">np.allclose(A, B)</h3>
 <p>np.allclose 用于比较两个数组的元素是否在指定的容差范围内近似相等。
 默认情况下，np.allclose 的相对容差为 1e-05，绝对容差为 1e-08。</p>
@@ -2175,7 +2257,7 @@ axis=None时就会flatten当前矩阵，实际上就是变成了一个行向量 
 <span class="c1"># True</span>
 </code></pre></div>
 
-<h2 id="_18">添加和删除元素</h2>
+<h2 id="_17">添加和删除元素</h2>
 <h3 id="npunique">np.unique</h3>
 <p>numpy.unique(arr, return_index=False, return_inverse=False, return_counts=False, axis=None)：查找数组中的唯一元素 <br />
 return_index：返回输入数组中唯一值对应的索引<br />
@@ -2191,7 +2273,7 @@ axis：指定沿着哪个轴查找唯一元素（如果未指定，则查找展�
 <span class="c1"># 2</span>
 </code></pre></div>
 
-<h1 id="_19">逻辑函数*</h1>
+<h1 id="_18">逻辑函数*</h1>
 <h3 id="npall">np.all()</h3>
 <h3 id="npany">np.any()</h3>
 <p>numpy.all(a, axis=None, out=None, keepdims=np._NoValue)<br />
@@ -2366,8 +2448,8 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
   [ 6  9 10]
 </code></pre></div>
 
-<h1 id="_20">数学函数</h1>
-<h2 id="_21">向量化和广播</h2>
+<h1 id="_19">数学函数</h1>
+<h2 id="_20">向量化和广播</h2>
 <p>有了向量化，编写代码时无需使用显式循环。这些循环实际上不能省略，只不过是在内部实现，被代码中的其他结构代替<br />
 向量化的应用使得代码更简洁，可读性更强    </p>
 <p>广播机制描述了 numpy 如何在算术运算期间处理具有不同形状的数组，让较小的数组在较大的数组上“广播”，以便它们具有兼容的形状<br />
@@ -2420,7 +2502,7 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
 <span class="c1"># ValueError: operands could not be broadcast together with shapes (4,) (5,) </span>
 </code></pre></div>
 
-<h2 id="_22">算数运算</h2>
+<h2 id="_21">算数运算</h2>
 <h3 id="npadd">np.add()</h3>
 <p>numpy.add(x1, x2, <em>args, </em>*kwargs)</p>
 <h3 id="npsubtract">np.subtract()</h3>
@@ -2513,7 +2595,7 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
 <span class="c1"># [ 1  4  9 16]</span>
 </code></pre></div>
 
-<h2 id="_23">三角函数</h2>
+<h2 id="_22">三角函数</h2>
 <h3 id="npsin">np.sin()</h3>
 <h3 id="npcos">np.cos()</h3>
 <h3 id="nptan">np.tan()</h3>
@@ -2532,7 +2614,7 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
 <span class="c1">#  -2.4492936e-16]</span>
 </code></pre></div>
 
-<h2 id="_24">指数和对数</h2>
+<h2 id="_23">指数和对数</h2>
 <h3 id="npexp">np.exp()</h3>
 <h3 id="nplog">np.log()</h3>
 <p>e为底，即ln()</p>
@@ -2553,7 +2635,7 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
 <span class="c1"># [1. 2. 3. 4.]</span>
 </code></pre></div>
 
-<h2 id="_25">加法函数、乘法函数</h2>
+<h2 id="_24">加法函数、乘法函数</h2>
 <h3 id="npsum">np.sum() 求和</h3>
 <p>numpy.sum(a[, axis=None, dtype=None, out=None, …]) <br />
 通过不同的 axis，numpy 会沿着不同的方向进行操作：如果不设置，那么对所有的元素操作；如果axis=0，则沿着纵轴进行操作；axis=1，则沿着横轴进行操作。axis=i，则 numpy 沿着第i个下标变化的方向进行操作  </p>
@@ -2691,7 +2773,7 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
 <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="c1"># [2 5]</span>
 </code></pre></div>
 
-<h2 id="_26">四舍五入</h2>
+<h2 id="_25">四舍五入</h2>
 <h3 id="nparound">np.around() 舍入</h3>
 <p><code>numpy.around(a, decimals=0, out=None)</code> 将数组中的元素舍入到指定的小数位数。</p>
 <ul>
@@ -2751,7 +2833,7 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
 <span class="c1">#  [8. 8. 5.]]</span>
 </code></pre></div>
 
-<h2 id="_27">杂项</h2>
+<h2 id="_26">杂项</h2>
 <h3 id="npclip">np.clip() 裁剪</h3>
 <p><code>numpy.clip(a, a_min, a_max, out=None, **kwargs)</code>：裁剪（限制）数组中的值。</p>
 <ul>
@@ -2819,8 +2901,8 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
 <span class="c1">#[-1 -1 -1 -1 -1  0  1  1  1  1]</span>
 </code></pre></div>
 
-<h3 id="_28">平均,中位,方差,标准差</h3>
-<h3 id="_29">相关性矩阵,协方差矩阵</h3>
+<h3 id="_27">平均,中位,方差,标准差</h3>
+<h3 id="_28">相关性矩阵,协方差矩阵</h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="n">arr1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">arr2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
@@ -2833,8 +2915,8 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;arr1,arr的协方差矩阵为:</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">arr1</span><span class="p">,</span><span class="n">arr2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_30">排序，搜索和计数*</h1>
-<h2 id="_31">排序</h2>
+<h1 id="_29">排序，搜索和计数*</h1>
+<h2 id="_30">排序</h2>
 <h3 id="npsort">np.sort()</h3>
 <p>numpy.sort(a[, axis=-1, kind='quicksort', order=None])   </p>
 <p>axis：方向，0表示按列，1表示按行，None表示展开来排序，默认为-1，表示沿最后的轴排序  </p>
@@ -3038,7 +3120,7 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
 
 <h3 id="npargpartition">np.argpartition()</h3>
 <p>numpy.argpartition(a, kth, axis=-1, kind='introselect', order=None)  </p>
-<h2 id="_32">搜索</h2>
+<h2 id="_31">搜索</h2>
 <h3 id="npargmax">np.argmax()</h3>
 <p>numpy.argmax(a[, axis=None, out=None])<br />
 返回沿指定轴的最大值的索引<br />
@@ -3271,7 +3353,7 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
 <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># [0 1 5 5 8 8]</span>
 </code></pre></div>
 
-<h2 id="_33">计数</h2>
+<h2 id="_32">计数</h2>
 <h3 id="npcount_nonzero_1">np.count_nonzero()</h3>
 <p>numpy.count_nonzero(a, axis=None)
 统计数组 a 中非零值的数量</p>
@@ -3287,7 +3369,7 @@ equal_nan: 如果为 True，则认为 NaN 值是相等的；默认为 False  </p
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># [2 3]</span>
 </code></pre></div>
 
-<h1 id="_34">集合操作</h1>
+<h1 id="_33">集合操作</h1>
 <h3 id="npunique_1">np.unique() 构造集合</h3>
 <p>numpy.unique(ar, return_index=False, return_inverse=False, return_counts=False, axis=None) 
 return_index=True 表示返回新列表元素在旧列表中的位置。
@@ -3404,7 +3486,7 @@ return_counts=True表示返回新列表元素在旧列表中出现的次数</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># [1 2 5 6]</span>
 </code></pre></div>
 
-<h1 id="_35">输入输出</h1>
+<h1 id="_34">输入输出</h1>
 <h2 id="numpy">numpy 二进制文件</h2>
 <p>以 numpy 专用的二进制类型（.npy、.npz）保存和读取数据，这三个函数会自动处理ndim、dtype、shape等信息，使用它们读写数组非常方便<br />
 但是save()和savez()输出的文件很难与其它语言编写的程序兼容  </p>
@@ -3499,7 +3581,7 @@ return_counts=True表示返回新列表元素在旧列表中出现的次数</p>
 </ul>
 </li>
 </ul>
-<h2 id="_36">文本文件</h2>
+<h2 id="_35">文本文件</h2>
 <p>savetxt()，loadtxt()和genfromtxt()函数用来存储和读取文本文件（如.TXT，.CSV等） <br />
 genfromtxt()比loadtxt()更加强大，可对缺失数据进行处理  </p>
 <h3 id="npsavetxt">np.savetxt()</h3>
@@ -3662,7 +3744,7 @@ names=None：设置为True时，程序将把第一行作为列名称   </p>
 <li><code>encoding='bytes'</code>：指定文件编码，默认为 <code>'bytes'</code>  </li>
 <li><code>max_rows=None</code>：读取的最大行数，默认为 <code>None</code>（读取所有行）</li>
 </ul>
-<h2 id="_37">文本格式选项</h2>
+<h2 id="_36">文本格式选项</h2>
 <h3 id="npset_printoptions">np.set_printoptions()</h3>
 <p>def set_printoptions(precision=None, threshold=None, edgeitems=None,
                      linewidth=None, suppress=None, nanstr=None, infstr=None,
@@ -3800,7 +3882,7 @@ names=None：设置为True时，程序将把第一行作为列名称   </p>
 <span class="c1"># }</span>
 </code></pre></div>
 
-<h1 id="_38">随机抽样</h1>
+<h1 id="_37">随机抽样</h1>
 <h3 id="nprandomseed">np.random.seed()</h3>
 <p>numpy.random.seed(seed=None)  </p>
 <h2 id="nprandombinomial">二项分布 np.random.binomial()</h2>
@@ -3991,7 +4073,7 @@ ngood+nbad表示总体样本容量，nsample表示抽取元素的次数（小于
 <span class="nb">print</span><span class="p">(</span><span class="n">y3</span><span class="p">)</span>  <span class="c1"># 0.950212931632136</span>
 </code></pre></div>
 
-<h2 id="_39">随机从序列中获取元素</h2>
+<h2 id="_38">随机从序列中获取元素</h2>
 <h3 id="nprandomchoice">np.random.choice()</h3>
 <p>numpy.random.choice(a, size=None, replace=True, p=None)<br />
 从序列中获取元素，若a为整数，元素取值从np.range(a)中随机获取<br />
@@ -4014,7 +4096,7 @@ ngood+nbad表示总体样本容量，nsample表示抽取元素的次数（小于
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># [&#39;pooh&#39; &#39;rabbit&#39; &#39;pooh&#39; &#39;pooh&#39; &#39;pooh&#39;]</span>
 </code></pre></div>
 
-<h2 id="_40">对数据集进行洗牌操作</h2>
+<h2 id="_39">对数据集进行洗牌操作</h2>
 <h3 id="nprandomshufflex">np.random.shuffle(x)</h3>
 <p>对x进行重排序，如果x为多维数组，只沿第 0 轴洗牌，改变原来的数组，输出为None</p>
 <h3 id="nprandompermutationx">np.random.permutation(x)</h3>
@@ -4055,7 +4137,7 @@ ngood+nbad表示总体样本容量，nsample表示抽取元素的次数（小于
 <span class="c1"># [1, 4, 9, 12, 15] 不会改变原来的数组</span>
 </code></pre></div>
 
-<h1 id="_41">统计相关*</h1>
+<h1 id="_40">统计相关*</h1>
 <h3 id="npmin">np.min()</h3>
 <p>numpy.amin(a[, axis=None, out=None, keepdims=np._NoValue, initial=np._NoValue, where=np._NoValue])</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -4335,7 +4417,7 @@ np.cov()描述的是两个向量协同变化的程度，它的取值可能非常
 <span class="c1"># 10.0 落在 [10, 15) 索引为 3</span>
 </code></pre></div>
 
-<h1 id="_42">线性代数</h1>
+<h1 id="_41">线性代数</h1>
 <p>Numpy 定义了 matrix 类型，使用该 matrix 类型创建的是矩阵对象，它们的加减乘除运算缺省采用矩阵方式计算，因此用法和Matlab十分类似<br />
 但是由于 NumPy 中同时存在 ndarray 和 matrix 对象，因此用户很容易将两者弄混<br />
 这有违 Python 的“显式优于隐式”的原则，因此官方并不推荐在程序中使用 matrix<br />
@@ -4721,7 +4803,7 @@ numpy.linalg.inv(a) 计算矩阵a的逆矩阵（矩阵可逆的充要条件：de
 <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># True</span>
 </code></pre></div>
 
-<h1 id="_43">鸢尾花操作示例</h1>
+<h1 id="_42">鸢尾花操作示例</h1>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
 
@@ -4814,7 +4896,211 @@ numpy.linalg.inv(a) 计算矩阵a的逆矩阵（矩阵可逆的充要条件：de
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">常量</a></li>
+<li><a class="toc-h2" href="#npnan">np.nan</a></li>
+<li><a class="toc-h2" href="#npisnan">np.isnan</a></li>
+<li><a class="toc-h2" href="#npcount_nonzero">np.count_nonzero</a></li>
+<li><a class="toc-h2" href="#npinf">np.inf</a></li>
+<li><a class="toc-h2" href="#nppi">np.pi</a></li>
+<li><a class="toc-h2" href="#npe">np.e</a></li>
+<li><a href="#_2">数据类型</a></li>
+<li><a class="toc-h2" href="#_3">常见数据类型</a></li>
+<li><a class="toc-h2" href="#npdtype">创建数据类型 np.dtype</a></li>
+<li><a class="toc-h2" href="#npiinfo">数据类型信息 np.iinfo</a></li>
+<li><a href="#_4">时间日期和时间增量</a></li>
+<li><a class="toc-h2" href="#npdatetime64">np.datetime64</a></li>
+<li><a class="toc-h2" href="#nptimedelta64">np.timedelta64时间运算</a></li>
+<li><a class="toc-h2" href="#astype">.astype() 转换</a></li>
+<li><a class="toc-h2" href="#npbusday_offset">np.busday_offset 工作日</a></li>
+<li><a href="#nparray">数组的创建 np.array</a></li>
+<li><a class="toc-h2" href="#asarray">asarray()</a></li>
+<li><a class="toc-h2" href="#fromfunction">fromfunction()</a></li>
+<li><a class="toc-h2" href="#zeros-zeros_like">零数组 zeros() zeros_like()</a></li>
+<li><a class="toc-h2" href="#1-ones-ones_like">1数组 ones() ones_like()</a></li>
+<li><a class="toc-h2" href="#empty-empty_like">空数组 empty() empty_like()</a></li>
+<li><a class="toc-h2" href="#eye-identity">单位数组 eye() identity()</a></li>
+<li><a class="toc-h2" href="#diag">对角数组 diag()</a></li>
+<li><a class="toc-h2" href="#full-full_like">常数数组 full() full_like()</a></li>
+<li><a class="toc-h2" href="#arange-linspace-logspace-numpyrandomrand">范围数组 arange() linspace() logspace() numpy.random.rand()</a></li>
+<li><a class="toc-h2" href="#_5">结构数组的创建</a></li>
+<li><a class="toc-h2" href="#_6">数组的属性</a></li>
+<li><a href="#copy">索引，切片，迭代 .copy()</a></li>
+<li><a class="toc-h2" href="#copy_1">副本与视图 .copy()</a></li>
+<li><a class="toc-h2" href="#_7">索引与切片</a></li>
+<li><a class="toc-h2" href="#dots">dots 索引</a></li>
+<li><a class="toc-h2" href="#nptake">数组索引 np.take()</a></li>
+<li><a class="toc-h2" href="#_8">布尔索引</a></li>
+<li><a class="toc-h2" href="#npapply_along_axis">数组迭代 np.apply_along_axis</a></li>
+<li><a href="#_9">数组操作</a></li>
+<li><a class="toc-h2" href="#_10">更改形状</a></li>
+<li><a class="toc-h3" href="#shape">.shape</a></li>
+<li><a class="toc-h3" href="#flat">.flat</a></li>
+<li><a class="toc-h3" href="#flatten">.flatten()</a></li>
+<li><a class="toc-h3" href="#npravel">np.ravel()</a></li>
+<li><a class="toc-h3" href="#npreshape">np.reshape()</a></li>
+<li><a class="toc-h2" href="#_11">数组转置</a></li>
+<li><a class="toc-h3" href="#nptransposea">np.transpose(a)</a></li>
+<li><a class="toc-h3" href="#numpyndarrayt">numpy.ndarray.T</a></li>
+<li><a class="toc-h2" href="#_12">更改维度</a></li>
+<li><a class="toc-h3" href="#npnewaxis">np.newaxis</a></li>
+<li><a class="toc-h3" href="#npsqueezea">np.squeeze(a)</a></li>
+<li><a class="toc-h2" href="#_13">数组组合</a></li>
+<li><a class="toc-h3" href="#npconcatenatea1-a2">np.concatenate((a1, a2, ...))</a></li>
+<li><a class="toc-h3" href="#npstacka1-a2-axis0">np.stack([a1, a2], axis=0默认)</a></li>
+<li><a class="toc-h3" href="#numpyvstack">numpy.vstack()</a></li>
+<li><a class="toc-h3" href="#numpyhstack">numpy.hstack()</a></li>
+<li><a class="toc-h2" href="#_14">数组拆分</a></li>
+<li><a class="toc-h3" href="#npsplit">np.split()</a></li>
+<li><a class="toc-h3" href="#npvsplit">np.vsplit()</a></li>
+<li><a class="toc-h3" href="#nphsplit">np.hsplit()</a></li>
+<li><a class="toc-h2" href="#_15">数组平铺</a></li>
+<li><a class="toc-h3" href="#nptile">np.tile()</a></li>
+<li><a class="toc-h3" href="#nprepeat">np.repeat()</a></li>
+<li><a class="toc-h2" href="#_16">数组比较</a></li>
+<li><a class="toc-h3" href="#npallclosea-b">np.allclose(A, B)</a></li>
+<li><a class="toc-h3" href="#nparray_equala-b">np.array_equal(A, B)</a></li>
+<li><a class="toc-h2" href="#_17">添加和删除元素</a></li>
+<li><a class="toc-h3" href="#npunique">np.unique</a></li>
+<li><a href="#_18">逻辑函数*</a></li>
+<li><a class="toc-h3" href="#npall">np.all()</a></li>
+<li><a class="toc-h3" href="#npany">np.any()</a></li>
+<li><a class="toc-h3" href="#npisnan_1">np.isnan()</a></li>
+<li><a class="toc-h3" href="#nplogical_not">np.logical_not()</a></li>
+<li><a class="toc-h3" href="#nplogical_and">np.logical_and()</a></li>
+<li><a class="toc-h3" href="#nplogical_or">np.logical_or()</a></li>
+<li><a class="toc-h3" href="#nplogical_xor">np.logical_xor()</a></li>
+<li><a class="toc-h3" href="#npgreater">np.greater()</a></li>
+<li><a class="toc-h3" href="#npgreater_equal">np.greater_equal()</a></li>
+<li><a class="toc-h3" href="#npequal">np.equal()</a></li>
+<li><a class="toc-h3" href="#npnot_equal">np.not_equal()</a></li>
+<li><a class="toc-h3" href="#npless">np.less()</a></li>
+<li><a class="toc-h3" href="#npless_equal">np.less_equal()</a></li>
+<li><a class="toc-h3" href="#npisclose">np.isclose</a></li>
+<li><a class="toc-h3" href="#npallclose">np.allclose</a></li>
+<li><a class="toc-h2" href="#npwhere">np.where()</a></li>
+<li><a href="#_19">数学函数</a></li>
+<li><a class="toc-h2" href="#_20">向量化和广播</a></li>
+<li><a class="toc-h2" href="#_21">算数运算</a></li>
+<li><a class="toc-h3" href="#npadd">np.add()</a></li>
+<li><a class="toc-h3" href="#npsubtract">np.subtract()</a></li>
+<li><a class="toc-h3" href="#npmultiply">np.multiply()</a></li>
+<li><a class="toc-h3" href="#npdivide">np.divide()</a></li>
+<li><a class="toc-h3" href="#npfloor_divide">np.floor_divide()</a></li>
+<li><a class="toc-h3" href="#nppower">np.power() 幂次</a></li>
+<li><a class="toc-h3" href="#npsqrt">np.sqrt() 开根号</a></li>
+<li><a class="toc-h3" href="#npsquare">np.square() 平方</a></li>
+<li><a class="toc-h2" href="#_22">三角函数</a></li>
+<li><a class="toc-h3" href="#npsin">np.sin()</a></li>
+<li><a class="toc-h3" href="#npcos">np.cos()</a></li>
+<li><a class="toc-h3" href="#nptan">np.tan()</a></li>
+<li><a class="toc-h3" href="#nparcsin">np.arcsin()</a></li>
+<li><a class="toc-h3" href="#nparccos">np.arccos()</a></li>
+<li><a class="toc-h3" href="#nparctan">np.arctan()</a></li>
+<li><a class="toc-h2" href="#_23">指数和对数</a></li>
+<li><a class="toc-h3" href="#npexp">np.exp()</a></li>
+<li><a class="toc-h3" href="#nplog">np.log()</a></li>
+<li><a class="toc-h3" href="#npexp2">np.exp2()</a></li>
+<li><a class="toc-h3" href="#nplog2">np.log2()</a></li>
+<li><a class="toc-h3" href="#nplog10">np.log10()</a></li>
+<li><a class="toc-h2" href="#_24">加法函数、乘法函数</a></li>
+<li><a class="toc-h3" href="#npsum">np.sum() 求和</a></li>
+<li><a class="toc-h3" href="#npcumsum">np.cumsum() 累和</a></li>
+<li><a class="toc-h3" href="#npprod">np.prod() 求积</a></li>
+<li><a class="toc-h3" href="#npcumprod">np.cumprod() 累积</a></li>
+<li><a class="toc-h3" href="#npdiff">np.diff() 差值</a></li>
+<li><a class="toc-h2" href="#_25">四舍五入</a></li>
+<li><a class="toc-h3" href="#nparound">np.around() 舍入</a></li>
+<li><a class="toc-h3" href="#npceil">np.ceil() 上限</a></li>
+<li><a class="toc-h3" href="#npfloor">np.floor() 下限</a></li>
+<li><a class="toc-h2" href="#_26">杂项</a></li>
+<li><a class="toc-h3" href="#npclip">np.clip() 裁剪</a></li>
+<li><a class="toc-h3" href="#npabs">np.abs() 绝对值</a></li>
+<li><a class="toc-h3" href="#npsign">np.sign() 返回数字符号的逐元素指示</a></li>
+<li><a class="toc-h3" href="#_27">平均,中位,方差,标准差</a></li>
+<li><a class="toc-h3" href="#_28">相关性矩阵,协方差矩阵</a></li>
+<li><a href="#_29">排序，搜索和计数*</a></li>
+<li><a class="toc-h2" href="#_30">排序</a></li>
+<li><a class="toc-h3" href="#npsort">np.sort()</a></li>
+<li><a class="toc-h3" href="#npargsort">np.argsort()</a></li>
+<li><a class="toc-h3" href="#nplexsort">np.lexsort()</a></li>
+<li><a class="toc-h3" href="#nppartition">np.partition()</a></li>
+<li><a class="toc-h3" href="#npargpartition">np.argpartition()</a></li>
+<li><a class="toc-h2" href="#_31">搜索</a></li>
+<li><a class="toc-h3" href="#npargmax">np.argmax()</a></li>
+<li><a class="toc-h3" href="#npargmin">np.argmin()</a></li>
+<li><a class="toc-h3" href="#npnonzero">np.nonzero()</a></li>
+<li><a class="toc-h3" href="#npwhere_1">np.where()</a></li>
+<li><a class="toc-h3" href="#npsearchsorted">np.searchsorted()</a></li>
+<li><a class="toc-h2" href="#_32">计数</a></li>
+<li><a class="toc-h3" href="#npcount_nonzero_1">np.count_nonzero()</a></li>
+<li><a href="#_33">集合操作</a></li>
+<li><a class="toc-h3" href="#npunique_1">np.unique() 构造集合</a></li>
+<li><a class="toc-h3" href="#npin1d">np.in1d() 布尔运算</a></li>
+<li><a class="toc-h3" href="#npintersect1d">np.intersect1d() 交集</a></li>
+<li><a class="toc-h3" href="#npunion1d">np.union1d() 并集</a></li>
+<li><a class="toc-h3" href="#npsetdiff1d">np.setdiff1d() 差集</a></li>
+<li><a class="toc-h3" href="#npsetxor1d">np.setxor1d() 异或</a></li>
+<li><a href="#_34">输入输出</a></li>
+<li><a class="toc-h2" href="#numpy">numpy 二进制文件</a></li>
+<li><a class="toc-h3" href="#npsave">np.save()</a></li>
+<li><a class="toc-h3" href="#npsavez">np.savez()</a></li>
+<li><a class="toc-h3" href="#npload">np.load()</a></li>
+<li><a class="toc-h2" href="#_35">文本文件</a></li>
+<li><a class="toc-h3" href="#npsavetxt">np.savetxt()</a></li>
+<li><a class="toc-h3" href="#npgenfromtxt">np.genfromtxt()</a></li>
+<li><a class="toc-h3" href="#nploadtxt">np.loadtxt()</a></li>
+<li><a class="toc-h2" href="#_36">文本格式选项</a></li>
+<li><a class="toc-h3" href="#npset_printoptions">np.set_printoptions()</a></li>
+<li><a class="toc-h3" href="#npget_printoptions">np.get_printoptions()</a></li>
+<li><a href="#_37">随机抽样</a></li>
+<li><a class="toc-h3" href="#nprandomseed">np.random.seed()</a></li>
+<li><a class="toc-h2" href="#nprandombinomial">二项分布 np.random.binomial()</a></li>
+<li><a class="toc-h2" href="#nprandompoisson">泊松分布 np.random.poisson()</a></li>
+<li><a class="toc-h2" href="#nprandomhypergeometric">超几何分布 np.random.hypergeometric()</a></li>
+<li><a class="toc-h2" href="#nprandomuniform">均匀分布 np.random.uniform()</a></li>
+<li><a class="toc-h2" href="#nprandomrand">np.random.rand()</a></li>
+<li><a class="toc-h2" href="#nprandomuniform_1">np.random.uniform()</a></li>
+<li><a class="toc-h2" href="#nprandomrandint1-10-3-4">np.random.randint(1, 10, [3, 4])</a></li>
+<li><a class="toc-h2" href="#nprandomrandn">正态分布 np.random.randn()</a></li>
+<li><a class="toc-h2" href="#nprandomexponential">指数分布 np.random.exponential()</a></li>
+<li><a class="toc-h2" href="#_38">随机从序列中获取元素</a></li>
+<li><a class="toc-h3" href="#nprandomchoice">np.random.choice()</a></li>
+<li><a class="toc-h2" href="#_39">对数据集进行洗牌操作</a></li>
+<li><a class="toc-h3" href="#nprandomshufflex">np.random.shuffle(x)</a></li>
+<li><a class="toc-h3" href="#nprandompermutationx">np.random.permutation(x)</a></li>
+<li><a href="#_40">统计相关*</a></li>
+<li><a class="toc-h3" href="#npmin">np.min()</a></li>
+<li><a class="toc-h3" href="#npmax">np.max()</a></li>
+<li><a class="toc-h3" href="#npptp">np.ptp() 极差</a></li>
+<li><a class="toc-h3" href="#nppercentile">np.percentile() 分位数</a></li>
+<li><a class="toc-h3" href="#npmedian">np.median() 中位数</a></li>
+<li><a class="toc-h3" href="#npmean">np.mean() 均值</a></li>
+<li><a class="toc-h3" href="#npaverange">np.averange() 加权均值</a></li>
+<li><a class="toc-h3" href="#npvar">np.var() 方差</a></li>
+<li><a class="toc-h3" href="#npstd">np.std() 标准差</a></li>
+<li><a class="toc-h3" href="#npcov">np.cov() 协方差矩阵</a></li>
+<li><a class="toc-h3" href="#npcorrcoef">np.corrcoef() 相关系数</a></li>
+<li><a class="toc-h3" href="#npdigitize">np.digitize() 直方图</a></li>
+<li><a href="#_41">线性代数</a></li>
+<li><a class="toc-h3" href="#npdot">np.dot() 矩阵和向量积</a></li>
+<li><a class="toc-h3" href="#nplinalgeig">np.linalg.eig() 特征值与特征向量</a></li>
+<li><a class="toc-h3" href="#nplinalgsvd">np.linalg.svd() 奇异值分解</a></li>
+<li><a class="toc-h2" href="#nplinalgqr-qr">np.linalg.qr() QR分解</a></li>
+<li><a class="toc-h2" href="#nplinalgcholesky-cholesky">np.linalg.cholesky() Cholesky分解</a></li>
+<li><a class="toc-h2" href="#nplinalgnorm">np.linalg.norm() 矩阵范数</a></li>
+<li><a class="toc-h2" href="#nplinalgdet">np.linalg.det() 方阵行列式</a></li>
+<li><a class="toc-h2" href="#nplinalgmatrix_rank">np.linalg.matrix_rank() 矩阵的秩</a></li>
+<li><a class="toc-h2" href="#nptrace">np.trace() 方阵的迹</a></li>
+<li><a class="toc-h2" href="#nplinalginv">np.linalg.inv() 逆矩阵</a></li>
+<li><a class="toc-h2" href="#nplinalgsolve">np.linalg.solve() 解线性方程组</a></li>
+<li><a href="#_42">鸢尾花操作示例</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -4823,6 +5109,45 @@ numpy.linalg.inv(a) 计算矩阵a的逆矩阵（矩阵可逆的充要条件：de
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>learner - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,14 +482,9 @@
             <span class="sep">/</span>
             <span>python</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<div class="highlight"><pre><span></span><code>- [1 切片操作](#1-切片操作)
-- [2 长度和成员关系](#2-长度和成员关系)
-</code></pre></div>
-
-<hr />
-<h1 id="_2">一  列表</h1>
+<h1 id="_1">一  列表</h1>
 <p>定义</p>
 <div class="highlight"><pre><span></span><code><span class="n">number</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
 <span class="n">mixed</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;amy&quot;</span><span class="p">,</span><span class="mf">1.34</span><span class="p">,</span><span class="kc">True</span><span class="p">]</span>
@@ -484,7 +577,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">values_lst</span><span class="p">)</span>  <span class="c1"># 输出: [1, 2, 3]</span>
 </code></pre></div>
 
-<h1 id="_3">二 字符串</h1>
+<h1 id="_2">二 字符串</h1>
 <p>1 基础</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 单引号、双引号、三引号(用于多行)</span>
 <span class="c1"># 在三引号中够可以自由使用单双引号</span>
@@ -512,7 +605,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">)</span>  <span class="c1"># 输出：[&#39;apple&#39;, &#39;banana&#39;, &#39;kiwi&#39;]</span>
 </code></pre></div>
 
-<h1 id="_4">三 元组</h1>
+<h1 id="_3">三 元组</h1>
 <p>1方法</p>
 <div class="highlight"><pre><span></span><code><span class="c1">#.count 计算元组中指定元素出现的次数</span>
 <span class="n">numbers</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -547,7 +640,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">maximum</span><span class="p">)</span>  <span class="c1"># 输出：8</span>
 </code></pre></div>
 
-<h1 id="_5">四 集合</h1>
+<h1 id="_4">四 集合</h1>
 <p>1 方法</p>
 <div class="highlight"><pre><span></span><code><span class="c1">#add</span>
 <span class="n">fruits</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">}</span>
@@ -603,7 +696,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">fruits_copy</span><span class="p">)</span>  <span class="c1"># 输出：{&#39;apple&#39;, &#39;cherry&#39;, &#39;banana&#39;}</span>
 </code></pre></div>
 
-<h1 id="_6">五 字典</h1>
+<h1 id="_5">五 字典</h1>
 <div class="highlight"><pre><span></span><code><span class="n">student</span> <span class="o">=</span> <span class="p">{</span> <span class="c1">#建立字典</span>
    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Alice&#39;</span><span class="p">,</span> 
    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> 
@@ -657,7 +750,7 @@
 <span class="n">student</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_7">六 推导式</h1>
+<h1 id="_6">六 推导式</h1>
 <div class="highlight"><pre><span></span><code><span class="c1">#列表推导式</span>
 <span class="c1"># new_list = [expression for item in iterable if condition]</span>
 <span class="c1"># condition 是一个可选的条件表达式，用于筛选元素。只有当条件为真时，当前元素才会被包含在新列表中。</span>
@@ -678,7 +771,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">fruit_lengths</span><span class="p">)</span><span class="c1"># {&#39;apple&#39;: 5, &#39;banana&#39;: 6, &#39;cherry&#39;: 6}</span>
 </code></pre></div>
 
-<h1 id="_8">七 生成器</h1>
+<h1 id="_7">七 生成器</h1>
 <div class="highlight"><pre><span></span><code><span class="c1">#生成器函数</span>
 <span class="c1">#生成器函数是一个包含 yield 语句的函数</span>
 <span class="c1"># 当调用生成器函数时，它不会立即执行，而是返回一个生成器对象</span>
@@ -766,7 +859,7 @@
    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;循环结束&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_9">十 异常处理</h1>
+<h1 id="_8">十 异常处理</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># - 使用 `try` 块来包裹可能会引发异常的代码。</span>
 <span class="c1"># - 使用 `except` 块来捕获并处理特定类型的异常。</span>
 <span class="c1"># - 可以在 `except` 块中添加多个异常类型，或使用通用的 `except` 块。</span>
@@ -804,7 +897,7 @@
 <span class="c1"># 10. ImportError：         在导入模块失败时引发的异常。</span>
 </code></pre></div>
 
-<h1 id="_10">十一 逻辑运算符和条件表达式</h1>
+<h1 id="_9">十一 逻辑运算符和条件表达式</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># end or not</span>
 
 <span class="c1"># 条件表达式（三元运算符）：</span>
@@ -867,7 +960,7 @@
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;错误信息：&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>    
 </code></pre></div>
 
-<h1 id="_11">十二 注释</h1>
+<h1 id="_10">十二 注释</h1>
 <div class="highlight"><pre><span></span><code><span class="c1">#多行注释（块注释）：三个单引号 &#39;&#39;&#39; 或三个双引号 &quot;&quot;&quot; </span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">包围的多行文本将被视为注释。</span>
@@ -912,7 +1005,7 @@
 <span class="c1"># :warning: 给出警告信息。</span>
 </code></pre></div>
 
-<h1 id="_12">十三 函数</h1>
+<h1 id="_11">十三 函数</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># 默认参数</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">greeting</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">greeting</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
@@ -1001,7 +1094,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># 输出 15</span>
 </code></pre></div>
 
-<h1 id="_13">十四 输入输出与格式化</h1>
+<h1 id="_12">十四 输入输出与格式化</h1>
 <p>1 input print</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># input() 函数返回的结果是一个字符串</span>
 <span class="c1"># name = input(&quot;请输入您的姓名：&quot;)</span>
@@ -1194,7 +1287,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ls</span><span class="p">))</span>
 </code></pre></div>
 
-<h1 id="_14">十五 常见函数</h1>
+<h1 id="_13">十五 常见函数</h1>
 <h2 id="range-enumerate-zip">range() enumerate() zip()</h2>
 <div class="highlight"><pre><span></span><code><span class="c1">#range</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
@@ -1260,7 +1353,7 @@
 <span class="nb">sorted</span><span class="p">(</span><span class="n">key_dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="c1"># 按数字降序，字母升序</span>
 </code></pre></div>
 
-<h1 id="_15">十六 类</h1>
+<h1 id="_14">十六 类</h1>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Dog</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">):</span><span class="c1">#__init__ 方法</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">name</span>
@@ -1546,7 +1639,7 @@
 <span class="c1"># 要解决这个问题，您可以在捕获异常后明确返回一个值，比如 None 或其他错误指示符。</span>
 </code></pre></div>
 
-<h1 id="_16">十七 日期与时间</h1>
+<h1 id="_15">十七 日期与时间</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># datetime 模块提供了处理日期和时间的类和函数，用于表示和操作日期、时间、日期时间以及时间间隔。</span>
 <span class="c1"># 常用的类包括 datetime、date、time、timedelta 等。</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
@@ -1645,7 +1738,7 @@
 </code></pre></div>
 
 <p>3 时区</p>
-<h1 id="_17">十八 路径与文件</h1>
+<h1 id="_16">十八 路径与文件</h1>
 <p>1 路径</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 相对路径是相对于当前工作目录的路径，指定文件相对于当前脚本或程序所在的位置。</span>
 <span class="c1"># 绝对路径是完整的文件路径，从根目录开始，指定文件的完整位置。</span>
@@ -1812,7 +1905,7 @@
 </code></pre></div>
 
 <p>8 对象序列化和反序列化</p>
-<h1 id="_18">十九 排序 判断素数与闰年</h1>
+<h1 id="_17">十九 排序 判断素数与闰年</h1>
 <div class="highlight"><pre><span></span><code><span class="c1">#判断素数</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">is_prime</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">n</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">:</span>
@@ -1869,7 +1962,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_19">二十 包与模块</h1>
+<h1 id="_18">二十 包与模块</h1>
 <div class="highlight"><pre><span></span><code><span class="c1"># 包（Package）是一种组织和管理代码的方式，它可以包含多个相关的模块（Module）和其他资源文件。</span>
 <span class="c1"># 包的目的是将相关功能的代码组织在一起，提供更好的模块化和复用性。</span>
 <span class="c1"># 包可以包含模块文件和其他子包。模块是包的组成部分，用于封装一些功能或类。</span>
@@ -2024,7 +2117,44 @@
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">一  列表</a></li>
+<li><a class="toc-h2" href="#1">1 切片操作</a></li>
+<li><a class="toc-h2" href="#2">2 长度和成员关系</a></li>
+<li><a class="toc-h2" href="#3">3迭代</a></li>
+<li><a class="toc-h2" href="#4">4方法*</a></li>
+<li><a class="toc-h2" href="#list">list函数</a></li>
+<li><a href="#_2">二 字符串</a></li>
+<li><a href="#_3">三 元组</a></li>
+<li><a href="#_4">四 集合</a></li>
+<li><a href="#_5">五 字典</a></li>
+<li><a href="#_6">六 推导式</a></li>
+<li><a href="#_7">七 生成器</a></li>
+<li><a href="#if-elif-else">八 if elif else</a></li>
+<li><a href="#while-for">九 while for</a></li>
+<li><a href="#_8">十 异常处理</a></li>
+<li><a href="#_9">十一 逻辑运算符和条件表达式</a></li>
+<li><a href="#_10">十二 注释</a></li>
+<li><a href="#_11">十三 函数</a></li>
+<li><a href="#_12">十四 输入输出与格式化</a></li>
+<li><a class="toc-h2" href="#1_1">1. 完整参数说明表</a></li>
+<li><a href="#_13">十五 常见函数</a></li>
+<li><a class="toc-h2" href="#range-enumerate-zip">range() enumerate() zip()</a></li>
+<li><a class="toc-h2" href="#map-filter">map() filter()</a></li>
+<li><a class="toc-h2" href="#reduce">reduce()</a></li>
+<li><a class="toc-h2" href="#len">len()</a></li>
+<li><a class="toc-h2" href="#sorted">sorted()</a></li>
+<li><a href="#_14">十六 类</a></li>
+<li><a href="#_15">十七 日期与时间</a></li>
+<li><a href="#_16">十八 路径与文件</a></li>
+<li><a href="#_17">十九 排序 判断素数与闰年</a></li>
+<li><a href="#_18">二十 包与模块</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -2033,6 +2163,45 @@
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

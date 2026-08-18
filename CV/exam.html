@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>exam - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,10 +482,9 @@
             <span class="sep">/</span>
             <span>CV</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
-<h1 id="_2">运算</h1>
+<h1 id="_1">运算</h1>
 <p>利用skimage库，读取彩色图像A1和A2，对A1图像进行幂次为0.6的变换得到图像B，用图像A1减去图像B得到图像C,用图像A1加上图像A2得到图像D，<br />
 计算并输出图像A1和B的PSNR,SSIM,显示A1、A2、B、C、D图（输出的文件名和展示效果按下图样例所示），写出实现上述要求的python程序<br />
 注意：由于调用库函数和思路的差异，评测以实现效果展示为主，PSNR、SSIM为辅  </p>
@@ -467,7 +564,7 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_3">简化</h2>
+<h2 id="_2">简化</h2>
 <p>利用skimage库，读取彩色图像ImageA1和mageA2，对A1图像进行幂次变换（幂次大于1）得到图像B，用图像A1减去图像B得到图像C,用图像A1加上图像A2得到图像D，<br />
 计算图像A1和B的PSNR,SSIM并显示A1、A2、B、C、D图，  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -527,7 +624,7 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_4">分割</h1>
+<h1 id="_3">分割</h1>
 <p>读取一幅蒲公英的RGB彩色图像（文件名为M.jpg），将图像转化到HSV彩色空间，并分割出黄色花朵部分，<br />
 要求显示M原图、R分量图、G分量图、B分量图、HSV图、彩色分割后E图；<br />
 计算并打印出E的像素值总和（输出格式示例为 SUM:123456），写出实现该功能的python程序  </p>
@@ -606,7 +703,7 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_5">简化</h2>
+<h2 id="_4">简化</h2>
 <p>读取一幅蒲公英的彩色图像，将图片中花朵的颜色改变成红色，并分割出花朵部分，<br />
 并显示原图、R分量图、G分量图、B分量图、二值分割结果图、彩色分割后的图像。  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
@@ -664,7 +761,7 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h1 id="_6">边缘检测</h1>
+<h1 id="_5">边缘检测</h1>
 <p>读取一幅彩色图像R.png，对RGB三个分量分别做水平X和竖直Y方向的梯度边缘检测，然后再合成水平和竖直方向边缘检测的彩色浮雕效果图relief<br />
 计算并输出浮雕效果图的像素和，输出格式示例为SUM：123456。展示原图，水平X和竖直Y方向的梯度边缘检测图和彩色浮雕效果图relief</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
@@ -784,7 +881,7 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<h2 id="_7">简化</h2>
+<h2 id="_6">简化</h2>
 <p>读取一幅彩色图像（nature2.png），对RGB三个分量分别做水平和竖直方向的梯度边缘检测，然后再合成水平和竖直方向边缘检测的彩色图，有浮雕的效果。  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
@@ -825,7 +922,7 @@
 </code></pre></div>
 
 <p><img alt="png" src="exam_files/exam_12_0.png" /></p>
-<h1 id="_8">频率域滤波</h1>
+<h1 id="_7">频率域滤波</h1>
 <p>读取一幅彩色图像f0.png，将f0先转成灰度图f1，显示f1傅里叶变换后的频谱图f2，用空间域标准差为2的高斯滤波器处理f1得到图像f3，<br />
 用截止频率均为10的频率域理想低通滤波、理想高通滤波处理f1得到图像f4、f5，<br />
 显示f0、f1、f2、f3、f4、f5。输出f3、f4、f5的像素和，<br />
@@ -937,7 +1034,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SUM f3、f4、f5:(</span><span class="si">{</span><span class="n">sum_f3</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">sum_f4</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">sum_f5</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="_9">简化</h2>
+<h2 id="_8">简化</h2>
 <p>读取一幅图像A,用空间域高斯滤波处理得到图像B，用频率域低通、高通滤波处理得到图像C、D(滤波器可以选理想或者Butterworth滤波器)  <br />
 显示A、B、C、D、A的傅里叶频谱图E、滤波器图F。（测试图像是彩色的需要先转成灰度）  </p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
@@ -1023,7 +1120,21 @@
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">运算</a></li>
+<li><a class="toc-h2" href="#_2">简化</a></li>
+<li><a href="#_3">分割</a></li>
+<li><a class="toc-h2" href="#_4">简化</a></li>
+<li><a href="#_5">边缘检测</a></li>
+<li><a class="toc-h2" href="#_6">简化</a></li>
+<li><a href="#_7">频率域滤波</a></li>
+<li><a class="toc-h2" href="#_8">简化</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1032,6 +1143,45 @@
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>

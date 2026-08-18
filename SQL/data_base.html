@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>目录 - floaritay</title>
+    <title>data_base - floaritay</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -366,6 +366,104 @@
             border-color: var(--accent);
         }
 
+        /* Last-updated date */
+        .meta-date {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--ink-faint);
+            margin: 4px 0 16px;
+        }
+
+        /* Floating TOC sidebar (left side) */
+        .toc-sidebar {
+            position: fixed;
+            left: calc((100vw - 820px) / 2 - 210px);
+            top: 80px;
+            width: 170px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            font-size: 0.73rem;
+            line-height: 1.55;
+            z-index: 50;
+            padding: 12px 0 12px 12px;
+            border-right: 1px solid var(--border);
+        }
+        .toc-sidebar::-webkit-scrollbar { width: 3px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: rgba(26,24,20,0.08); border-radius: 2px; }
+        .toc-sidebar-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-left: 12px;
+        }
+        .toc-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .toc-sidebar li { margin: 0; }
+        .toc-sidebar a {
+            display: block;
+            padding: 3px 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: rgba(180, 83, 9, 0.3);
+        }
+        .toc-sidebar a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 500;
+        }
+        .toc-sidebar .toc-h2 { padding-left: 20px; font-size: 0.73rem; }
+        .toc-sidebar .toc-h3 { padding-left: 36px; font-size: 0.7rem; color: var(--ink-faint); }
+        .toc-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-strong);
+            background: var(--card-opaque);
+            backdrop-filter: blur(16px);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+                position: fixed;
+                left: 16px;
+                top: 60px;
+                width: 220px;
+                background: var(--card-opaque);
+                backdrop-filter: blur(16px);
+                border: 1px solid var(--border-strong);
+                border-radius: var(--radius);
+                padding: 16px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .toc-sidebar.open { display: block; }
+            .toc-sidebar-toggle { display: flex; left: 16px; right: auto; }
+        }
+
         @media (max-width: 768px) {
             .page { padding: 0 16px 40px; }
             .markdown-body h1 { font-size: 1.7rem; }
@@ -384,25 +482,24 @@
             <span class="sep">/</span>
             <span>SQL</span>
         </nav>
+<div class="meta-date">最后更新: 2026-06-09</div>
         <article class="markdown-body">
-<h1 id="_1">目录</h1>
-<hr />
-<h1 id="_2">语法描述</h1>
+<h1 id="_1">语法描述</h1>
 <p>[]表示可选参数<br />
 ()表示必选分组或参数列表<br />
 &lt;&gt;表示占位符,需替换为实际值  </p>
 <p>|表示“或”，即多个选项中选其一<br />
 ...表示前面的元素可重复多次<br />
 *通配符  </p>
-<h1 id="_3">数据库的建立，删除</h1>
-<h2 id="_4">建立与查看数据库</h2>
+<h1 id="_2">数据库的建立，删除</h1>
+<h2 id="_3">建立与查看数据库</h2>
 <p>CREATE DATABASE database_name;</p>
 <div class="highlight"><pre><span></span><code><span class="n">create</span> <span class="n">database</span> <span class="n">library</span><span class="p">;</span>
 <span class="n">show</span> <span class="n">databases</span><span class="p">;</span>
 <span class="o">--</span> <span class="n">查看MySQL中已存在的所有数据库</span>
 </code></pre></div>
 
-<h2 id="_5">选择数据库，创建数据表，显示数据表结构</h2>
+<h2 id="_4">选择数据库，创建数据表，显示数据表结构</h2>
 <p>选择数据库<br />
 use 数据库名  </p>
 <p>创建数据表<br />
@@ -534,14 +631,14 @@ Primary Key constraint(主键约束)要求主键列的数据唯一，并且不�
 <span class="n">describe</span> <span class="n">dz</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_6">修改数据表名称</h2>
+<h2 id="_5">修改数据表名称</h2>
 <p>ALTER TABLE   &lt;旧表名&gt; RENAME [TO]  &lt;新表名&gt; ;</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">library</span><span class="p">;</span>   
 <span class="n">alter</span> <span class="n">table</span> <span class="n">dz</span> <span class="n">rename</span> <span class="n">to</span> <span class="n">reader</span><span class="p">;</span>  
 <span class="n">describe</span> <span class="n">reader</span><span class="p">;</span>  
 </code></pre></div>
 
-<h2 id="_7">数据表中添加字段</h2>
+<h2 id="_6">数据表中添加字段</h2>
 <p>ALTER TABLE &lt;表名&gt; ADD &lt;新字段名&gt; &lt;数据类型&gt; [约束条件] [FIRST | AFTER 已存在字段名]</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">library</span><span class="p">;</span>
 <span class="n">alter</span> <span class="n">table</span> <span class="n">reader</span> <span class="n">add</span> <span class="n">dhhm</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">11</span><span class="p">);</span>
@@ -549,21 +646,21 @@ Primary Key constraint(主键约束)要求主键列的数据唯一，并且不�
 <span class="n">describe</span> <span class="n">reader</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_8">修改数据表的字段名称</h2>
+<h2 id="_7">修改数据表的字段名称</h2>
 <p>ALTER TABLE &lt;表名&gt; CHANGE &lt;旧字段名&gt; &lt;新字段名&gt; &lt;数据类型&gt;；</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">library</span><span class="p">;</span>
 <span class="n">alter</span> <span class="n">table</span> <span class="n">reader</span> <span class="n">change</span> <span class="n">dhhm</span> <span class="n">mobile</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">11</span><span class="p">);</span>
 <span class="n">describe</span> <span class="n">reader</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_9">修改数据表的字段类型</h2>
+<h2 id="_8">修改数据表的字段类型</h2>
 <p>ALTER TABLE &lt;表名&gt; MODIFY &lt;字段名&gt;  &lt;数据类型&gt;；</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">library</span><span class="p">;</span>
 <span class="n">alter</span> <span class="n">table</span> <span class="n">reader</span> <span class="n">modify</span> <span class="n">dhhm</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
 <span class="n">describe</span> <span class="n">reader</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_10">删除与查看数据表</h2>
+<h2 id="_9">删除与查看数据表</h2>
 <p>drop table 数据表名;<br />
 SHOW TABLES;</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">library</span><span class="p">;</span>
@@ -571,14 +668,14 @@ SHOW TABLES;</p>
 <span class="n">show</span> <span class="n">tables</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_11">删除数据库</h2>
+<h2 id="_10">删除数据库</h2>
 <p>drop database 数据库名；  </p>
 <div class="highlight"><pre><span></span><code><span class="n">drop</span> <span class="n">database</span> <span class="n">library</span><span class="p">;</span>
 <span class="n">show</span> <span class="n">databases</span><span class="p">;</span>
 </code></pre></div>
 
-<h1 id="_12">数据表</h1>
-<h2 id="_13">修改数据表</h2>
+<h1 id="_11">数据表</h1>
+<h2 id="_12">修改数据表</h2>
 <p>ALTER TABLE &lt;表名&gt; <br />
 [ADD &lt;新列名&gt;&lt;数据类型&gt;[约束]]<br />
 [ADD &lt;表级约束&gt;]<br />
@@ -586,14 +683,14 @@ SHOW TABLES;</p>
 [DROP CONSTRAINT &lt;表级约束&gt;[CASCADE|RESTRICT]]<br />
 [RENAME COLUMN &lt;列名&gt; TO &lt;新列名&gt;]<br />
 [ALTER COLUMN &lt;列名&gt; TYPE &lt;数据类型&gt;]  </p>
-<h2 id="_14">插入数据</h2>
+<h2 id="_13">插入数据</h2>
 <p>INSERT  INTO  &lt;表名&gt;  (&lt;字段1&gt;[,&lt;字段2&gt;…])VALUES (&lt;表达式1&gt;[,&lt;表达式2&gt;…])</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">library</span><span class="p">;</span>
 <span class="n">insert</span> <span class="n">into</span> <span class="n">reader</span> <span class="p">(</span><span class="n">xm</span><span class="p">,</span><span class="n">dhhm</span><span class="p">)</span> <span class="n">values</span><span class="p">(</span><span class="s1">&#39;林团团&#39;</span><span class="p">,</span><span class="mi">13507311234</span><span class="p">);</span>
 <span class="n">select</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">reader</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_15">修改数据</h2>
+<h2 id="_14">修改数据</h2>
 <p>UPDATE &lt;表名&gt;  SET&lt;字段1&gt;=&lt;表达式1&gt;  [,&lt;字段2&gt;=&lt;表达式1&gt;……]  [WHERE &lt;条件&gt;]</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">library</span><span class="p">;</span>
 <span class="n">update</span> <span class="n">reader</span> <span class="nb">set</span> <span class="n">dhhm</span><span class="o">=</span><span class="mi">17718991989</span> <span class="n">where</span> <span class="n">xm</span><span class="o">=</span><span class="s1">&#39;林团团&#39;</span><span class="p">;</span>
@@ -611,7 +708,7 @@ SHOW TABLES;</p>
 <span class="n">select</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">reader</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_16">删除数据</h2>
+<h2 id="_15">删除数据</h2>
 <p>delete from &lt;表名&gt; [where &lt;条件&gt;];</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">library</span><span class="p">;</span>
 <span class="n">delete</span> <span class="kn">from</span><span class="w"> </span><span class="nn">reader</span> <span class="n">where</span> <span class="n">xm</span><span class="o">=</span><span class="s1">&#39;陈洁&#39;</span><span class="p">;</span>
@@ -631,8 +728,8 @@ SHOW TABLES;</p>
 <span class="n">select</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">reader</span><span class="p">;</span>
 </code></pre></div>
 
-<h1 id="_17">数据查询</h1>
-<h2 id="_18">按条件查询所有字段</h2>
+<h1 id="_16">数据查询</h1>
+<h2 id="_17">按条件查询所有字段</h2>
 <p>select * from 数据表 where 查询条件</p>
 <div class="highlight"><pre><span></span><code><span class="o">--</span> <span class="n">jdxx数据表字段为sf</span><span class="p">(</span><span class="n">省份</span><span class="p">)</span><span class="o">--</span><span class="n">cs</span><span class="p">(</span><span class="n">城市</span><span class="p">)</span><span class="o">--</span><span class="n">qxmc</span><span class="o">--</span><span class="n">name</span>
 <span class="n">use</span> <span class="n">province</span><span class="p">;</span>
@@ -644,7 +741,7 @@ SHOW TABLES;</p>
 <span class="o">--</span> <span class="n">查询街道信息</span><span class="p">(</span><span class="n">jdxx</span><span class="p">)</span><span class="n">数据表的长沙市</span><span class="p">(</span><span class="n">cs</span><span class="p">)</span><span class="n">的西湖街道</span><span class="err">（</span><span class="n">name</span><span class="p">)</span><span class="n">所有字段</span>
 </code></pre></div>
 
-<h2 id="_19">查询唯一值</h2>
+<h2 id="_18">查询唯一值</h2>
 <p>distinct  &lt;字段名&gt;去掉重复的查询结果</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">province</span>
 <span class="n">select</span> <span class="n">distinct</span> <span class="n">qxmc</span> <span class="kn">from</span><span class="w"> </span><span class="nn">jdxx</span> <span class="n">where</span> <span class="n">sf</span><span class="o">=</span><span class="s1">&#39;湖南省&#39;</span><span class="p">;</span>
@@ -653,7 +750,7 @@ SHOW TABLES;</p>
 <span class="o">--</span> <span class="n">查询长沙市</span><span class="err">（</span><span class="n">cs</span><span class="p">)</span><span class="n">所有的区县名称</span><span class="p">(</span><span class="n">qxmc</span><span class="p">)</span><span class="err">，</span><span class="n">每个区县只出现一次</span>
 </code></pre></div>
 
-<h2 id="_20">统计查询</h2>
+<h2 id="_19">统计查询</h2>
 <p>统计查询函数<br />
   SUM<br />
   计算数值列的和<br />
@@ -677,7 +774,7 @@ SHOW TABLES;</p>
 <span class="o">--</span> <span class="n">name为最后一个字段</span><span class="p">,</span><span class="n">不会重复</span><span class="p">,</span><span class="n">所以qxmc要加distinct</span>
 </code></pre></div>
 
-<h2 id="_21">分组查询</h2>
+<h2 id="_20">分组查询</h2>
 <p>select 表达式列表 from 数据表 where 条件 group by 分组字段 having 分组条件<br />
 表达式列表可以为分组字段，也可以是统计函数<br />
 注意分组条件和条件的区别  </p>
@@ -692,7 +789,7 @@ SHOW TABLES;</p>
 <span class="n">select</span> <span class="n">qxmc</span><span class="p">,</span><span class="n">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">jdxx</span> <span class="n">where</span> <span class="n">cs</span><span class="o">=</span><span class="s1">&#39;长沙市&#39;</span> <span class="n">group</span> <span class="n">by</span> <span class="n">qxmc</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_22">数据排序</h2>
+<h2 id="_21">数据排序</h2>
 <p>Order by &lt;字段名1&gt; ASC|DESC,<br />
        &lt;字段名2&gt; &gt;ASC|DESC……<br />
 首先按照&lt;字段名1&gt;的顺序排列记录<br />
@@ -711,7 +808,7 @@ ASC升序 DESC降序 默认升序  </p>
 <span class="n">select</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">jdtj</span> <span class="n">where</span> <span class="n">jdgs</span><span class="o">&gt;</span><span class="mi">35</span> <span class="n">order</span> <span class="n">by</span> <span class="n">jdtj</span> <span class="n">desc</span><span class="p">,</span><span class="n">sf</span> <span class="n">asc</span><span class="p">;</span> 
 </code></pre></div>
 
-<h2 id="_23">多表查询(连接查询)</h2>
+<h2 id="_22">多表查询(连接查询)</h2>
 <p>from 数据表1 join 数据表2 on 连接条件<br />
 数据表1和数据表2为需要连接的数据表<br />
 on后面是连接的条件 通常是关键字段的值相同  </p>
@@ -747,7 +844,7 @@ where 连接条件1 and 连接条件2  </p>
 <span class="o">--</span> <span class="n">表示首先按第一个表达式的值排序</span><span class="err">，</span><span class="n">第一个表达式的值相同的再按第二个表达式的值排序</span>
 </code></pre></div>
 
-<h2 id="_24">子查询</h2>
+<h2 id="_23">子查询</h2>
 <p>在SELECT语句中，一个查询语句完全嵌套在另一个查询语句的WHERE或HAVING的条件短语中，称为子查询或嵌套查询。<br />
 通常把条件短语中的查询成为子查询，父查询则使用子查询的查询结果作为查询条件。  </p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">library</span><span class="p">;</span>
@@ -772,7 +869,7 @@ where 连接条件1 and 连接条件2  </p>
 <span class="n">select</span> <span class="n">sm</span> <span class="kn">from</span><span class="w"> </span><span class="nn">book</span> <span class="n">where</span> <span class="n">book</span><span class="o">.</span><span class="n">txm</span> <span class="ow">in</span> <span class="p">(</span><span class="n">select</span> <span class="n">txm</span> <span class="kn">from</span><span class="w"> </span><span class="nn">borrow</span> <span class="n">where</span> <span class="n">borrow</span><span class="o">.</span><span class="n">dzzh</span> <span class="ow">in</span><span class="p">(</span><span class="n">select</span> <span class="n">dzzh</span> <span class="kn">from</span><span class="w"> </span><span class="nn">borrow</span> <span class="n">where</span> <span class="n">borrow</span><span class="o">.</span><span class="n">txm</span><span class="o">=</span><span class="p">(</span><span class="n">select</span> <span class="n">txm</span> <span class="kn">from</span><span class="w"> </span><span class="nn">book</span> <span class="n">where</span> <span class="n">sm</span><span class="o">=</span><span class="s1">&#39;李白全集&#39;</span><span class="p">)))</span> <span class="ow">and</span> <span class="n">sm</span><span class="o">&lt;&gt;</span><span class="s1">&#39;李白全集&#39;</span> <span class="n">order</span> <span class="n">by</span> <span class="n">sm</span><span class="p">;</span>
 </code></pre></div>
 
-<h1 id="_25">运算符</h1>
+<h1 id="_24">运算符</h1>
 <h2 id="null">null</h2>
 <p>&lt;表达式&gt;&lt;=&gt;null或者&lt;表达式&gt;is null 可以判断某个表达式是否为null。如果&lt;表达式&gt;为null，返回1，否则返回0.</p>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">library</span><span class="p">;</span>
@@ -825,8 +922,8 @@ where 连接条件1 and 连接条件2  </p>
 <span class="n">select</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">reader</span> <span class="n">where</span> <span class="n">xb</span><span class="o">=</span><span class="s1">&#39;男&#39;</span> <span class="ow">and</span> <span class="p">(</span><span class="n">sf</span><span class="o">=</span><span class="s1">&#39;研究生&#39;</span> <span class="ow">or</span> <span class="n">sf</span><span class="o">=</span><span class="s1">&#39;工作人员&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<h1 id="_26">函数</h1>
-<h2 id="_27">数值函数</h2>
+<h1 id="_25">函数</h1>
+<h2 id="_26">数值函数</h2>
 <p>四舍五入的函数<br />
 ROUND(X,D)<br />
 返回X，其值保留到小数点后D位，而第D位的保留方式为四舍五入。<br />
@@ -845,7 +942,7 @@ gyu(雇员号)-gyxm(雇员姓名)-csrq(出生日期)-xl(学历)-gz(工资)-bm(�
 <span class="n">select</span> <span class="n">gyxm</span><span class="p">,</span><span class="n">truncate</span><span class="p">(</span><span class="n">gz</span><span class="o">*</span><span class="mf">0.05</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="k">as</span> <span class="n">kf</span> <span class="kn">from</span><span class="w"> </span><span class="nn">gzry</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_28">字符串函数一</h2>
+<h2 id="_27">字符串函数一</h2>
 <p>concat
 concat(&lt;字符串1&gt;,&lt;字符串2&gt;,&lt;字符串3&gt;)
 将各个字符串连接起来</p>
@@ -866,7 +963,7 @@ char_length(&lt;字符串&gt;)
 <span class="n">select</span> <span class="n">ygxm</span><span class="p">,</span><span class="n">dh</span> <span class="kn">from</span><span class="w"> </span><span class="nn">gzry</span> <span class="n">where</span> <span class="n">left</span><span class="p">(</span><span class="n">gyxm</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="s1">&#39;王&#39;</span> <span class="ow">and</span> <span class="n">char_length</span><span class="p">(</span><span class="n">gyxm</span><span class="p">)</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_29">字符串函数二</h2>
+<h2 id="_28">字符串函数二</h2>
 <p>insert(&lt;字符串&gt;,&lt;位置&gt;,&lt;长度&gt;,&lt;插入的字符串&gt;) <br />
 返回一个字符串，将字符串中指定位置的指定长度的字符删除，插入指定的字符串。  </p>
 <p>space(&lt;整数&gt;)<br />
@@ -889,7 +986,7 @@ hyh()-name()-sex()-tel()-dept()  </p>
 <span class="n">select</span> <span class="n">name</span><span class="p">,</span><span class="n">dept</span> <span class="kn">from</span><span class="w"> </span><span class="nn">gk</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_30">日期函数</h2>
+<h2 id="_29">日期函数</h2>
 <p>year(日期)
 返回日期的年号</p>
 <p>month(日期)
@@ -905,7 +1002,7 @@ hyh()-name()-sex()-tel()-dept()  </p>
 <span class="n">select</span> <span class="n">dzzh</span><span class="p">,</span><span class="n">sj</span><span class="o">*</span><span class="mf">0.01</span><span class="o">*</span><span class="p">(</span><span class="n">datediff</span><span class="p">(</span><span class="n">hsrq</span><span class="p">,</span><span class="n">jyrq</span><span class="p">)</span><span class="o">-</span><span class="mi">30</span><span class="p">)</span> <span class="k">as</span> <span class="n">fk</span> <span class="kn">from</span><span class="w"> </span><span class="nn">borrow</span><span class="p">,</span><span class="n">book</span> <span class="n">where</span> <span class="n">book</span><span class="o">.</span><span class="n">txm</span><span class="o">=</span><span class="n">borrow</span><span class="o">.</span><span class="n">txm</span> <span class="ow">and</span> <span class="n">datediff</span><span class="p">(</span><span class="n">hsrq</span><span class="p">,</span><span class="n">jyrq</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">30</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_31">条件函数</h2>
+<h2 id="_30">条件函数</h2>
 <p>if(关系表达式,值1,值2)<br />
 当条件表达式为真，返回值1，否则返回值2  </p>
 <p>case &lt;表达式&gt; when &lt;条件1&gt; then &lt;值1&gt;<br />
@@ -921,8 +1018,8 @@ end <br />
 <span class="n">select</span> <span class="n">gyxm</span><span class="p">,</span><span class="n">case</span> <span class="n">bm</span> <span class="n">when</span> <span class="s1">&#39;销售部&#39;</span> <span class="n">then</span> <span class="mi">1000</span> <span class="n">when</span> <span class="s1">&#39;办公室&#39;</span> <span class="n">then</span> <span class="mi">800</span> <span class="n">when</span> <span class="s1">&#39;采购部&#39;</span> <span class="n">then</span> <span class="mi">500</span> <span class="k">else</span> <span class="mi">300</span> <span class="n">end</span> <span class="k">as</span> <span class="n">jt</span> <span class="kn">from</span><span class="w"> </span><span class="nn">gzry</span><span class="p">;</span>
 </code></pre></div>
 
-<h1 id="_32">索引</h1>
-<h2 id="_33">建立数据表的同时并建立索引</h2>
+<h1 id="_31">索引</h1>
+<h2 id="_32">建立数据表的同时并建立索引</h2>
 <p>CREATE  TABLE  table_name 
     ([col_name data_type]
     [PRIMARY|UNIQUE][|INDEX|KEY]   <br />
@@ -956,7 +1053,7 @@ index_col_name索引列的名称</p>
 <span class="n">show</span> <span class="n">index</span> <span class="kn">from</span><span class="w"> </span><span class="nn">gys</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_34">在已有的数据表建立索引</h2>
+<h2 id="_33">在已有的数据表建立索引</h2>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">sale</span>
 <span class="o">--</span> <span class="n">在xsdmx数据表根据销售单编号xsdh和序号xh两个字段建立主索引xsdxh</span>
 <span class="n">alter</span> <span class="n">table</span> <span class="n">xsdmx</span> <span class="n">add</span> <span class="n">primary</span> <span class="n">key</span><span class="p">(</span><span class="n">xsdh</span><span class="p">,</span><span class="n">xh</span><span class="p">);</span>
@@ -969,7 +1066,7 @@ index_col_name索引列的名称</p>
 <span class="n">show</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">sp</span>\<span class="n">g</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_35">删除索引</h2>
+<h2 id="_34">删除索引</h2>
 <p>DROP INDEX
  index_name
 ON table_name</p>
@@ -979,8 +1076,8 @@ ON table_name</p>
 <span class="n">show</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">sp</span>\<span class="n">g</span><span class="p">;</span>
 </code></pre></div>
 
-<h1 id="_36">数据完整性</h1>
-<h2 id="_37">通过主索引设置实体完整性</h2>
+<h1 id="_35">数据完整性</h1>
+<h2 id="_36">通过主索引设置实体完整性</h2>
 <p>对于已经存在的数据表，通过alter table 命令建立主索引<br />
 alter table &lt;数据表名&gt; add primary key 索引名(字段名)  </p>
 <div class="highlight"><pre><span></span><code><span class="o">--</span> <span class="n">对于图书数据表book</span><span class="err">（</span><span class="n">已经建立并插入记录</span><span class="err">），</span><span class="n">根据条形码</span><span class="err">（</span><span class="n">txm</span><span class="p">)</span><span class="err">、</span><span class="n">建立一个主索引</span><span class="p">,</span><span class="n">保证数据表中每本书的条形码是唯一的</span><span class="err">，</span><span class="n">即实体完整性</span>
@@ -999,7 +1096,7 @@ alter table &lt;数据表名&gt; add constraint &lt;约束名&gt; check &lt;约�
 <span class="n">insert</span> <span class="n">into</span> <span class="n">book</span><span class="p">(</span><span class="n">txm</span><span class="p">,</span><span class="n">sm</span><span class="p">,</span><span class="n">sj</span><span class="p">)</span> <span class="n">values</span><span class="p">(</span><span class="s2">&quot;P0000099&quot;</span><span class="p">,</span><span class="s2">&quot;四库全书一&quot;</span><span class="p">,</span><span class="mi">8000</span><span class="p">);</span>
 </code></pre></div>
 
-<h2 id="_38">参照完整性</h2>
+<h2 id="_37">参照完整性</h2>
 <p>alter table &lt;子表&gt; add<br />
 [CONSTRAINT &lt;外键名&gt;]<br />
 FOREIGN KEY &lt;字段名&gt;  <br />
@@ -1046,7 +1143,7 @@ on update delete restrict|cascade|set null  </p>
 <span class="n">delete</span> <span class="kn">from</span><span class="w"> </span><span class="nn">book</span> <span class="n">where</span> <span class="n">txm</span><span class="o">=</span><span class="s2">&quot;P0000001&quot;</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_39">建立数据表并设置参照完整性</h2>
+<h2 id="_38">建立数据表并设置参照完整性</h2>
 <div class="highlight"><pre><span></span><code><span class="o">--</span> <span class="n">建立期刊qk数据表和期刊借阅qkjy数据表</span>
 <span class="o">--</span> <span class="n">期刊qk数据表有6个字段</span><span class="err">，</span><span class="n">如下所示</span>
 <span class="o">--</span> <span class="n">期刊条码qktxm</span> <span class="n">varchar</span> <span class="mi">10</span>
@@ -1090,7 +1187,7 @@ on update delete restrict|cascade|set null  </p>
 <span class="n">show</span> <span class="n">create</span> <span class="n">table</span> <span class="n">qkjy</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_40">删除参照完整性</h2>
+<h2 id="_39">删除参照完整性</h2>
 <p>alter table &lt;数据表名&gt; drop foreign key &lt;外键名&gt;  </p>
 <div class="highlight"><pre><span></span><code><span class="o">--</span> <span class="n">删除借阅数据表和图书数据表的外键</span><span class="err">，</span><span class="n">名字为borrow_ibfk_1</span>
 <span class="n">use</span> <span class="n">library</span><span class="p">;</span>
@@ -1100,8 +1197,8 @@ on update delete restrict|cascade|set null  </p>
 <span class="n">show</span> <span class="n">create</span> <span class="n">table</span> <span class="n">borrow</span><span class="p">;</span>
 </code></pre></div>
 
-<h1 id="_41">视图</h1>
-<h2 id="_42">建立基于单表的视图，在视图中插入、删除和修改记录</h2>
+<h1 id="_40">视图</h1>
+<h2 id="_41">建立基于单表的视图，在视图中插入、删除和修改记录</h2>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">sale</span><span class="p">;</span>
 <span class="o">--</span> <span class="n">建立视图ckyg</span><span class="p">,</span><span class="n">查询gzry数据表中部门bm为仓库的员工的所有字段的信息</span>
 <span class="n">create</span> <span class="n">view</span> <span class="n">ckyg</span> <span class="k">as</span> <span class="n">select</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">gzry</span> <span class="n">where</span> <span class="n">bm</span><span class="o">=</span><span class="s1">&#39;仓库&#39;</span><span class="p">;</span>
@@ -1114,7 +1211,7 @@ on update delete restrict|cascade|set null  </p>
 <span class="n">select</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">gzry</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_43">根据多个数据表建立视图</h2>
+<h2 id="_42">根据多个数据表建立视图</h2>
 <div class="highlight"><pre><span></span><code><span class="o">--</span> <span class="n">根据工作人员gzry</span><span class="err">、</span><span class="n">销售单xsd</span><span class="err">、</span><span class="n">顾客gk数据表建立视图</span>
 <span class="o">--</span> <span class="n">打开sale数据库</span>
 <span class="o">--</span> <span class="n">建立xsdxx视图</span><span class="err">，</span><span class="n">包含销售单号xsdh</span><span class="err">、</span><span class="n">雇员号gyh</span><span class="err">、</span><span class="n">雇员姓名gyxm</span><span class="err">、</span><span class="n">会员号hyh</span><span class="err">、</span><span class="n">会员姓名name</span><span class="err">、</span><span class="n">销售日期xsrq</span><span class="err">、</span><span class="n">实际付款sjfk字段</span><span class="err">。</span>
@@ -1125,7 +1222,7 @@ on update delete restrict|cascade|set null  </p>
 <span class="n">select</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">xsdxx</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_44">根据视图建立视图</h2>
+<h2 id="_43">根据视图建立视图</h2>
 <div class="highlight"><pre><span></span><code><span class="o">--</span> <span class="n">根据xsdxx视图建立视图xsdhytj</span><span class="p">,</span><span class="n">显示会员号hyh</span><span class="err">，</span><span class="n">姓名name和实际付款sjfk的合计金额</span><span class="p">(</span><span class="n">命名为hjje</span><span class="p">)</span>
 <span class="o">--</span> <span class="n">按合计金额的降序排列</span>
 <span class="n">use</span> <span class="n">sale</span>
@@ -1138,7 +1235,7 @@ on update delete restrict|cascade|set null  </p>
 <span class="n">select</span> <span class="o">*</span> <span class="kn">from</span><span class="w"> </span><span class="nn">xsdgytj</span><span class="p">;</span>
 </code></pre></div>
 
-<h2 id="_45">更新视图</h2>
+<h2 id="_44">更新视图</h2>
 <div class="highlight"><pre><span></span><code><span class="n">use</span> <span class="n">sale</span><span class="p">;</span>
 <span class="o">--</span> <span class="n">在视图xsdxx中</span><span class="err">，</span><span class="n">将工作人员gyxm王强的销售日期xsrq2015</span><span class="o">-</span><span class="mi">6</span><span class="o">-</span><span class="mi">3</span><span class="n">的会员名name刘海东的订单的实际付款sjfk设置为800</span>
 <span class="n">update</span> <span class="n">xsdxx</span> <span class="nb">set</span> <span class="n">sjfk</span><span class="o">=</span><span class="mi">800</span> <span class="n">where</span> <span class="n">gyxm</span><span class="o">=</span><span class="s1">&#39;王强&#39;</span> <span class="ow">and</span> <span class="n">xsrq</span><span class="o">=</span><span class="s1">&#39;2015-6-3&#39;</span> <span class="ow">and</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;刘海东&#39;</span><span class="p">;</span>
@@ -1151,7 +1248,62 @@ on update delete restrict|cascade|set null  </p>
             <a href="../index.html">&larr; 返回首页</a>
         </footer>
     </div>
+<nav class="toc-sidebar">
+<div class="toc-sidebar-title">目录</div>
+<ul>
+<li><a href="#_1">语法描述</a></li>
+<li><a href="#_2">数据库的建立，删除</a></li>
+<li><a class="toc-h2" href="#_3">建立与查看数据库</a></li>
+<li><a class="toc-h2" href="#_4">选择数据库，创建数据表，显示数据表结构</a></li>
+<li><a class="toc-h2" href="#_5">修改数据表名称</a></li>
+<li><a class="toc-h2" href="#_6">数据表中添加字段</a></li>
+<li><a class="toc-h2" href="#_7">修改数据表的字段名称</a></li>
+<li><a class="toc-h2" href="#_8">修改数据表的字段类型</a></li>
+<li><a class="toc-h2" href="#_9">删除与查看数据表</a></li>
+<li><a class="toc-h2" href="#_10">删除数据库</a></li>
+<li><a href="#_11">数据表</a></li>
+<li><a class="toc-h2" href="#_12">修改数据表</a></li>
+<li><a class="toc-h2" href="#_13">插入数据</a></li>
+<li><a class="toc-h2" href="#_14">修改数据</a></li>
+<li><a class="toc-h2" href="#_15">删除数据</a></li>
+<li><a href="#_16">数据查询</a></li>
+<li><a class="toc-h2" href="#_17">按条件查询所有字段</a></li>
+<li><a class="toc-h2" href="#_18">查询唯一值</a></li>
+<li><a class="toc-h2" href="#_19">统计查询</a></li>
+<li><a class="toc-h2" href="#_20">分组查询</a></li>
+<li><a class="toc-h2" href="#_21">数据排序</a></li>
+<li><a class="toc-h2" href="#_22">多表查询(连接查询)</a></li>
+<li><a class="toc-h2" href="#_23">子查询</a></li>
+<li><a href="#_24">运算符</a></li>
+<li><a class="toc-h2" href="#null">null</a></li>
+<li><a class="toc-h2" href="#between-and-in">between and in</a></li>
+<li><a class="toc-h2" href="#like">like</a></li>
+<li><a class="toc-h2" href="#and-or">and or</a></li>
+<li><a href="#_25">函数</a></li>
+<li><a class="toc-h2" href="#_26">数值函数</a></li>
+<li><a class="toc-h2" href="#_27">字符串函数一</a></li>
+<li><a class="toc-h2" href="#_28">字符串函数二</a></li>
+<li><a class="toc-h2" href="#_29">日期函数</a></li>
+<li><a class="toc-h2" href="#_30">条件函数</a></li>
+<li><a href="#_31">索引</a></li>
+<li><a class="toc-h2" href="#_32">建立数据表的同时并建立索引</a></li>
+<li><a class="toc-h2" href="#_33">在已有的数据表建立索引</a></li>
+<li><a class="toc-h2" href="#_34">删除索引</a></li>
+<li><a href="#_35">数据完整性</a></li>
+<li><a class="toc-h2" href="#_36">通过主索引设置实体完整性</a></li>
+<li><a class="toc-h2" href="#check">通过check设置域完整性</a></li>
+<li><a class="toc-h2" href="#_37">参照完整性</a></li>
+<li><a class="toc-h2" href="#_38">建立数据表并设置参照完整性</a></li>
+<li><a class="toc-h2" href="#_39">删除参照完整性</a></li>
+<li><a href="#_40">视图</a></li>
+<li><a class="toc-h2" href="#_41">建立基于单表的视图，在视图中插入、删除和修改记录</a></li>
+<li><a class="toc-h2" href="#_42">根据多个数据表建立视图</a></li>
+<li><a class="toc-h2" href="#_43">根据视图建立视图</a></li>
+<li><a class="toc-h2" href="#_44">更新视图</a></li>
+</ul>
+</nav>
     <button class="back-to-top" id="backToTop" title="回到顶部">&uarr;</button>
+    <button class="toc-sidebar-toggle" id="tocToggle" title="目录">&#9776;</button>
     <script>
         const btn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
@@ -1160,6 +1312,45 @@ on update delete restrict|cascade|set null  </p>
         btn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        // TOC sidebar toggle (mobile)
+        const tocToggle = document.getElementById('tocToggle');
+        const tocSidebar = document.querySelector('.toc-sidebar');
+        if (tocToggle && tocSidebar) {
+            tocToggle.addEventListener('click', () => {
+                tocSidebar.classList.toggle('open');
+            });
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!tocSidebar.contains(e.target) && e.target !== tocToggle) {
+                    tocSidebar.classList.remove('open');
+                }
+            });
+        }
+        // Scroll-spy for TOC sidebar
+        (function() {
+            const links = document.querySelectorAll('.toc-sidebar a');
+            if (!links.length) return;
+            const headings = [];
+            links.forEach(a => {
+                const id = a.getAttribute('href')?.slice(1);
+                if (id) {
+                    const el = document.getElementById(id);
+                    if (el) headings.push({ el, link: a });
+                }
+            });
+            if (!headings.length) return;
+            function updateActive() {
+                let current = headings[0];
+                const scrollY = window.scrollY + 100;
+                for (const h of headings) {
+                    if (h.el.offsetTop <= scrollY) current = h;
+                }
+                links.forEach(a => a.classList.remove('active'));
+                current.link.classList.add('active');
+            }
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+        })();
     </script>
 </body>
 </html>
